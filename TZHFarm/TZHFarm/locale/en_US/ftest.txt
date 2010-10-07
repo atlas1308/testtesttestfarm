@@ -1,0 +1,51 @@
+
+
+
+/*
+* Ö»·­Òë"=>"ÓÒ±ßµÄÎÄ×Ö
+*/
+       'action_link' => 'Send Materials',
+       'name' => '{actor} is building %s in Country Life!',
+       'description' => '{actor} is building %s and needs their friends to send them more construction materials.',
+     
+     
+       'action_link' => 'Help {actor}',
+       'name' => '{actor} is building %s in Country Life!',
+       'description' => '{actor} is building %s and needs help with the %m.',
+     
+
+       'action_link' => 'Send Materials',
+       'name' => '{actor} is building an irrigation system in Country Life!',
+       'description' => '{actor} is building an irrigation system and needs their friends to send them more sprinklers.',
+     
+     
+       'action_link' => 'Help {actor}',
+       'name' => '{actor} is building %s in Country Life!',
+       'description' => '{actor} s building %s and needs help mounting the heavy %m.',
+     
+     
+       'image' => 'wall_gift',
+       'action_link' => 'Play Country Life now',
+       'name' => '{actor} just sent you a very special gift in Country Life!',
+       'description' => 'How very thoughtful of them!',
+     
+     
+       'action_link' => 'Send Materials',
+       'name' => '{actor} is upgrading %s to level %l in Country Life!',
+       'description' => '{actor} is upgrading %s and needs their friends to send them more construction materials.',
+     
+
+ 
+    0 => 'seeds',
+    1 => 'trees',
+    2 => 'animals',
+    3 => 'gear',
+    4 => 'buildings',
+    5 => 'materials',
+    6 => 'decorations',
+
+    9 => 'automation',
+
+    2 => 'sprinkler',
+
+
