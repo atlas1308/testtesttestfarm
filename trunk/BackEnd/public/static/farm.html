@@ -1,0 +1,63 @@
+<!-- saved from url=(0014)about:internet -->
+<html lang="en">
+
+<!-- 
+Smart developers always View Source. 
+
+This application was built using Adobe Flex, an open source framework
+for building rich Internet applications that get delivered via the
+Flash Player or to desktops via Adobe AIR. 
+
+Learn more about Flex at http://flex.org 
+// -->
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script src="/static/js/jquery-1.3.2.min.js" language="javascript"></script>
+<script src="/static/js/jquery.query-2.1.7.js" language="javascript"></script>
+
+<script language="javascript">
+var me = {};
+var friendIds = new Array();
+var friendsArr = new Array();
+var item_id = 0;
+var lang= $.query.get('lang') ? $.query.get('lang') : 'en';
+me['uid']= $.query.get('uid');
+if(me['uid'] <=0){
+	me['uid'] = 10;
+}
+me['name']= 'a';
+me['pic']=  "";
+me['gender']= "M";
+
+function loadFlash(){
+	$('#flash_area').empty();
+	$('#flash_area').flash({
+		swf: '/static/swf/hellofarm.' + lang + '.swf', 
+		width: 760, 
+		height: 600 ,
+		allowfullscreen: true
+	});
+}
+
+$(document).ready(
+	function() {
+		loadFlash();
+	}
+);
+function loadSocialData(){
+	return {"user":me, "friendIds":friendIds, "friends":friendsArr};
+}
+
+</script>
+
+<style>
+body { margin: 0px; overflow:hidden }
+</style>
+</head>
+
+<body scroll="no">
+<div id="flash_area">Loading...</div>
+</body>
+</html>
