@@ -62,7 +62,7 @@
 			obj.fb_sig_session_key = "2.SNB9BZ63xoJnJEBtCWCRhw__.3600.1277542800-1560424778";
 			obj.fb_sig_ss = "_YlZd6mag4eExSQA5ETxMQ__";
 			obj.fb_sig_time = "1277557804.1269";
-			obj.fb_sig_user = "u-mcxK71YUt6QrOx2yIsFQ";
+			obj.fb_sig_user = "fdafdasfadaaadsa";
 			//sandbox.developer.studivz.net:u-mcxK71YUt6QrOx2yIsFQ
 			//Math.floor(Math.random() * 100000000);//"99999";//Math.floor(Math.random() * 100000000);//"123456222w222a2s";//(Math.floor(Math.random() * 10000)).toString();//"12502022212222222";
 			//123456 99999 KYPhPymkM8kfR8Pi1a3mSg

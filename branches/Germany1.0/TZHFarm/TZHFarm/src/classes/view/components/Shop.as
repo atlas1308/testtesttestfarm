@@ -32,6 +32,10 @@
 			return this.items_cont;
 		}
 		
+		public function get tabContainer():Sprite {
+			return this.tabs_cont;
+		}
+		
         public function Shop()
         {
         	this.createChildren();
@@ -83,6 +87,7 @@
                 tabs[index] = obj.list;
                 tabs[obj.name] = obj.list;
                 shopTab = new ShopTab(obj.name, obj.is_new);
+                shopTab.name = "shopTab" + index;
                 tabs_cont.addChild(shopTab);
                 shopTab.addEventListener(shopTab.CLICKED, shopTabClick);
                 index++;

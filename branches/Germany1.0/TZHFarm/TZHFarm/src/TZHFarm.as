@@ -48,8 +48,8 @@ package {
 			/* Config.setConfig("host","http://newfarm.lf3g.com/static/");// 本机
 			Config.setConfig("transport","http://newfarm.lf3g.com/");  */
 			
-			/* Config.setConfig("host","http://ec2-46-51-129-166.eu-west-1.compute.amazonaws.com/static/");//vz平台
-			Config.setConfig("transport","http://ec2-46-51-129-166.eu-west-1.compute.amazonaws.com/"); */
+			//Config.setConfig("host","http://ec2-46-51-129-166.eu-west-1.compute.amazonaws.com/static/");//vz平台
+			Config.setConfig("transport","http://ec2-46-51-129-166.eu-west-1.compute.amazonaws.com/");
 			
 			Config.setConfig("loadSocialData","loadSocialData");
 			//Config.setConfig("lang","en_US");

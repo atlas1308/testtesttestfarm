@@ -75,7 +75,9 @@
             toggler.mouseChildren = false;
             toggler.mouseEnabled = false;
             toggler_on = new AutomationOn();
+            toggler_on.name = "toggler_on";
             toggler_off = new AutomationOff();
+            toggler_off.name = "toggler_off";
             toggler_on.visible = false;
             toggler_off.visible = false;
             addChild(toggler);

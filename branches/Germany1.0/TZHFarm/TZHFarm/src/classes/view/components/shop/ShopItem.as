@@ -98,6 +98,7 @@
             flip_btn.scaleX = flip_btn.scaleY = 0.8;
             buy_rp_btn = new GameButton(ResourceManager.getInstance().getString("message","buy_message"), 13, 15 / 13);
             buy_rp_btn.set_style("mauve");
+            buy_rp_btn.name = "buy_rp_btn";
             buy_rp_btn.set_fixed_width(50);
             add_neighbors = new GameButton(ResourceManager.getInstance().getString("message","add_neighbors_message"), 13, 15 / 13);
             add_neighbors.set_style("blue");

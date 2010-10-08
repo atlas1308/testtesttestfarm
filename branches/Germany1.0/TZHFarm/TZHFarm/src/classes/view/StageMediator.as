@@ -83,6 +83,7 @@
             friends_list.x = 0;
             stage.addChild(friends_list);
             operations = new Operations();
+            operations.name = "operations";
             facade.registerMediator(new OperationsMediator(operations));
             stage.addChild(operations);
             gift_box = new GiftBox();

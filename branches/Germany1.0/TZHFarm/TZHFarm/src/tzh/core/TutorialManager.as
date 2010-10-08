@@ -1,12 +1,12 @@
 package tzh.core
 {
 	import classes.view.components.Map;
+	import classes.view.components.Operations;
 	import classes.view.components.Shop;
 	import classes.view.components.Toolbar;
 	
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
-	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 
@@ -40,29 +40,37 @@ package tzh.core
 											{id:6,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:21,grid_y:22}},
 											{id:7,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:21,grid_y:26}},
 											{id:8,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:21,grid_y:30}},
-											{id:9,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:16,grid_y:37}},
-											{id:10,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:16,grid_y:37}},
-											{id:11,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:36,grid_y:16}},
-											{id:11,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:36,grid_y:16}},
-											{id:12,target:":child[toolbar].skinRef.shop",parent:Toolbar},
-											{id:13,target:":child[shop].itemContainer.child[shopItem0].child[buyButton]",parent:Shop},
-											{id:14,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:38,grid_y:36}}, 
-											{id:15,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:34,grid_y:36}}, 
-											{id:16,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:30,grid_y:36}}, 
-											{id:17,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:38,grid_y:40}},
-											{id:17,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:34,grid_y:40}},
-											{id:17,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:30,grid_y:40}},
+											{id:9,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:16,grid_y:37},configY:90},// 面板
+											{id:10,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:16,grid_y:37},configY:90},
+											{id:11,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:36,grid_y:16},configY:148},
+											{id:12,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:36,grid_y:16},configY:148},// 牛
 											
-											{id:17,target:":child[my_ranch]",parent:Map,position:{grid_x:40,grid_y:34}},
+											{id:13,target:":child[toolbar].skinRef.shop",parent:Toolbar},
 											
-											{id:14,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:38,grid_y:36}}, 
-											{id:15,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:34,grid_y:36}}, 
-											{id:16,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:30,grid_y:36}}, 
-											{id:17,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:38,grid_y:40}},
-											{id:17,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:34,grid_y:40}},
-											{id:17,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:30,grid_y:40}}
+											{id:14,target:":child[shop].itemContainer.child[shopItem0].child[buyButton]",parent:Shop},
+											{id:15,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:38,grid_y:36}}, 
+											{id:16,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:34,grid_y:36}}, 
+											{id:17,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:30,grid_y:36}}, 
+											{id:18,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:38,grid_y:40}},
+											{id:19,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:34,grid_y:40}},
+											{id:20,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:30,grid_y:40}},
 											
+											{id:21,target:":child[my_ranch]",parent:Map,position:{grid_x:40,grid_y:34}},
 											
+											{id:22,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:38,grid_y:36}}, 
+											{id:23,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:34,grid_y:36}}, 
+											{id:24,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:30,grid_y:36}}, 
+											{id:25,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:38,grid_y:40}},
+											{id:26,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:34,grid_y:40}},
+											{id:27,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:30,grid_y:40}}, 
+											
+											{id:28,target:":child[toolbar].skinRef.shop",parent:Toolbar},
+											{id:29,target:":child[shop].tabContainer.child[shopTab8]",parent:Shop},
+											{id:30,target:":child[shop].itemContainer.child[shopItem0].child[buy_rp_btn]",parent:Shop}, 
+											{id:31,target:":child[operations]",parent:Operations},
+											{id:32,target:":child[my_ranch]",parent:Map,delay:100,position:{grid_x:16,grid_y:37},configY:90},// 面板
+											{id:33,target:":child[my_ranch]",parent:Map,delay:100,position:{grid_x:36,grid_y:16},configY:148},// 牛
+											{id:34,target:":child[operations]",parent:Operations},
 										 ];
 		
 		public static function getInstance():TutorialManager {

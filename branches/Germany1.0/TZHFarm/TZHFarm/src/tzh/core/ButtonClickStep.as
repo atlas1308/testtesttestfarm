@@ -1,11 +1,9 @@
 package tzh.core
 {
-	import classes.view.components.map.Cow;
+	import classes.view.components.Operations;
 	import classes.view.components.map.MapObject;
-	import classes.view.components.map.Mill;
 	
 	import flash.display.DisplayObject;
-	import flash.display.DisplayObjectContainer;
 	import flash.display.Graphics;
 	import flash.display.Sprite;
 	import flash.display.Stage;
@@ -26,6 +24,8 @@ package tzh.core
 		public var ARROW_NAME:String = "TutorialArrowSkin";
 		
 		private var tempParent:DisplayObject;// 这个是解决其它mapObject不能点击的问题
+		
+		private var baseGridSize:int = 13;// 初始化是13,
 		
 		public function ButtonClickStep(target:DisplayObject)
 		{
@@ -77,6 +77,9 @@ package tzh.core
 		private function showArrow(evt:Event = null):void {
 			var stage:Stage = TZHFarm.instance.stage;
 			var bounds:Rectangle = this.target.getBounds(stage);
+			if(this.target is Operations){
+				bounds = Operations(this.target).val.getBounds(stage);
+			}
 			var hasTutorialArrow:Boolean = stage.getChildByName(ARROW_NAME) != null;
 			var arrow:DisplayObject = null;
 			if(!hasTutorialArrow){
@@ -93,10 +96,9 @@ package tzh.core
 			yy = bounds.y - bounds.height - arrow.height - 10;
 			if(this.target is MapObject){
 				xx = bounds.x + (bounds.width - arrow.width) / 2;
-				if(this.target is Cow){
-					yy = bounds.y - bounds.height / 2;
-				}else if(this.target is Mill) {
-					yy = bounds.y;
+				if(this.data.hasOwnProperty("configY")){
+					var radio:int = int(this.data.configY / baseGridSize);// 这样子就能滚动的时候动态算正确了
+					yy = this.data.configY + (baseGridSize - MapObject(this.target).grid_size) * radio;
 				}else {
 					yy = bounds.y - bounds.height;
 				}
