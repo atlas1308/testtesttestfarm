@@ -355,7 +355,6 @@
         }
         
         public function get showTutorial():Boolean {
-        	return true;
         	return app_data.show_tutorial == 0;
         }
         
