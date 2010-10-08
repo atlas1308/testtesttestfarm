@@ -85,6 +85,10 @@
             toggler.addChild(toggler_off);
         }
         
+        public function getChildByNameTemp(name:String):DisplayObject {
+        	return toggler.getChildByName(name);
+        }
+        
         override protected function assetLoaded(e:Event):void{
             super.assetLoaded(e);
             update_stage();

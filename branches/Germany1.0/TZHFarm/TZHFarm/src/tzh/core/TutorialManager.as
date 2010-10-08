@@ -45,9 +45,9 @@ package tzh.core
 											{id:11,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:36,grid_y:16},configY:148},
 											{id:12,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:36,grid_y:16},configY:148},// 牛
 											
-											{id:13,target:":child[toolbar].skinRef.shop",parent:Toolbar},
+											{id:13,target:":child[toolbar].skinRef.shop",parent:Toolbar,offsetY:-5},
 											
-											{id:14,target:":child[shop].itemContainer.child[shopItem0].child[buyButton]",parent:Shop},
+											{id:14,target:":child[shop].itemContainer.child[shopItem0].child[buyButton]",parent:Shop,offsetY:5},
 											{id:15,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:38,grid_y:36}}, 
 											{id:16,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:34,grid_y:36}}, 
 											{id:17,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:30,grid_y:36}}, 
@@ -62,15 +62,15 @@ package tzh.core
 											{id:24,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:30,grid_y:36}}, 
 											{id:25,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:38,grid_y:40}},
 											{id:26,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:34,grid_y:40}},
-											{id:27,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:30,grid_y:40}}, 
+											{id:27,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:30,grid_y:40}},  
 											
-											{id:28,target:":child[toolbar].skinRef.shop",parent:Toolbar},
+											{id:28,target:":child[toolbar].skinRef.shop",parent:Toolbar,offsetY:-5},
 											{id:29,target:":child[shop].tabContainer.child[shopTab8]",parent:Shop},
-											{id:30,target:":child[shop].itemContainer.child[shopItem0].child[buy_rp_btn]",parent:Shop}, 
-											{id:31,target:":child[operations]",parent:Operations},
-											{id:32,target:":child[my_ranch]",parent:Map,delay:100,position:{grid_x:16,grid_y:37},configY:90},// 面板
-											{id:33,target:":child[my_ranch]",parent:Map,delay:100,position:{grid_x:36,grid_y:16},configY:148},// 牛
-											{id:34,target:":child[operations]",parent:Operations},
+											{id:30,target:":child[shop].itemContainer.child[shopItem0].child[buy_rp_btn]",parent:Shop,offsetY:5}, 
+											{id:31,target:":child[operations]",parent:Operations,offsetY:17},
+											{id:32,target:":child[my_ranch]",parent:Map,delay:100,position:{grid_x:16,grid_y:37},child:"toggler_off"},// 面板
+											{id:33,target:":child[my_ranch]",parent:Map,delay:100,position:{grid_x:36,grid_y:16},child:"toggler_off"},// 牛
+											{id:34,target:":child[operations]",parent:Operations,offsetY:17},
 										 ];
 		
 		public static function getInstance():TutorialManager {
@@ -162,6 +162,10 @@ package tzh.core
 			var position:Object = value.position;
 			if(position){
 				result = result["getMapObject"](position.grid_x,position.grid_y);// 获取指定的格子的引用
+				if(value.hasOwnProperty("child")){
+					result = result["getChildByNameTemp"](value.child);
+					//result = DisplayObjectContainer(result).getChildByName(value.child);
+				}
 			}
 			return result;
 		}

@@ -93,7 +93,8 @@ package tzh.core
 			var xx:Number;
 			var yy:Number;
 			xx = bounds.x + (bounds.width - arrow.width) / 2 + 5;
-			yy = bounds.y - bounds.height - arrow.height - 10;
+			var offsetY:int = this.data.offsetY;
+			yy = bounds.y - bounds.height - arrow.height - 10 - offsetY;
 			if(this.target is MapObject){
 				xx = bounds.x + (bounds.width - arrow.width) / 2;
 				if(this.data.hasOwnProperty("configY")){
