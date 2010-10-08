@@ -1,0 +1,32 @@
+state (String): ok
+farm (Object): 
+  map (Array): 
+    0 (Object): 
+      id (Number): 5
+      x (String): 29
+      y (String): 29
+      start_time (String): 0
+      products (String): 1
+      raw_materials (String): 0
+
+    1 (Object): 
+      id (Number): 9
+      x (String): 18
+      y (String): 26
+      start_time (String): 1276495347
+
+    2 (Object): 
+      id (Number): 9
+      x (String): 18
+      y (String): 22
+      start_time (String): 1276495347
+
+  size_x (String): 60
+  size_y (String): 60
+  top_map_size (Number): 0
+  uid (String): 1560424778
+  has_app (Boolean): true
+  helped (Boolean): false
+  help_xp (Number): 5
+  help_coins (Number): 20
+channel (String): load_farm

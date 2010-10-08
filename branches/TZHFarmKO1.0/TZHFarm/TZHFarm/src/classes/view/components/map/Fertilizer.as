@@ -1,0 +1,129 @@
+﻿package classes.view.components.map
+{
+    import classes.utils.*;
+    import classes.view.components.*;
+
+    public class Fertilizer extends MapObject
+    {
+        protected var _percent:Number;
+        protected var times_used:Number;
+        protected var tip:Confirmation;
+        protected var _area_x:Number;
+        protected var _area_y:Number;
+        protected var _uses:Number;
+        protected var _cursor_url:String;
+
+        public function Fertilizer(value:Object) : void
+        {
+            super(value);
+            _uses = value.uses;
+            times_used = value.times_used ? (value.times_used) : (0);
+            _area_x = value.area_x;
+            _area_y = value.area_y;
+            _percent = value.percent;
+            _cursor_url = "images/" + value.url + "_cur.png";
+        }
+
+        override protected function init_asset() : void
+        {
+            update_value();
+        }
+
+        public function clear_highlight() : void
+        {
+            if (mc)
+            {
+                Effects.clear(mc.sack);
+            }
+        }
+
+        public function get percent() : Number
+        {
+            return _percent;
+        }
+
+        public function get area_y() : Number
+        {
+            return _area_y;
+        }
+
+        public function get area_x() : Number
+        {
+            return _area_x;
+        }
+
+        override protected function init() : void
+        {
+            super.init();
+            loader.cache_swf = true;
+        }
+
+        public function get cursor_url() : String
+        {
+            return _cursor_url;
+        }
+
+        public function can_use(a:Number = 1) : Boolean
+        {
+            if (times_used + a > _uses)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public function show_tip() : void
+        {
+            var _loc_1:Object = null;
+            if (!tip)
+            {
+                _loc_1 = new Object();
+                _loc_1.minus = "Place bag on an empty ranch spot";
+                _loc_1.target = {x:0, y:_height};
+                _loc_1.duration = 1;
+                tip = new Confirmation(_loc_1);
+                addChild(tip);
+            }
+            return;
+        }
+
+        public function get uses_left() : Number
+        {
+            return _uses - times_used;
+        }
+
+        public function hide_tip() : void
+        {
+            if (tip)
+            {
+                tip.start();
+            }
+            return;
+        }
+
+        public function highlight_sack() : void
+        {
+            if (mc)
+            {
+                Effects.glow(mc.sack);
+            }
+        }
+
+        public function use_it(obj:Number = 1) : void
+        {
+            times_used = times_used + obj;
+            update_value();
+            return;
+        }
+
+        private function update_value() : void
+        {
+            if (mc)
+            {
+                mc.value.text = String(_uses - times_used);
+            }
+            return;
+        }
+
+    }
+}
