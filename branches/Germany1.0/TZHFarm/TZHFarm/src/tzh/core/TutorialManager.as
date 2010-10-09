@@ -32,16 +32,16 @@ package tzh.core
 		 * 
 		 */ 
 		private var tutorialItems:Array = [
-											/* {id:1,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:13,grid_y:15}},
+											{id:1,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:13,grid_y:15}},
 											{id:2,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:13,grid_y:19}},
 											{id:3,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:17,grid_y:16}},
 											{id:4,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:17,grid_y:20}},
 											{id:5,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:21,grid_y:18}},
 											{id:6,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:21,grid_y:22}},
 											{id:7,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:21,grid_y:26}},
-											{id:8,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:21,grid_y:30}}, */
-											//{id:9,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:16,grid_y:37},get:"refill_area",configY:90,offsetY:-3,offsetX:0},// 面板
-											//{id:10,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:16,grid_y:37},get:"collect_area",configY:90,offsetY:-3,offsetX:5},
+											{id:8,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:21,grid_y:30}},
+											{id:9,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:16,grid_y:37},get:"refill_area",configY:90,offsetY:-3,offsetX:0},// 面板
+											{id:10,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:16,grid_y:37},get:"collect_area",configY:90,offsetY:-3,offsetX:5},
 											{id:11,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:36,grid_y:16},configY:148,get:"refill_area",offsetX:5},
 											{id:12,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:36,grid_y:16},configY:148,get:"collect_area",offsetX:18,offsetY:-28},// 牛
 											
@@ -68,8 +68,8 @@ package tzh.core
 											{id:29,target:":child[shop].tabContainer.child[shopTab8]",parent:Shop},
 											{id:30,target:":child[shop].itemContainer.child[shopItem0].child[buy_rp_btn]",parent:Shop,offsetY:5}, 
 											{id:31,target:":child[operations]",parent:Operations,offsetY:17},
-											{id:32,target:":child[my_ranch]",parent:Map,delay:100,position:{grid_x:16,grid_y:37},child:"toggler_off"},// 面板
-											{id:33,target:":child[my_ranch]",parent:Map,delay:100,position:{grid_x:36,grid_y:16},child:"toggler_off"},// 牛
+											{id:32,target:":child[my_ranch]",parent:Map,delay:100,position:{grid_x:16,grid_y:37},child:"toggler_off",notcheck:true},// 面板
+											{id:33,target:":child[my_ranch]",parent:Map,delay:100,position:{grid_x:36,grid_y:16},child:"toggler_off",notcheck:true},// 牛
 											{id:34,target:":child[operations]",parent:Operations,offsetY:17},
 										 ];
 		

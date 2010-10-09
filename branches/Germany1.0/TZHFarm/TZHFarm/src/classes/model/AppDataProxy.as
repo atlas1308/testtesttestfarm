@@ -356,9 +356,9 @@
         
         public function get showTutorial():Boolean {
         	CONFIG::debug{
+        		return true;
         		trace("this is debug version");
         	}
-        	//return true;
         	return app_data.show_tutorial == 0;
         }
         

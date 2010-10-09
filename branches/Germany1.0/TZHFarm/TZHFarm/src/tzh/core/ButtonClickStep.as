@@ -42,14 +42,16 @@ package tzh.core
 			this.data = value;
 			this.showArrow();
 			var temp:DisplayObject = this.target;
+			var notcheck:Boolean = this.data.notcheck;
 			var parentAddListener:Boolean;
-			while(temp != null && !(temp is MapObject)){
-				temp = temp.parent;
-				if(temp is MapObject){
-					MapObject(temp).mouseEnabled = true;
-					MapObject(temp).addEventListener(MouseEvent.CLICK,clickHandler);
-					parentAddListener = true;
-					break;
+			if(!notcheck){
+				while(temp != null && !(temp is MapObject)){
+					temp = temp.parent;
+					if(temp is MapObject){
+						MapObject(temp).addEventListener(MouseEvent.CLICK,clickHandler);
+						parentAddListener = true;
+						break;
+					}
 				}
 			}
 			if(!parentAddListener){
@@ -164,13 +166,15 @@ package tzh.core
 		public function destory():void {
 			var stage:Stage = TZHFarm.instance.stage;
 			this.enabledAllMaps = true;
-			var temp:DisplayObject = this.target;
-			while(temp != null && !(temp is MapObject)){
-				temp = temp.parent;
-				if(temp is MapObject){
-					MapObject(temp).mouseEnabled = false;
-					MapObject(temp).removeEventListener(MouseEvent.CLICK,clickHandler);
-					break;
+			var notcheck:Boolean = this.data.notcheck;
+			if(!notcheck){
+				var temp:DisplayObject = this.target;
+				while(temp != null && !(temp is MapObject)){
+					temp = temp.parent;
+					if(temp is MapObject){
+						MapObject(temp).removeEventListener(MouseEvent.CLICK,clickHandler);
+						break;
+					}
 				}
 			}
 			if(overlay){
