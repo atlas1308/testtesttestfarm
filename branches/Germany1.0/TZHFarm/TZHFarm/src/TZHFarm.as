@@ -62,7 +62,7 @@ package {
 		}
 		
 		private function addToStageHandler(evt:Event = null):void {
-			SoundManager.getInstance().addSound(Constant.BACKGROUND_KEY,Config.getConfig("host") + "sound/music3.mp3");
+			SoundManager.getInstance().addSound(Constant.BACKGROUND_KEY,Config.getConfig("host") + "sound/background.mp3");
 			//SoundManager.getInstance().addSound(Constant.BACKGROUND_KEY,"music3.mp3");
 			ApplicationFacade.getInstance("myRanch").startup(this.stage);
 		}
