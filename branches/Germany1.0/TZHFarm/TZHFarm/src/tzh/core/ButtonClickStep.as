@@ -2,6 +2,7 @@ package tzh.core
 {
 	import classes.view.components.Operations;
 	import classes.view.components.map.MapObject;
+	import classes.view.components.map.Processor;
 	
 	import flash.display.DisplayObject;
 	import flash.display.Graphics;
@@ -40,11 +41,36 @@ package tzh.core
 		public function play(value:Object):void {
 			this.data = value;
 			this.showArrow();
-			this.target.addEventListener(MouseEvent.CLICK,clickHandler);
+			var temp:DisplayObject = this.target;
+			var parentAddListener:Boolean;
+			while(temp != null && !(temp is MapObject)){
+				temp = temp.parent;
+				if(temp is MapObject){
+					MapObject(temp).mouseEnabled = true;
+					MapObject(temp).addEventListener(MouseEvent.CLICK,clickHandler);
+					parentAddListener = true;
+					break;
+				}
+			}
+			if(!parentAddListener){
+				this.target.addEventListener(MouseEvent.CLICK,clickHandler);
+			}
 		}
 		
+		
 		private var clearID:uint = 0;
-		private function clickHandler(evt:MouseEvent):void {
+		private function clickHandler(event:MouseEvent):void {
+			var temp:Processor = null;
+			if(event.currentTarget is Processor){// 这是为了做一个特殊的处理
+				temp = Processor(event.currentTarget);
+				var result:Boolean;
+				if(this.data.get == Processor.COLLECT_AREA_CONST){
+					result = temp.collect_over();
+				}else if(this.data.get == Processor.REFILL_AREA_CONST){
+					result = temp.refill_over();
+				}
+				if(!result)return;// 如果没有碰上,就退出了
+			}
 			var delay:int = this.data.delay;
 			this.targetEnabled = false;
 			if(delay >= 0){
@@ -93,20 +119,20 @@ package tzh.core
 			var xx:Number;
 			var yy:Number;
 			xx = bounds.x + (bounds.width - arrow.width) / 2 + 5;
-			var offsetY:int = this.data.offsetY;
-			yy = bounds.y - bounds.height - arrow.height - 10 - offsetY;
+			yy = bounds.y - bounds.height - arrow.height - 10;
 			if(this.target is MapObject){
 				xx = bounds.x + (bounds.width - arrow.width) / 2;
 				if(this.data.hasOwnProperty("configY")){
-					var radio:int = int(this.data.configY / baseGridSize);// 这样子就能滚动的时候动态算正确了
-					yy = this.data.configY + (baseGridSize - MapObject(this.target).grid_size) * radio;
+					yy = this.data.configY;
 				}else {
 					yy = bounds.y - bounds.height;
-				}
+				} 
 				this.enabledAllMaps = false;
 			}
-			arrow.x = xx;
-			arrow.y = yy;
+			var offsetX:int = this.data.offsetX;// 偏移量,X正向左,负向右, Y 正向上,负向下
+			var offsetY:int = this.data.offsetY;
+			arrow.x = xx - offsetX;
+			arrow.y = yy - offsetY;
 			if(!overlay){
 				overlay = new Sprite();
 				overlay.name = "overlay";
@@ -138,6 +164,15 @@ package tzh.core
 		public function destory():void {
 			var stage:Stage = TZHFarm.instance.stage;
 			this.enabledAllMaps = true;
+			var temp:DisplayObject = this.target;
+			while(temp != null && !(temp is MapObject)){
+				temp = temp.parent;
+				if(temp is MapObject){
+					MapObject(temp).mouseEnabled = false;
+					MapObject(temp).removeEventListener(MouseEvent.CLICK,clickHandler);
+					break;
+				}
+			}
 			if(overlay){
 				if(overlay.parent){
 					overlay.parent.removeChild(overlay);

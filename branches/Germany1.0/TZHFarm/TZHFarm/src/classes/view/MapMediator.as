@@ -9,6 +9,8 @@
     
     import org.puremvc.as3.multicore.interfaces.*;
     import org.puremvc.as3.multicore.patterns.mediator.*;
+    
+    import tzh.core.TutorialManager;
 
     public class MapMediator extends Mediator implements IMediator
     {
@@ -160,7 +162,8 @@
 
         private function showShopAndAddPlant(event:Event) : void
         {
-        	if(app_data.showTutorial)return;
+        	var showTutorial:Boolean = TutorialManager.getInstance().end;
+        	if(!showTutorial)return;
             map_proxy.set_soil_to_plant(event.target.event_data);
             sendNotification(ApplicationFacade.SHOW_SHOP_AND_ADD_PLANT);
         }

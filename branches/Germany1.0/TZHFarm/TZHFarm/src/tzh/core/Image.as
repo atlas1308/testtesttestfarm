@@ -61,6 +61,7 @@ package tzh.core
             loader.contentLoaderInfo.addEventListener(IOErrorEvent.NETWORK_ERROR, onError);
             loader.contentLoaderInfo.addEventListener(IOErrorEvent.VERIFY_ERROR, onError);
             var context:LoaderContext = new LoaderContext();
+            //context.checkPolicyFile = true;
             /* if (Security.sandboxType == Security.REMOTE){// 只有在加载swf时,才会使用到这个方法, 目前这个只是加载图片
                 context.securityDomain = SecurityDomain.currentDomain;
             } */

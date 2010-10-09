@@ -1,6 +1,7 @@
 ﻿package classes.model
 {
     import classes.*;
+    import classes.view.components.Map;
     
     import com.adobe.images.JPGEncoder;
     
@@ -68,13 +69,17 @@
         	JSDataManager.getInstance().uploadPhoto(path,this.caption);
         }
 
-        public function prepare_snapshot(rect:Rectangle, stage:Stage) : void
+        public function prepare_snapshot(rect:Rectangle, map:Map) : void
         {
             this.rect = rect;
             bmp = new BitmapData(rect.width, rect.height, true, 0);
             var matrix:Matrix = new Matrix();
             matrix.translate(-rect.x, -rect.y);
-            bmp.draw(stage, matrix);
+            try {
+            	bmp.draw(map, matrix);
+            }catch(error:Error){
+            	trace("bmp.draw " + error.message);
+            }
             var bitmap:Bitmap = new Bitmap(bmp);
             bitmap.scaleX = bitmap.scaleY = 0.5;
             sendNotification(ApplicationFacade.SHOW_SNAPSHOT_PREVIEW, bitmap); 

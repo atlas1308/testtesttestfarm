@@ -582,14 +582,14 @@
 
         private function mouseWheelHandler(event:MouseEvent) : void
         {
-            if (event.delta > 0)
+            /* if (event.delta > 0)
             {
                 sendNotification(ApplicationFacade.ZOOM_IN);
             }
             else
             {
                 sendNotification(ApplicationFacade.ZOOM_OUT);
-            }
+            } */
         }
 
         private function onExternalMouseWheel(value:int) : void
@@ -713,7 +713,7 @@
         private function takePhoto(event:Event) : void
         {
             snapshot_viewport.stop();
-            snapshot_proxy.prepare_snapshot(snapshot_viewport.rectangle, stage);
+            snapshot_proxy.prepare_snapshot(snapshot_viewport.rectangle, stage.getChildByName("my_ranch") as Map);
         }
 
         protected function get fb_proxy() : JSProxy

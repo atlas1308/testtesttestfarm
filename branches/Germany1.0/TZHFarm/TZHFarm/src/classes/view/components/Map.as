@@ -5,6 +5,8 @@
     
     import flash.display.*;
     import flash.events.*;
+    
+    import tzh.core.TutorialManager;
 
     public class Map extends Sprite {
 
@@ -692,6 +694,8 @@
         
         
         private function panMap(e:MouseEvent):void{
+        	var showTutorial:Boolean = TutorialManager.getInstance().end;
+        	if(!showTutorial)return;
             var d:Number = Algo.distance((mouseX - container.x), (mouseY - container.y), pan_delta_x, pan_delta_y);
             if ((((d < 8)) && (!(panned)))){
                 return;

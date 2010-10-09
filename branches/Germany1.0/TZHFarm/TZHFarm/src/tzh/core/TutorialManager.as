@@ -32,18 +32,18 @@ package tzh.core
 		 * 
 		 */ 
 		private var tutorialItems:Array = [
-											{id:1,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:13,grid_y:15}},
+											/* {id:1,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:13,grid_y:15}},
 											{id:2,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:13,grid_y:19}},
 											{id:3,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:17,grid_y:16}},
 											{id:4,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:17,grid_y:20}},
 											{id:5,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:21,grid_y:18}},
 											{id:6,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:21,grid_y:22}},
 											{id:7,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:21,grid_y:26}},
-											{id:8,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:21,grid_y:30}},
-											{id:9,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:16,grid_y:37},configY:90},// 面板
-											{id:10,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:16,grid_y:37},configY:90},
-											{id:11,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:36,grid_y:16},configY:148},
-											{id:12,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:36,grid_y:16},configY:148},// 牛
+											{id:8,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:21,grid_y:30}}, */
+											//{id:9,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:16,grid_y:37},get:"refill_area",configY:90,offsetY:-3,offsetX:0},// 面板
+											//{id:10,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:16,grid_y:37},get:"collect_area",configY:90,offsetY:-3,offsetX:5},
+											{id:11,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:36,grid_y:16},configY:148,get:"refill_area",offsetX:5},
+											{id:12,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:36,grid_y:16},configY:148,get:"collect_area",offsetX:18,offsetY:-28},// 牛
 											
 											{id:13,target:":child[toolbar].skinRef.shop",parent:Toolbar,offsetY:-5},
 											
@@ -53,9 +53,9 @@ package tzh.core
 											{id:17,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:30,grid_y:36}}, 
 											{id:18,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:38,grid_y:40}},
 											{id:19,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:34,grid_y:40}},
-											{id:20,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:30,grid_y:40}},
+											{id:20,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:30,grid_y:40}}, 
 											
-											{id:21,target:":child[my_ranch]",parent:Map,position:{grid_x:40,grid_y:34}},
+											{id:21,target:":child[my_ranch]",parent:Map,position:{grid_x:40,grid_y:34},offsetY:15,offsetX:-5},
 											
 											{id:22,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:38,grid_y:36}}, 
 											{id:23,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:34,grid_y:36}}, 
@@ -84,12 +84,19 @@ package tzh.core
 		
 		private var total:int;
 		
+		private var _end:Boolean;// 是否结束了
+		
+		public function get end():Boolean {
+			return this._end;
+		}
+		
 		private function playNext():void {
 			if(tutorialItems.length > 0){
 				currentStep = tutorialItems.shift();
 				this._frame++;
 				TZHFarm.instance.stage.addEventListener(Event.ENTER_FRAME,getTutorialTarget);
 			}else {
+				this._end = true;
 				this.dispatchEvent(new Event(Event.COMPLETE));
 			}
 		}
@@ -164,7 +171,8 @@ package tzh.core
 				result = result["getMapObject"](position.grid_x,position.grid_y);// 获取指定的格子的引用
 				if(value.hasOwnProperty("child")){
 					result = result["getChildByNameTemp"](value.child);
-					//result = DisplayObjectContainer(result).getChildByName(value.child);
+				}else if(value.hasOwnProperty("get")){
+					result = result["getClickAreaByType"](value.get);
 				}
 			}
 			return result;

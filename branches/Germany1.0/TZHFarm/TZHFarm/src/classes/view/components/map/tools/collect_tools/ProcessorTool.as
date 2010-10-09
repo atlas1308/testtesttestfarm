@@ -87,7 +87,7 @@
             }
             if (eater){
                 eater.clear_highlight();
-            };
+            }
             _tip("");
         }
         
@@ -104,9 +104,9 @@
                     if (obj.id == eater.raw_material_id){
                         return (false);
                     };
-                };
+                }
                 i++;
-            };
+            }
             return (true);
         }
         
