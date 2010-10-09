@@ -132,7 +132,7 @@
 
         override public function listNotificationInterests() : Array
         {
-            return [ApplicationFacade.USE_PLOW_TOOL,ApplicationFacade.TUTORIAL_COMPLETED, ApplicationFacade.UPDATE_OBJECTS, ApplicationFacade.MAP_OBJECT_ADDED, ApplicationFacade.MAP_OBJECT_MOVED, ApplicationFacade.MAP_OBJECT_REMOVED, ApplicationFacade.MAP_OBJECT_FED, ApplicationFacade.MAP_OBJECT_COLLECTED, ApplicationFacade.USE_MOVE_TOOL, ApplicationFacade.USE_REMOVE_TOOL, ApplicationFacade.USE_MULTI_TOOL, ApplicationFacade.USE_AUTOMATION_TOOL, ApplicationFacade.PLACE_MAP_OBJECT, ApplicationFacade.ZOOM_IN, ApplicationFacade.ZOOM_OUT, ApplicationFacade.SHOW_FARM, ApplicationFacade.BACK_TO_MY_RANCH, ApplicationFacade.RAIN_APPLIED, ApplicationFacade.ESCAPE_PRESSED, ApplicationFacade.USE_SHOP_ITEM, ApplicationFacade.ANIMAL_ADDED, ApplicationFacade.MAP_ADD_OBJECT, ApplicationFacade.SHOW_PROCESS_LOADER, ApplicationFacade.CANCEL_PROCESS_LOADER, ApplicationFacade.MAP_REFRESH_DEPTH, ApplicationFacade.CENTER_MAP, ApplicationFacade.STAGE_RESIZE, ApplicationFacade.EXPAND_RANCH, ApplicationFacade.CROPS_FERTILIZED, ApplicationFacade.TOGGLE_ALPHA, ApplicationFacade.ACTIVATE_SNAPSHOT_MODE, ApplicationFacade.DEACTIVATE_SNAPSHOT_MODE, ApplicationFacade.CHECK_AUTOMATION, ApplicationFacade.AUTOMATION_TOGGLED, ApplicationFacade.INCREASE_OBTAINED_MATERIAL, ApplicationFacade.IRRIGATION_INSTALLED];
+            return [ApplicationFacade.USE_PLOW_TOOL,ApplicationFacade.TUTORIAL_COMPLETED, ApplicationFacade.TUTORIAL_STARTED,ApplicationFacade.UPDATE_OBJECTS, ApplicationFacade.MAP_OBJECT_ADDED, ApplicationFacade.MAP_OBJECT_MOVED, ApplicationFacade.MAP_OBJECT_REMOVED, ApplicationFacade.MAP_OBJECT_FED, ApplicationFacade.MAP_OBJECT_COLLECTED, ApplicationFacade.USE_MOVE_TOOL, ApplicationFacade.USE_REMOVE_TOOL, ApplicationFacade.USE_MULTI_TOOL, ApplicationFacade.USE_AUTOMATION_TOOL, ApplicationFacade.PLACE_MAP_OBJECT, ApplicationFacade.ZOOM_IN, ApplicationFacade.ZOOM_OUT, ApplicationFacade.SHOW_FARM, ApplicationFacade.BACK_TO_MY_RANCH, ApplicationFacade.RAIN_APPLIED, ApplicationFacade.ESCAPE_PRESSED, ApplicationFacade.USE_SHOP_ITEM, ApplicationFacade.ANIMAL_ADDED, ApplicationFacade.MAP_ADD_OBJECT, ApplicationFacade.SHOW_PROCESS_LOADER, ApplicationFacade.CANCEL_PROCESS_LOADER, ApplicationFacade.MAP_REFRESH_DEPTH, ApplicationFacade.CENTER_MAP, ApplicationFacade.STAGE_RESIZE, ApplicationFacade.EXPAND_RANCH, ApplicationFacade.CROPS_FERTILIZED, ApplicationFacade.TOGGLE_ALPHA, ApplicationFacade.ACTIVATE_SNAPSHOT_MODE, ApplicationFacade.DEACTIVATE_SNAPSHOT_MODE, ApplicationFacade.CHECK_AUTOMATION, ApplicationFacade.AUTOMATION_TOGGLED, ApplicationFacade.INCREASE_OBTAINED_MATERIAL, ApplicationFacade.IRRIGATION_INSTALLED];
         }
 
         private function collectProduct(event:Event) : void
@@ -212,6 +212,12 @@
             var temp:Object = null;
             switch(value.getName())
             {
+            	case ApplicationFacade.TUTORIAL_STARTED:
+            		//map.enabled = false;
+            		break;
+            	case ApplicationFacade.TUTORIAL_COMPLETED:
+            		map.enabled = true;
+            		break;
                 case ApplicationFacade.USE_PLOW_TOOL:
                 {
                     map.set_tool("add_MO", app_data.get_item_data(1));

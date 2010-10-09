@@ -6,6 +6,8 @@ package {
 	import flash.system.Security;
 	
 	import tzh.core.Config;
+	import tzh.core.Constant;
+	import tzh.core.SoundManager;
 	
 	[SWF(width=760,height=600,backgroundColor=0xFFFFFF,frameRate=20)]
 	[Frame(factoryClass="classes.view.Preloader")] 
@@ -56,9 +58,12 @@ package {
 			Config.setConfig("version","1.0");
 			Config.setConfig("lang","de-DE");
 			this.addEventListener(Event.ADDED_TO_STAGE,addToStageHandler);
+			
 		}
 		
 		private function addToStageHandler(evt:Event = null):void {
+			SoundManager.getInstance().addSound(Constant.BACKGROUND_KEY,Config.getConfig("host") + "sound/music3.mp3");
+			//SoundManager.getInstance().addSound(Constant.BACKGROUND_KEY,"music3.mp3");
 			ApplicationFacade.getInstance("myRanch").startup(this.stage);
 		}
 	}

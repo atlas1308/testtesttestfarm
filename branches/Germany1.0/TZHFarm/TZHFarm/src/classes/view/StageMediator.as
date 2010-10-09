@@ -18,6 +18,8 @@
     import org.puremvc.as3.multicore.interfaces.*;
     import org.puremvc.as3.multicore.patterns.mediator.*;
     
+    import tzh.core.SoundManager;
+    
     /**
      * 整个场景的UI,和整个场景的显示,弹出的面板,都在这里 
      */ 

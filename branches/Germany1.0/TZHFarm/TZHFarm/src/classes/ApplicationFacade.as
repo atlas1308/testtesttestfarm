@@ -6,8 +6,6 @@
 	
 	import org.puremvc.as3.multicore.interfaces.IFacade;
 	import org.puremvc.as3.multicore.patterns.facade.Facade;
-	
-	import tzh.core.SystemTimer;
     public class ApplicationFacade extends Facade implements IFacade
     {
         public static const MAP_OBJECT_ADDED:String = "mapObjectAdded";
@@ -135,7 +133,8 @@
         public static const ENABLE_ZOOM_OUT:String = "enableZoomOut";
         public static const PLANTS_WATERED:String = "plantsWatered";
         
-        public static const TUTORIAL_COMPLETED:String = "tutorailCompled";// 向导完成
+        public static const TUTORIAL_COMPLETED:String = "tutorailCompleted";// 向导完成
+        public static const TUTORIAL_STARTED:String = "tutorialStarted";// 向导开始
 
         public function ApplicationFacade(value:String)
         {

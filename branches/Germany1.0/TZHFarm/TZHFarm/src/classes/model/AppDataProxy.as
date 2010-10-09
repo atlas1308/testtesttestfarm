@@ -344,9 +344,12 @@
             }*/
             update_objects(update_fields);
             if(showTutorial){// 如果这个值是0的话,才能开始向导
-            	var func:Function = TutorialManager.getInstance().start;
+            	TZHFarm.instance.stage.mouseChildren = false;// 初始化其它的都不让用户点了
+            	//sendNotification(ApplicationFacade.TUTORIAL_STARTED);
             	TutorialManager.getInstance().addEventListener(Event.COMPLETE,tutorialCompleted);
-            	setTimeout(func,2000);
+            	setTimeout(startTutorial,2000);
+            }else {
+            	TutorialManager.getInstance().end = true;
             }
             if (app_data.farm){
                 sendNotification(ApplicationFacade.SHOW_FARM);
@@ -354,9 +357,14 @@
             setTimeout(hideOverlay,1000);
         }
         
+        private function startTutorial():void {
+       		TutorialManager.getInstance().start();
+       		TZHFarm.instance.stage.mouseChildren = true;
+        }
+        
         public function get showTutorial():Boolean {
         	CONFIG::debug{
-        		return true;
+        		//return true;
         		trace("this is debug version");
         	}
         	return app_data.show_tutorial == 0;

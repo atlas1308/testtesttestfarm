@@ -90,6 +90,10 @@ package tzh.core
 			return this._end;
 		}
 		
+		public function set end(value:Boolean):void {
+			this._end = value;
+		}
+		
 		private function playNext():void {
 			if(tutorialItems.length > 0){
 				currentStep = tutorialItems.shift();
