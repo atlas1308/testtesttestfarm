@@ -85,10 +85,8 @@ package classes.view.components
         {
             if (event.target as GameButton)
             {
-            	trace("gameButton");
                 return;
             }
-            trace("TAKE_PHOTO");
             dispatchEvent(new Event(TAKE_PHOTO));
         }
 

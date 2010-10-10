@@ -1,5 +1,6 @@
 package tzh.core
 {
+	import classes.view.components.Map;
 	import classes.view.components.Operations;
 	import classes.view.components.map.MapObject;
 	import classes.view.components.map.Processor;
@@ -11,13 +12,18 @@ package tzh.core
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.MouseEvent;
+	import flash.events.TimerEvent;
 	import flash.geom.Rectangle;
+	import flash.utils.Timer;
 	import flash.utils.clearInterval;
 	import flash.utils.getDefinitionByName;
 	import flash.utils.setTimeout;
 	TutorialArrowSkin;
 	public class ButtonClickStep extends EventDispatcher
 	{
+		/**
+		 * 通过Map点击的事件,发送到这里
+		 */ 
 		private var target:*;
 		
 		private var overlay:Sprite;
@@ -26,31 +32,39 @@ package tzh.core
 		
 		private var tempParent:DisplayObject;// 这个是解决其它mapObject不能点击的问题
 		
-		private var baseGridSize:int = 13;// 初始化是13,
-		
-		public function ButtonClickStep(target:DisplayObject)
+		public function ButtonClickStep(target:DisplayObject,value:Object)
 		{
 			super();
 			this.target = target;
 			this.tempParent = target.parent;
+			this.data = value;
+			this.configEventListener();
 		}
 		
 		private var data:Object;
 		
-		public function play(value:Object):void {
-			this.data = value;
+		public function play():void {
 			this.showArrow();
-			this.configEventListener();
 		}
 		
+		/**
+		 * 如果是种植物,如果点击了,但是没有执行clickHandler事件,
+		 * 那么显示对象应该被kill掉了,所以会出现点不上的现象
+		 * 
+		 */ 
 		private function configEventListener():void {
 			var temp:MapObject = this.getProcessor(false);
-			if(!temp){
-				this.target.addEventListener(MouseEvent.CLICK,clickHandler);
-			}else {
+			if(temp != null && temp is Processor){
 				temp.addEventListener(MouseEvent.CLICK,clickHandler);
+			}else {
+				if(this.target is MapObject){
+					this.check();
+				}
+				this.target.addEventListener(MouseEvent.CLICK,clickHandler);
 			}
 		}
+		
+	
 		
 		/**
 		 * 获取Mill,Cow等MapObject
@@ -78,6 +92,10 @@ package tzh.core
 		}
 		
 		private var clearID:uint = 0;
+		
+		/**
+		 * 
+		 */ 
 		private function clickHandler(event:MouseEvent):void {
 			var delay:int = this.data.delay;
 			if(delay > 0 && clearID != 0)return;// 说明已经点击过了
@@ -93,7 +111,7 @@ package tzh.core
 				if(!result)return;// 如果没有碰上,就退出了
 			}
 			this.targetEnabled = false;
-			if(delay >= 0){
+			if(delay > 0){
 				clearID = setTimeout(playNext,delay);// 这里可以等待延迟,但是时间不要过长
 			}else {
 				this.playNext();	
@@ -103,16 +121,12 @@ package tzh.core
 		private function playNext():void {
 			clearInterval(clearID);
 			this.complete();
-			setTimeout(targetEnabledTimeout,100);// 这里解决了一个小问题
+			this.targetEnabled = true;
 		}
 		
-		public function complete():void {
+		private function complete():void {
 			this.destory();
 			this.dispatchEvent(new Event(Event.COMPLETE));
-		}
-		
-		private function targetEnabledTimeout():void {
-			this.targetEnabled = true;
 		}
 		
 		/**
@@ -125,6 +139,9 @@ package tzh.core
 			this.target.mouseChildren = value;
 		}
 		
+		/**
+		 * 
+		 */ 
 		private function enabledTimeout():void {
 			var processor:MapObject = this.getProcessor(true);
 			if(this.target is MapObject || processor is MapObject){
@@ -132,9 +149,31 @@ package tzh.core
 			}
 		}
 		
+		private var timer:Timer;
+		private function check():void {
+			timer = new Timer(1000);
+			timer.addEventListener(TimerEvent.TIMER,timerHandler);
+			timer.start();
+		}
+		
+		private function timerHandler(event:TimerEvent):void {
+			var temp:MapObject = this.getProcessor(false);
+			if(temp != null && !(temp is Processor) ){// 这里是容错处理,因为target已经被切换了
+				var map:Map = TZHFarm.instance.stage.getChildByName("my_ranch") as Map;
+				var position:Object = this.data.position;
+				var mapObject:MapObject = map.getMapObject(position.grid_x,position.grid_y);
+				if(!mapObject.same(this.target)){
+					this.target.removeEventListener(MouseEvent.CLICK,clickHandler);
+					this.target = mapObject;
+					this.complete();
+				}
+			}
+		}
+		
 		/**
 		 * 这里有可能存在连续播放的情况
 		 */ 
+		private var enabledID:uint;
 		private function showArrow(evt:Event = null):void {
 			var stage:Stage = TZHFarm.instance.stage;
 			var bounds:Rectangle = this.target.getBounds(stage);
@@ -166,7 +205,7 @@ package tzh.core
 			var yy:Number;
 			xx = bounds.x + (bounds.width - arrow.width) / 2 + 5;
 			yy = bounds.y - bounds.height - arrow.height - 10;
-			setTimeout(enabledTimeout,250);
+			enabledID = setTimeout(enabledTimeout,500);
 			if(this.target is MapObject){
 				xx = bounds.x + (bounds.width - arrow.width) / 2;
 				if(this.data.hasOwnProperty("configY")){
@@ -182,6 +221,9 @@ package tzh.core
 			
 		}
 		
+		/**
+		 * 
+		 */ 
 		private function set enabledAllMaps(value:Boolean):void {
 			var map:Sprite = this.tempParent as Sprite;
 			if(!map)return;
@@ -203,6 +245,9 @@ package tzh.core
 			}
 		}
 		
+		/**
+		 * 
+		 */ 
 		public function removeOverlay():void {
 			if(overlay){
 				if(overlay.parent){
@@ -212,12 +257,17 @@ package tzh.core
 			}
 		}
 		
+		/**
+		 * 
+		 */ 
 		public function destory():void {
 			var stage:Stage = TZHFarm.instance.stage;
 			var temp:MapObject = this.getProcessor(false);
-			if(temp){
+			if(temp != null && temp is Processor){
 				temp.removeEventListener(MouseEvent.CLICK,clickHandler);
-			}
+			}else {
+				this.target.removeEventListener(MouseEvent.CLICK,clickHandler);
+			} 
 			this.removeOverlay();
 			var arrow:DisplayObject = TZHFarm.instance.stage.getChildByName(ARROW_NAME);
 			if(arrow){
@@ -226,7 +276,12 @@ package tzh.core
 			if(this.target.hasEventListener(Event.ENTER_FRAME)){
 				this.target.removeEventListener(Event.ENTER_FRAME,showArrow);
 			}
-			this.target.removeEventListener(MouseEvent.CLICK,clickHandler);
+			if(timer){
+				timer.stop();
+				timer.addEventListener(TimerEvent.TIMER,timerHandler);
+				timer = null;
+			}
+			clearInterval(enabledID);
 		}
 	}
 }

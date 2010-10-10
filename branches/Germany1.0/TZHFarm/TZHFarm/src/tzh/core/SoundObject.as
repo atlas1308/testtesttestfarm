@@ -30,11 +30,16 @@ package tzh.core{
         }
         
         public function play():void {
-        	if(isMusic){
-            	soundChannel = sound.play(pausePoint);
-            }else {
-            	soundChannel = sound.play(0,int.MAX_VALUE);
-            }
+        	try {
+        		if(isMusic){
+	            	soundChannel = sound.play(pausePoint);
+	            }else {
+	            	soundChannel = sound.play(0,int.MAX_VALUE);
+	            }
+        	}catch(error:Error){
+        		trace("play sound error " + error.message);
+        	}
+        	
         }
         
         public function set volume(value:Number):void{

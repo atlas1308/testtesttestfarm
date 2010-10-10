@@ -43,7 +43,7 @@ package classes.view.components.map.tools.collect_tools {
             hide_tip();
             if (target){
                 target.state = "clear";
-            };
+            }
         }
         
         override protected function mouseMove():void{

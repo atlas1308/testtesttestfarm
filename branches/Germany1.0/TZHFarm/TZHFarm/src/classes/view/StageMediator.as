@@ -321,8 +321,6 @@
                 }
                 case ApplicationFacade.SHOW_SNAPSHOT_PREVIEW:
                 {
-                	trace("run....................");
-                	trace("popup_proxy.can_show_popup " + popup_proxy.can_show_popup);
                     if (popup_proxy.can_show_popup)
                     {
                         popup_proxy.can_show_popup = false;
@@ -330,7 +328,6 @@
                         facade.registerMediator(new PopupMediator(snapShotPreview));
                         stage.addChild(snapShotPreview);
                         cancel_snapshot.visible = false;
-                        trace("showing");
                         snapshot_viewport.stop();
                     }
                     else

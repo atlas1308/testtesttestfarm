@@ -5,6 +5,7 @@
     
     import flash.display.*;
     import flash.events.*;
+    import flash.utils.Dictionary;
     
     import tzh.core.TutorialManager;
 
@@ -840,21 +841,18 @@
             var dw:Number = (((2 * map_padd) + map_width()) - viewport_w);
             var dh:Number = (((2 * map_padd) + map_height()) - viewport_h);
             var offset_h:Number = ((top_size * grid_size) * Math.sin(view_angle));
-            trace("test " + (-(dh) - (viewport_h / 2)) ); 
             if (container.y < (-(dh) - (viewport_h / 2))){
                 container.y = (-(dh) - (viewport_h / 2));
-            };
-            trace("map_width()" + map_width());
-            trace("test 2" + ((-(dw) - (viewport_w / 2)) + (map_width() / 2)));
+            }
             if ((container.x - (map_width() / 2)) < (-(dw) - (viewport_w / 2))){
                 container.x = ((-(dw) - (viewport_w / 2)) + (map_width() / 2));
-            };
+            }
             if ((container.y - offset_h) > (viewport_h / 2)){
                 container.y = ((viewport_h / 2) + offset_h);
-            };
+            }
             if ((container.x - (map_width() / 2)) > (viewport_w / 2)){
                 container.x = ((viewport_w / 2) + (map_width() / 2));
-            };
+            }
         }
         
         /**
@@ -1151,7 +1149,6 @@
         	var result:MapObject = null;
         	for(var i:int = 0; i < map_objects.numChildren; i++){
         		var mapObject:MapObject = map_objects.getChildAt(i) as MapObject;
-        		trace(mapObject.get_name() + mapObject.grid_x + mapObject.grid_y);
         		if(mapObject && mapObject.grid_x == grid_x && mapObject.grid_y == grid_y){
         			result = mapObject;
         			break;

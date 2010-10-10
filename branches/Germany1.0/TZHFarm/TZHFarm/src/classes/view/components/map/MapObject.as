@@ -821,6 +821,18 @@
         public function get usable():Boolean{
             return (!(waiting_to_process));
         }
-
+		
+		
+		public function same(mapObject:MapObject):Boolean {
+			var result:Boolean;
+			if(mapObject.size_x == this.size_x && 
+				mapObject.size_y == this.size_y && 
+				mapObject.grid_x == this.grid_x && 
+				mapObject.grid_y == this.grid_y &&
+				mapObject.map_unique_id == this.map_unique_id){
+				result = true;
+			}
+			return result;
+		}
     }
 }

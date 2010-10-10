@@ -1,5 +1,4 @@
-﻿
-package classes.utils.particles {
+﻿package classes.utils.particles {
 
     public class SoilParticle extends Particle {
 

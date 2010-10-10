@@ -162,8 +162,11 @@
 
         private function showShopAndAddPlant(event:Event) : void
         {
-        	var showTutorial:Boolean = TutorialManager.getInstance().end;
-        	if(!showTutorial)return;
+        	var showTutorialEnd:Boolean = TutorialManager.getInstance().end;
+        	if(!showTutorialEnd){
+        		//MapObject(event.target.event_data).dispatchEvent(new MouseEvent(MouseEvent.CLICK,true,true));
+        		return;
+        	}
             map_proxy.set_soil_to_plant(event.target.event_data);
             sendNotification(ApplicationFacade.SHOW_SHOP_AND_ADD_PLANT);
         }

@@ -160,7 +160,7 @@
                 _current_collect_in = 0;
                 _greenhouse = g;
                 return;
-            };
+            }
             grown_percent = (grown_percent + (time_passed() / current_collect_in));
             _greenhouse = g;
             stopTimer();
@@ -280,6 +280,17 @@
         public function is_marked_for_pollination():Boolean{
             return _marked;
         }
-
+		
+		override public function same(mapObject:MapObject):Boolean {
+			var result:Boolean = super.same(mapObject);
+			if(result){
+				if(mapObject is Plant){
+					if(Plant(mapObject).get_details().grown_percent == this.get_details().grown_percent){
+						result = true;
+					}
+				}
+			}
+			return result;
+		}
     }
 }

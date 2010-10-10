@@ -43,7 +43,7 @@ package tzh.core
 											{id:9,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:16,grid_y:37},get:"refill_area",configY:90,offsetY:-3,offsetX:0},// 面板
 											{id:10,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:16,grid_y:37},get:"collect_area",configY:90,offsetY:-3,offsetX:5},
 											{id:11,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:36,grid_y:16},configY:148,get:"refill_area",offsetX:5},
-											{id:12,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:36,grid_y:16},configY:148,get:"collect_area",offsetX:18,offsetY:-28},// 牛
+											{id:12,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:36,grid_y:16},configY:148,get:"collect_area",offsetX:18,offsetY:-28},// 牛 
 											
 											{id:13,target:":child[toolbar].skinRef.shop",parent:Toolbar,offsetY:-5},
 											
@@ -70,7 +70,7 @@ package tzh.core
 											{id:31,target:":child[operations]",parent:Operations,offsetY:17},
 											{id:32,target:":child[my_ranch]",parent:Map,delay:100,position:{grid_x:16,grid_y:37},child:"toggler_off",notcheck:true},// 面板
 											{id:33,target:":child[my_ranch]",parent:Map,delay:100,position:{grid_x:36,grid_y:16},child:"toggler_off",notcheck:true},// 牛
-											{id:34,target:":child[operations]",parent:Operations,offsetY:17},
+											{id:34,target:":child[operations]",parent:Operations,offsetY:17}, 
 										 ];
 		
 		public static function getInstance():TutorialManager {
@@ -129,13 +129,14 @@ package tzh.core
 			return this._frame / this.total;
 		}
 		
+		private var _step:ButtonClickStep;
 		private function getTutorialTarget(evt:Event):void {
 			var target:DisplayObject = this.getTargetObject(currentStep);
 			if(target){
 				TZHFarm.instance.stage.removeEventListener(Event.ENTER_FRAME,getTutorialTarget);
-				var step:ButtonClickStep = new ButtonClickStep(target);
-				step.addEventListener(Event.COMPLETE,onCompleted);
-				step.play(currentStep);
+				_step = new ButtonClickStep(target,currentStep);
+				_step.addEventListener(Event.COMPLETE,onCompleted);
+				_step.play();
 			}
 		}
 		
@@ -182,8 +183,12 @@ package tzh.core
 			return result;
 		}
 		
+		public function get step():ButtonClickStep {
+			return this._step;
+		}
+		
 		private function onCompleted(evt:Event):void {
-			var step:ButtonClickStep = evt.currentTarget as ButtonClickStep;
+			//var step:ButtonClickStep = evt.currentTarget as ButtonClickStep;
 			step.removeEventListener(Event.COMPLETE,onCompleted);
 			this.playNext();
 		}
