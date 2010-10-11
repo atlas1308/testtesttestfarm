@@ -29,7 +29,8 @@
         private var plant:Bitmap;
         private var swarm:Sprite;
         private var _current_collect_in:Number = 0;// 这个值暂时没有看到，可能还没有理解透
-
+		
+		public var update_changed:Boolean;
         public function Plant(data:Object){
             pollinated = (PHPUtil.toBoolean(data.pollinated)) ? true : false;
             _current_collect_in = (data.current_collect_in) ? data.current_collect_in : 0;
@@ -121,6 +122,7 @@
         public function fertilize(p:Number):void{
             fertilize_count++;
             fertilize_percent = p;
+            this.update_changed = true;// 说明已经更新了
             show_animation();
             setTimeout(apply_rain, 1000, p);
         }
@@ -214,6 +216,7 @@
             var obj:Object = new Object();
             obj.start_time = start_time;
             obj.grown_percent = grown_percent;
+            obj.fertilize_percent = fertilize_percent;
             obj.current_collect_in = current_collect_in;
             obj.has_greenhouse = _greenhouse;
             return obj;
@@ -281,16 +284,19 @@
             return _marked;
         }
 		
+		/**
+		 * 这个方法要修改,可能会有问题,要解决施肥多次的问题
+		 */ 
 		override public function same(mapObject:MapObject):Boolean {
 			var result:Boolean = super.same(mapObject);
 			if(result){
 				if(mapObject is Plant){
-					if(Plant(mapObject).get_details().grown_percent == this.get_details().grown_percent){
+					if(!Plant(mapObject).update_changed){
 						result = true;
 					}
 				}
 			}
 			return result;
-		}
+		} 
     }
 }

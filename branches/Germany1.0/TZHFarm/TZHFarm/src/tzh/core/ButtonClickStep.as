@@ -2,6 +2,7 @@ package tzh.core
 {
 	import classes.view.components.Map;
 	import classes.view.components.Operations;
+	import classes.view.components.Shop;
 	import classes.view.components.map.MapObject;
 	import classes.view.components.map.Processor;
 	
@@ -53,15 +54,18 @@ package tzh.core
 		 * 
 		 */ 
 		private function configEventListener():void {
+			TZHFarm.instance.stage.mouseChildren = false;
 			var temp:MapObject = this.getProcessor(false);
 			if(temp != null && temp is Processor){
 				temp.addEventListener(MouseEvent.CLICK,clickHandler);
 			}else {
-				if(this.target is MapObject){
+				var autoNext:Boolean = this.data.autoNext;
+				if(this.target is MapObject || autoNext){
 					this.check();
 				}
 				this.target.addEventListener(MouseEvent.CLICK,clickHandler);
 			}
+			TZHFarm.instance.stage.mouseChildren = true;
 		}
 		
 	
@@ -158,15 +162,22 @@ package tzh.core
 		
 		private function timerHandler(event:TimerEvent):void {
 			var temp:MapObject = this.getProcessor(false);
+			var autoNext:Boolean = this.data.autoNext;
 			if(temp != null && !(temp is Processor) ){// 这里是容错处理,因为target已经被切换了
 				var map:Map = TZHFarm.instance.stage.getChildByName("my_ranch") as Map;
 				var position:Object = this.data.position;
 				var mapObject:MapObject = map.getMapObject(position.grid_x,position.grid_y);
 				if(!mapObject.same(this.target)){
-					this.target.removeEventListener(MouseEvent.CLICK,clickHandler);
+					trace("autoCheck bug");
 					this.target = mapObject;
 					this.complete();
 				}
+			}else if(autoNext){
+				var shop:Shop = TZHFarm.instance.stage.getChildByName("shop") as Shop;
+				if(shop.visible){
+					trace("autoCheck bug");
+					this.complete();
+				} 
 			}
 		}
 		
@@ -182,14 +193,14 @@ package tzh.core
 			}
 			var hasTutorialArrow:Boolean = stage.getChildByName(ARROW_NAME) != null;
 			var arrow:DisplayObject = null;
-			if(!hasTutorialArrow){
-				var cls:Class = getDefinitionByName(ARROW_NAME) as Class;// 这个mc的注册点在中间
-				arrow = new cls() as DisplayObject;
-				arrow.name = ARROW_NAME;
-				stage.addChild(arrow);
-			}else {
-				arrow = stage.getChildByName(ARROW_NAME);
+			if(hasTutorialArrow){
+				stage.removeChild(stage.getChildByName(ARROW_NAME));
+				trace("remove tutorial arrow");
 			}
+			var cls:Class = getDefinitionByName(ARROW_NAME) as Class;// 这个mc的注册点在中间
+			arrow = new cls() as DisplayObject;
+			arrow.name = ARROW_NAME;
+			stage.addChild(arrow);
 			if(!overlay){
 				overlay = new Sprite();
 				overlay.name = "overlay";
@@ -205,7 +216,11 @@ package tzh.core
 			var yy:Number;
 			xx = bounds.x + (bounds.width - arrow.width) / 2 + 5;
 			yy = bounds.y - bounds.height - arrow.height - 10;
-			enabledID = setTimeout(enabledTimeout,500);
+			var timeout:int = 500;
+			if(this.data.hasOwnProperty("timeout")){
+				timeout = this.data.timeout;
+			}
+			enabledID = setTimeout(enabledTimeout,timeout);
 			if(this.target is MapObject){
 				xx = bounds.x + (bounds.width - arrow.width) / 2;
 				if(this.data.hasOwnProperty("configY")){

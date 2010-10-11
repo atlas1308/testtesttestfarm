@@ -391,11 +391,11 @@
         	if(id == 0)return;
             if (!app_data.storage[id]){//如果没有就默认为0
                 app_data.storage[id] = 0;
-            };
-            var _local3 = app_data.storage;
-            var _local4 = id;
-            var _local5 = (_local3[_local4] + 1);
-            _local3[_local4] = _local5;
+            }
+            var storage:Object = app_data.storage;
+            var temp:int = id;
+            var v:int = (int(storage[temp]) + 1);
+            storage[temp] = v;
             var c:Confirmation = new Confirmation();
             c.text(("+1 " + config.store[id].name));
             sendNotification(ApplicationFacade.DISPLAY_BARN_CONFIRMATION, c);
@@ -2862,7 +2862,7 @@
                     if (item.rp_price){
                         app_data.reward_points = (app_data.reward_points - item.rp_price);
                         confirm.reward_points = -(item.rp_price);
-                    };
+                    }
                     confirm.set_target(obj);
                     refresh_level();
                     update_objects(["level", "coins", "reward_points"]);
@@ -2945,13 +2945,14 @@
          */ 
         public function use_gift(id:Number, target:Object=null):Boolean{
             var item:Object = config.store[id];
+            var gifts:Object = app_data.gifts;
+            var temp:Number = id;
+            var count:int;
             switch (item.type){
                 case "products":
                     add_to_storage(id);
-                    var _local5 = app_data.gifts;
-                    var _local6 = id;
-                    var _local7 = (_local5[_local6] - 1);
-                    _local5[_local6] = _local7;
+                    count = int(gifts[temp]) - 1;
+                    gifts[temp] = count;
                     update_objects(["gifts", "storage"]);
                     sendNotification(ApplicationFacade.CHECK_AUTOMATION, "on_collect");
                     break;
@@ -2960,34 +2961,28 @@
                     app_data.op = (app_data.op + item.op);
                     if (hasOP){
                         sendNotification(ApplicationFacade.CHECK_AUTOMATION, "op_refill");
-                    };
+                    }
                     confirm = new Confirmation();
                     confirm.add_value(item.op, " OP");
-                    _local5 = app_data.gifts;
-                    _local6 = id;
-                    _local7 = (_local5[_local6] - 1);
-                    _local5[_local6] = _local7;
+                    count = int(gifts[temp]) - 1;
+                    gifts[temp] = count;
                     update_objects(["operations", "gifts"]);
                     break;
-            };
+            }
             if (item.action == "rain"){
                 if (!apply_rain(item.percent)){
                     return false;
-                };
-                _local5 = app_data.gifts;
-                _local6 = id;
-                _local7 = (_local5[_local6] - 1);
-                _local5[_local6] = _local7;
+                }
+                count = int(gifts[temp]) - 1;
+                gifts[temp] = count;
                 update_objects(["gifts"]);
-            };
+            }
             if (item.action == "construction"){
                 if (!use_material(item, target)){
                     return (false);
-                };
-                _local5 = app_data.gifts;
-                _local6 = id;
-                _local7 = (_local5[_local6] - 1);
-                _local5[_local6] = _local7;
+                }
+                count = int(gifts[temp]) - 1;
+                gifts[temp] = count;
                 confirm = new Confirmation();
                 update_objects(["gifts"]);
             }
