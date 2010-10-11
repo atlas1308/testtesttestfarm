@@ -134,16 +134,16 @@
                     a_y = (a_y + 1);
                 }
             }
-            if ((((a_y < (b_y + b_h))) && ((a_x < b_x)))){
+            if ((((a_y < (b_y + b_h))) && ((a_x < b_x)))){// b 在 a 的右下方
                 return (-1);
             }
-            if ((((a_x < (b_x + b_w))) && ((a_y < b_y)))){
+            if ((((a_x < (b_x + b_w))) && ((a_y < b_y)))){// b 在 a 的右下方
                 return (-1);
             }
-            if (((((a_y + a_h) > b_y)) && ((a_x >= (b_x + b_w))))){
+            if (((((a_y + a_h) > b_y)) && ((a_x >= (b_x + b_w))))){// b 在 a 的左下方
                 return (1);
             }
-            if (((((a_x + a_w) > b_x)) && ((a_y >= (b_y + b_h))))){
+            if (((((a_x + a_w) > b_x)) && ((a_y >= (b_y + b_h))))){// b 在a 的左下方
                 return (1);
             }
             return (0);
@@ -278,7 +278,7 @@
                 };
                 if (pos == -1){
                     pos = sorted.length;
-                };
+                }
                 buffer.push(new_obj);
                 k = (buffer.length - 1);
                 while (k >= 0) {
@@ -286,12 +286,12 @@
                     k--;
                 };
                 i++;
-            };
+            }
             i = 0;
             while (i < sorted.length) {
                 map_objects.setChildIndex(sorted[i].mo, i);
                 i++;
-            };
+            }
         }
         
         private function onAutoCollect(e:Event):void{
@@ -299,21 +299,27 @@
             dispatchEvent(new Event(AUTO_COLLECT));
         }
         
+        /**
+         * 
+         */ 
         private function mouseMove(e:MouseEvent):void{
             if (panned){
                 return;
-            };
+            }
             if (mouse_over_target != e.target){
                 return;
-            };
+            }
             tool.mouse("move", e.target.parent);
             if (((!((last_mouseGridX == mouseGridX))) || (!((last_mouseGridY == mouseGridY))))){
                 tool.mouse("grid_move", e.target.parent);
-            };
+            }
             last_mouseGridX = mouseGridX;
             last_mouseGridY = mouseGridY;
         }
         
+        /**
+         * 整个Map的宽度 
+         */ 
         private function map_width():Number{
             return (((((size_x + size_y) + (2 * top_size)) * grid_size) * Math.sin(view_angle)));
         }
@@ -324,18 +330,18 @@
             if (fence){
                 align_fences(fence);
                 fence.show_posts();
-            };
+            }
             if ((e.target is Greenhouse)){
                 gh = (e.target as Greenhouse);
                 gh.join();
                 onGreenhouseRemoved(gh);
-            };
+            }
             if ((e.target is Plant)){
                 Plant(e.target).greenhouse_removed();
-            };
+            }
             if ((e.target as WaterWell)){
                 water_well = null;
-            };
+            }
         }
         
         private function onGreenhouseAdded(g:Greenhouse):void{
@@ -356,13 +362,16 @@
                                 dispatchEvent(new Event(UPDATE_OBJECT));
                             };
                             g.add_plant(obj);
-                        };
-                    };
-                };
+                        }
+                    }
+                }
                 i++;
-            };
+            }
         }
         
+        /**
+         * 当前鼠标点击到的格子的坐标Y 
+         */ 
         public function get mouseGridY():Number{
             return (Algo.get_grid_y(map_objects.mouseX, map_objects.mouseY, view_angle, grid_size));
         }
@@ -389,7 +398,7 @@
         private function doubleClick(e:MouseEvent):void{
             if (panned){
                 return;
-            };
+            }
             tool.mouse("double_click", e.target.parent);
         }
         
@@ -400,7 +409,7 @@
             while (i < auto_process_loaders.length) {
                 ProcessLoader(auto_process_loaders[i]).stop();
                 i++;
-            };
+            }
             auto_process_loaders = new Array();
         }
         
@@ -410,7 +419,7 @@
             if (panned){
                 panned = false;
                 mouseOver(e);
-            };
+            }
         }
         
         public function increase_obtained_material(obj:Object, material:Number):void{
@@ -420,12 +429,14 @@
                 mo = (map_objects.getChildAt(i) as MapObject);
                 if ((((((mo.id == obj.id)) && ((mo.grid_x == obj.x)))) && ((mo.grid_y == obj.y)))){
                     mo.increase_obtained_material(material);
-                };
+                }
                 i++;
-            };
+            }
         }
         
-        
+        /**
+         * 设置鼠标显示的图形 
+         */ 
         public function set_tool(name:String, data:Object=null):void{
             tool.remove();
             switch (name){
@@ -453,7 +464,7 @@
                     break;
                 default:
                     tool = new Tool(data);
-            };
+            }
             tool.init(tool_cont, map_objects);
             tool.set_bounds(size_x, size_y, top_size);
             tool.refresh_grid_size(grid_size);
@@ -477,7 +488,7 @@
                 swarm.kill();
                 swarm.removeEventListener(swarm.ON_POLLINATE, onPollinate);
                 i++;
-            };
+            }
             bees = new Array();
             clear_map_objects();
         }
@@ -500,12 +511,12 @@
                         if ((obj is Plant)){
                             map_obj = obj;
                             dispatchEvent(new Event(UPDATE_OBJECT));
-                        };
+                        }
                         gh.add_plant(obj);
-                    };
-                };
+                    }
+                }
                 i++;
-            };
+            }
         }
         
         
@@ -515,7 +526,9 @@
             tool.mouse("over", mouse_target);
         }
         
-        
+        /**
+         * 进度显示条显示 
+         */ 
         public function show_process_loader(data:Object):void{
             var pl:ProcessLoader;
             if (!data.auto_mode){
@@ -528,15 +541,19 @@
                 auto_process_loaders.push(pl);
                 pl.visible = true;
                 pl.start(data);
-            };
+            }
         }
         
-        
+        /**
+         * 整个Map的高度 
+         */ 
         private function map_height():Number{
             return (((((size_x + size_y) + (2 * top_size)) * grid_size) * Math.cos(view_angle)));
         }
         
-        
+        /**
+         * 获取当前鼠标的显示对象 
+         */ 
         private function get mouse_target():MapObject{
             var obj:MapObject;
             var x:Number = map_objects.mouseX;
@@ -545,11 +562,11 @@
             while (i < map_objects.numChildren) {
                 obj = (map_objects.getChildAt(i) as MapObject);
                 if (obj.hit_test(map_objects.mouseX, map_objects.mouseY)){
-                    return (obj);
-                };
+                    return obj;
+                }
                 i++;
-            };
-            return (null);
+            }
+            return null;
         }
         
         
@@ -672,7 +689,7 @@
                         break;
                     default:
                         obj = new MapObject(data);
-                };
+                }
                 obj.grid_size = grid_size;
                 if (obj as IProcessor && view_mode != FRIEND_VIEW){
                     obj.addEventListener(Processor.AUTO_REFILL, onAutoRefill);
@@ -693,14 +710,16 @@
             check_bees();
         }
         
-        
+        /**
+         * 拖动时,重新绘制析的位置 
+         */ 
         private function panMap(e:MouseEvent):void{
         	var showTutorial:Boolean = TutorialManager.getInstance().end;
         	if(!showTutorial)return;
             var d:Number = Algo.distance((mouseX - container.x), (mouseY - container.y), pan_delta_x, pan_delta_y);
             if ((((d < 8)) && (!(panned)))){
                 return;
-            };
+            }
             tool.enabled = false;
             container.x = (mouseX - pan_delta_x);
             container.y = (mouseY - pan_delta_y);
@@ -708,7 +727,7 @@
             update_grass();
             if (!panned){
                 mouseOut(e);
-            };
+            }
             panned = true;
         }
         
