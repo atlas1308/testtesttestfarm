@@ -34,13 +34,17 @@ Level_message = You are now Level 10!
 buy_message = You can now buy
 Cheese_message = Cheese Machine, Wood Fence,Picnic Table
 
-gift_message = You can now giftMilk_message = Milk, Cheese, Tomatoes, Cow_message = 
+gift_message = You can now gift
+
+Milk_message = Milk, Cheese, Tomatoes
 
 Add_message = Add Ranch 
 
 Cash_message = Cash
 
-LOCKED_message = LOCKEDneeded_message = Level 123 
+LOCKED_message = LOCKED
+
+needed_message = Level 123 
 
 needed_message = needed
 
