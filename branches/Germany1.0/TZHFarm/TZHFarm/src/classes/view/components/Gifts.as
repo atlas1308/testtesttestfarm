@@ -5,8 +5,10 @@
     import flash.display.*;
     import flash.events.*;
     import flash.text.*;
+    
+    import tzh.core.AlignSprite;
 
-    public class Gifts extends Sprite {
+    public class Gifts extends AlignSprite {
 
         public const USE_ITEM:String = "useItem";
         public const TRADE_ITEM:String = "tradeItem";

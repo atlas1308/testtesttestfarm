@@ -10,8 +10,10 @@
     import flash.text.*;
     
     import mx.resources.ResourceManager;
+    
+    import tzh.core.AlignSprite;
 
-    public class Storage extends Sprite implements IChildren
+    public class Storage extends AlignSprite implements IChildren
     {
         private var container:Sprite;
         public var no_items:TextField;
@@ -65,7 +67,7 @@
 
         private function sellItem(event:Event) : void
         {
-            if (Algo.time() - last_sale < 0.5)
+            if (Algo.time() - last_sale < 0.5)// 增加了一个判断
             {
                 return;
             }

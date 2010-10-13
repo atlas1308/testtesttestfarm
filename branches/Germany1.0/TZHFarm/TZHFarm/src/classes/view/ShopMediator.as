@@ -153,9 +153,7 @@
 
         private function alignShop() : void
         {
-            shop.x = (shop.stage.stageWidth - shop.width) / 2;
-            shop.y = (shop.stage.stageHeight - shop.height) / 2;
+        	shop.center();
         }
-
     }
 }

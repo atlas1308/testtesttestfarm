@@ -124,8 +124,7 @@
 
         private function alignGifts() : void
         {
-            gifts.x = (gifts.stage.stageWidth - gifts.width) / 2;
-            gifts.y = (gifts.stage.stageHeight - gifts.height) / 2;
+        	gifts.center();
         }
 
     }

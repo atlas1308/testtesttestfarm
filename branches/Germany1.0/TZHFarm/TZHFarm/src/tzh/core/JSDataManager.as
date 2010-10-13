@@ -85,6 +85,16 @@ package tzh.core
 			}
 		}
 		
+		public static function reload():void {
+			var functionName:String = "HV.reload";
+			trace("ExternalInterface.call " + functionName);
+			try{
+				ExternalInterface.call(functionName);
+			}catch(error:Error){
+				trace(functionName + " error");
+			}
+		}
+		
 		/**
 		 * 弹出JS的支付面板
 		 */ 
