@@ -193,10 +193,10 @@
             {
                 app_data.friend_helped_popup_displayed();
             }
-            if (popup is NetworkDelayPopup)
+            /* if (popup is NetworkDelayPopup)
             {
                 app_data.navigate_to("");
-            }
+            } */
             onClose(null);
         }
 

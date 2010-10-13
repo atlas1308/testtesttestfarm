@@ -261,10 +261,11 @@
          * @param value:Boolean = true 是否显示百分比 true是不显示
          */ 
         override public function product_percent(value:Boolean=true):Number{
-            var p:Number = Math.min(1, (grown_percent + (time_passed() / current_collect_in)));
+        	var time_passed:Number = time_passed();
+            var p:Number = Math.min(1, (grown_percent + (time_passed / current_collect_in)));
             p = Math.max(0,p);
             if (value){
-                return (int((100 * p)));
+                return int(100 * p);
             }
             return p;
         }

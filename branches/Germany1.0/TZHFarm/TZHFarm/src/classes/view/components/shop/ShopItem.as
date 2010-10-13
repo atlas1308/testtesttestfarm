@@ -145,7 +145,7 @@
                 collect.visible = false;
                 buy_rp_btn.visible = false;
                 desc.visible = false;
-                if (data.locked_button == "neighbors")
+                if (data.locked_button == ResourceManager.getInstance().getString("message","neighbors_message"))
                 {
                     cost.visible = false;
                     level_needed.y = level_needed.y + 11;

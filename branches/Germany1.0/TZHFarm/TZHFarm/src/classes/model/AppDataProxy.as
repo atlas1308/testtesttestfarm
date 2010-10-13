@@ -113,14 +113,14 @@
         /**
          * 跳转页面 
          */ 
-        public function navigate_to(value:String):void{
+        /* public function navigate_to(value:String):void{
         	var request:URLRequest = new URLRequest(value);
         	try {
             	navigateToURL(request, "_parent");
             }catch(error:Error) {
             	trace("navigae error " + error.message);
             }
-        }
+        } */
         
         /**
          * 用户已经有的原料 
@@ -1290,7 +1290,7 @@
                     sendNotification(ApplicationFacade.BACK_TO_MY_RANCH);
                 } else {
                     sendNotification(ApplicationFacade.SHOW_FARM);
-                };
+                }
             } else {
                 update_objects(names);
             }
