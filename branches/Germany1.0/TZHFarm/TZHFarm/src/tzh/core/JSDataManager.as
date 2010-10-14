@@ -1,6 +1,7 @@
 package tzh.core
 {
 	import flash.external.ExternalInterface;
+	import flash.geom.Rectangle;
 	
 	/**
 	 * 鱼的代码里应该也要提供类似于这样子的一个管理器
@@ -148,7 +149,6 @@ package tzh.core
 				trace(functionName + " error " + error.message);
 			}
 		}
-		
 		
 		/**
 		 * 发送notice
