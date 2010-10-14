@@ -30,8 +30,10 @@ package tzh.core
 		
 		private var isRunning:Boolean;// 是否正在运行
 		
+		private var effectTimes:int;
 		public function effectLast():void {
-			var index:int = Math.max(0,(this.numChildren - 1));
+			effectTimes++;
+			var index:int = Math.max(0,(this.numChildren - effectTimes));
 			var child:DisplayObject = this.getChildAt(index);
 			if(child){
 				var animationSprite:AnimationSprite = AnimationSprite(child);
@@ -61,6 +63,7 @@ package tzh.core
 				trace("remove child error " + error.message); 
 			}
 			isRunning = false;
+			effectTimes--;
 			this.effectLast();
 		}
 	}
