@@ -217,28 +217,28 @@ return array(
     ),
     72 => array(
         'name' => '150 OP',
-        'desc' => '150 operações automáticas',
+        'desc' => '150 operaes automáticas',
     ),
     73 => array(
         'name' => '500 OP',
-        'desc' => '500 operações automáticas',
+        'desc' => '500 operaes automáticas',
 
     ),
     74 => array(
         'name' => '1500 OP',
-        'desc' => '1500 operações automáticas',
+        'desc' => '1500 operaes automáticas',
     ),
     75 => array(
         'name' => ' 3500 OP',
-        'desc' => '3500 operações automáticas',
+        'desc' => '3500 operaes automáticas',
     ),
     76 => array(
         'name' => '7500 OP',
-        'desc' => '7500 operações automáticas',
+        'desc' => '7500 operaes automáticas',
     ),
     77 => array(
         'name' => '15000 OP',
-        'desc' => '15000 operações automáticas',
+        'desc' => '15000 operaes automáticas',
 
     ),
     78 => array(
@@ -285,7 +285,7 @@ return array(
         'name' => 'Geléia de Framboesas',
     ),
     92 => array(
-        'name' => 'Milky White Fence',
+        'name' => 'cerca branca',
     ),
     94 => array(
         'name' => 'Cerca Vermelha',
@@ -373,7 +373,7 @@ return array(
     ),
     120 => array(
         'name' => '25 OP',
-        'desc' => '25 operações automáticas',
+        'desc' => '25 operaes automáticas',
     ),
 
     123 => array(
