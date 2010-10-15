@@ -28,7 +28,7 @@ water_crops_message = Esta ferramenta pode regar X cereais
 
 water_up_message = Este  {0}pode regar {1} cereais ,clique para elevar
 
-neighbor_receive_message = Pronto! {0} vai receber {1} você mandou-os logo! Clique \"loja\" para mandar mais presentes ou \"cancele\" para retornar para Vida Rural.
+neighbor_receive_message = Pronto! {0} vai receber {1} você mandou-os logo! Clique \"loja\" para mandar mais presentes ou \"concelar\" para retornar para Vida Rural.
 
 ok_label = loja
 
@@ -54,11 +54,11 @@ is_full_message = fica cheio!
 
 water_other_crops = Hi {0}! Cereais de {1} estão sedes e vai murchar.Quria regá-los?
 
-connect_server_error = Can't connect to server. This may happen due to a network problem or busy server. Please wait while we retry connecting. You may also refresh the page but doing so will discard unsaved changes.
+connect_server_error = Não consegue ligar a servidor. Esse tem possibilidade de acontecer segundo o problema de net ou servico ocupado Espere enquanto retentemos ligação. Também pode refrecar pagina mas vai descartar  alterações não salvas
 
 buy_another_message = {0} fica cheio.Compre um outro!
 
-advice_friend = Congratulations! Let your friend know you bought them a present by posting the news on their wall!
+advice_friend = Parabéns! Faz seus amigos saberem que  you comprou-lhes um presente através de postar notícia em suas paredes!
 
 share_label = publique
 
@@ -86,7 +86,7 @@ locked_button_buy = comprar
 
 you_need = Você precisa de um {0}
 
-state_message = You received {0} coins for helping
+state_message = recebeu {0} moedas para ajuda
 
 all_plants_flourish = Que banho! Todas as plantas estão florescendo.
 
@@ -98,7 +98,7 @@ your_level_now = Está em nível {0}!
 
 already_own_enough = Já ganhou {0} suficiente para este {1}.
 
-sell_notice = Quere realmente vender este{0 para {1} moedas?
+sell_notice = Quere realmente vender este {0} por {1} moedas?
 
 sell_irrigation = Quere realmente vender sistema de irrigação(tubos,ferramenra de irrigação)para {0} moedas?
 
@@ -122,7 +122,7 @@ send_free_gift_message = Queria mandar presentes gratuitos a seus amigos já? É
 
 no_name_message = sem nome
 
-level_tip_message = Em {0} experiência vai-elevar nível {1}
+level_tip_message = Precisa de {0} EXP para chegar a nível{1}
 
 visit_friend_message = Está visitando {0}
 
@@ -132,7 +132,7 @@ trade_for_message = faz comércio para: {0} OP
 
 sell_for_message = venda para {0}
 
-sell_all_for_message =  {0} moedas cada um
+sell_all_for_message =  Venda 1 por {0} moedas
 
 exit_automation_message = sair de automação
 
@@ -144,7 +144,7 @@ user_has_rach_message = Tem {0} moedas de fazenda
 
 sell_all_for_storage_message = Venda Tudo
 
-sell_all_for_storage_coins_messgae = Venda Tudo para  {0} moedas
+sell_all_for_storage_coins_messgae = Venda tudo por {0} moedas
 
 store_tooltip_message = loja
 
@@ -204,7 +204,7 @@ game_button_next_message = próximo
 
 send_present_message = Escolha quem vai receber seu presente!
 
-sell_for_coins_message = venda para {0} moedas
+sell_for_coins_message = venda por {0} moedas
 
 action_collect_in_message = {0} em {1}
 
@@ -314,9 +314,9 @@ click_to_look_inside_materials_message = {0} - Clique para olhar para dentro \n{
 
 click_to_upgrade_to_level_message = {0} - Clique para elevar para {1} ( {2} cereais)\n/ {3} materiais
 
-click_to_switch_off_automation_message = Clique interruptor OFF automação para {0}
+click_to_switch_off_automation_message = Clique interruotor OFF para desligar automação de {0}
 
-click_to_switch_on_automation_message = Clique interruptor ON automação para {0}
+click_to_switch_on_automation_message = Clique interruotor ON para desligar automação de {0}
 
 too_close_to_another_tree_message = Tão perto de outra árvore!
 
@@ -342,7 +342,7 @@ special_events_type_message = fertilizante
 expand_ranch_type_message = expandir fazenda
 
 
-appcet_snapshot_popup_message = Use máquenia fotográfica para tomar fotos de sua fazenda e compartilhe-as!
+appcet_snapshot_popup_message = Use máquenia fotográfica para tomar fotos de sua fazenda e compalhar-as!
 
 neighbors_list_popup_message = Precisa de selecionar um vizinho.
 
@@ -370,7 +370,7 @@ refilling_message = reencher
 
 locked_message = nível {0} preciso
 
-neighbors_message = neighbors
+neighbors_message = vizinhos
 
 game_button_send_message = mande
 
@@ -390,7 +390,7 @@ add_material_to_make_jam_message = Adicione {0} e mel para fazer geléia
 
 add_needed_to_make_bread_message = Adicione {0} para fazer pão
 
-and_message = and
+and_message = e
 
 plowing_message = arar
 
@@ -398,18 +398,18 @@ shearing_message = cortar
 
 coins_message = moedas
 
-ranch_cash_message = RC
+ranch_cash_message = NF
 
 no_selected_name_in_barn_message = Não há {0} em dispósito!
 
 op_message = op
 
-harvest_in_message = Harvest in {0}
+harvest_in_message = Colha em {0}
 
 fertilizer_minus_message = Place bag on an empty ranch spot
 
-user_upgrade_level_post_message = {0} hat gerade Stufe {1} in Hallo Dorf!
+user_upgrade_level_post_message = {0} chega a nível {1}!
 
-every_reward_post_message = {0} just won {1} coins in Hallo Dorf!
+every_reward_post_message = {0} just won {1} coins in Vida Rural!
 
-send_gift_to_friend_message = {0} hat dir {1} geschickt in Hallo Dorf!
+send_gift_to_friend_message = {0} manda-lhe {1}!

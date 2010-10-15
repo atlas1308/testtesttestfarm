@@ -181,7 +181,7 @@ return array(
         'name' => 'Cerejas',
     ),
     61 => array(
-        'name' => 'geléia\'r',
+        'name' => 'Máquina de Geléia',
     	'product_name' => 'geléia',
     ),
     62 => array(
