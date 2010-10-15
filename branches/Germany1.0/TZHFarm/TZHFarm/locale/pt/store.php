@@ -181,7 +181,7 @@ return array(
         'name' => 'Cerejas',
     ),
     61 => array(
-        'name' => 'Máquina de Geléia',
+        'name' => 'Máquina de Embalagem',
     	'product_name' => 'geléia',
     ),
     62 => array(
@@ -217,28 +217,28 @@ return array(
     ),
     72 => array(
         'name' => '150 OP',
-        'desc' => '150 operaes automáticas',
+        'desc' => '150 operações automáticas',
     ),
     73 => array(
         'name' => '500 OP',
-        'desc' => '500 operaes automáticas',
+        'desc' => '500 operações automáticas',
 
     ),
     74 => array(
         'name' => '1500 OP',
-        'desc' => '1500 operaes automáticas',
+        'desc' => '1500 operações automáticas',
     ),
     75 => array(
         'name' => ' 3500 OP',
-        'desc' => '3500 operaes automáticas',
+        'desc' => '3500 operações automáticas',
     ),
     76 => array(
         'name' => '7500 OP',
-        'desc' => '7500 operaes automáticas',
+        'desc' => '7500 operações automáticas',
     ),
     77 => array(
         'name' => '15000 OP',
-        'desc' => '15000 operaes automáticas',
+        'desc' => '15000 operações automáticas',
 
     ),
     78 => array(
@@ -373,7 +373,7 @@ return array(
     ),
     120 => array(
         'name' => '25 OP',
-        'desc' => '25 operaes automáticas',
+        'desc' => '25 operações automáticas',
     ),
 
     123 => array(
@@ -396,7 +396,7 @@ return array(
         'name' => 'Cerca cor de rosa',
     ),
     136 => array(
-        'name' => 'A CaSA',
+        'name' => 'A Casa',
     ),
     137 => array(
         'name' => 'Casa',
@@ -435,7 +435,7 @@ return array(
         'name' => 'Abóbora',
     ),
     155 => array(
-        'name' => 'Máquina de fazer embalagem',
+        'name' => 'Máquina de embalagem',
         'product_name' => 'Embalagem',
     ),
     156 => array(
