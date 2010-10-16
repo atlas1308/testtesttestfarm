@@ -21,7 +21,7 @@ return array(
     ),
     7 => array(
         'name' => 'Chuva',
-        'desc' => 'reduza tempo de crescimento de cereais por 25%',
+        'desc' => 'reduzir tempo de crescimento de cereais por 25%',
     ),
     8 => array(
         'name' => 'Máquina de monho de tomate',
@@ -115,16 +115,16 @@ return array(
     ),
     38 => array(
 				'name' => 'Fertilizante orgânico',
-        'desc' => 'reduza o tempo de crescimento de colheita por 25 - 200 vezes',
+        'desc' => 'reduzir o tempo de crescimento de colheita por 25 - 200 vezes',
     ),
     39 => array(
         'name' => 'Fertilizante orgânico',
-        'desc' => 'reduza o tempo de crescimento de colheita por 25 - 450 vezes',
+        'desc' => 'reduzir o tempo de crescimento de colheita por 25 - 450 vezes',
 
     ),
     40 => array(
     		'name' => 'Fertilizante orgânicor',
-        'desc' => 'reduza o tempo de crescimento de colheita por 25 - 1000 vezes',
+        'desc' => 'reduzir o tempo de crescimento de colheita por 25 - 1000 vezes',
     ),
     41 => array(
         'name' => 'Uvas',
@@ -154,10 +154,10 @@ return array(
         'name' => 'maçãs',
     ),
     50 => array(
-        'name' => 'Bala de feno',
+        'name' => 'Feno',
     ),
     51 => array(
-        'name' => 'Bala de feno para pomar',
+        'name' => 'Grama Fresca',
     ),
     54 => array(
         'name' => 'Barril de madeira',
