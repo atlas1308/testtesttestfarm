@@ -255,11 +255,11 @@
         private function slide_container(delta:Number):void{
             target_x = (target_x + delta);
             var direction:String = "";
-            if (target_x > max_x){
+            if (target_x >= max_x){
                 target_x = max_x;
                 direction = PAGE_DIRECTION_LEFT;
             }
-            if (target_x < min_x){
+            if (target_x <= min_x){
                 target_x = min_x;
                 direction = direction = PAGE_DIRECTION_RIGHT;
             }
