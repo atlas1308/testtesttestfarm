@@ -60,8 +60,7 @@
 
         private function alignStorage() : void
         {
-            storage.x = (storage.stage.stageWidth - storage.width) / 2;
-            storage.y = (storage.stage.stageHeight - storage.height) / 2;
+        	storage.center();
         }
 
         override public function handleNotification(closeStorage:INotification) : void

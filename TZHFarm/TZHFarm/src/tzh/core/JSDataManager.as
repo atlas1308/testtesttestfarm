@@ -1,6 +1,7 @@
 package tzh.core
 {
 	import flash.external.ExternalInterface;
+	import flash.net.URLLoaderDataFormat;
 	
 	/**
 	 * 鱼的代码里应该也要提供类似于这样子的一个管理器
@@ -85,6 +86,16 @@ package tzh.core
 			}
 		}
 		
+		public static function reload():void {
+			var functionName:String = "HV.reload";
+			trace("ExternalInterface.call " + functionName);
+			try{
+				ExternalInterface.call(functionName);
+			}catch(error:Error){
+				trace(functionName + " error");
+			}
+		}
+		
 		/**
 		 * 弹出JS的支付面板
 		 */ 
@@ -139,7 +150,6 @@ package tzh.core
 			}
 		}
 		
-		
 		/**
 		 * 发送notice
 		 * 这个JS方法有一些问题,应该也是传递一个Object,尽量不要分开
@@ -152,6 +162,16 @@ package tzh.core
 			}
 			try {
 				ExternalInterface.call(functionName,args);
+			}catch(error:Error){
+				trace(functionName + " error " + error.message);
+			}
+		}
+		
+		
+		public function uploadPhoto(path:String,caption:String):void {
+			var functionName:String = "HV.camera";
+			try {
+				ExternalInterface.call(functionName,path,caption);
 			}catch(error:Error){
 				trace(functionName + " error " + error.message);
 			}

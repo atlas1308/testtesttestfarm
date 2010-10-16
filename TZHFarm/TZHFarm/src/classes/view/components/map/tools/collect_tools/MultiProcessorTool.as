@@ -3,7 +3,7 @@
     import classes.view.components.map.*;
     
     import flash.utils.*;
-
+    
     import mx.resources.ResourceManager;
 
     public class MultiProcessorTool extends Subtool {
@@ -117,7 +117,7 @@
             if (multi_processor.can_refill_with(1)){
                 refill_material = 1;
                 return (confirm(REFILL_MAP_OBJECT));
-        }
+            }
         }
         
         protected function is_working():Boolean{
@@ -177,7 +177,7 @@
         protected function get_tip_message(action:String, index:Number):String{
             if (!multi_processor){
                 return (refill_message);
-        }
+            }
             return ResourceManager.getInstance().getString("message","click_to_add_message",[multi_processor.get_raw_material_name(index)]);
         }
         
@@ -197,7 +197,7 @@
                     return (multi_processor);
                 default:
                     return (multi_processor);
-        }
+            }
         }
 
     }

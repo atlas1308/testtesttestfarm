@@ -15,11 +15,6 @@
 	
 	import flash.events.Event;
 	import flash.net.SharedObject;
-	import flash.net.URLRequest;
-	import flash.net.navigateToURL;
-	import flash.utils.clearInterval;
-	import flash.utils.clearTimeout;
-	import flash.utils.setTimeout;
 	
 	import mx.resources.ResourceManager;
 	
@@ -32,6 +27,9 @@
 	import tzh.core.JSDataManager;
 	import tzh.core.TutorialManager;
 	
+	import flash.utils.setTimeout;
+	import flash.utils.clearTimeout;
+	import flash.utils.clearInterval;
 	
 	/**
 	 * 一些细节的更新
@@ -51,7 +49,6 @@
         private var last_sent_gift_data:Object;
         private var config:Object;
         public var last_feed_data:Object;
-        private var fb_data:Object;
         public var app_url:String = "";
         public var gift_mode:Boolean = false;
         private var shared_object:SharedObject;
@@ -69,7 +66,6 @@
         private var update_fields:Array;
 
         public function AppDataProxy(params:Object){
-            fb_data = new Object();
             last_sent_gift_data = new Object();
             last_used_materials = new Object();
             update_fields = ["shop", "map", "storage", "level", "coins", "reward_points", "neighbors", "gifts", "name", "operations"];
@@ -113,18 +109,6 @@
         }
         
         /**
-         * 跳转页面 
-         */ 
-        public function navigate_to(value:String):void{
-        	var request:URLRequest = new URLRequest(value);
-        	try {
-            	navigateToURL(request, "_parent");
-            }catch(error:Error) {
-            	trace("navigae error " + error.message);
-            }
-        }
-        
-        /**
          * 用户已经有的原料 
          */ 
         private function num_obtained_materials(obj:Object):Number{
@@ -132,7 +116,7 @@
             var c:Number = 0;
             for (m in obj.obtained_materials) {
                 c = (c + obj.obtained_materials[m]);
-            };
+            }
             return (c);
         }
         
@@ -202,8 +186,6 @@
             output.experience = app_data.experience;
             output.min = Number(config.levels[app_data.level].min);
             output.max = Number(config.levels[app_data.level].max);
-            /* output.min = (config.levels[app_data.level - 1].min as Number);
-            output.max = (config.levels[app_data.level - 1].max as Number); */
             output.percent = (Number(app_data.experience) - output.min) / (output.max - output.min);
             output.needed = (output.max - output.experience);
             return output;
@@ -219,7 +201,7 @@
             output.message = ResourceManager.getInstance().getString("message","neighbor_receive_message",[neighbor,gift]);
             output.type = PopupTypes.GIFT_SENT_CONFIRMATION;
             output.ok_label = ResourceManager.getInstance().getString("message","ok_label");
-            output.close_label = ResourceManager.getInstance().getString("message","close_label");
+            output.close_label = ResourceManager.getInstance().getString("message","game_button_cancel_message");
             output.width = 450;
             output.height = 250;
             output.inner_width = 350;
@@ -294,9 +276,9 @@
             this.app_data.op = parseFloat(app_data.op);
             this.app_data.reward_points = parseFloat(app_data.reward_points);
             //app_data.lottery_coins = 100;// 这个是默认的后台已经算好的值,客户端显示之后,变化一下而已
-            if (app_data.lottery_coins > 0){// 这个还是不太明确呢,可能是类似于每日登陆奖励的东西
+            /* if (app_data.lottery_coins > 0){// 可能是类似于每日登陆奖励的东西, 后台返回的是最原始的钱,所以不用计算
                 app_data.coins = (app_data.coins - parseFloat(app_data.lottery_coins));
-            }
+            } */
             if (app_data.friend_helped){// 为什么这里都是减少的呢,难道这里是负数呢
                 app_data.coins = (app_data.coins - parseFloat(app_data.friend_helped.coins));
                 app_data.experience = (app_data.experience - parseFloat(app_data.friend_helped.exp));
@@ -304,8 +286,6 @@
             if (app_data.gifts_received){// 收到的礼物所加的经验
                 app_data.experience = (app_data.experience - (parseFloat(config.gift_received_exp) * app_data.gifts_received.length));
             }
-            //Cache.base_url = app_data.base_url;
-            //Cache.assets_urls = app_data.assets_urls;
             if (app_data.friend_helped){
                 sendNotification(ApplicationFacade.SHOW_FRIEND_HELPED_POPUP);
             }
@@ -343,26 +323,34 @@
                 data.type = PopupTypes.SUGGEST_TO_BUY_GIFT;
                 data.message = ResourceManager.getInstance().getString("message","feel_for_receive")
                 data.ok_label = ResourceManager.getInstance().getString("message","ok_label");
-                data.close_label = ResourceManager.getInstance().getString("message","close_label");
+                data.close_label = ResourceManager.getInstance().getString("message","game_button_cancel_message");
                  sendNotification(ApplicationFacade.SHOW_POPUP, data);
             }*/
             update_objects(update_fields);
             if(showTutorial){// 如果这个值是0的话,才能开始向导
-            	var func:Function = TutorialManager.getInstance().start;
+            	TZHFarm.instance.stage.mouseChildren = false;// 初始化其它的都不让用户点了
+            	//sendNotification(ApplicationFacade.TUTORIAL_STARTED);
             	TutorialManager.getInstance().addEventListener(Event.COMPLETE,tutorialCompleted);
-            	setTimeout(func,2000);
+            	setTimeout(startTutorial,2000);
+            }else {
+            	TutorialManager.getInstance().end = true;
             }
             if (app_data.farm){
                 sendNotification(ApplicationFacade.SHOW_FARM);
             }
             setTimeout(hideOverlay,1000);
-            /* if (app_data.feed_data){
-            }; */
         }
         
-        
+        private function startTutorial():void {
+       		TutorialManager.getInstance().start();
+       		TZHFarm.instance.stage.mouseChildren = true;
+        }
         
         public function get showTutorial():Boolean {
+        	CONFIG::debug{
+        		//return true;
+        		trace("this is debug version");
+        	}
         	return app_data.show_tutorial == 0;
         }
         
@@ -387,11 +375,11 @@
         	if(id == 0)return;
             if (!app_data.storage[id]){//如果没有就默认为0
                 app_data.storage[id] = 0;
-            };
-            var _local3 = app_data.storage;
-            var _local4 = id;
-            var _local5 = (_local3[_local4] + 1);
-            _local3[_local4] = _local5;
+            }
+            var storage:Object = app_data.storage;
+            var temp:int = id;
+            var v:int = (int(storage[temp]) + 1);
+            storage[temp] = v;
             var c:Confirmation = new Confirmation();
             c.text(("+1 " + config.store[id].name));
             sendNotification(ApplicationFacade.DISPLAY_BARN_CONFIRMATION, c);
@@ -458,8 +446,8 @@
         }
         
         
-        public function get friend_farm_id():Number{
-            return (app_data.farm.uid);
+        public function get friend_farm_id():String{
+            return app_data.farm.uid;
         }
         
         /**
@@ -523,12 +511,12 @@
             var obj_fed:Object;
             var obj:MapObject = p.obj;
             var info:Object = config.store[obj.id];
-            var raw_material:* = MultiProcessor(obj).get_raw_material_id(p.material);
+            var raw_material:Number = MultiProcessor(obj).get_raw_material_id(p.material);// 这里了取的是索引号
             var food_info:Object = config.store[raw_material];
             if (((queue_call) && (!(app_data.storage[raw_material])))){
                 obj.clear_process(("feed" + p.material));
                 return (false);
-            };
+            }
             if (((!(app_data.storage[raw_material])) && (!(queue_search_for_food(raw_material))))){
                 msg = ResourceManager.getInstance().getString("message","the_barn_message",[config.store[raw_material].name]);
                 if ((((obj.kind == "jam")) && ((p.material == 1)))){
@@ -547,10 +535,10 @@
                         	msg = ResourceManager.getInstance().getString("message","plant_food_message",[food_info.name]);
                             break;
                     };
-                };
+                }
                 obj.clear_process(("feed" + p.material));
                 return (report_confirm_error(msg));
-            };
+            }
             if (!queue_call){
                 add_to_queue("refill_map_object", p, obj, feed_object_action(info), ("feed" + p.material), body);
             } else {
@@ -659,7 +647,7 @@
                     id:info.id
                 }
             });
-            return (true);
+            return true;
         }
         
         /**
@@ -1257,11 +1245,11 @@
                 clear_process_queue();
                 sendNotification(ApplicationFacade.CANCEL_PROCESS_LOADER);
                 Log.add(("data hash " + result.data_hash));
-                if (result.error == Err.SWF_VERSION){
+                /* if (result.error == Err.SWF_VERSION){
                     show_refresh_page_popup(Err.GAME_UPDATED);
                 } else {
                     show_refresh_page_popup("", result.error);
-                };
+                }; */
                 return;
             }
             var names:Array = new Array();
@@ -1273,9 +1261,6 @@
                 app_data.coins = (app_data.coins + parseFloat(result.level_up.coins));
                 app_data.reward_points = (app_data.reward_points + result.level_up.rp);
                 sendNotification(ApplicationFacade.SHOW_LEVEL_UP_POPUP);
-                /* var feedItem:Object = new Object();
-                feedItem.body = "";
-                JSDataManager.getInstance().postFeed(feedItem); */// 升级的feedObject
                 names.push("coins");
                 names.push("reward_points");
             }
@@ -1289,7 +1274,7 @@
                     sendNotification(ApplicationFacade.BACK_TO_MY_RANCH);
                 } else {
                     sendNotification(ApplicationFacade.SHOW_FARM);
-                };
+                }
             } else {
                 update_objects(names);
             }
@@ -1391,11 +1376,8 @@
             output.name = friend_name;
             output.top_map_size = app_data.farm.top_map_size;
             output.bottom_map_size = app_data.farm.bottom_map_size;
-            if (fb_data[app_data.farm_uid]){
-                output.pic = ((fb_data[app_data.farm.uid].pic)=="") ? no_pic_url() : fb_data[app_data.farm.uid].pic;
-            } else {
-                output.pic = no_pic_url();// 如果没有用户的图片，那就是使用默认的数据
-            }
+            var userInfo:Object = getUserInfo(app_data.farm.uid);
+            output.pic = userInfo ? userInfo.pic : no_pic_url();
             output.objects = new Array();
             for each (item in app_data.farm.map) {
                 obj = get_item_data(item.id);
@@ -1462,22 +1444,10 @@
             _data.message = ResourceManager.getInstance().getString("message","advice_friend");
             _data.type = PopupTypes.PUBLISH_GIFT_SENT_STORY;
             _data.ok_label = ResourceManager.getInstance().getString("message","share_label");
-            _data.close_label = ResourceManager.getInstance().getString("message","close_label");
+            _data.close_label = ResourceManager.getInstance().getString("message","game_button_cancel_message");
             _data.data = {neighbor:data.neighbor,gift:data.gift};
             sendNotification(ApplicationFacade.SHOW_POPUP, _data);
             return true;
-        }
-        
-        /**
-         * 这里是set fb_data的数据 
-         */ 
-        public function set_fb_data(data:Object):void{
-            if (data){
-                fb_data = data;
-            }
-            if (already_init){
-                update_objects(["neighbors", "name"]);
-            }
         }
         
         public function get friend_name():String{
@@ -1651,7 +1621,7 @@
             info = config.store[id];
             if ((((info.price > 0)) && ((app_data.coins < info.price)))){
                 return (report_error(Err.NO_COINS));
-            };
+            }
             if ((((info.rp_price > 0)) && ((app_data.reward_points < info.rp_price)))){
                 sendNotification(ApplicationFacade.SHOW_CONFIRM_POPUP, {
                     msg:Err.NO_RP,
@@ -1659,9 +1629,9 @@
                         notif:ApplicationFacade.NAVIGATE_TO_URL,
                         data:"offers"
                     }
-                });
-                return (false);
-            };
+                })
+                return false;
+            }
             switch (info.type){
                 case "expand_ranch":
                     _local3 = map_can_expand(info);
@@ -1694,9 +1664,9 @@
             if (info.action == "irrigation"){// 这个功能暂时也没有先过掉
                 if (!can_install_irrigation(info.id)){
                     return (false);
-                };
+                }
             }
-            return (true);
+            return true;
         }
         
         /**
@@ -1960,9 +1930,10 @@
                 obj.locked_message = ResourceManager.getInstance().getString("message","locked_message",[obj.level]);
                 obj.locked_button = ResourceManager.getInstance().getString("message","locked_button_buy");
             }
-            if (neighbors_count() == 0){
+            /* if (neighbors_count() == 0){
                 obj.buy_gift = false;
-            }
+            } */
+            obj.buy_gift = false;// 先默认的都不能送
             return (obj);
         }
         
@@ -2328,9 +2299,10 @@
                 var diffTime:Number = obj.data.start_time - map_obj.start_time;
                 trace("diffTime : " + diffTime); 
                 if (diffTime > map_obj.collect_in){//这里的太那个什么了吧,后台算的怎么会一直有错呢?
-                    return (show_refresh_page_popup("", Err.TIME_DELAY));// 这个还是有必要的,
+                    //return (show_refresh_page_popup("", Err.TIME_DELAY));// 这个还是有必要的,
+                }else {
+                	map_obj.updated_start_time = obj.data.start_time;
                 }
-                map_obj.updated_start_time = obj.data.start_time;
             }
         }
         
@@ -2514,11 +2486,8 @@
                 return "";
             }
             message = ResourceManager.getInstance().getString("message","state_message",[app_data.friend_helped.coins,app_data.friend_helped.exp]);
-            if (fb_data[app_data.friend_helped.uid]){
-                message = message + fb_data[app_data.friend_helped.uid].name;
-            } else {
-                message = message + ResourceManager.getInstance().getString("message","your_friend_message");
-            }
+            var userInfo:Object = getUserInfo(app_data.friend_helped.uid);
+            message += userInfo ? userInfo.name : ResourceManager.getInstance().getString("message","your_friend_message");
             return message;
         }
         
@@ -2848,7 +2817,7 @@
                     report_confirm_error(Err.NO_COINS, false, obj);
                     obj.kill();
                     return (false);
-                };
+                }
                 obj.map_x = obj.grid_x;
                 obj.map_y = obj.grid_y;
                 if (!get_map_obj(obj.id, obj.grid_x, obj.grid_y)){
@@ -2856,18 +2825,18 @@
                         id:obj.id,
                         x:obj.grid_x,
                         y:obj.grid_y
-                    };
+                    }
                     if (obj.is_flipped_from_store()){
                         new_mo.flipped = 1;
-                    };
+                    }
                     if (obj.type == "trees"){
                         new_mo.start_time = Algo.time();
                         CollectObject(obj).start();
                     } else {
                         if (item.constructible){
                             new_mo.under_construction = true;
-                        };
-                    };
+                        }
+                    }
                     app_data.map.push(new_mo);
                 };
                 if (!gift_mode){
@@ -2877,40 +2846,46 @@
                     if (item.rp_price){
                         app_data.reward_points = (app_data.reward_points - item.rp_price);
                         confirm.reward_points = -(item.rp_price);
-                    };
+                    }
                     confirm.set_target(obj);
                     refresh_level();
                     update_objects(["level", "coins", "reward_points"]);
                 } else {
-                    var _local7 = app_data.gifts;
-                    var _local8 = obj.id;
-                    var _local9 = (_local7[_local8] - 1);
-                    _local7[_local8] = _local9;
+                    var gifts:Object = app_data.gifts;
+                    var id:Number = obj.id;
+                    var temp:int = int(gifts[id]) - 1;
+                    gifts[id] = temp;
                     update_objects(["gifts"]);
-                };
+                }
                 sendNotification(ApplicationFacade.MAP_REFRESH_DEPTH);
                 transaction_proxy.set_data_hash(data_hash);
                 transaction_proxy.add(body, true);
-            };
-            return (false);
+            }
+            return false;
         }
         
         private function collect_object_action(obj:Object):String{
-            if ((((obj.type == "seeds")) || ((obj.type == "trees")))){
+            if (obj.type == "seeds" || obj.type == "trees"){
                 return "Harvesting";
             }
             return "Collecting";
         }
         
+        /**
+         * 设置MapObject为自动收获,
+         * 如果MapObject已经开了自动功能的话,那么就不用判断其它的了
+         * 如果没有开,但是用户op又小于0的话,则不能开启这个功能
+         * @param obj:MapObject 作用的对象 
+         */ 
         public function toggle_automation(obj:MapObject):Boolean{
             var map_obj:Object = get_map_obj(obj.id, obj.grid_x, obj.grid_y);
             if (((!(map_obj.automatic)) && ((app_data.op <= 0)))){
                 report_confirm_error(Err.NO_OP);
-                return (false);
-            };
+                return false;
+            }
             map_obj.automatic = (map_obj.automatic) ? false : true;
             sendNotification(ApplicationFacade.AUTOMATION_TOGGLED);
-            return (true);
+            return true;
         }
         
         private function get_constructible_object(material:Number):Object{
@@ -2960,13 +2935,14 @@
          */ 
         public function use_gift(id:Number, target:Object=null):Boolean{
             var item:Object = config.store[id];
+            var gifts:Object = app_data.gifts;
+            var temp:Number = id;
+            var count:int;
             switch (item.type){
                 case "products":
                     add_to_storage(id);
-                    var _local5 = app_data.gifts;
-                    var _local6 = id;
-                    var _local7 = (_local5[_local6] - 1);
-                    _local5[_local6] = _local7;
+                    count = int(gifts[temp]) - 1;
+                    gifts[temp] = count;
                     update_objects(["gifts", "storage"]);
                     sendNotification(ApplicationFacade.CHECK_AUTOMATION, "on_collect");
                     break;
@@ -2975,34 +2951,28 @@
                     app_data.op = (app_data.op + item.op);
                     if (hasOP){
                         sendNotification(ApplicationFacade.CHECK_AUTOMATION, "op_refill");
-                    };
+                    }
                     confirm = new Confirmation();
                     confirm.add_value(item.op, " OP");
-                    _local5 = app_data.gifts;
-                    _local6 = id;
-                    _local7 = (_local5[_local6] - 1);
-                    _local5[_local6] = _local7;
+                    count = int(gifts[temp]) - 1;
+                    gifts[temp] = count;
                     update_objects(["operations", "gifts"]);
                     break;
-            };
+            }
             if (item.action == "rain"){
                 if (!apply_rain(item.percent)){
                     return false;
-                };
-                _local5 = app_data.gifts;
-                _local6 = id;
-                _local7 = (_local5[_local6] - 1);
-                _local5[_local6] = _local7;
+                }
+                count = int(gifts[temp]) - 1;
+                gifts[temp] = count;
                 update_objects(["gifts"]);
-            };
+            }
             if (item.action == "construction"){
                 if (!use_material(item, target)){
                     return (false);
-                };
-                _local5 = app_data.gifts;
-                _local6 = id;
-                _local7 = (_local5[_local6] - 1);
-                _local5[_local6] = _local7;
+                }
+                count = int(gifts[temp]) - 1;
+                gifts[temp] = count;
                 confirm = new Confirmation();
                 update_objects(["gifts"]);
             }
@@ -3116,10 +3086,18 @@
             return ((info.raw_material as Array));
         }
         
+        /**
+         * 登陆用户的op的数量 
+         */ 
         public function get operations():Number{
             return (int(app_data.op));
         }
         
+        /**
+         * 授粉,有的时候可能用户会把hive移除了,突然之间找不到这个对象了,所以这里做一个处理
+         * @param data:Object 传递进来的hive的数据
+         *  
+         */ 
         public function pollinate(data:Object):Boolean{
             var hive:Object = get_map_obj(data.hive.id, data.hive.grid_x, data.hive.grid_y);
             var clover:Object = get_map_obj(data.target.id, data.target.grid_x, data.target.grid_y);
@@ -3199,6 +3177,9 @@
             return (app_data.objects_to_update);
         }
         
+        /**
+         * 当前登陆用户的数据 
+         */ 
         public function get_data():Object{
             return app_data;
         }
@@ -3276,7 +3257,7 @@
             }
             confirm = new Confirmation();
             confirm.add_value(op, " OP");
-            var giftItem:* = (app_data.gifts[id] - 1);
+            var giftItem:* = (int(app_data.gifts[id]) - 1);
             app_data.gifts[id] = giftItem;
             update_objects(["operations", "gifts"]);
 			return true;

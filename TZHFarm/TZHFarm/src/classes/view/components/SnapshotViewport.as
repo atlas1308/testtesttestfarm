@@ -2,6 +2,7 @@
 package classes.view.components
 {
     import classes.view.components.buttons.*;
+    
     import flash.display.*;
     import flash.events.*;
     import flash.geom.*;
@@ -18,7 +19,7 @@ package classes.view.components
         public function SnapshotViewport()
         {
             addEventListener(Event.ADDED_TO_STAGE, addedToStage);
-            init();
+            this.init();
         }
 
         private function addedToStage(event:Event) : void
@@ -32,7 +33,6 @@ package classes.view.components
             stage.removeEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
             stage.removeEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
             stage.removeEventListener(MouseEvent.MOUSE_UP, onMouseUp);
-
         }
 
         private function onMouseDown(event:MouseEvent) : void
@@ -50,7 +50,7 @@ package classes.view.components
             visible = true;
             stage.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
             stage.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
-            onMouseMove(null);
+            onMouseMove();
         }
 
         private function init() : void
@@ -60,9 +60,9 @@ package classes.view.components
             _mask = new Sprite();
             addChild(container);
             container.addChild(_viewfinder);
-            var _loc_1:* = _h / _viewfinder.height;
-            _viewfinder.scaleY = _h / _viewfinder.height;
-            _viewfinder.scaleX = _loc_1;
+            var scale:Number = _h / _viewfinder.height;
+            _viewfinder.scaleY = scale;
+            _viewfinder.scaleX = scale;
             _viewfinder.x = (_w - _viewfinder.width) / 2;
             _viewfinder.mask = _mask;
             container.graphics.lineStyle(3, 15588285, 1);
@@ -90,7 +90,7 @@ package classes.view.components
             dispatchEvent(new Event(TAKE_PHOTO));
         }
 
-        private function onMouseMove(event:MouseEvent) : void
+        private function onMouseMove(event:MouseEvent = null) : void
         {
             container.x = mouseX - _w / 2;
             container.y = mouseY - _h / 2;

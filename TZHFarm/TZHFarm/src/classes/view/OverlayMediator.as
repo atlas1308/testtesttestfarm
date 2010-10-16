@@ -50,7 +50,6 @@
                     break;
                 }
             }
-            return;
         }
 
         protected function get overlay() : Overlay

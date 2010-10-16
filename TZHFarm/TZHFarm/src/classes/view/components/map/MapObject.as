@@ -172,7 +172,7 @@
             init_asset();
             if (water_pipe){
                 asset.addChild(water_pipe);
-        }
+            }
         }
         
         public function get id():Number{
@@ -526,7 +526,7 @@
         protected function clear_asset():void{
             while (asset.numChildren) {
                 asset.removeChildAt(0);
-        }
+            }
         }
         protected function water_pipe_loaded(e:Event):void{
             water_pipe = (e.target.asset as Bitmap);
@@ -659,7 +659,7 @@
                     asset.alpha = 0.25;
                 } else {
                     asset.alpha = 1;
-        }
+                }
             }
         }
         
@@ -821,6 +821,18 @@
         public function get usable():Boolean{
             return (!(waiting_to_process));
         }
-
+		
+		
+		public function same(mapObject:MapObject):Boolean {
+			var result:Boolean;
+			if(mapObject.size_x == this.size_x && 
+				mapObject.size_y == this.size_y && 
+				mapObject.grid_x == this.grid_x && 
+				mapObject.grid_y == this.grid_y &&
+				mapObject.map_unique_id == this.map_unique_id){
+				result = true;
+			}
+			return result;
+		}
     }
 }

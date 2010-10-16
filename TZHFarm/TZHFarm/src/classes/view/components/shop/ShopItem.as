@@ -31,7 +31,7 @@
         private var buy_rp_btn:GameButton;
         private var flip_btn:RotateBtn;
         private var buy_btn:GameButton;
-
+		
 		public static const HARVEST_ACTION:String = "Harvest";
         public function ShopItem(value:Object)
         {
@@ -98,6 +98,7 @@
             flip_btn.scaleX = flip_btn.scaleY = 0.8;
             buy_rp_btn = new GameButton(ResourceManager.getInstance().getString("message","buy_message"), 13, 15 / 13);
             buy_rp_btn.set_style("mauve");
+            buy_rp_btn.name = "buy_rp_btn";
             buy_rp_btn.set_fixed_width(50);
             add_neighbors = new GameButton(ResourceManager.getInstance().getString("message","add_neighbors_message"), 13, 15 / 13);
             add_neighbors.set_style("blue");
@@ -136,7 +137,7 @@
                     buy_rp_btn.x = buy_rp_btn_position_x;
                     send_gift.x = buy_rp_btn.x + buy_rp_btn.width + buy_rp_btn_position_x;
                     send_gift.y = buy_rp_btn.y;
-            }
+                }
             }
             if (data.locked)
             {
@@ -144,7 +145,7 @@
                 collect.visible = false;
                 buy_rp_btn.visible = false;
                 desc.visible = false;
-                if (data.locked_button == "neighbors")
+                if (data.locked_button == ResourceManager.getInstance().getString("message","neighbors_message"))
                 {
                     cost.visible = false;
                     level_needed.y = level_needed.y + 11;
@@ -185,8 +186,8 @@
             	if(data.action == HARVEST_ACTION){
 					collect.text = ResourceManager.getInstance().getString("message","harvest_in_message",[Algo.prep_time(data.collect_in, false)]);
 	            }else {
-                collect.text = ResourceManager.getInstance().getString("message","action_collect_in_message",[data.action, Algo.prep_time(data.collect_in, false)]);
-            }
+	            	collect.text = ResourceManager.getInstance().getString("message","action_collect_in_message",[data.action, Algo.prep_time(data.collect_in, false)]);
+	            }
                 
             }
             else

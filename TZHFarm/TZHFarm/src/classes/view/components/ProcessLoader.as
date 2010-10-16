@@ -5,7 +5,7 @@
     import flash.events.*;
     import flash.geom.*;
     import flash.text.*;
-
+    
     import mx.resources.ResourceManager;
 
     public class ProcessLoader extends Sprite {
@@ -33,7 +33,7 @@
         }
         
         private function draw(e:Event):void{
-        	var diffTime:Number = Algo.time() - start_time
+        	var diffTime:Number = Algo.time() - start_time;
         	var min:int = (diffTime * 100) / delay;
             percent = Math.min(min, 100);
             var resourceName:String = action.toLowerCase() + "_message";
@@ -71,11 +71,11 @@
             auto_mode = (data.auto_mode) ? true : false;
             if (auto_mode){
                 pid = data.pid;
-            };
+            }
             start_time = Algo.time();
             if (data.delay_offset){
                 start_time = (start_time - data.delay_offset);
-            };
+            }
             this.delay = data.delay;
             if (auto_coords){
                 p = parent.globalToLocal(new Point(data.x, data.y));

@@ -47,11 +47,6 @@
 
         protected function onNetStatus(event:NetStatusEvent) : void
         {
-            Log.add("net status" + event.info.code);
-            for (var key:String in event.info)
-            {
-                trace("key" + key);
-            }
             retry_call(true);
         }
 

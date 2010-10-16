@@ -8,7 +8,7 @@
     import flash.system.*;
     
     import mx.resources.ResourceManager;
-
+    
     import tzh.core.Image;
 
     public class HelpPopup extends BasicPopup

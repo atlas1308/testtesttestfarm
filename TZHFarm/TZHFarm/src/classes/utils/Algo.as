@@ -2,7 +2,7 @@
     import flash.display.*;
     import flash.geom.*;
     import flash.utils.*;
-
+    
     import mx.resources.ResourceManager;
     
     import tzh.core.SystemTimer;
@@ -34,7 +34,7 @@
                         } else {
                             if ((obj[prop] as Boolean) == null){
                                 obj[prop] = parseFloat(obj[prop]);
-        }
+                            }
                         }
                     }
                 }
@@ -247,6 +247,9 @@
             return (temp);
         }
         
+        /**
+         * 国际货币分隔 
+         */ 
         public static function number_format(n:Number, ts:String=","):String{
             var pos:Number;
             var sign:Boolean = (n < 0);
@@ -263,9 +266,10 @@
             };
             if (sign){
                 formated = ("-" + formated);
-            };
+            }
             return (formated);
         }
+        
         public static function sprintf(s:String, ... _args):String{
             var arr:Array = s.split("%s");
             var new_s:String = "";
@@ -309,7 +313,7 @@
             var last:String = l.pop();
             if (!l.length){
                 return (last);
-        }
+            }
             return (((l.join(d1) + " " + ResourceManager.getInstance().getString("message","and_message") + " ") + last));
         }
         public static function replace(s:String, search:Array, replace:Array):String{

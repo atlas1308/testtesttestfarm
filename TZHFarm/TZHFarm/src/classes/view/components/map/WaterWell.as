@@ -18,7 +18,6 @@
             anim_player.addEventListener(TimelinePlayer.FINISH, animFinish);
             well_depth = value.depth ? (value.depth) : ({});
             super(value);
-            return;
         }
 
         override protected function init_asset() : void
@@ -30,7 +29,6 @@
                 update_drops_level();
             }
             super.init_asset();
-            return;
         }
 
         public function get_next_upgrade_level_depth() : Number
@@ -67,7 +65,6 @@
         {
             super.init();
             loader.cache_swf = true;
-            return;
         }
 
         public function show_upgrade_level_anim() : void
@@ -77,19 +74,16 @@
                 waterdrops_player.stop(false);
             }
             //waterdrops_player.play([[TimelinePlayer.CURRENT_FRAME, 5-- * 1 + 2]]);
-            return;
         }
 
         private function update_drops_level() : void
         {
             waterdrops_player.play([upgrade_level-- * 1 + 2]);
-            return;
         }
 
         override protected function on_upgrade() : void
         {
             update_drops_level();
-            return;
         }
 
     }

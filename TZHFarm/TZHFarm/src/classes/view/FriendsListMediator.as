@@ -8,7 +8,7 @@
     
     import org.puremvc.as3.multicore.interfaces.*;
     import org.puremvc.as3.multicore.patterns.mediator.*;
-
+    
     import tzh.core.JSDataManager;
 
     public class FriendsListMediator extends Mediator implements IMediator
@@ -91,7 +91,6 @@
 
         private function addNeighbor(event:Event) : void
         {
-            //app_data.navigate_to("neighbors");
             JSDataManager.showInviteFriendPage();
         }
 

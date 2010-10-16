@@ -11,10 +11,9 @@
     {
         public static var NAME:String = "NumericBarMediator";
 
-        public function NumericBarMediator(param1:Object)
+        public function NumericBarMediator(value:Object)
         {
-            super(NAME, param1);
-            return;
+            super(NAME, value);
         }
 
         override public function listNotificationInterests() : Array
@@ -25,7 +24,6 @@
         private function hideTooltip(event:Event) : void
         {
             sendNotification(ApplicationFacade.HIDE_TOOLTIP);
-            return;
         }
 
         protected function get bar() : NumericBar
@@ -36,7 +34,6 @@
         private function showTooltip(event:Event) : void
         {
             sendNotification(ApplicationFacade.SHOW_TOOLTIP, event.target.message);
-            return;
         }
 
         protected function get app_data() : AppDataProxy
@@ -48,12 +45,11 @@
         {
             bar.addEventListener(bar.SHOW_TOOLTIP, showTooltip);
             bar.addEventListener(bar.HIDE_TOOLTIP, hideTooltip);
-            return;
         }
 
-        override public function handleNotification(bar:INotification) : void
+        override public function handleNotification(value:INotification) : void
         {
-            /* switch(bar.getName())
+            switch(value.getName())
             {
                 case ApplicationFacade.UPDATE_OBJECTS:
                 {
@@ -74,7 +70,6 @@
                     break;
                 }
             }
-            return; */
         }
 
     }

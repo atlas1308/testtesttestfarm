@@ -82,7 +82,7 @@
             }
             if (frame == CURRENT_FRAME){
                 frame = mc.currentFrame;
-        }
+            }
             return frame;
         }
         
@@ -94,7 +94,7 @@
             this.mc = (_args[0] as MovieClip);
             if (_is_playing){
                 start();
-        }
+            }
         }
         
         public function set_fps(fps:Number):void{
@@ -104,7 +104,7 @@
                 timer.start();
             } else {
                 timer.delay = (1000 / fps);
-        }
+            }
         }
         
         private function next_range_frame():int{
@@ -119,7 +119,7 @@
                 };
                 range_count = 0;
                 loop_count = 0;
-        }
+            }
             return start_frame;
         }
         
@@ -173,7 +173,7 @@
             while (i < mcs.length) {
                 MovieClip(mcs[i]).gotoAndStop(frame);
                 i++;
-        }
+            }
         }
         private function get range_loop():int{
             if (((range) && ((range.length == 3)))){
@@ -203,7 +203,7 @@
             if (!_is_playing){
                 start();
                 _is_playing = true;
-        }
+            }
         }
         
         private function get range():Array{

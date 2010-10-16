@@ -90,7 +90,6 @@
             if (mc)
             {
             }
-            return;
         }
 
         override protected function init_asset() : void
@@ -99,7 +98,6 @@
             milk_player.set_mc(mc.milk);
             work_player.set_mc(mc.working, mc.pipe_anim);
             super.init_asset();
-            return;
         }
 
         override protected function hungry_animation() : void
@@ -107,7 +105,6 @@
             if (mc)
             {
             }
-            return;
         }
 
         override protected function update_raw_material_area() : void
@@ -130,7 +127,6 @@
                 }
             }
             queue_highlight();
-            return;
         }
 
         private function prepare_cheese_anim() : void
@@ -138,7 +134,6 @@
             work_anim_ended = true;
             work_player.stop(false);
             work_player.play(work_anim_end);
-            return;
         }
 
         private function workFinished(event:Event) : void
@@ -187,7 +182,6 @@
                     work_player.play(work_anim_loop);
                 }
             }
-            return;
         }
 
     }

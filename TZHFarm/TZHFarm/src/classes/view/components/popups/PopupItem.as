@@ -5,7 +5,7 @@
     import flash.display.*;
     import flash.events.*;
     import flash.text.*;
-
+    
     import tzh.core.Image;
 
     public class PopupItem extends Sprite {
@@ -102,7 +102,7 @@
             }
             if (data.disable_button){
                 disable_button();
-        }
+            }
         }
         
         public function get id():Number{

@@ -66,7 +66,7 @@
             while (i < raw_material.length) {
                 if (!(raw_materials[i] as Array)){
                     raw_materials[i] = new Array();
-                };
+                }
                 i++;
             }
             raw_materials_queue = new Array();

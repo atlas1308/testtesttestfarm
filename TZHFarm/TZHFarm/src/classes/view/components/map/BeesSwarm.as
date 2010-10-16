@@ -4,7 +4,7 @@
     import flash.display.*;
     import com.greensock.*;
     import com.greensock.easing.*;
-
+	
 	/**
 	 * 小蜜蜂
 	 */ 

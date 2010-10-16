@@ -46,7 +46,6 @@
                 return;
             }
             post1.visible = false;
-            return;
         }
 
         public function hide_second_post() : void
@@ -57,7 +56,6 @@
                 return;
             }
             post2.visible = false;
-            return;
         }
 
         public function show_posts() : void
@@ -68,7 +66,6 @@
             }
             post1.visible = true;
             post2.visible = true;
-            return;
         }
 
     }

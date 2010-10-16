@@ -3,7 +3,7 @@
     import classes.view.components.map.*;
     
     import mx.resources.ResourceManager;
-
+	
 	/**
 	 * 移动物品的cursor
 	 */ 

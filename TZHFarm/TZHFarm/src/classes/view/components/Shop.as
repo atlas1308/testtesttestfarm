@@ -6,8 +6,10 @@
     
     import flash.display.*;
     import flash.events.*;
+    
+    import tzh.core.AlignSprite;
 
-    public class Shop extends Sprite implements IChildren 
+    public class Shop extends AlignSprite implements IChildren 
     {
         public const SEND_GIFT:String = "sendGift";
         public var prev_btn:SimpleButton;
@@ -30,6 +32,10 @@
 		
 		public function get itemContainer():Sprite {
 			return this.items_cont;
+		}
+		
+		public function get tabContainer():Sprite {
+			return this.tabs_cont;
 		}
 		
         public function Shop()
@@ -83,6 +89,7 @@
                 tabs[index] = obj.list;
                 tabs[obj.name] = obj.list;
                 shopTab = new ShopTab(obj.name, obj.is_new);
+                shopTab.name = "shopTab" + index;
                 tabs_cont.addChild(shopTab);
                 shopTab.addEventListener(shopTab.CLICKED, shopTabClick);
                 index++;
@@ -198,9 +205,12 @@
         {
             var container:Object = null;
             var shopTab:ShopTab = null;
-            var _loc_5:Number = NaN;
-            var list:Array = [];
+            var column:int = 0;
+            var list:Array = [];// 存放整个的数据索引即为column,索引里对应的对象即为row
             var index:int = 0;
+            var row:int = 4;
+            var hGap:int = 20;
+            var vGap:int = 10;
             while (index < tabs_cont.numChildren)
             {
                 if (!list.length)
@@ -217,33 +227,33 @@
                 {
                     container.width = 0;
                 }
-                if (container.row.length == 5 && index < tabs_cont.numChildren)
+                if (container.row.length == row && index < tabs_cont.numChildren)
                 {
                     list.push(new Object());
                 }
                 shopTab = tabs_cont.getChildAt(index) as ShopTab;
                 container.row.push(shopTab);
-                container.width = container.width + (shopTab.width + 20);
+                container.width = container.width + (shopTab.width + hGap);
                 index++;
             }
             index = 0;
             while (index < list.length)
             {
-                _loc_5 = 0;
-                while (_loc_5 < list[index].row.length)
+                column = 0;
+                while (column < list[index].row.length)
                 {
-                    shopTab = list[index].row[_loc_5] as ShopTab;
-                    if (_loc_5 == 0)
+                    shopTab = list[index].row[column] as ShopTab;
+                    if (column == 0)
                     {
-                        shopTab.x = (_w - list[index].width + 20) / 2;
+                        shopTab.x = (_w - list[index].width + hGap) / 2;
                     }
                     else
                     {
-                    	var c:int = _loc_5 - 1;
-                        shopTab.x = list[index].row[c].x + list[index].row[c].width + 20;
+                    	var c:int = column - 1;
+                        shopTab.x = list[index].row[c].x + list[index].row[c].width + hGap;
                     }
-                    shopTab.y = index * (shopTab.height + 10);
-                    _loc_5++;
+                    shopTab.y = index * (shopTab.height + vGap);
+                    column++;
                 }
                 index++;
             }

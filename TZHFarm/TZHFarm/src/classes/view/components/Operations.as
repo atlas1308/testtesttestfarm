@@ -31,7 +31,6 @@
         	this.val = this.skin.val;
         	this.val1 = this.skin.val1;
         	this.val2 = this.skin.val2;
- 
         }
 
         private function mouseClick(event:MouseEvent) : void
@@ -76,7 +75,6 @@
 
         private function init() : void
         {
-
             val.mouseEnabled = false;
             val1.mouseEnabled = false;
             val2.mouseEnabled = false;

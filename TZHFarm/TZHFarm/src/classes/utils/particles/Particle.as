@@ -1,5 +1,4 @@
-﻿
-package classes.utils.particles {
+﻿package classes.utils.particles {
     import flash.events.*;
     import classes.utils.*;
     import flash.geom.*;
@@ -59,11 +58,13 @@ package classes.utils.particles {
             particle.scaleX = (particle.scaleY = scale);
             particle.gotoAndStop(particle_skin);
         }
+        
         public function start():void{
             init();
             addEventListener(Event.ENTER_FRAME, loop);
             time_started = getTimer();
         }
+        
         protected function loop(e:Event):void{
             var t:Number = ((time_scale * (getTimer() - time_started)) / 1000);
             particle.y = (source_y - ((speed_y * t) - ((((1 / 2) * gravity) * t) * t)));
@@ -72,11 +73,10 @@ package classes.utils.particles {
                 particle.alpha = (particle.alpha - 0.1);
             } else {
                 particle.x = (speed_x * t);
-            };
+            }
             if ((getTimer() - time_started) > life_time){
                 stop();
-            };
+            }
         }
-
     }
 }

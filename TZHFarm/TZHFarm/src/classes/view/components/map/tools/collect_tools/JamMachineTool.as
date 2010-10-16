@@ -30,7 +30,7 @@
             if (index == 1){
                 if ((((multi_processor.get_raw_materials(2) == 0)) && ((multi_processor.get_raw_materials(1) == 3)))){
                     return ResourceManager.getInstance().getString("message","add_honey_message");
-        }
+                }
                 return ResourceManager.getInstance().getString("message","add_material_to_make_jam_message",[multi_processor.get_raw_material_name(1)]);
             }
             return ResourceManager.getInstance().getString("message","click_to_add_honey_message");
@@ -40,7 +40,7 @@
             super.tip(s, obj, color);
             if (multi_processor){
                 tool_tip.y = (tool_tip.y - (50 * multi_processor.scale));
-        }
+            }
         }
         
         override protected function get multi_processor():MultiProcessor{

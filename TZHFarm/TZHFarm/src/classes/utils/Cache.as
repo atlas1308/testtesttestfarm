@@ -127,7 +127,7 @@
                 dispatch_loader();
                 clear_queue();
             } else {
-                loader = new Loader();
+            	loader = new Loader();
             	if(byteArray.bytesAvailable > 0){
 	                loader.loadBytes(byteArray);
                 }else {

@@ -20,7 +20,7 @@
 
         public static function add(value:String):void
         {
-        	trace("param1 " + value.toString());
+        	//trace("param1 " + value.toString());
             /* tf.appendText(Algo.log_time() + param1 + "\n");
             tf.scrollV = tf.maxScrollV;
             stage.setChildIndex(container, stage.numChildren--);

@@ -26,13 +26,12 @@
         protected var w:Number;
         protected var bg_color_down:Number = 16513510;
 
-        public function ImageButton(param1:Number, param2:Number, param3:String)
+        public function ImageButton(w:Number, h:Number, url:String)
         {
-            this.w = param1;
-            this.h = param2;
-            this.url = param3;
+            this.w = w;
+            this.h = h;
+            this.url = url;
             this.init();
-            return;
         }
 
         public function disable() : void
@@ -94,7 +93,6 @@
             bmp_cont.addChild(bmp);
             bmp.x = (w - bmp.width) / 2;
             bmp.y = (h - bmp.height) / 2;
-            return;
         }
 
         protected function init() : void
@@ -117,7 +115,6 @@
             addEventListener(MouseEvent.MOUSE_DOWN, mouseDown);
             addEventListener(MouseEvent.MOUSE_UP, mouseUp);
             mouseOut(null);
-            return;
         }
 
         protected function mouseOver(event:MouseEvent) : void
@@ -127,7 +124,6 @@
                 return;
             }
             draw(bg_color_over, line_color_over, alpha_over);
-            return;
         }
 
         protected function mouseDown(event:MouseEvent) : void
@@ -137,7 +133,6 @@
                 return;
             }
             draw(bg_color_down, line_color_down, alpha_down);
-            return;
         }
 
         public function is_disabled() : Boolean

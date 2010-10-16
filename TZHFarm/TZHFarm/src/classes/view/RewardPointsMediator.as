@@ -24,13 +24,11 @@
         private function hideTooltip(event:Event) : void
         {
             sendNotification(ApplicationFacade.HIDE_TOOLTIP);
-            return;
         }
 
         private function showTooltip(event:Event) : void
         {
             sendNotification(ApplicationFacade.SHOW_TOOLTIP, event.target.message);
-            return;
         }
 
         protected function get app_data() : AppDataProxy
@@ -49,17 +47,16 @@
         private function addRanchCash(event:Event) : void
         {
             sendNotification(ApplicationFacade.SHOW_ADD_CASH_POPUP);
-            return;
         }
 
-        override public function handleNotification(addRanchCash:INotification) : void
+        override public function handleNotification(value:INotification) : void
         {
             var body:Object = null;
-            switch(addRanchCash.getName())
+            switch(value.getName())
             {
                 case ApplicationFacade.UPDATE_OBJECTS:
                 {
-                    body = addRanchCash.getBody();
+                    body = value.getBody();
                     if (body.reward_points)
                     {
                         rp.update(app_data.reward_points);

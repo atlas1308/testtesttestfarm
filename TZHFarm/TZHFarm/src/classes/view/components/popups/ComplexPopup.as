@@ -42,10 +42,10 @@
             inner_cont.y = ((tf.y + tf.height) + inner_cont_padd);
             inner_cont.x = (inner_cont_padd_w + ((_w - msg_w) / 2));
             if(left_arrow && right_arrow){
-            left_arrow.y = (right_arrow.y = ((_h - left_arrow.height) / 2));
-            left_arrow.x = ((inner_cont.x - left_arrow.width) / 2);
-            right_arrow.x = ((inner_cont.x + msg_w) + ((((_w - inner_cont.x) - msg_w) - right_arrow.width) / 2));
-        }
+	            left_arrow.y = (right_arrow.y = ((_h - left_arrow.height) / 2));
+	            left_arrow.x = ((inner_cont.x - left_arrow.width) / 2);
+            	right_arrow.x = ((inner_cont.x + msg_w) + ((((_w - inner_cont.x) - msg_w) - right_arrow.width) / 2));
+            }
         }
         protected function align_items():void{
             var w:Number;

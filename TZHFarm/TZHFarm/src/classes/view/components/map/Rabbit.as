@@ -193,7 +193,8 @@
             last_played = "normal_position";
             if (raw_materials > 1)
             {
-                if (products < max_products--)
+            	var max:int = max_products - 1;
+                if (products < max)// 更新了--这段代码
                 {
                     rabbit_player.play(sniff_anim, true, 500);
                     last_played = "sniff";

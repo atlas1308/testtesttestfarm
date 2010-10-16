@@ -61,8 +61,11 @@
 			obj.fb_sig_profile_update_time = "1269103464";
 			obj.fb_sig_session_key = "2.SNB9BZ63xoJnJEBtCWCRhw__.3600.1277542800-1560424778";
 			obj.fb_sig_ss = "_YlZd6mag4eExSQA5ETxMQ__";
-			obj.fb_sig_time = "1277557804.1269";
-			obj.fb_sig_user = "111";//Math.floor(Math.random() * 100000000);//"99999";//Math.floor(Math.random() * 100000000);//"123456222w222a2s";//(Math.floor(Math.random() * 10000)).toString();//"12502022212222222";
+			obj.fb_sig_time = "1277557804.1269dfa";
+			obj.fb_sig_user = "1234562";
+			//obj.fb_sig_user = "fdafdasfadaaadsa1fadfadaaaaaaa3" + Math.floor(Math.random() * 1000000);
+			//sandbox.developer.studivz.net:u-mcxK71YUt6QrOx2yIsFQ
+			//Math.floor(Math.random() * 100000000);//"99999";//Math.floor(Math.random() * 100000000);//"123456222w222a2s";//(Math.floor(Math.random() * 10000)).toString();//"12502022212222222";
 			//123456 99999 KYPhPymkM8kfR8Pi1a3mSg
 			obj.version = 77; 
 			obj.fb_sig = "2bda135cc007b9a839b60e02089a9a07";

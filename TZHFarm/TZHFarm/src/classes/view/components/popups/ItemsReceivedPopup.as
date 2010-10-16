@@ -14,12 +14,11 @@
         protected var fields:Array;
         public var selected_name:String;
 
-        public function ItemsReceivedPopup(param1:Object)
+        public function ItemsReceivedPopup(value:Object)
         {
-            this.fields = param1.list;
+            this.fields = value.list;
             var _loc_2:* = Math.max(fields.length, 4) * 100;
-            super(_loc_2, 230, _loc_2 - 60, 150, param1.message);
-            return;
+            super(_loc_2, 230, _loc_2 - 60, 150, value.message);
         }
 
         override protected function init() : void
@@ -33,11 +32,10 @@
             ok_label = ResourceManager.getInstance().getString("message","game_button_accpet_message");
             buttons = new Sprite();
             use_corner_close = false;
-            var _loc_2:Number = 0;
-            while (_loc_2++ < fields.length)
+            var index:Number = 0;
+            while ( index < fields.length)
             {
-                
-                _loc_3 = new ImageButton(64, 64, fields[_loc_2].image);
+                _loc_3 = new ImageButton(64, 64, fields[index].image);
                 if (_loc_1)
                 {
                     _loc_3.x = _loc_1.width + _loc_1.x + 20;
@@ -45,6 +43,7 @@
                 buttons.addChild(_loc_3);
                 _loc_3.use_as_image();
                 _loc_1 = _loc_3;
+                index++;
             }
             super.init();
             inner_cont.addChild(buttons);

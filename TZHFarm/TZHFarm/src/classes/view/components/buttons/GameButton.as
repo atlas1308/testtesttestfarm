@@ -42,14 +42,6 @@
             var _h:Number = (tf.height + (2 * padd_h));
             var g:Graphics = container.graphics;
             g.clear();
-            /* var matrix:Matrix = new Matrix();指定一种渐变填充
-            var rotation:Number = ((90 * Math.PI) / 180);
-            matrix.createGradientBox(_w, _h, rotation, 0, 0);
-            var colors:Array = [0xFFFFAA, 14611711, 12183551];
-            var alphas:Array = [1, 1, 1];
-            var ratios:Array = [0, 100, 245];
-            g.lineStyle(1, boderColor, 1, true);
-            g.beginGradientFill(GradientType.LINEAR, colors, alphas, ratios, matrix); */
             g.beginFill(backgroundColor, 1);
             g.drawRoundRect(0, 0, _w, _h, 12);
             g.endFill();

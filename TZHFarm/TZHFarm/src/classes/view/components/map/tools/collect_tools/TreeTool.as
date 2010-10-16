@@ -17,7 +17,7 @@
             if (((tree) && (tree.is_ready()))){
                 dispatchEvent(new Event(CONFIRM_ACTION));
                 disable();
-        }
+            }
         }
         
         override protected function mouseOut():void{

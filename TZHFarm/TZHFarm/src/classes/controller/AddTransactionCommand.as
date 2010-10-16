@@ -13,7 +13,7 @@
 
         public function AddTransactionCommand()
         {
-            return;
+        	
         }
 
         override public function execute(value:INotification) : void
@@ -184,7 +184,7 @@
             }
             if (result && transactionBody)
             {
-                transactionBody.add_parameter("data_hash", app_data.data_hash);
+                transactionBody.add_parameter("data_hash", app_data.data_hash);// add data_hash
                 transactionProxy.set_data_hash(app_data.data_hash);
                 transactionProxy.add(transactionBody, true);
             }

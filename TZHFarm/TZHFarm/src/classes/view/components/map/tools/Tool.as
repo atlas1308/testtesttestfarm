@@ -6,7 +6,6 @@
     
     import flash.display.*;
     import flash.events.*;
-    import flash.utils.getDefinitionByName;
 
     public class Tool extends EventDispatcher
     {
@@ -162,6 +161,10 @@
             }
             this.target = target as MapObject;
             handle_state(state);
+        }
+        
+        public function get mouseTarget():MapObject {
+        	return this.target;
         }
 
         protected function mouseUp() : void

@@ -6,8 +6,6 @@
 	
 	import org.puremvc.as3.multicore.interfaces.IFacade;
 	import org.puremvc.as3.multicore.patterns.facade.Facade;
-	
-	import tzh.core.SystemTimer;
     public class ApplicationFacade extends Facade implements IFacade
     {
         public static const MAP_OBJECT_ADDED:String = "mapObjectAdded";
@@ -87,7 +85,6 @@
         public static const SAVE_DATA:String = "saveData";
         public static const SHOW_SNAPSHOT_PREVIEW:String = "showSnapshotPreview";
         public static const STAGE_RESIZE:String = "stageResize";
-        public static const FB_DATA_LOADED:String = "fbDataLoaded";
         public static const USE_PLOW_TOOL:String = "usePlowTool";
         public static const DISABLE_SAVE_BUTTON:String = "disableSaveButton";
         public static const DISPLAY_GIFTS:String = "displayGifts";
@@ -135,8 +132,9 @@
         public static const SELL_GIFT:String = "sellGift";
         public static const ENABLE_ZOOM_OUT:String = "enableZoomOut";
         public static const PLANTS_WATERED:String = "plantsWatered";
-
-        public static const TUTORIAL_COMPLETED:String = "tutorailCompled";// 向导完成
+        
+        public static const TUTORIAL_COMPLETED:String = "tutorailCompleted";// 向导完成
+        public static const TUTORIAL_STARTED:String = "tutorialStarted";// 向导开始
 
         public function ApplicationFacade(value:String)
         {
@@ -178,7 +176,6 @@
             registerCommand(NAVIGATE_TO_URL, NavigateCommand);
             registerCommand(SAVE_DATA, SaveDataCommand);
             registerCommand(HANDLE_TRANSACTION_RESULT, HandleTransactionResultCommand);
-            registerCommand(FB_DATA_LOADED, UseDataCommand);
         }
 
         public function startup(body:Object) : void

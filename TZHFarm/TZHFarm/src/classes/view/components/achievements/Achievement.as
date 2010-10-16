@@ -19,29 +19,27 @@
         public var ribbon2:MovieClip;
         public var title:TextField;
 
-        public function Achievement(param1:Object)
+        public function Achievement(value:Object)
         {
-            this.data = param1;
+            this.data = value;
             init();
-            return;
         }
 
         private function imageLoaded(event:Event) : void
         {
-            var _loc_2:* = event.target.asset as Bitmap;
-            image.addChild(_loc_2);
-            return;
+            /* var _loc_2:* = event.target.asset as Bitmap;
+            image.addChild(_loc_2); */
         }
 
         public function kill() : void
         {
-            parent.removeChild(this);
-            return;
+            /* parent.removeChild(this);
+            return; */
         }
 
         private function init() : void
         {
-            title.text = data.name;
+            /* title.text = data.name;
             desc.text = data.desc;
             cache = new Cache();
             cache.addEventListener(Cache.LOAD_COMPLETE, imageLoaded);
@@ -56,8 +54,7 @@
                     continue;
                 }
                 this["ribbon" + _loc_1].gotoAndStop(1);
-            }
-            return;
+            } */
         }
 
     }
