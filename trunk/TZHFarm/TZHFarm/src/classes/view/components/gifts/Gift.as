@@ -8,7 +8,7 @@ package classes.view.components.gifts {
     import flash.text.*;
     
     import mx.resources.ResourceManager;
-
+    
     import tzh.core.Image;
 
     public class Gift extends Sprite {
@@ -117,7 +117,7 @@ package classes.view.components.gifts {
             }
             if (((!(data.locked)) && (data.flipable))){
                 flip_btn.visible = true;
-        }
+            }
         }
         
         private function flipClicked(e:MouseEvent):void{
@@ -142,7 +142,7 @@ package classes.view.components.gifts {
         private function onMouseOut(e:MouseEvent):void{
             if (data.flipable){
                 flip_btn.visible = false;
-        }
+            }
         }
         
         public function get is_flipped():Boolean{

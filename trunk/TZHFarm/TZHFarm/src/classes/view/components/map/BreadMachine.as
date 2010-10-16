@@ -58,7 +58,6 @@
                 mc.milk_levels.alpha = 0.5;
                 Effects.green(mc.milk_levels);
             }
-            return;
         }
 
         override protected function start_anim() : void
@@ -168,7 +167,6 @@
             {
                 smoke_player.play(anim_end, false);
             }
-            return;
         }
 
         override protected function get_refill_area(update_raw_material:Number) : MovieClip

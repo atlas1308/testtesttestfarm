@@ -10,8 +10,10 @@
     import flash.text.*;
     
     import mx.resources.ResourceManager;
+    
+    import tzh.core.AlignSprite;
 
-    public class Storage extends Sprite implements IChildren
+    public class Storage extends AlignSprite implements IChildren
     {
         private var container:Sprite;
         public var no_items:TextField;
@@ -65,7 +67,7 @@
 
         private function sellItem(event:Event) : void
         {
-            if (Algo.time() - last_sale < 0.5)
+            if (Algo.time() - last_sale < 0.5)// 增加了一个判断
             {
                 return;
             }
@@ -87,9 +89,9 @@
         {
             var index:Number = NaN;
             var obj:Object = null;
-            var _loc_6:Boolean = false;
+            var temp:Boolean = false;
             var j:Number = NaN;
-            var _loc_8:Object = null;
+            var item:Object = null;
             var list:Array = [];
             if (storageItems.list.length > 0)
             {
@@ -97,21 +99,21 @@
                 while (index < items.length)
                 {
                     obj = items[index];
-                    _loc_6 = false;
+                    temp = false;
                     j = 0;
                     while (j < storageItems.list.length)
                     {
-                        _loc_8 = storageItems.list[j];
-                        if (_loc_8.id == obj.id)
+                        item = storageItems.list[j];
+                        if (item.id == obj.id)
                         {
-                            list.push(_loc_8);
+                            list.push(item);
                             storageItems.list.splice(j, 1);
-                            _loc_6 = true;
+                            temp = true;
                             break;
                         }
                         j++;
                     }
-                    if (!_loc_6 && !reset)
+                    if (!temp && !reset)
                     {
                         obj.qty = 0;
                         list.push(obj);
@@ -159,7 +161,7 @@
             var storageItem:StorageItem = null;
             var storageItemRender:StorageItem = null;
             current_page = value;
-            while (container.numChildren)
+            while (container.numChildren > 0)
             {
                 storageItem = container.getChildAt(0) as StorageItem;
                 storageItem.kill();

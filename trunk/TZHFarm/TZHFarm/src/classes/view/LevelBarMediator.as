@@ -24,13 +24,11 @@
         private function hideTooltip(event:Event) : void
         {
             sendNotification(ApplicationFacade.HIDE_TOOLTIP);
-            return;
         }
 
         private function showTooltip(event:Event) : void
         {
             sendNotification(ApplicationFacade.SHOW_TOOLTIP, event.target.message);
-            return;
         }
 
         protected function get app_data() : AppDataProxy

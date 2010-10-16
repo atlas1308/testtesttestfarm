@@ -22,7 +22,6 @@
         private function init():void{
         	var manager:JSDataManager = JSDataManager.getInstance();
         	var friends:Object = manager.friends;
-        	sendNotification(ApplicationFacade.FB_DATA_LOADED, friends);
         }
         
         override public function onRegister():void{

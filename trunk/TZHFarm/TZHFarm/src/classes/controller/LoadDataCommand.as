@@ -16,7 +16,6 @@
 
         override public function execute(value:INotification) : void
         {
-            Log.add("load data");
             var proxy:TransactionProxy = facade.retrieveProxy(TransactionProxy.NAME) as TransactionProxy;
             var fids:String = JSDataManager.getInstance().fids;
             trace("fids " + fids);

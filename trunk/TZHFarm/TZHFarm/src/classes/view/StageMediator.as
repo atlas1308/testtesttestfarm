@@ -18,6 +18,8 @@
     import org.puremvc.as3.multicore.interfaces.*;
     import org.puremvc.as3.multicore.patterns.mediator.*;
     
+    import tzh.core.SoundManager;
+    
     /**
      * 整个场景的UI,和整个场景的显示,弹出的面板,都在这里 
      */ 
@@ -83,6 +85,7 @@
             friends_list.x = 0;
             stage.addChild(friends_list);
             operations = new Operations();
+            operations.name = "operations";
             facade.registerMediator(new OperationsMediator(operations));
             stage.addChild(operations);
             gift_box = new GiftBox();
@@ -141,8 +144,8 @@
             {
                 if (ExternalInterface.available)
                 {
-                    Log.add("EI add callback");
-                    ExternalInterface.addCallback("onMouseWheel", onExternalMouseWheel);
+                    //Log.add("EI add callback");
+                    //ExternalInterface.addCallback("onMouseWheel", onExternalMouseWheel);
                     //ExternalInterface.addCallback("publishedToStream", onPublishedToStream);
                     //ExternalInterface.addCallback("permissionDialogClosed", permissionDialogClosed);
                 }
@@ -281,9 +284,9 @@
                 case ApplicationFacade.SHOW_FEED_DIALOG:
                 {
                 	try {
-	                    Log.add("showFeedDialog called");
+	                    /* Log.add("showFeedDialog called");
 	                    exit_full_screen();
-	                    ExternalInterface.call("streamPublish", value.getBody());
+	                    ExternalInterface.call("streamPublish", value.getBody()); */
                     }catch(error:Error){
                     	
                     }
@@ -578,14 +581,14 @@
 
         private function mouseWheelHandler(event:MouseEvent) : void
         {
-            if (event.delta > 0)
+            /* if (event.delta > 0)
             {
                 sendNotification(ApplicationFacade.ZOOM_IN);
             }
             else
             {
                 sendNotification(ApplicationFacade.ZOOM_OUT);
-            }
+            } */
         }
 
         private function onExternalMouseWheel(value:int) : void
@@ -709,7 +712,7 @@
         private function takePhoto(event:Event) : void
         {
             snapshot_viewport.stop();
-            snapshot_proxy.prepare_snapshot(snapshot_viewport.rectangle, stage);
+            snapshot_proxy.prepare_snapshot(snapshot_viewport.rectangle, stage.getChildByName("my_ranch") as Map);
         }
 
         protected function get fb_proxy() : JSProxy

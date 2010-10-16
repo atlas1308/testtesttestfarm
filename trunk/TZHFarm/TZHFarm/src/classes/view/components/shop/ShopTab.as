@@ -26,11 +26,9 @@
             super();
             this.title = title;
             this.is_new = is_new;
-            init();
+            this.init();
         }
-        private function prep_title(t:String):String{
-            return ((String(t.charAt(0)).toUpperCase() + t.slice(1, t.length)));
-        }
+        
         private function init():void{
 			this.buttonMode=true;
 			this.useHandCursor=true; 
@@ -53,7 +51,7 @@
             new_tag = new NewTag();
             if (is_new){
                 addChild(new_tag);
-            };
+            }
             align_tag();
             addEventListener(MouseEvent.MOUSE_UP, mouseUp);
             addEventListener(MouseEvent.MOUSE_OVER, mouseOver);
@@ -64,6 +62,7 @@
             selected = false;
             drawBg(default_color, default_line_color);
         }
+        
         private function mouseOver(e:MouseEvent):void{
             drawBg(select_color, select_line_color);
             var dx:Number = ((container.width * 0.2) / 2);
@@ -81,7 +80,7 @@
                 drawBg(select_color, select_line_color);
             } else {
                 drawBg(default_color, default_line_color);
-            };
+            }
             align_tag();
         }
         

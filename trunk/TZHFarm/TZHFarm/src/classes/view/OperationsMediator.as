@@ -8,11 +8,10 @@
     public class OperationsMediator extends NumericBarMediator
     {
 
-        public function OperationsMediator(param1:Object)
+        public function OperationsMediator(value:Object)
         {
             NAME = "OperationsMediator";
-            super(param1);
-            return;
+            super(value);
         }
 
         override public function listNotificationInterests() : Array
@@ -25,7 +24,6 @@
             super.onRegister();
             bar.addEventListener(Operations.AUTOMATION_TOOL_ON, automationToolOn);
             bar.addEventListener(Operations.AUTOMATION_TOOL_OFF, automationToolOff);
-            return;
         }
 
         override public function handleNotification(value:INotification) : void

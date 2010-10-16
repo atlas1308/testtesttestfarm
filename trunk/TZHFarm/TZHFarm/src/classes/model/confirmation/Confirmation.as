@@ -1,7 +1,7 @@
 ﻿package classes.model.confirmation {
     import classes.utils.*;
     import classes.view.components.map.*;
-	
+    
     import flash.geom.*;
     
     import mx.resources.ResourceManager;

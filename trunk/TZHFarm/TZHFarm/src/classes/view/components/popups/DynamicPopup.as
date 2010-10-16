@@ -6,7 +6,7 @@
     import flash.events.*;
     import flash.geom.*;
     import flash.text.*;
-
+    
     import mx.resources.ResourceManager;
 
     public class DynamicPopup extends Sprite implements IPopup
@@ -59,8 +59,8 @@
         {
             removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
             if(parent){
-            parent.removeChild(this);
-        }
+            	parent.removeChild(this);
+            }
         }
 
         protected function align() : void
@@ -270,7 +270,7 @@
             textFormat.leading = 3;
             return textFormat;
         }
-
+		
 		/**
 		 * 空白的区域
 		 */ 

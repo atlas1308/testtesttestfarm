@@ -52,20 +52,18 @@
         private function toggleFullScreen(event:Event) : void
         {
             sendNotification(ApplicationFacade.TOGGLE_FULL_SCREEN);
-            return;
         }
 
         private function moveOn(event:Event) : void
         {
             sendNotification(ApplicationFacade.ESCAPE_PRESSED);
             sendNotification(ApplicationFacade.USE_MOVE_TOOL);
-            return;
         }
 
         override public function handleNotification(value:INotification) : void
         {
             var body:Object = null;
-            var _loc_3:classes.model.confirmation.Confirmation = null;
+            var confirmation:classes.model.confirmation.Confirmation = null;
             var point:Point = null;
             switch(value.getName())
             {
@@ -110,10 +108,10 @@
                 }
                 case ApplicationFacade.DISPLAY_BARN_CONFIRMATION:
                 {
-                    _loc_3 = value.getBody() as classes.model.confirmation.Confirmation;
+                    confirmation = value.getBody() as classes.model.confirmation.Confirmation;
                     point = Algo.localToGlobal(toolbar.storage);
-                    _loc_3.set_coords(point.x, point.y);
-                    sendNotification(ApplicationFacade.DISPLAY_CONFIRMATION, _loc_3.get_data());
+                    confirmation.set_coords(point.x, point.y);
+                    sendNotification(ApplicationFacade.DISPLAY_CONFIRMATION, confirmation.get_data());
                     break;
                 }
                 case ApplicationFacade.ACTIVATE_SNAPSHOT_MODE:
@@ -203,7 +201,6 @@
         private function multiToolOn(event:Event) : void
         {
             sendNotification(ApplicationFacade.USE_MULTI_TOOL);
-            return;
         }
 
         private function toggleAlpha(event:Event) : void
@@ -229,20 +226,17 @@
         {
             sendNotification(ApplicationFacade.ESCAPE_PRESSED);
             sendNotification(ApplicationFacade.DISPLAY_SHOP);
-            return;
         }
 
         private function storageOn(event:Event) : void
         {
             sendNotification(ApplicationFacade.ESCAPE_PRESSED);
             sendNotification(ApplicationFacade.DISPLAY_STORAGE);
-            return;
         }
 
         private function zoomOut(event:Event) : void
         {
             sendNotification(ApplicationFacade.ZOOM_OUT);
-            return;
         }
 
     }

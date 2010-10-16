@@ -1,6 +1,7 @@
 ﻿package classes.view.components.popups
 {
     import flash.display.*;
+    import flash.net.getClassByAlias;
     import flash.text.*;
     
     import mx.resources.ResourceManager;
@@ -13,6 +14,7 @@
         public function SnapshotPreviewPopup(value:Bitmap) : void
         {
             this.bmp = value;
+            trace("popup SnapshotPreviewPopup");
             super(500, 400, 400, 100, "", true);
         }
 

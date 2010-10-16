@@ -9,6 +9,8 @@
     
     import org.puremvc.as3.multicore.interfaces.*;
     import org.puremvc.as3.multicore.patterns.mediator.*;
+    
+    import tzh.core.TutorialManager;
 
     public class MapMediator extends Mediator implements IMediator
     {
@@ -130,7 +132,7 @@
 
         override public function listNotificationInterests() : Array
         {
-            return [ApplicationFacade.USE_PLOW_TOOL,ApplicationFacade.TUTORIAL_COMPLETED, ApplicationFacade.UPDATE_OBJECTS, ApplicationFacade.MAP_OBJECT_ADDED, ApplicationFacade.MAP_OBJECT_MOVED, ApplicationFacade.MAP_OBJECT_REMOVED, ApplicationFacade.MAP_OBJECT_FED, ApplicationFacade.MAP_OBJECT_COLLECTED, ApplicationFacade.USE_MOVE_TOOL, ApplicationFacade.USE_REMOVE_TOOL, ApplicationFacade.USE_MULTI_TOOL, ApplicationFacade.USE_AUTOMATION_TOOL, ApplicationFacade.PLACE_MAP_OBJECT, ApplicationFacade.ZOOM_IN, ApplicationFacade.ZOOM_OUT, ApplicationFacade.SHOW_FARM, ApplicationFacade.BACK_TO_MY_RANCH, ApplicationFacade.RAIN_APPLIED, ApplicationFacade.ESCAPE_PRESSED, ApplicationFacade.USE_SHOP_ITEM, ApplicationFacade.ANIMAL_ADDED, ApplicationFacade.MAP_ADD_OBJECT, ApplicationFacade.SHOW_PROCESS_LOADER, ApplicationFacade.CANCEL_PROCESS_LOADER, ApplicationFacade.MAP_REFRESH_DEPTH, ApplicationFacade.CENTER_MAP, ApplicationFacade.STAGE_RESIZE, ApplicationFacade.EXPAND_RANCH, ApplicationFacade.CROPS_FERTILIZED, ApplicationFacade.TOGGLE_ALPHA, ApplicationFacade.ACTIVATE_SNAPSHOT_MODE, ApplicationFacade.DEACTIVATE_SNAPSHOT_MODE, ApplicationFacade.CHECK_AUTOMATION, ApplicationFacade.AUTOMATION_TOGGLED, ApplicationFacade.INCREASE_OBTAINED_MATERIAL, ApplicationFacade.IRRIGATION_INSTALLED];
+            return [ApplicationFacade.USE_PLOW_TOOL,ApplicationFacade.TUTORIAL_COMPLETED, ApplicationFacade.TUTORIAL_STARTED,ApplicationFacade.UPDATE_OBJECTS, ApplicationFacade.MAP_OBJECT_ADDED, ApplicationFacade.MAP_OBJECT_MOVED, ApplicationFacade.MAP_OBJECT_REMOVED, ApplicationFacade.MAP_OBJECT_FED, ApplicationFacade.MAP_OBJECT_COLLECTED, ApplicationFacade.USE_MOVE_TOOL, ApplicationFacade.USE_REMOVE_TOOL, ApplicationFacade.USE_MULTI_TOOL, ApplicationFacade.USE_AUTOMATION_TOOL, ApplicationFacade.PLACE_MAP_OBJECT, ApplicationFacade.ZOOM_IN, ApplicationFacade.ZOOM_OUT, ApplicationFacade.SHOW_FARM, ApplicationFacade.BACK_TO_MY_RANCH, ApplicationFacade.RAIN_APPLIED, ApplicationFacade.ESCAPE_PRESSED, ApplicationFacade.USE_SHOP_ITEM, ApplicationFacade.ANIMAL_ADDED, ApplicationFacade.MAP_ADD_OBJECT, ApplicationFacade.SHOW_PROCESS_LOADER, ApplicationFacade.CANCEL_PROCESS_LOADER, ApplicationFacade.MAP_REFRESH_DEPTH, ApplicationFacade.CENTER_MAP, ApplicationFacade.STAGE_RESIZE, ApplicationFacade.EXPAND_RANCH, ApplicationFacade.CROPS_FERTILIZED, ApplicationFacade.TOGGLE_ALPHA, ApplicationFacade.ACTIVATE_SNAPSHOT_MODE, ApplicationFacade.DEACTIVATE_SNAPSHOT_MODE, ApplicationFacade.CHECK_AUTOMATION, ApplicationFacade.AUTOMATION_TOGGLED, ApplicationFacade.INCREASE_OBTAINED_MATERIAL, ApplicationFacade.IRRIGATION_INSTALLED];
         }
 
         private function collectProduct(event:Event) : void
@@ -160,7 +162,11 @@
 
         private function showShopAndAddPlant(event:Event) : void
         {
-        	if(app_data.showTutorial)return;
+        	var showTutorialEnd:Boolean = TutorialManager.getInstance().end;
+        	if(!showTutorialEnd){
+        		//MapObject(event.target.event_data).dispatchEvent(new MouseEvent(MouseEvent.CLICK,true,true));
+        		return;
+        	}
             map_proxy.set_soil_to_plant(event.target.event_data);
             sendNotification(ApplicationFacade.SHOW_SHOP_AND_ADD_PLANT);
         }
@@ -205,11 +211,16 @@
         {
             var body:Object = null;
             var flipped:Boolean = false;
-            
             var item:Object = null;
-            var _loc_6:Object = null;
+            var temp:Object = null;
             switch(value.getName())
             {
+            	case ApplicationFacade.TUTORIAL_STARTED:
+            		//map.enabled = false;
+            		break;
+            	case ApplicationFacade.TUTORIAL_COMPLETED:
+            		map.enabled = true;
+            		break;
                 case ApplicationFacade.USE_PLOW_TOOL:
                 {
                     map.set_tool("add_MO", app_data.get_item_data(1));
@@ -429,8 +440,8 @@
                 }
                 case ApplicationFacade.INCREASE_OBTAINED_MATERIAL:
                 {
-                    _loc_6 = value.getBody();
-                    map.increase_obtained_material(_loc_6.mo, _loc_6.material);
+                    temp = value.getBody();
+                    map.increase_obtained_material(temp.mo, temp.material);
                     break;
                 }
                 case ApplicationFacade.IRRIGATION_INSTALLED:

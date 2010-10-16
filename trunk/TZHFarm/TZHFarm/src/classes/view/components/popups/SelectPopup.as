@@ -19,7 +19,7 @@
             fields = (data.list as Array);
             caption = (data.caption as String);
             image_size = (data.image_size) ? data.image_size : 40;
-            var w:Number = (Math.max(fields.length, 4) * (image_size + 30));
+            var w:Number = (Math.max(fields.length, 4) * (image_size + 42));// + 30
             var h:Number = (image_size + 110);
             super(w, h, 0, 0, "");
         }

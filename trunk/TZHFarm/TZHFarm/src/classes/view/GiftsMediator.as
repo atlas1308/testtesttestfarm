@@ -20,7 +20,7 @@
 
         override public function listNotificationInterests() : Array
         {
-            return [ApplicationFacade.UPDATE_OBJECTS, ApplicationFacade.DISPLAY_GIFTS, ApplicationFacade.ESCAPE_PRESSED];
+            return [ApplicationFacade.UPDATE_OBJECTS, ApplicationFacade.STAGE_RESIZE,ApplicationFacade.DISPLAY_GIFTS, ApplicationFacade.ESCAPE_PRESSED];
         }
 
         protected function get gifts() : Gifts
@@ -79,6 +79,10 @@
                     }
                     break;
                 }
+                case ApplicationFacade.STAGE_RESIZE:{
+                	this.alignGifts();
+                	break;
+                }
                 default:
                 {
                     break;
@@ -120,8 +124,7 @@
 
         private function alignGifts() : void
         {
-            gifts.x = (gifts.stage.stageWidth - gifts.width) / 2;
-            gifts.y = (gifts.stage.stageHeight - gifts.height) / 2;
+        	gifts.center();
         }
 
     }

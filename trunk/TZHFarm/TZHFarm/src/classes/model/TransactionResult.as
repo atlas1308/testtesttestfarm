@@ -51,7 +51,11 @@
         {
             return result;
         }
-
+		
+		/**
+		 * 这个call_id传递过去的值和返回过来的值是一样的
+		 * 还没有想明白这个参数是否有关于验证
+		 */ 
         public function get call_id() : String
         {
             if (!result.call_id)

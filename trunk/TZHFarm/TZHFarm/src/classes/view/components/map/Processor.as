@@ -36,7 +36,11 @@
         protected var automation_checked:Boolean = false;
         public static const AUTO_COLLECT:String = "autoCollect";
         public static const AUTO_REFILL:String = "autoRefill";
-
+		
+		
+		public static const COLLECT_AREA_CONST:String = "collect_area";
+		
+		public static const REFILL_AREA_CONST:String = "refill_area";
         public function Processor(value:Object)
         {
             raw_material = value.raw_material ? (value.raw_material) : (0);
@@ -63,7 +67,16 @@
         {
             return null;
         }
-
+		
+		public function getClickAreaByType(value:String):MovieClip {
+			if(value == "collect_area"){
+				return this.collect_area;
+			}
+			if(value == "refill_area"){
+				return this.refill_area;
+			}
+			return null;
+		}
         public function addAnimal() : void
         {
             stopTimer();

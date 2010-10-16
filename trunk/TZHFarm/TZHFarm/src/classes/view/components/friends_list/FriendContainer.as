@@ -88,7 +88,7 @@
             var image:Image = new Image(data.pic,photo_mask);
             image.addEventListener(Event.COMPLETE, photoComplete);
 	        image.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
-            mouseChildren = false;
+	        mouseChildren = false;
             addEventListener(MouseEvent.MOUSE_OVER, mouseOver);
             addEventListener(MouseEvent.MOUSE_OUT, mouseOut);
         }

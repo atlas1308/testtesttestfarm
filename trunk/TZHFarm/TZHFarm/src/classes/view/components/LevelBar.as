@@ -48,8 +48,7 @@
             if(int(value * 100)>100||int(value * 100)<1)
             {
             	level_anim.gotoAndStop(1);
-            } 
-            else{
+            }else{
             	level_anim.gotoAndStop(int(value * 100));
             }
         }

@@ -8,6 +8,10 @@
     import flash.events.*;
     
     import mx.resources.ResourceManager;
+    
+    import tzh.core.Constant;
+    import tzh.core.Cookies;
+    import tzh.core.SoundManager;
 
     public class Toolbar extends Sprite implements IChildren
     {
@@ -44,6 +48,7 @@
         private var shop_btn:Button;
         public const SHOW_TOOLTIP:String = "showTooltip";
         public const TOGGLE_FULL_SCREEN:String = "toggleFullScreen";
+        public const TURN_OFF_OR_ON_MUSIC:String = "turnOffOrOnMusic";
         public var gifts_qty:MovieClip;
         public var fullscreen:SimpleButton;
         public var alpha_toggler:SimpleButton;
@@ -65,7 +70,9 @@
         public var shop:MovieClip;
         private var normal_mode:Boolean = true;
         private var home_btn:Button;
-
+        
+        private var music:MovieClip;
+        
         public function Toolbar()
         {
         	this.createChildren();
@@ -92,6 +99,15 @@
             this.camera = this.skin.camera;
             this.zoom_in_btn = this.skin.zoom_in_btn;
             this.zoom_out_btn = this.skin.zoom_out_btn;
+            this.music = this.skin.music;
+            
+            var playSoundAbled:Boolean = Cookies.getCookies(Constant.BACKGROUND_KEY) as Boolean;
+            if(playSoundAbled){
+            	this.music.gotoAndStop(1);
+            	SoundManager.getInstance().playSound(Constant.BACKGROUND_KEY,false);
+            }else {
+            	this.music.gotoAndStop(2);
+            }
         }
         
         public function get skinRef():MovieClip {
@@ -121,14 +137,25 @@
             this.fullscreen.addEventListener(MouseEvent.CLICK, toggleFullScreen);
             this.alpha_toggler.addEventListener(MouseEvent.CLICK, toggleAlpha);
             this.camera.addEventListener(MouseEvent.CLICK, takeSnapshot);
-		
+			this.music.addEventListener(MouseEvent.CLICK,turnOffOrOnMusic);
             
             this.set_normal_mode();
             this.gifts_qty.visible = false;
             this.addEventListener(MouseEvent.MOUSE_OVER, mouseOver);
             this.addEventListener(MouseEvent.MOUSE_OUT, mouseOut);
             this.addEventListener(MouseEvent.MOUSE_MOVE, mouseMove);
-           
+        }
+        
+        private function turnOffOrOnMusic(event:MouseEvent):void {
+        	if(this.music.currentFrame == 1){
+        		this.music.gotoAndStop(2);
+        		Cookies.addCookies(Constant.BACKGROUND_KEY,false);
+        		SoundManager.getInstance().stopSound(Constant.BACKGROUND_KEY);
+        	}else if(this.music.currentFrame == 2){
+        		this.music.gotoAndStop(1);
+        		Cookies.addCookies(Constant.BACKGROUND_KEY,true);
+        		SoundManager.getInstance().playSound(Constant.BACKGROUND_KEY,false);
+        	}
         }
 
         private function mouseMove(event:MouseEvent) : void

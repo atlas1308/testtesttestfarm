@@ -7,7 +7,6 @@
 	 */ 
     public interface IProcessor extends IEventDispatcher
     {
-
         function highlight_automation_areas(value:Number) : void;
 
         function collect() : void;

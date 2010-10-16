@@ -11,7 +11,7 @@
     
     import org.puremvc.as3.multicore.interfaces.*;
     import org.puremvc.as3.multicore.patterns.mediator.*;
-
+    
     import tzh.core.FeedData;
     import tzh.core.JSDataManager;
 
@@ -115,7 +115,7 @@
             }
             if (popup as AcceptSnapshotPopup)
             {
-                sendNotification(ApplicationFacade.SHOW_STREAM_PERMISSIONS);
+                //sendNotification(ApplicationFacade.SHOW_STREAM_PERMISSIONS);
                 sendNotification(ApplicationFacade.ACTIVATE_SNAPSHOT_MODE);
             }
             if (popup as SnapshotPreviewPopup)
@@ -195,8 +195,8 @@
             }
             if (popup is NetworkDelayPopup)
             {
-                app_data.navigate_to("");
-            }
+                JSDataManager.reload();
+            } 
             onClose(null);
         }
 
@@ -240,9 +240,9 @@
             popup_proxy.show_next_popup();
         }
 
-        override public function handleNotification(NeighborsListPopup:INotification) : void
+        override public function handleNotification(value:INotification) : void
         {
-            switch(NeighborsListPopup.getName())
+            switch(value.getName())
             {
                 case ApplicationFacade.ESCAPE_PRESSED:
                 {
@@ -276,7 +276,6 @@
                     break;
                 }
             }
-            return;
         }
 
         protected function get popup_proxy() : PopupProxy

@@ -29,9 +29,10 @@
         private var plant:Bitmap;
         private var swarm:Sprite;
         private var _current_collect_in:Number = 0;// 这个值暂时没有看到，可能还没有理解透
-
+		
+		public var update_changed:Boolean;
         public function Plant(data:Object){
-            pollinated = (data.pollinated) ? true : false;
+            pollinated = (PHPUtil.toBoolean(data.pollinated)) ? true : false;
             _current_collect_in = (data.current_collect_in) ? data.current_collect_in : 0;
             grown_percent = (data.grown_percent) ? data.grown_percent : 0;
             super(data);
@@ -39,6 +40,7 @@
         
         /**
          * 是否可以施肥 
+         * 后台施肥的验证
          */ 
         public function can_be_fertilized():Boolean{
             return ((((grown_percent + (fertilize_count * fertilize_percent)) + (time_passed() / current_collect_in)) < 1));
@@ -69,14 +71,14 @@
             asset.addChild(grass_front);
             if (water_pipe){
                 asset.addChild(water_pipe);
-        }
+            }
         }
         
         override protected function refresh_asset():void{
             super.refresh_asset();
             if (bubbles){
                 bubbles.scaleX = (bubbles.scaleY = (grid_size / 15));
-        }
+            }
         }
         
         override protected function assetLoaded(e:Event):void{
@@ -120,6 +122,7 @@
         public function fertilize(p:Number):void{
             fertilize_count++;
             fertilize_percent = p;
+            this.update_changed = true;// 说明已经更新了
             show_animation();
             setTimeout(apply_rain, 1000, p);
         }
@@ -159,7 +162,7 @@
                 _current_collect_in = 0;
                 _greenhouse = g;
                 return;
-            };
+            }
             grown_percent = (grown_percent + (time_passed() / current_collect_in));
             _greenhouse = g;
             stopTimer();
@@ -213,6 +216,7 @@
             var obj:Object = new Object();
             obj.start_time = start_time;
             obj.grown_percent = grown_percent;
+            obj.fertilize_percent = fertilize_percent;
             obj.current_collect_in = current_collect_in;
             obj.has_greenhouse = _greenhouse;
             return obj;
@@ -257,28 +261,43 @@
          * @param value:Boolean = true 是否显示百分比 true是不显示
          */ 
         override public function product_percent(value:Boolean=true):Number{
-            var p:Number = Math.min(1, (grown_percent + (time_passed() / current_collect_in)));
+        	var time_passed:Number = time_passed();
+            var p:Number = Math.min(1, (grown_percent + (time_passed / current_collect_in)));
             p = Math.max(0,p);
             if (value){
-                return (int((100 * p)));
+                return int(100 * p);
             }
             return p;
         }
         
-        private function start_pollination_anim(lift_off:Boolean=true):void{
+        private function start_pollination_anim(value:Boolean=true):void{
             pollinated = true;
             update_stage();
-            if (lift_off){
+            if (value){
                 TweenLite.to(swarm, 2, {
                     y:(swarm.y - (_height / 4)),
                     onComplete:liftOff
                 })
-        }
+            }
         }
         
         public function is_marked_for_pollination():Boolean{
             return _marked;
         }
-
+		
+		/**
+		 * 这个方法要修改,可能会有问题,要解决施肥多次的问题
+		 */ 
+		override public function same(mapObject:MapObject):Boolean {
+			var result:Boolean = super.same(mapObject);
+			if(result){
+				if(mapObject is Plant){
+					if(!Plant(mapObject).update_changed){
+						result = true;
+					}
+				}
+			}
+			return result;
+		} 
     }
 }

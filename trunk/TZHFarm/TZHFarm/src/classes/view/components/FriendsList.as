@@ -96,12 +96,12 @@
                     while (j < list.length) {
                         if (friend.id == list[j].uid){
                             friend.update(list[j]);
-                        };
+                        }
                         j++;
-                    };
-                };
+                    }
+                }
                 i++;
-            };
+            }
         }
         
         private function double_slideRight(e:MouseEvent):void{
@@ -120,7 +120,7 @@
                 dispatchEvent(new Event(FRIEND_CLICKED));
             } else {
                 dispatchEvent(new Event(ADD_NEIGHBOR));
-            };
+            }
         }
         
         private function load_neighbors():void{
@@ -152,7 +152,7 @@
                 anim_start = false;
                 removeEventListener(Event.ENTER_FRAME, slide);
                 load_neighbors();
-            };
+            }
         }
         
         private function mouseMove(e:MouseEvent):void{
@@ -227,7 +227,7 @@
             slide_tween = TweenLite.to(container, 0.25, {
                 x:target_x,
                 onComplete:tweenFinish
-            });
+            })
         }
         
         private function end_slideLeft(e:MouseEvent):void{

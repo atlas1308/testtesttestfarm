@@ -6,7 +6,7 @@
     import flash.events.*;
     
     import mx.resources.ResourceManager;
-
+    
     import tzh.core.Image;
 
     public class NeighborsListPopupItem extends PopupItem

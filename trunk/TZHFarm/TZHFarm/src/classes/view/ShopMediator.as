@@ -8,6 +8,8 @@
     
     import org.puremvc.as3.multicore.interfaces.*;
     import org.puremvc.as3.multicore.patterns.mediator.*;
+    
+    import tzh.core.JSDataManager;
 
     public class ShopMediator extends Mediator implements IMediator
     {
@@ -104,7 +106,7 @@
 
         private function addNeighbors(event:Event) : void
         {
-            app_data.navigate_to("neighbors");
+            JSDataManager.showInviteFriendPage();
         }
 
         protected function get shop() : Shop
@@ -137,7 +139,6 @@
             }
             else if (app_data.map_can_use_shop_item(event.target.item_clicked.id))
             {
-                trace("USE SHOP ITEM");
                 sendNotification(ApplicationFacade.USE_SHOP_ITEM, item);
             }
             else if (item.rp_price > 0)
@@ -152,9 +153,7 @@
 
         private function alignShop() : void
         {
-            shop.x = int((shop.stage.stageWidth - shop.width) / 2);
-            shop.y = int((shop.stage.stageHeight - shop.height) / 2);
+        	shop.center();
         }
-
     }
 }

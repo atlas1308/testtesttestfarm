@@ -5,7 +5,7 @@
     import flash.events.*;
     import flash.geom.*;
     import flash.utils.*;
-
+	
 	/**
 	 * 圣诞树
 	 * 这里有活动
@@ -37,7 +37,7 @@
                 player.play(random_color(player));
                 light_players.push(player);
                 i++;
-        }
+            }
         }
         
         public function has_lights():Boolean{
@@ -53,7 +53,7 @@
         public function highlight_presents(color:uint=0xFFCC00):void{
             if (mc){
                 Effects.glow(mc.presents, color);
-        }
+            }
         }
         
         private function refresh_light_anim(player:TimelinePlayer):void{
@@ -79,7 +79,7 @@
                 case 5:
                     player.play([41], false);
                     return;
-        }
+            }
         }
         
         private function next_color(player:Object, delay:Number=1000):Array{

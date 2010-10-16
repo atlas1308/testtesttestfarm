@@ -5,7 +5,7 @@
     import flash.events.*;
     import flash.geom.*;
     import flash.utils.*;
-
+	
 	/**
 	 * 这里时间的计算可能会因为时区的问题计算出错,这个线上在看吧
 	 * 
@@ -28,13 +28,11 @@
 
         public function CollectObject(data:Object){
             collect_in = Number(data.collect_in);// 收集的时间,以秒为单位
-            trace("data.collect_in " + data.collect_in);
             start_time = (data.start_time) ? data.start_time : 0;// 开始种植的时间
             stages = (data.stages) ? data.stages : 1;// 5个阶段
             _product_name = (data.product_name) ? data.product_name : "";// 收获产物的名称
             old_collect_in = collect_in;// 收获的时间
-            
-            _automatic = (data.automatic) ? true : false;// 是否自动收获
+            _automatic = PHPUtil.toBoolean(data.automatic);// 是否自动收获
             super(data);
         }
         
@@ -43,7 +41,7 @@
                 is_working = true;
                 var next:Number = next_stage_in();
                 interval = setTimeout(check_stage, ( next * 1000));// 这种方法做,还是可行的,感觉比timer会更好一些的
-        }
+            }
         }
         
         protected function check_stage():void{
@@ -53,7 +51,7 @@
                 startTimer();
             } else {
                 on_product_complete();
-        }
+            }
         }
         
         /**
@@ -77,12 +75,18 @@
             toggler.mouseChildren = false;
             toggler.mouseEnabled = false;
             toggler_on = new AutomationOn();
+            toggler_on.name = "toggler_on";
             toggler_off = new AutomationOff();
+            toggler_off.name = "toggler_off";
             toggler_on.visible = false;
             toggler_off.visible = false;
             addChild(toggler);
             toggler.addChild(toggler_on);
             toggler.addChild(toggler_off);
+        }
+        
+        public function getChildByNameTemp(name:String):DisplayObject {
+        	return toggler.getChildByName(name);
         }
         
         override protected function assetLoaded(e:Event):void{

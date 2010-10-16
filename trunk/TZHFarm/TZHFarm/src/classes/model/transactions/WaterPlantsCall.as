@@ -5,7 +5,7 @@
     public class WaterPlantsCall extends TransactionBody
     {
 
-        public function WaterPlantsCall(value:Number)
+        public function WaterPlantsCall(value:String)
         {
             var params:Object = new Object();
             params.id = value;

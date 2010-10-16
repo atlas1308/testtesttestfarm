@@ -2,7 +2,7 @@
 {
     import classes.utils.*;
     import classes.view.components.*;
-
+    
     import mx.resources.ResourceManager;
 
     public class Fertilizer extends MapObject

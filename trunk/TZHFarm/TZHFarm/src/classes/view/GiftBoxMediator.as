@@ -14,7 +14,6 @@
         public function GiftBoxMediator(value:Object)
         {
             super(NAME, value);
-            return;
         }
 
         override public function listNotificationInterests() : Array
@@ -31,7 +30,6 @@
         {
             box.addEventListener(MouseEvent.CLICK, boxClicked);
             box.visible = false;
-            return;
         }
 
         override public function handleNotification(value:INotification) : void

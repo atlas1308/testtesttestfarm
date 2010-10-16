@@ -1,7 +1,7 @@
 ﻿package classes.view.components.map.tools.collect_tools {
     import classes.utils.*;
     import classes.view.components.map.*;
-
+    
     import mx.resources.ResourceManager;
 
     public class BreadMachineTool extends MultiProcessorTool {
@@ -29,7 +29,7 @@
             super.tip(s, obj, color);
             if (multi_processor){
                 tool_tip.y = (tool_tip.y - (30 * multi_processor.scale));
-        }
+            }
         }
         
         override protected function get multi_processor():MultiProcessor{
