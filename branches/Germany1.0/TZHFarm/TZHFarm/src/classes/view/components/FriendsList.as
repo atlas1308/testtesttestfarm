@@ -37,6 +37,9 @@
         private var max_x:Number;
         private var slide_tween:TweenLite;
         private var _w:Number;
+        
+        private const PAGE_DIRECTION_LEFT:String = "left";
+        private const PAGE_DIRECTION_RIGHT:String = "right";
 
         public function FriendsList(){
             super();
@@ -55,6 +58,7 @@
 			this.left_end = this.skin.left_end;
 			this.right = this.skin.right;
 			this.right_end = this.skin.right_end;
+			this.enabledButtons(PAGE_DIRECTION_RIGHT);
         }
 		
 		public function destory():void {
@@ -123,8 +127,11 @@
             }
         }
         
+        /**
+         * 这段代码好像没用到,暂时先注掉
+         */ 
         private function load_neighbors():void{
-            var friend:FriendContainer;
+            /* var friend:FriendContainer;
             var p:Point;
             friends_to_load = new Array();
             var start:Point = localToGlobal(new Point(container_placeholder.x, 0));
@@ -136,10 +143,10 @@
                 if ((((p.x >= start.x)) && ((p.x <= end.x)))){
                     if (friend.not_loaded()){
                         friends_to_load.push(friend.id);
-                    };
-                };
+                    }
+                }
                 i++;
-            };
+            } */
             /* if (friends_to_load.length){
                 dispatchEvent(new Event(LOAD_NEIGHBORS));
             }; */
@@ -164,7 +171,7 @@
             var friend:FriendContainer;
             while (container.numChildren) {
                 container.removeChildAt(0);
-            };
+            }
             var i:Number = 0;
             while (i < (data.length + 7)) {
                 if (i < data.length){
@@ -181,7 +188,7 @@
                 friend.x = (-(i) * friend.width);
                 friend.addEventListener(MouseEvent.CLICK, friendClicked);
                 i++;
-            };
+            }
             var max_items:Number = int((container_placeholder.width / item_w));
             var _w:Number = container_placeholder.width;
             var padd_w:Number = ((_w - (max_items * item_w)) / 2);
@@ -215,14 +222,48 @@
             slide_container(-(item_w));
         }
         
+        private var enabledAlpha:Number = 0.45;
+        
+        /**
+         * 设置几个button的不同的点击的效果
+         */ 
+        private function enabledButtons(value:String = ""):void {
+        	if(value == PAGE_DIRECTION_LEFT){
+        		left.alpha = enabledAlpha;
+        		double_left.alpha = enabledAlpha;
+        		left_end.alpha = enabledAlpha;
+        		right.alpha = 1;
+        		double_right.alpha = 1;
+        		right_end.alpha = 1;
+        	}else if(value == PAGE_DIRECTION_RIGHT){
+        		left.alpha = 1;
+        		double_left.alpha = 1;
+        		left_end.alpha = 1;
+        		right.alpha = enabledAlpha;
+        		double_right.alpha = enabledAlpha;
+        		right_end.alpha = enabledAlpha;
+        	}else {
+        		left.alpha = 1;
+        		double_left.alpha = 1;
+        		left_end.alpha = 1;
+        		right.alpha = 1;
+        		double_right.alpha = 1;
+        		right_end.alpha = 1;
+        	}
+        }
+        
         private function slide_container(delta:Number):void{
             target_x = (target_x + delta);
+            var direction:String = "";
             if (target_x > max_x){
                 target_x = max_x;
-            };
+                direction = PAGE_DIRECTION_LEFT;
+            }
             if (target_x < min_x){
                 target_x = min_x;
-            };
+                direction = direction = PAGE_DIRECTION_RIGHT;
+            }
+            this.enabledButtons(direction);
             TweenLite.killTweensOf(container);
             slide_tween = TweenLite.to(container, 0.25, {
                 x:target_x,

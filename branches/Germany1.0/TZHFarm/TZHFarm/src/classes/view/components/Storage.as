@@ -161,7 +161,7 @@
             var storageItem:StorageItem = null;
             var storageItemRender:StorageItem = null;
             current_page = value;
-            while (container.numChildren)
+            while (container.numChildren > 0)
             {
                 storageItem = container.getChildAt(0) as StorageItem;
                 storageItem.kill();

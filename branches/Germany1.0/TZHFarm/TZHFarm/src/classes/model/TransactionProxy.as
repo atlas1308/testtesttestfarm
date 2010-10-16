@@ -96,7 +96,7 @@
 
         public function add(value:TransactionBody, ON_IDLE:Boolean = false) : void
         {
-            if (ON_IDLE)
+            if (ON_IDLE)// 是否等待
             {
                 batch_manager.add(value);
                 clearTimeout(gifts_popup_interval);
@@ -125,7 +125,6 @@
 
         private function on_result(event:Event) : void
         {
-            trace("error_dispatched", error_dispatched);
             if (error_dispatched)
             {
                 sendNotification(ApplicationFacade.CLOSE_NETWORK_DELAY_POPUP);

@@ -1,7 +1,7 @@
 package tzh.core
 {
 	import flash.external.ExternalInterface;
-	import flash.geom.Rectangle;
+	import flash.net.URLLoaderDataFormat;
 	
 	/**
 	 * 鱼的代码里应该也要提供类似于这样子的一个管理器

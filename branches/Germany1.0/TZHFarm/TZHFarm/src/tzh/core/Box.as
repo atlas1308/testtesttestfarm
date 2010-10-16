@@ -11,11 +11,16 @@ package tzh.core
 		public var hGap:Number = 5;// 水平的间隙
 		
 		private var effectsPool:Array = [];
+		
 		public function Box()
 		{
 			super();
 		}
 		
+		
+		/**
+		 * 重绘的时候调用这个方法
+		 */ 
 		public function render():void {
 			var numChildren:int = this.numChildren;
 			var startX:Number = 0;
@@ -30,7 +35,8 @@ package tzh.core
 		
 		private var isRunning:Boolean;// 是否正在运行
 		
-		private var effectTimes:int;
+		private var effectTimes:int;// 更新效果的次数,如果直接this.numChildren,有可能因为效果没执行,而this.numChildren不会有变化 
+		
 		public function effectLast():void {
 			effectTimes++;
 			var index:int = Math.max(0,(this.numChildren - effectTimes));

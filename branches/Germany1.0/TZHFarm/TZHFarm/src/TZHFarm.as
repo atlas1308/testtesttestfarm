@@ -1,6 +1,10 @@
 package {
 	import classes.ApplicationFacade;
 	
+	import com.greensock.TweenLite;
+	
+	import fl.motion.easing.Back;
+	
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.system.Security;
@@ -44,7 +48,7 @@ package {
 		{
 			_instance = this;
 			Security.allowDomain("*");
-			Config.setConfig("host","http://farm.lf3g.com/static/");// lf3g
+			//Config.setConfig("host","http://farm.lf3g.com/static/");// lf3g
 			//Config.setConfig("transport","http://farm.lf3g.com/");
 			
 			/* Config.setConfig("host","http://newfarm.lf3g.com/static/");// 本机
@@ -56,10 +60,9 @@ package {
 			Config.setConfig("loadSocialData","loadSocialData");
 			//Config.setConfig("lang","en_US");
 			Config.setConfig("version","1.0");
-			//Config.setConfig("lang","de-DE");
-			Config.setConfig("lang","pt");
+			Config.setConfig("lang","de-DE");
+			//Config.setConfig("lang","pt");
 			this.addEventListener(Event.ADDED_TO_STAGE,addToStageHandler);
-			
 		}
 		
 		private function addToStageHandler(evt:Event = null):void {

@@ -21,7 +21,9 @@
             var transactionProxy:TransactionProxy = facade.retrieveProxy(TransactionProxy.NAME) as TransactionProxy;
             var appDataProxy:AppDataProxy = facade.retrieveProxy(AppDataProxy.NAME) as AppDataProxy;
             appDataProxy.cancel_help_popup();
+            appDataProxy.clear_process_queue();
             var user_id:String = value.getBody().toString();
+            transactionProxy.save();
             transactionProxy.add(new LoadFarmCall(user_id));
         }
     }
