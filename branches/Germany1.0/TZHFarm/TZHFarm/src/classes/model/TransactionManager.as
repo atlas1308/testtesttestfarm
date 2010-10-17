@@ -18,7 +18,7 @@
         private var required_params:Object;
         public const ON_SAVE:String = "onSave";
         public const ON_IDLE:String = "onIdle";
-        public const ON_RESULT:String = "onResult";
+        public static const ON_RESULT:String = "onResult";
         private var batch_delay:Number = 6000;// 10000
 
         public function TransactionManager(gateway_path:String, batch_mode:Boolean = false, required_params:Object = null)
@@ -40,6 +40,13 @@
                 timer.reset();
                 timerComplete(null);
             }
+        }
+        
+        /**
+         * 是否正在执行任务 
+         */ 
+        public function get is_busy():Boolean {
+        	return batch_transaction.is_busy;
         }
 
         protected function onTransactionResult(event:Event) : void
@@ -94,12 +101,18 @@
                 {
                     obj.data_hash = data_hash;
                 }
-                Log.add("batch call");
                 trace("batch_transaction start", list.length);
                 batch_transaction.start(new TransactionBody("execute_batch", "save_data", obj, required_params));
                 dispatchEvent(new Event(ON_SAVE));
             }
             batch_queue = new Array();
+        }
+        
+        /**
+         * 是否有队列 
+         */ 
+        public function hasQueue():Boolean {
+        	return this.batch_queue.length > 0;
         }
 
         public function add(value:TransactionBody) : void

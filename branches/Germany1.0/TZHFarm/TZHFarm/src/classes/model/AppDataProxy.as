@@ -302,6 +302,11 @@
                     i = (i + 1);
                 }
             }; */
+            /* CONFIG::debug{
+            	app_data.level_up = {};
+            	app_data.level_up.coins = 0;
+            	sendNotification(ApplicationFacade.SHOW_LEVEL_UP_POPUP);
+            } */
             if (app_data.lottery_coins > 0){// 每日登陆奖励
                 sendNotification(ApplicationFacade.SHOW_LOTTERY_POPUP);
             }
