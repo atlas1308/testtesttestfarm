@@ -5,13 +5,15 @@
     
     import flash.events.*;
     import flash.system.*;
-    import flash.utils.clearTimeout;
-    import flash.utils.setTimeout;
     
     import org.puremvc.as3.multicore.interfaces.IProxy;
     import org.puremvc.as3.multicore.patterns.proxy.Proxy;
     
     import tzh.core.Config;
+    
+    import flash.utils.clearInterval;
+    import flash.utils.clearTimeout;
+    import flash.utils.setTimeout;
 
     public class TransactionProxy extends Proxy implements IProxy
     {
@@ -33,12 +35,12 @@
             generate_required_params();
             batch_manager = new TransactionManager(url, true, required_params);
             serial_manager = new TransactionManager(url, false, required_params);
-            batch_manager.addEventListener(batch_manager.ON_RESULT, on_result);
+            batch_manager.addEventListener(TransactionManager.ON_RESULT, on_result);
             batch_manager.addEventListener(batch_manager.ON_SAVE, on_save);
             batch_manager.addEventListener(batch_manager.ON_WAIT, on_wait);
             batch_manager.addEventListener(batch_manager.ON_IDLE, on_idle);
             batch_manager.addEventListener(batch_manager.ON_NETWORK_DELAY, onNetworkDelay);
-            serial_manager.addEventListener(serial_manager.ON_RESULT, on_result);
+            serial_manager.addEventListener(TransactionManager.ON_RESULT, on_result);
         }
 
         private function onNetworkDelay(event:Event) : void
@@ -96,7 +98,7 @@
 
         public function add(value:TransactionBody, ON_IDLE:Boolean = false) : void
         {
-            if (ON_IDLE)
+            if (ON_IDLE)// 是否等待
             {
                 batch_manager.add(value);
                 clearTimeout(gifts_popup_interval);
@@ -125,7 +127,6 @@
 
         private function on_result(event:Event) : void
         {
-            trace("error_dispatched", error_dispatched);
             if (error_dispatched)
             {
                 sendNotification(ApplicationFacade.CLOSE_NETWORK_DELAY_POPUP);
@@ -137,6 +138,10 @@
         public function save() : void
         {
             batch_manager.save();
+        }
+        
+        public function get batchManager():TransactionManager {
+        	return this.batch_manager;
         }
     }
 }
