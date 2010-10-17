@@ -1,8 +1,0 @@
-1.load_farm
-2.save_data
-	a.sell_storage_item 卖出用户的商品
-	b.collect_product 收获用户的物品
-	c.remove_object 移除地块
-	d.add_object 添加地块
-	e.feed_object 给动物喂食
-	f.add_plant 种植作物
