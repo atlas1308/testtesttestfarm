@@ -30,6 +30,10 @@
 		public function destory():void {
 			
 		}
+		
+		public function get enabled():Boolean {
+			return this.spinner.visible;
+		}
 
         public function show(e:Boolean = false) : void
         {
@@ -42,7 +46,7 @@
 
         private function blueClicked(event:Event) : void
         {
-            if (this.spinner.visible)
+            if (this.enabled)
             {
                 return;
             }

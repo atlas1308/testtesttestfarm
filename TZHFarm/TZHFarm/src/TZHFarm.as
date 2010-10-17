@@ -60,8 +60,8 @@ package {
 			Config.setConfig("loadSocialData","loadSocialData");
 			//Config.setConfig("lang","en_US");
 			Config.setConfig("version","1.0");
-			//Config.setConfig("lang","de-DE");
-			Config.setConfig("lang","pt");
+			Config.setConfig("lang","de-DE");
+			//Config.setConfig("lang","pt");
 			this.addEventListener(Event.ADDED_TO_STAGE,addToStageHandler);
 		}
 		
