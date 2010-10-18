@@ -1,13 +1,11 @@
 package {
 	import classes.ApplicationFacade;
 	
-	import com.greensock.TweenLite;
-	
-	import fl.motion.easing.Back;
-	
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.system.Security;
+	
+	import mx.resources.ResourceManager;
 	
 	import tzh.core.Config;
 	import tzh.core.Constant;
@@ -52,7 +50,7 @@ package {
 			Config.setConfig("loadSocialData","loadSocialData");
 			//Config.setConfig("lang","en_US");
 			Config.setConfig("version","1.0");
-			Config.setConfig("lang","de-DE");
+			Config.setConfig("lang",ResourceManager.getInstance().locale);
 			//Config.setConfig("lang","pt");
 			this.addEventListener(Event.ADDED_TO_STAGE,addToStageHandler);
 		}
