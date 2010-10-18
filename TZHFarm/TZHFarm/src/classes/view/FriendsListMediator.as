@@ -34,20 +34,18 @@
         {
             friends_list.addEventListener(friends_list.FRIEND_CLICKED, showFriendFarm);
             friends_list.addEventListener(friends_list.ADD_NEIGHBOR, addNeighbor);
-            friends_list.addEventListener(friends_list.LOAD_NEIGHBORS, loadNeighbors);
         }
 
-        override public function handleNotification(showFriendFarm:INotification) : void
+        override public function handleNotification(value:INotification) : void
         {
             var body:Object = null;
-            switch(showFriendFarm.getName())
+            switch(value.getName())
             {
                 case ApplicationFacade.UPDATE_OBJECTS:
                 {
-                    body = showFriendFarm.getBody();
+                    body = value.getBody();
                     if (body.neighbors)
                     {
-                        Log.add("update friends");
                         friends_list.update(app_data.get_neighbors_data());// 在这里更新friends
                     }
                     break;
@@ -59,7 +57,7 @@
                 }
                 case ApplicationFacade.NEIGHBORS_LOADED:
                 {
-                    friends_list.update_friends(showFriendFarm.getBody() as Array);
+                    friends_list.update_friends(value.getBody() as Array);
                     break;
                 }
                 case ApplicationFacade.ACTIVATE_SNAPSHOT_MODE:
@@ -93,11 +91,5 @@
         {
             JSDataManager.showInviteFriendPage();
         }
-
-        private function loadNeighbors(event:Event) : void
-        {
-            sendNotification(ApplicationFacade.LOAD_NEIGHBORS, event.target.friends_to_load);
-        }
-
     }
 }

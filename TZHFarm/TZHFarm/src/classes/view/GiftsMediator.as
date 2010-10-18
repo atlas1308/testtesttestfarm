@@ -75,11 +75,12 @@
                 {
                     if (gifts.visible)
                     {
-                        closeGifts(null);
+                        closeGifts();
                     }
                     break;
                 }
-                case ApplicationFacade.STAGE_RESIZE:{
+                case ApplicationFacade.STAGE_RESIZE:
+                {
                 	this.alignGifts();
                 	break;
                 }
@@ -88,10 +89,9 @@
                     break;
                 }
             }
-            return;
         }
 
-        private function closeGifts(event:Event) : void
+        private function closeGifts(event:Event = null) : void
         {
             gifts.visible = false;
             sendNotification(ApplicationFacade.HIDE_OVERLAY);
@@ -126,6 +126,5 @@
         {
         	gifts.center();
         }
-
     }
 }

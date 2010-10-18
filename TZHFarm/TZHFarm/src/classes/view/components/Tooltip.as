@@ -51,7 +51,7 @@
             if (arr){
                 removeChild(arr);
                 arr = null;
-            };
+            }
             if (use_arrow){
                 arr = new arrow();
                 arr.x = ((container.width - arr.width) / 2);
