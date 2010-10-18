@@ -408,7 +408,7 @@ return array(
         'name' => 'Log Cabine',
     ),
     140 => array(
-        'name' => 'Fazenda',
+        'name' => 'Casa Grande',
     ),
     147 => array(
         'name' => 'Batatas',
