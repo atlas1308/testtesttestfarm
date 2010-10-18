@@ -137,7 +137,8 @@
         public static const TUTORIAL_STARTED:String = "tutorialStarted";// 向导开始
 		
 		public static const FERTILIZE_BOX_EFFECT:String = "FertilizeBoxEffect";// 最左历按纽的效果
-		public static const FERTILIZE_BOX_COUNT:String = "FertilizeBoxCount"
+		public static const FERTILIZE_BOX_COUNT:String = "FertilizeBoxCount";
+		public static const FERTILIZE_FRIEND_HELPED:String = "FertilizeFriendHelped";// 好友帮助施肥
 		
         public function ApplicationFacade(value:String)
         {

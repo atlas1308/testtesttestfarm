@@ -7,6 +7,8 @@
     import flash.display.*;
     import flash.events.*;
     import flash.utils.*;
+    
+    import tzh.core.Config;
 
     public class Plant extends CollectObject {
 
@@ -29,12 +31,18 @@
         private var plant:Bitmap;
         private var swarm:Sprite;
         private var _current_collect_in:Number = 0;// 这个值暂时没有看到，可能还没有理解透
+        
+        public static const FRIEND_HELPED_FERTILIZE:String = "friendHelpedFertilize";// 好友帮助施肥
 		
 		public var update_changed:Boolean;
+		
+		private var fertilize_helped:Boolean;// 好友是否已经帮助过了
+		
         public function Plant(data:Object){
             pollinated = (PHPUtil.toBoolean(data.pollinated)) ? true : false;
             _current_collect_in = (data.current_collect_in) ? data.current_collect_in : 0;
             grown_percent = (data.grown_percent) ? data.grown_percent : 0;
+            fertilize_helped = PHPUtil.toBoolean(data.fertilize_helped);
             super(data);
         }
         
@@ -125,6 +133,18 @@
             this.update_changed = true;// 说明已经更新了
             show_animation();
             setTimeout(apply_rain, 1000, p);
+        }
+        
+        /**
+         * 暂时只提供一块地,帮助一次的功能,如果此地有其它的好友帮助的话,也不能帮助了
+         */ 
+        public function friendFertilize(value:Number):void {
+        	if(!fertilize_helped){
+	        	fertilize_helped = true;
+	        	this.fertilize(value);
+        	}else {
+        		trace("max helped fertilize " + fertilize_helped + " times");
+        	}
         }
         
         override public function install_irrigation(obj:Object):void{

@@ -5,7 +5,6 @@
     
     import flash.display.*;
     import flash.events.*;
-    import flash.utils.Dictionary;
     
     import tzh.core.TutorialManager;
 
@@ -591,6 +590,7 @@
                     case "seeds":
                         obj = new Plant(data);
                         obj.addEventListener(Plant.IRRIGATION_INSTALLED, irrigationInstalled);
+                        obj.addEventListener(Plant.FRIEND_HELPED_FERTILIZE,friendHelpedFertilize);
                         break;
                     case "animals":
                         switch (data.kind){
@@ -705,6 +705,10 @@
             check_irrigation(null);
         }
         
+        
+        private function friendHelpedFertilize(event:Event):void {
+        	this.dispatchEvent(new Event(Plant.FRIEND_HELPED_FERTILIZE));
+        }
         
         public function refresh_objects_depth():void{
             check_bees();

@@ -164,7 +164,6 @@
         {
         	var showTutorialEnd:Boolean = TutorialManager.getInstance().end;
         	if(!showTutorialEnd){
-        		//MapObject(event.target.event_data).dispatchEvent(new MouseEvent(MouseEvent.CLICK,true,true));
         		return;
         	}
             map_proxy.set_soil_to_plant(event.target.event_data);
@@ -205,6 +204,11 @@
             map.addEventListener(Map.INSTALL_IRRIGATION, installIrrigation);
             map.addEventListener(Map.SHOW_UPGRADE_POPUP, showUpgradePopup);
             map.addEventListener(Map.DEACTIVATE_MULTI_TOOL, deactivateMultiTool);
+            map.addEventListener(Plant.FRIEND_HELPED_FERTILIZE,friendHelpedFertilize);
+        }
+        
+        private function friendHelpedFertilize(event:Event):void {
+        	sendNotification(ApplicationFacade.FERTILIZE_FRIEND_HELPED,event.target.event_data);
         }
 
         override public function handleNotification(value:INotification) : void

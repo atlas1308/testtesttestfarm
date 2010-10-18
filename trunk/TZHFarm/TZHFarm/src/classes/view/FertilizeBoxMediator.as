@@ -1,7 +1,6 @@
 package classes.view
 {
 	import classes.ApplicationFacade;
-	import classes.utils.Cursor;
 	
 	import flash.events.Event;
 	
@@ -9,7 +8,6 @@ package classes.view
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
 	
 	import tzh.core.Box;
-	import tzh.core.Config;
 	import tzh.core.Constant;
 
 	public class FertilizeBoxMediator extends Mediator
@@ -25,7 +23,6 @@ package classes.view
 			return viewComponent as Box;
 		}
 		
-		//sendNotification(ApplicationFacade.FERTILIZE_BOX_EFFECT);
 		override public function handleNotification(notification:INotification):void
 		{
 			var notificationName:String = notification.getName();
@@ -35,11 +32,9 @@ package classes.view
 					break;
 				case ApplicationFacade.FERTILIZE_BOX_COUNT:
 					box.visible = true;
-					var num:Number = notification.getBody() as Number;
-					box.show(num);
-					/* var map:Map = facade.retrieveMediator(MapMediator.NAME).getViewComponent() as Map;
-					map.set_tool( */
-					//Cursor.show(Config.getConfig("host") + Constant.FERTILIZER_CURSOR_PATH,true, 5, 5);
+					var obj:Object = notification.getBody();
+					var times:int = obj ? obj.times : -1;
+					box.show(times);
 					break;
 				case ApplicationFacade.BACK_TO_MY_RANCH:
 					box.visible = false;

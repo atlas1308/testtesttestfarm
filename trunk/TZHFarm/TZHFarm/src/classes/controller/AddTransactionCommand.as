@@ -4,6 +4,7 @@
     import classes.model.*;
     import classes.model.transactions.*;
     import classes.view.components.map.*;
+    
     import org.puremvc.as3.multicore.interfaces.*;
     import org.puremvc.as3.multicore.patterns.command.*;
 
@@ -176,6 +177,12 @@
                 {
                     transactionBody = new InstallIrrigationCall(value.getBody(), app_data.gift_mode);
                     result = app_data.install_irrigation(value.getBody());
+                    break;
+                }
+                case ApplicationFacade.FERTILIZE_FRIEND_HELPED:{
+                	transactionBody = new FriendFertilizeCall(value.getBody());
+                    result = app_data.friendFertilize(value.getBody());
+                    break;
                 }
                 default:
                 {
