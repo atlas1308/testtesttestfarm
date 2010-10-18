@@ -1,4 +1,5 @@
 ﻿package classes.model {
+	
 	import classes.ApplicationFacade;
 	import classes.model.confirmation.Confirmation;
 	import classes.model.err.Err;
@@ -1238,7 +1239,13 @@
         }
         
         /**
-         * 这个应该是请求好友的数据过来时的操作
+         * 新增加的帮助好友施肥的功能的数据返回
+         * friendHelpedFertilizeData--->Object
+         * 		{
+         * 			id:"",// 后台随机生成的一个id
+         * 			percent:0.25 // 每次能添产多少
+         * 			times:5 // 还有几次时效
+         * 		}
          */ 
         public function handle_response(result:Object, channel:String):void{
             var prop:* = null;
@@ -1269,6 +1276,11 @@
                 names.push("coins");
                 names.push("reward_points");
             }
+            if(result.friendHelpedFertilizeData){// 如果没有的话,会把上一次的清空掉
+            	app_data.friendHelpedFertilizeData = result.friendHelpedFertilizeData;
+            }else {
+            	app_data.friendHelpedFertilizeData = null;// 
+            }
             if (result.objects_to_update){
                 names.push("objects_to_update");
             }
@@ -1279,7 +1291,7 @@
                     sendNotification(ApplicationFacade.BACK_TO_MY_RANCH);
                 } else {
                     sendNotification(ApplicationFacade.SHOW_FARM);
-                    sendNotification(ApplicationFacade.FERTILIZE_BOX_COUNT,5);
+                    sendNotification(ApplicationFacade.FERTILIZE_BOX_COUNT,this.friendHelpedFertilizeData);
                 }
             } else {
                 update_objects(names);
@@ -2633,6 +2645,28 @@
             auto_queue = new Array();
         }
         
+        public function get friendHelpedFertilizeData():Object {
+        	return app_data.friendHelpedFertilizeData;
+        }
+        
+        public function get enabledFriendFertilizer():Boolean {
+        	var result:Boolean;
+        	if(friendHelpedFertilizeData && friendHelpedFertilizeData.times > 0){
+        		result = true;
+        	}
+        	return result;
+        }
+        
+        public function friendFertilize(value:Object):Boolean {
+        	var plant:Plant = value.plant;
+        	if(!value.fertilizer){
+        		return false;
+        	}
+        	plant.friendFertilize(value.fertilizer.percent);
+        	sendNotification(ApplicationFacade.FERTILIZE_BOX_EFFECT);
+        	return true;
+        }
+        
         /**
          * 施肥的方法 
          */ 
@@ -2641,7 +2675,7 @@
             var info:Object = config.store[fertilizer.id];
             if (fertilizer.times_used >= info.uses){
                 return (false);
-            };
+            }
             var plant:Object = get_map_obj(data.plant.id, data.plant.grid_x, data.plant.grid_y);
             plant.start_time = (plant.start_time - (plant.collect_in * info.percent));
             fertilizer.times_used++;
@@ -2650,7 +2684,7 @@
             if (!data.fertilizer.can_use()){
                 remove_map_obj(fertilizer.id, fertilizer.x, fertilizer.y);
                 data.fertilizer.kill();
-            };
+            }
             return true;
         }
         

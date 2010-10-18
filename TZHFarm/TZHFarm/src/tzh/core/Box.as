@@ -95,7 +95,7 @@ package tzh.core
 		public function show(num:Number):void {
 			this.destory();
 			var animationSprite:AnimationSprite = null;
-			if(isNaN(num) || num == -1){
+			if(isNaN(num) || num <= 0){
 				tooltip = "";
 				// 这里是绘制不能点的,如果显示提示的话,也可以在这里控制
 			}else {
