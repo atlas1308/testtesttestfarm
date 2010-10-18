@@ -26,14 +26,6 @@ package {
 	 * 
 	 * 修改问题
 	 * 
-	 * 初始化用户购买化肥时,会出现升级的bug
-	 * 
-	 * 蜜蜂采蜜有Bug
-	 * 
-	 * 购买Jam有bug,不能同时操作
-	 * 
-	 * 
-	 * 修改JS里devel_replace 这个去掉,不分隔
 	 */ 
 	 
 	public class TZHFarm extends Sprite

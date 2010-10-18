@@ -31,9 +31,9 @@
         
         private function get fertilizer():Fertilizer{
             if (!target){
-                return (null);
+                return null;
             }
-            return ((target as Fertilizer));
+            return target as Fertilizer;
         }
         
         override protected function mouseOut():void{

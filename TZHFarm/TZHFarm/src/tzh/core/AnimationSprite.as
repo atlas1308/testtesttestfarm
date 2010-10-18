@@ -15,17 +15,27 @@ package tzh.core
 	{
 		private var target:DisplayObject;// 操作的mc对象
 		
-		public function AnimationSprite(target:DisplayObject)
+		public function AnimationSprite(cls:Class)
 		{
-			this.target = target;
+			this.target = this.addChild(new cls()) as DisplayObject;
 		}
 		
 		public function effect():void {
-			var tween:TweenLite = TweenLite.to(this.target,2,{scaleX:0,scaleY:0,
-				onComplete:function():void {
-					this.dispatchEvent(new Event(Event.COMPLETE));
-				}						
-			});// 暂时是这样子简单的效果,可以修改这里
+			var tween:TweenLite = TweenLite.to(this.target,1,{scaleX:0,scaleY:0,onComplete:completeHandler});// 暂时是这样子简单的效果,可以修改这里
 		}
+		
+		private function completeHandler():void {
+			this.dispatchEvent(new Event(Event.COMPLETE));
+		}
+		
+		/* private var _tooltip:String;
+		
+		public function set tooltip(value:String):void {
+			this._tooltip = value;
+		}
+		
+		public function get tooltip():String {
+			return this._tooltip;
+		} */
 	}
 }

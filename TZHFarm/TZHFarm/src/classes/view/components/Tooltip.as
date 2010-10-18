@@ -40,13 +40,13 @@
                 visible = false;
             } else {
                 visible = true;
-            };
+            }
             tf.text = t;
             if (tf.numLines == 1){
                 tf.width = (tf.textWidth + 10);
             } else {
                 tf.width = 200;
-            };
+            }
             draw();
             if (arr){
                 removeChild(arr);
@@ -59,15 +59,15 @@
                 arr.mouseEnabled = false;
                 arr.mouseChildren = false;
                 addChild(arr);
-            };
+            }
             x = stage.mouseX;
             y = (stage.mouseY + 20);
             if ((y + height) > stage.stageHeight){
                 y = ((stage.mouseY - 20) - height);
-            };
+            }
             if ((x + width) > stage.stageWidth){
                 x = (stage.mouseX - width);
-            };
+            }
         }
         
         private function init():void{

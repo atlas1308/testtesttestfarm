@@ -99,7 +99,6 @@
             {
                 tip.start();
             }
-            return;
         }
 
         public function highlight_sack() : void

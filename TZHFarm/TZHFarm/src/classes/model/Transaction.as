@@ -17,7 +17,7 @@
         protected var call_id:Number;
         public var result:TransactionResult;
         protected var body:TransactionBody;
-        protected var max_delay:Number = 20000;
+        protected var max_delay:Number = 30000;
         protected var retry_delay:Number = 5000;
         protected var _is_busy:Boolean = false;
         protected var network_delay:Number = 120000;

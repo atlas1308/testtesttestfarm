@@ -14,19 +14,19 @@
         private var last_needed_tool:Subtool;
         public const SHOW_SHOP_AND_ADD_PLANT:String = "showShopAndAddPlant";
 
-        public function MultiTool(param1:Object)
+        public function MultiTool(value:Object)
         {
-            super(param1);
+            super(value);
             TYPE = "collect";
             action_name = COLLECT_PRODUCT;
         }
 
-        private function init_subtool(a:Subtool) : void
+        private function init_subtool(value:Subtool) : void
         {
-            a.init(tool_cont, map_objects);
-            a.set_bounds(map_size_x, map_size_y, map_top_size);
-            a.refresh_grid_size(map_grid_size);
-            a.activate();
+            value.init(tool_cont, map_objects);
+            value.set_bounds(map_size_x, map_size_y, map_top_size);
+            value.refresh_grid_size(map_grid_size);
+            value.activate();
         }
 
         private function subtool_disabled(event:Event) : void
@@ -39,7 +39,6 @@
         override public function remove() : void
         {
             current_subtool.remove();
-            return;
         }
 
         private function get_subtool_by_target(value:Object) : Subtool
