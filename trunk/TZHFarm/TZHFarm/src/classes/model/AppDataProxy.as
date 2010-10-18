@@ -370,7 +370,7 @@
         }
         
         public function lottery_message():String{
-            return (app_data.lottery_coins);
+            return app_data.lottery_coins;
         }
         
         public function cancel_help_popup():void{
@@ -1873,7 +1873,7 @@
             var obj:Object = Algo.clone(config.store[id]);
             if (!obj){
                 return (null);
-            };
+            }
             if (obj.constructible){
                 obj.swf_uc = (("assets/swf/" + obj.url) + "_uc.swf");
                 obj.image_uc = (("images/" + obj.url) + "_uc.png");
@@ -1948,10 +1948,14 @@
                 obj.locked_message = ResourceManager.getInstance().getString("message","locked_message",[obj.level]);
                 obj.locked_button = ResourceManager.getInstance().getString("message","locked_button_buy");
             }
-            /* if (neighbors_count() == 0){
-                obj.buy_gift = false;
-            } */
-            obj.buy_gift = false;// 先默认的都不能送
+            var version:String = CONFIG::version;
+            if(version == "pt"){// 暂时只有这个版本才会支持
+	            if (neighbors_count() == 0){
+	                obj.buy_gift = false;
+	            }
+            }else {
+            	obj.buy_gift = false;
+            }
             return (obj);
         }
         
@@ -1978,7 +1982,7 @@
         public function get_story_popup_data():Object{
             if (!app_data.stories.length){
                 return (null);
-            };
+            }
             var data:Object = Algo.clone(app_data.stories[0]);
             data.image = (("images/stories/" + data.image) + ".png");
             return data;
@@ -2055,11 +2059,11 @@
             };
             if (!info.is_multi){
                 if (!app_data.storage[info.raw_material]){
-                    return (false);
-                };
+                    return false;
+                }
                 if (obj_fed.raw_materials == 3){
-                    return (false);
-                };
+                    return false;
+                }
                 food_info = config.store[info.raw_material];
             };
             if (show_preloader){
@@ -2140,8 +2144,8 @@
                 };
             } else {
                 if (app_data.op <= 0){
-                    return (false);
-                };
+                    return false;
+                }
                 if (info.is_multi){
                     total_exp = 0;
                     raw_material = MultiProcessor(obj).get_raw_material_id(material);
@@ -2477,14 +2481,14 @@
                 obj_fed = get_map_obj(obj.id, obj.grid_x, obj.grid_y);
                 if (obj_fed.raw_materials == 3){
                     return report_confirm_error(ResourceManager.getInstance().getString("message","error_message_full_message",[info.name]));
-                };
+                }
                 confirm = new Confirmation(food_info.exp, 0);
                 confirm.set_target(obj);
                 app_data.experience = (app_data.experience + food_info.exp);
                 var storage:Object = app_data.storage;
-                var _local11 = info.raw_material;
-                var _local12 = (storage[_local11] - 1);
-                storage[_local11] = _local12;
+                var id:* = info.raw_material;
+                var temp:int = (storage[id] - 1);
+                storage[id] = temp;
                 obj_increase_raw_material(obj_fed);
                 refresh_level();
                 Processor(obj).feed();
@@ -2509,6 +2513,9 @@
             return message;
         }
         
+        /**
+         *  
+         */ 
         private function apply_rain(value:Number):Boolean{
             var obj:Object;
             var data:Object;
@@ -2556,7 +2563,7 @@
             var i:Number = 0;
             while (i < app_data.achievements.length) {
                 if (app_data.achievements[i].id == id){
-                    return (app_data.achievements[i]);
+                    return app_data.achievements[i];
                 }
                 i++;
             }
@@ -2569,13 +2576,13 @@
         public function show_feed_dialog(data:Object=null):void{
             /* if (((!(app_data.feed_data)) && (!(data)))){
                 return;
-            } */
-            var feed_data:Object;/*  = (data) ? data : app_data.feed_data;
+            }
+            var feed_data:Object = (data) ? data : app_data.feed_data;
             if (feed_data.add_user){
                 feed_data.attachment.description = (user_name + feed_data.attachment.description);
             }
-            last_feed_data = feed_data; */
-            sendNotification(ApplicationFacade.SHOW_FEED_DIALOG, feed_data);
+            last_feed_data = feed_data; 
+            sendNotification(ApplicationFacade.SHOW_FEED_DIALOG, feed_data); */
         }
         
         private function num_materials(obj:Object):Number{
@@ -2611,19 +2618,19 @@
             var s:Number = item.size;
             var current_size:Number = ((item.action)=="expand") ? app_data.size_x : ((item.action)=="expand_top_map") ? app_data.top_map_size : app_data.bottom_map_size;
             for each (obj in config.store) {
-                if ((((((obj.type == "expand_ranch")) && ((obj.action == item.action)))) && (!(obj.neighbors)))){
+                if (obj.type == "expand_ranch"&& obj.action == item.action && !obj.neighbors){
                     plans.push(obj);
-                };
-            };
+                }
+            }
             plans.sortOn("size", Array.NUMERIC);
             i = 0;
             while (i < plans.length) {
                 if (plans[i].size == current_size){
                     current_plan = i;
-                };
+                }
                 if (plans[i].size == s){
                     requested_plan = i;
-                };
+                }
                 i++;
             }
             if ((plans.length - 1) == current_plan){
@@ -2639,16 +2646,29 @@
             return ({result:true});
         }
         
+        /**
+         * 清除队列 
+         */ 
         public function clear_process_queue():void{
             queue = new Array();
             queue_is_processing = false;
             auto_queue = new Array();
         }
         
+        /**
+         * 帮助好友的数据
+         * 	包括
+         * 		id 使用的ID
+         * 		times 使用的次数
+         * 		percent 增加的比例
+         */ 
         public function get friendHelpedFertilizeData():Object {
         	return app_data.friendHelpedFertilizeData;
         }
         
+        /**
+         * 是否能给好友施肥 
+         */ 
         public function get enabledFriendFertilizer():Boolean {
         	var result:Boolean;
         	if(friendHelpedFertilizeData && friendHelpedFertilizeData.times > 0){
@@ -2657,6 +2677,10 @@
         	return result;
         }
         
+        /**
+         * 给好友施肥
+         * @param value:Object 
+         */ 
         public function friendFertilize(value:Object):Boolean {
         	var plant:Plant = value.plant;
         	if(!value.fertilizer){
@@ -2673,8 +2697,8 @@
         public function fertilize(data:Object):Boolean{
             var fertilizer:Object = get_map_obj(data.fertilizer.id, data.fertilizer.grid_x, data.fertilizer.grid_y);
             var info:Object = config.store[fertilizer.id];
-            if (fertilizer.times_used >= info.uses){
-                return (false);
+            if (fertilizer.times_used >= info.uses){// 已经使用的 > 总共能使用的次数的话
+                return false;
             }
             var plant:Object = get_map_obj(data.plant.id, data.plant.grid_x, data.plant.grid_y);
             plant.start_time = (plant.start_time - (plant.collect_in * info.percent));
@@ -2739,11 +2763,11 @@
             var i:Number = 0;
             while (i < app_data.map.length) {
                 obj = app_data.map[i];
-                if ((((((obj.id == id)) && ((obj.x == x)))) && ((obj.y == y)))){
-                    if (((!((flipped == -1))) && (!((obj.flipped == flipped))))){
+                if (obj.id == id && obj.x == x && obj.y == y){
+                    if (flipped != -1 && obj.flipped != flipped){// 如果有方向,并且方向不相同的话不执行.
                     } else {
                         app_data.map.splice(i, 1);
-                        return (true);
+                        return true;
                     }
                 }
                 i++;
@@ -2825,10 +2849,14 @@
             return false;
         }
         
-        public function get post_subtype():String{
+        /* public function get post_subtype():String{
             return (last_post_subtype);
-        }
+        } */
         
+        /**
+         * 扩展地块 
+         * @param item:Object
+         */ 
         public function expand_ranch(item:Object):void{
             switch (item.action){
                 case "expand":
@@ -2856,7 +2884,7 @@
                 if (((!(gift_mode)) && ((app_data.coins < item.price)))){
                     report_confirm_error(Err.NO_COINS, false, obj);
                     obj.kill();
-                    return (false);
+                    return false;
                 }
                 obj.map_x = obj.grid_x;
                 obj.map_y = obj.grid_y;
@@ -2904,6 +2932,9 @@
             return false;
         }
         
+        /**
+         * 根据类型分类action 
+         */ 
         private function collect_object_action(obj:Object):String{
             if (obj.type == "seeds" || obj.type == "trees"){
                 return "Harvesting";
@@ -3268,16 +3299,16 @@
         /**
          * 弹出提示消息 
          * @params name:String 弹出的文字
-         * @params reset_tool:Boolean false 是否重置tool
+         * @params reset_tool:Boolean false 
          * @params target:MapObject 当前做用的对象
          */ 
         public function report_confirm_error(name:String, reset_tool:Boolean=false, target:MapObject=null):Boolean{
-            var _c:Confirmation = new Confirmation();
-            _c.text(name, false);
+            var confirmation:Confirmation = new Confirmation();
+            confirmation.text(name, false);
             if (target){
-                _c.set_target(target);
+                confirmation.set_target(target);
             }
-            sendNotification(ApplicationFacade.DISPLAY_CONFIRMATION, _c.get_data());
+            sendNotification(ApplicationFacade.DISPLAY_CONFIRMATION, confirmation.get_data());
             if (reset_tool){
                 sendNotification(ApplicationFacade.ESCAPE_PRESSED);// 这个事件会让显示的所有的内容都重新刷新
             }

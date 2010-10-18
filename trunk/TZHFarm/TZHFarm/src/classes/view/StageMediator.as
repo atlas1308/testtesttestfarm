@@ -344,9 +344,7 @@
                 }
                 case ApplicationFacade.SHOW_STREAM_PERMISSIONS:
                 {
-                    Log.add("show stream permissions");
                     stage.displayState = StageDisplayState.NORMAL;
-                    //ExternalInterface.call("showStreamPermissions");
                     break;
                 }
                 case ApplicationFacade.SHOW_SELECT_RAW_MATERIAL_POPUP:
@@ -519,7 +517,6 @@
                     {
                         popup_proxy.can_show_popup = false;
                         var neighborsListPopup:NeighborsListPopup = new NeighborsListPopup(app_data.get_neighbors_list_popup_data());
-                        //var neighborsListPopup:NeighborsListPopup = new NeighborsListPopup(app_data.get_neighbors_data());
                         neighborsListPopup.info = {gift:value.getBody() as Number};
                         facade.registerMediator(new PopupMediator(neighborsListPopup));
                         stage.addChild(neighborsListPopup);
@@ -666,11 +663,6 @@
             return facade.retrieveProxy(MapProxy.NAME) as MapProxy;
         }
 
-        private function permissionDialogClosed() : void
-        {
-            //fb_proxy.check_permissions();
-        }
-
         override public function listNotificationInterests() : Array
         {
             return [ApplicationFacade.CREATE_OBJECTS, ApplicationFacade.DISPLAY_ERROR, ApplicationFacade.SHOW_CONFIRM_POPUP, ApplicationFacade.SHOW_HELP_POPUP, ApplicationFacade.SHOW_LEVEL_UP_POPUP, ApplicationFacade.SHOW_REFRESH_PAGE_POPUP, ApplicationFacade.SHOW_LOTTERY_POPUP, ApplicationFacade.REFRESH_FOCUS, ApplicationFacade.UPDATE_OBJECTS, ApplicationFacade.TOGGLE_FULL_SCREEN, ApplicationFacade.SHOW_ADD_CASH_POPUP, ApplicationFacade.SHOW_FEED_DIALOG, ApplicationFacade.SHOW_ACCEPT_SNAPSHOT, ApplicationFacade.ACTIVATE_SNAPSHOT_MODE, ApplicationFacade.DEACTIVATE_SNAPSHOT_MODE, ApplicationFacade.SHOW_SNAPSHOT_PREVIEW, ApplicationFacade.SHOW_STREAM_PERMISSIONS, ApplicationFacade.SHOW_SELECT_RAW_MATERIAL_POPUP, ApplicationFacade.SHOW_NEWS_POPUP, ApplicationFacade.SHOW_POPUP, ApplicationFacade.SHOW_STORY_POPUP, ApplicationFacade.SHOW_ITEMS_RECEIVED, ApplicationFacade.SHOW_SEND_GIFTS_POPUP, ApplicationFacade.SHOW_UNDER_CONSTRUCTION_POPUP, ApplicationFacade.SHOW_FRIEND_HELPED_POPUP, ApplicationFacade.SHOW_NETWORK_DELAY_POPUP, ApplicationFacade.SHOW_NEIGHBORS_LIST_POPUP, ApplicationFacade.SHOW_GIFT_RECEIVED_POPUP, ApplicationFacade.SHOW_UPGRADE_POPUP, ApplicationFacade.SHOW_SELECT_OBJECT_POPUP];
@@ -719,11 +711,6 @@
         {
             snapshot_viewport.stop();
             snapshot_proxy.prepare_snapshot(snapshot_viewport.rectangle, stage.getChildByName("my_ranch") as Map);
-        }
-
-        protected function get fb_proxy() : JSProxy
-        {
-            return facade.retrieveProxy(JSProxy.NAME) as JSProxy;
         }
 
         protected function get snapshot_proxy() : SnapshotProxy
