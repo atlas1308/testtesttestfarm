@@ -25,7 +25,7 @@
             if (target){
                 show_above_objects(target);
                 target.state = "clear";
-            };
+            }
         }
         
         override public function action_confirmed(... _args):void{

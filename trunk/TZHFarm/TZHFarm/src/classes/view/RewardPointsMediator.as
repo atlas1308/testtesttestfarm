@@ -41,7 +41,6 @@
             rp.addEventListener(rp.ADD_RANCH_CASH, addRanchCash);
             rp.addEventListener(rp.SHOW_TOOLTIP, showTooltip);
             rp.addEventListener(rp.HIDE_TOOLTIP, hideTooltip);
-            return;
         }
 
         private function addRanchCash(event:Event) : void

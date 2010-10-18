@@ -135,7 +135,10 @@
         
         public static const TUTORIAL_COMPLETED:String = "tutorailCompleted";// 向导完成
         public static const TUTORIAL_STARTED:String = "tutorialStarted";// 向导开始
-
+		
+		public static const FERTILIZE_BOX_EFFECT:String = "FertilizeBoxEffect";// 最左历按纽的效果
+		public static const FERTILIZE_BOX_COUNT:String = "FertilizeBoxCount"
+		
         public function ApplicationFacade(value:String)
         {
             super(value);

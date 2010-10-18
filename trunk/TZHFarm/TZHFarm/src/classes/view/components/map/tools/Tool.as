@@ -225,11 +225,14 @@
         {
             return;
         }
-
+		
+		/**
+		 * 要重写这个方法
+		 */ 
         protected function get_above_objects(value:MapObject) : Array
         {
             var list:Array = null;
-            var _loc_5:MapObject = null;
+            //var _loc_5:MapObject = null;
             list = new Array();
             //list.push(value);
             return list;

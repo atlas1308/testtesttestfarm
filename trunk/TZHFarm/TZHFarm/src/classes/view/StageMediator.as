@@ -18,7 +18,8 @@
     import org.puremvc.as3.multicore.interfaces.*;
     import org.puremvc.as3.multicore.patterns.mediator.*;
     
-    import tzh.core.SoundManager;
+    import tzh.core.AnimationSprite;
+    import tzh.core.Box;
     
     /**
      * 整个场景的UI,和整个场景的显示,弹出的面板,都在这里 
@@ -129,6 +130,10 @@
             var anim_cont:* = new AnimationContainer(toolbar.storage);
             facade.registerMediator(new AnimationMediator(anim_cont));
             stage.addChild(anim_cont);
+            var fertilizeBox:Box = new Box();
+            fertilizeBox.visible = false;
+            facade.registerMediator(new FertilizeBoxMediator(fertilizeBox));
+            stage.addChild(fertilizeBox);
             var tooltip:classes.view.components.Tooltip = new classes.view.components.Tooltip();
             facade.registerMediator(new TooltipMediator(tooltip)); 
             stage.addChild(tooltip); 
@@ -140,7 +145,8 @@
             cancel_snapshot.visible = false;
             cancel_snapshot.addEventListener(MouseEvent.CLICK, snapshotCanceled);
             stage.addChild(cancel_snapshot);
-            try
+            
+            /* try
             {
                 if (ExternalInterface.available)
                 {
@@ -156,8 +162,8 @@
             }
             catch (e:Error)
             {
-            }
-            stageResize(null);
+            } */
+            stageResize();
             app_data.game_objects_created();
         }
         
@@ -670,7 +676,7 @@
             return [ApplicationFacade.CREATE_OBJECTS, ApplicationFacade.DISPLAY_ERROR, ApplicationFacade.SHOW_CONFIRM_POPUP, ApplicationFacade.SHOW_HELP_POPUP, ApplicationFacade.SHOW_LEVEL_UP_POPUP, ApplicationFacade.SHOW_REFRESH_PAGE_POPUP, ApplicationFacade.SHOW_LOTTERY_POPUP, ApplicationFacade.REFRESH_FOCUS, ApplicationFacade.UPDATE_OBJECTS, ApplicationFacade.TOGGLE_FULL_SCREEN, ApplicationFacade.SHOW_ADD_CASH_POPUP, ApplicationFacade.SHOW_FEED_DIALOG, ApplicationFacade.SHOW_ACCEPT_SNAPSHOT, ApplicationFacade.ACTIVATE_SNAPSHOT_MODE, ApplicationFacade.DEACTIVATE_SNAPSHOT_MODE, ApplicationFacade.SHOW_SNAPSHOT_PREVIEW, ApplicationFacade.SHOW_STREAM_PERMISSIONS, ApplicationFacade.SHOW_SELECT_RAW_MATERIAL_POPUP, ApplicationFacade.SHOW_NEWS_POPUP, ApplicationFacade.SHOW_POPUP, ApplicationFacade.SHOW_STORY_POPUP, ApplicationFacade.SHOW_ITEMS_RECEIVED, ApplicationFacade.SHOW_SEND_GIFTS_POPUP, ApplicationFacade.SHOW_UNDER_CONSTRUCTION_POPUP, ApplicationFacade.SHOW_FRIEND_HELPED_POPUP, ApplicationFacade.SHOW_NETWORK_DELAY_POPUP, ApplicationFacade.SHOW_NEIGHBORS_LIST_POPUP, ApplicationFacade.SHOW_GIFT_RECEIVED_POPUP, ApplicationFacade.SHOW_UPGRADE_POPUP, ApplicationFacade.SHOW_SELECT_OBJECT_POPUP];
         }
 
-        private function stageResize(event:Event) : void
+        private function stageResize(event:Event = null) : void
         {
             Log.add("stage resize");
             friends_list.x = (stage.stageWidth - friends_list.skin.bounds.width - toolbar.width) / 2;

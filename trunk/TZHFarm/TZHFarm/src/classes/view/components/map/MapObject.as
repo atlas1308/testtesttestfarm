@@ -231,7 +231,7 @@
         public function set state(s:String):void{
             if (((waiting_to_process) && (((((!((s == "remove_over"))) && (!((s == "clear"))))) && (!((s == "waiting_to_process"))))))){
                 return;
-            };
+            }
             switch (s){
                 case "intersect_whitout_corners":
                     highlight(0xCC0033, 0.45, false);

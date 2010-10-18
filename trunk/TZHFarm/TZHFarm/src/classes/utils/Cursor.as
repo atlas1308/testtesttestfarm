@@ -31,7 +31,7 @@
             if (((pointer) && (pointer.stage))){
                 pointer.stage.removeEventListener(Event.ENTER_FRAME, mouse_move);
                 pointer.parent.removeChild(pointer);
-            };
+            }
         }
         
         public static function show(type:String, is_url:Boolean=false, offset_x:Number=0, offset_y:Number=0, hide_mouse:Boolean=false):void{
@@ -39,7 +39,7 @@
             var cache:Cache;
             if (hide_mouse){
                 Mouse.hide();
-            };
+            }
             if (last_cursor == type){
                 return;
             };
@@ -66,7 +66,7 @@
                 cache = new Cache();
                 cache.addEventListener(Cache.LOAD_COMPLETE, pointerLoaded);
                 cache.load(type);
-            };
+            }
             pointer.mouseEnabled = false;
             pointer.mouseChildren = false;
             stage.addChild(pointer);

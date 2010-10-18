@@ -48,6 +48,7 @@
                     map.set_zoom(map_proxy.get_grid_size());
                     map.update(app_data.get_friend_farm_data());
                     map.set_tool("show_info");
+                    //map.set_tool("multi_tool");
                     map.visible = true;
                     map_proxy.friend_mode = true;
                     break;

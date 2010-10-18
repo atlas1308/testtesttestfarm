@@ -1279,14 +1279,15 @@
                     sendNotification(ApplicationFacade.BACK_TO_MY_RANCH);
                 } else {
                     sendNotification(ApplicationFacade.SHOW_FARM);
+                    sendNotification(ApplicationFacade.FERTILIZE_BOX_COUNT,5);
                 }
             } else {
                 update_objects(names);
             }
-            if (result.feed_data){
+            /* if (result.feed_data){
                 last_post_tag = result.feed_data.tag;
                 last_post_subtype = result.feed_data.subtype;
-            }
+            } */
             if (channel == "load_farm"){
                 sendNotification(ApplicationFacade.HIDE_OVERLAY);
                 if (app_data.farm.uid != user_id){
@@ -1294,7 +1295,7 @@
                     if (!app_data.farm.helped){
                         cancel_help_popup();
                         show_help_popup_interval = setTimeout(function ():void{
-                            sendNotification(ApplicationFacade.SHOW_HELP_POPUP);
+                            //sendNotification(ApplicationFacade.SHOW_HELP_POPUP);
                         }, 2500)	
                     }
                 }
@@ -1329,11 +1330,11 @@
                     Algo.merge(obj, Algo.clone(item));
                     if (obj.is_multi){
                         obj.selected_raw_material = get_selected_raw_material(obj.id, obj.x, obj.y);
-                    };
+                    }
                     if (obj.water_pipe){
                         obj.water_pipe_url = (("images/" + config.store[obj.water_pipe].url) + "_obj.png");
                         obj.water_pipe_growing_percent = config.store[obj.water_pipe].growing_percent;
-                    };
+                    }
                     output.objects.push(obj);
                 };
             };

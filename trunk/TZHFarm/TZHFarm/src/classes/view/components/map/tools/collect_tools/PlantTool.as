@@ -76,7 +76,7 @@ package classes.view.components.map.tools.collect_tools {
             super.activate();
             if (!data){
                 return;
-            };
+            }
             clear();
             plant = new Plant(data);
             plant.grid_size = map_grid_size;

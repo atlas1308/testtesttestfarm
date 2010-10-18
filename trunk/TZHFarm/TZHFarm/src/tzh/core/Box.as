@@ -3,6 +3,7 @@ package tzh.core
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 
 	public class Box extends Sprite
 	{
@@ -11,6 +12,8 @@ package tzh.core
 		public var hGap:Number = 5;// 水平的间隙
 		
 		private var effectsPool:Array = [];
+		
+		private var isRunning:Boolean;// 是否正在运行
 		
 		public function Box()
 		{
@@ -29,36 +32,49 @@ package tzh.core
 			for(var j:int = 0; j < numChildren; j++){
 				child = this.getChildAt(j);
 				child.y = startY;
-				startY += (j + 1) * child.height + vGap;
+				startY = (j + 1)  * (child.height + vGap);
 			}
 		}
 		
-		private var isRunning:Boolean;// 是否正在运行
-		
-		private var effectTimes:int;// 更新效果的次数,如果直接this.numChildren,有可能因为效果没执行,而this.numChildren不会有变化 
-		
+		/**
+		 * 调用这个方法,来播放效果,暂时只提供从最底下移除的效果
+		 */ 
 		public function effectLast():void {
-			effectTimes++;
-			var index:int = Math.max(0,(this.numChildren - effectTimes));
+			if(!this.hasChildren())return;
+			var index:int = Math.max(0,(this.numChildren - (effectsPool.length + 1)));
 			var child:DisplayObject = this.getChildAt(index);
 			if(child){
 				var animationSprite:AnimationSprite = AnimationSprite(child);
-				var isExistInPool:Boolean = effectsPool.indexOf(child) >= 0;
-				if(!isExistInPool){
-					effectsPool.push(child);
-				}
-				this.play(child);
+				effectsPool.push(animationSprite);
+				this.play();
 			}
 		}
 		
-		private function play(child:AnimationSprite):void {
-			if(child && !isRunning){
-				isRunning = true;
-				child.addEventListener(Event.COMPLETE,effectComplete);
-				child.effect();
-			}else {
-				trace("started" + isRunning);
+		private function play():void {
+			if(!isRunning){
+				var child:AnimationSprite = effectsPool[0] as AnimationSprite;
+				if(child){
+					isRunning = true;
+					child.addEventListener(Event.COMPLETE,effectComplete);
+					child.effect();
+				}else {
+					trace("started" + isRunning);
+				}
 			}
+		}
+		
+		/**
+		 * 是否还能播放下一个
+		 */ 
+		public function hasNext():Boolean {
+			return effectsPool.length > 0;
+		}
+		
+		/**
+		 * 是否还有子级
+		 */ 
+		public function hasChildren():Boolean {
+			return this.numChildren > 0;
 		}
 		
 		private function effectComplete(event:Event):void {
@@ -69,8 +85,48 @@ package tzh.core
 				trace("remove child error " + error.message); 
 			}
 			isRunning = false;
-			effectTimes--;
-			this.effectLast();
+			effectsPool.shift();
+			if(this.hasNext()){
+				this.play();
+			}
+		}
+		
+		public var tooltip:String;
+		public function show(num:Number):void {
+			this.destory();
+			var animationSprite:AnimationSprite = null;
+			if(isNaN(num) || num == -1){
+				tooltip = "";
+				// 这里是绘制不能点的,如果显示提示的话,也可以在这里控制
+			}else {
+	            for(var i:int = 0; i < num; i++){
+	            	tooltip = "test";
+	            	animationSprite = new AnimationSprite(CloseButton);
+	            	this.addChild(animationSprite);
+	            }
+            }
+            this.addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler);
+            this.addEventListener(MouseEvent.MOUSE_OUT, mouseOutHandler);
+            this.render(); 
+		}
+		
+		private function mouseMoveHandler(event:MouseEvent):void {
+			var target:DisplayObject = event.target as DisplayObject;
+			if(target.parent is AnimationSprite){// 
+				this.dispatchEvent(new Event(Constant.SHOW_TOOLTIP));
+			}
+		}
+		
+		private function mouseOutHandler(event:MouseEvent):void {
+			this.dispatchEvent(new Event(Constant.HIDE_TOOLTIP));
+		}
+		
+		public function destory():void {
+			this.removeEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler);
+            this.removeEventListener(MouseEvent.MOUSE_OUT, mouseOutHandler);
+			while(this.numChildren > 0){
+				this.removeChildAt(0);
+			}
 		}
 	}
 }
