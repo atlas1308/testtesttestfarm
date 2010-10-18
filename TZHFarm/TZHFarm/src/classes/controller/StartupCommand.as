@@ -6,6 +6,8 @@
     
     import flash.display.*;
     
+    import mx.resources.ResourceBundle;
+    
     import org.puremvc.as3.multicore.interfaces.*;
     import org.puremvc.as3.multicore.patterns.command.*;
     

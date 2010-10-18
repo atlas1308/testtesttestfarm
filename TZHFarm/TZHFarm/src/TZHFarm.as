@@ -1,13 +1,11 @@
 package {
 	import classes.ApplicationFacade;
 	
-	import com.greensock.TweenLite;
-	
-	import fl.motion.easing.Back;
-	
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.system.Security;
+	
+	import mx.resources.ResourceBundle;
 	
 	import tzh.core.Config;
 	import tzh.core.Constant;
@@ -48,7 +46,7 @@ package {
 		{
 			_instance = this;
 			Security.allowDomain("*");
-			//Config.setConfig("host","http://farm.lf3g.com/static/");// lf3g
+			Config.setConfig("host","http://farm.lf3g.com/static/");// lf3g
 			//Config.setConfig("transport","http://farm.lf3g.com/");
 			
 			/* Config.setConfig("host","http://newfarm.lf3g.com/static/");// 本机
@@ -58,7 +56,6 @@ package {
 			Config.setConfig("transport","http://ec2-46-51-129-166.eu-west-1.compute.amazonaws.com/");
 			
 			Config.setConfig("loadSocialData","loadSocialData");
-			//Config.setConfig("lang","en_US");
 			Config.setConfig("version","1.0");
 			Config.setConfig("lang","de-DE");
 			//Config.setConfig("lang","pt");
