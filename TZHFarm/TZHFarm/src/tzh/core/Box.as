@@ -113,12 +113,12 @@ package tzh.core
 		private function mouseMoveHandler(event:MouseEvent):void {
 			var target:DisplayObject = event.target as DisplayObject;
 			if(target.parent is AnimationSprite){// 
-				this.dispatchEvent(new Event(Constant.SHOW_TOOLTIP));
+				this.dispatchEvent(new TooltipEvent(TooltipEvent.SHOW_TOOLTIP));
 			}
 		}
 		
 		private function mouseOutHandler(event:MouseEvent):void {
-			this.dispatchEvent(new Event(Constant.HIDE_TOOLTIP));
+			this.dispatchEvent(new TooltipEvent(TooltipEvent.HIDE_TOOLTIP));
 		}
 		
 		public function destory():void {

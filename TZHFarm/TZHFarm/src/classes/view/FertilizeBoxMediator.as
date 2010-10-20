@@ -2,15 +2,12 @@ package classes.view
 {
 	import classes.ApplicationFacade;
 	
-	import flash.events.Event;
-	
 	import org.puremvc.as3.multicore.interfaces.INotification;
-	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
 	
 	import tzh.core.Box;
-	import tzh.core.Constant;
+	import tzh.core.TooltipComponentMediator;
 
-	public class FertilizeBoxMediator extends Mediator
+	public class FertilizeBoxMediator extends TooltipComponentMediator
 	{
 		public static const NAME:String = "FertilizeBoxMediator";
 		
@@ -42,19 +39,6 @@ package classes.view
 				default:
 					break;
 			}
-		}
-		
-		override public function onRegister():void {
-            box.addEventListener(Constant.SHOW_TOOLTIP, showTooltip);
-            box.addEventListener(Constant.HIDE_TOOLTIP, hideTooltip);
-		}
-		
-		private function showTooltip(event:Event):void {
-			sendNotification(ApplicationFacade.SHOW_TOOLTIP, event.target.tooltip);
-		}
-		
-		private function hideTooltip(event:Event):void {
-			sendNotification(ApplicationFacade.HIDE_TOOLTIP);
 		}
 		
 		override public function listNotificationInterests():Array {

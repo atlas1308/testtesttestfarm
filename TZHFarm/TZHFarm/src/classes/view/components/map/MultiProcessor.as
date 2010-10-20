@@ -386,8 +386,8 @@
                     return (product[i]);
                 }
                 i++;
-            };
-            return (0);
+            }
+            return 0;
         }
         
         public function highlight_switch():void{
@@ -562,14 +562,14 @@
         protected function update_switch_area():void{
             if (!switch_area){
                 return;
-            };
+            }
             switch_area.gotoAndStop(get_product_frame(get_product_by_raw_material(get_raw_material_id(1)), false));
         }
         
         override public function wait_to_process(channel:String):void{
             if (channel == "feed1"){
                 raw_materials_queue.push(get_raw_material_id(1));
-            };
+            }
             super.wait_to_process(channel);
         }
         
@@ -589,9 +589,9 @@
                 if (!(raw_material[0] as Array)){
                     return (raw_material[0]);
                 }
-                return (raw_material[0][selected_raw_material]);
+                return raw_material[0][selected_raw_material];
             }
-            return (raw_material[(index - 1)]);
+            return raw_material[(index - 1)];
         }
         
         override public function turn_on_automation():void{
@@ -660,7 +660,7 @@
         }
         
         public function get_selected_raw_material():Number{
-            return (selected_raw_material);
+            return selected_raw_material;
         }
         
         override public function product_name():String{

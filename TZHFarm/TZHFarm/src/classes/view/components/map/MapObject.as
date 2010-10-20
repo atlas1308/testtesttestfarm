@@ -74,7 +74,7 @@
         public static const MAP_OBJECT_TYPE_TREES:String = "trees";// 树
         public static const MAP_OBJECT_TYPE_DECORATIONS:String = "decorations";// 装饰
 		
-		
+		public static const MAP_OBJECT_TYPE_SOLI:String = "soil";
 		private var _data:Object;
 		
 		public function get data():Object {
@@ -122,12 +122,12 @@
         protected function init_asset():void{
         }
         
-        /* public function focus():void{
+        public function focus():void{
             var arr:arrow = new arrow();
             arr.x = ((_width - arr.width) / 2);
             arr.y = ((_height / 2) - arr.height);
             addChild(arr);
-        } */
+        } 
         
         public function get y_size():Number{
             return (size_y);
@@ -680,6 +680,46 @@
             return (hit_area.hitTestPoint(p.x, p.y, true));
         }
         
+        /* private var _highlightBitmapData:BitmapData;
+		protected function getHighlight():void{
+            var bitmap:* = null;
+            if (_highlightBitmapData != null){
+                _highlightBitmapData.dispose();
+                _highlightBitmapData = null;
+            }
+            try {
+                bitmap = asset.getChildAt(0);
+                if (bitmap != null && bitmap is Bitmap && bitmap.width > 0){
+                    _highlightBitmapData = (bitmap as Bitmap).bitmapData;
+                } 
+            } catch(err:Error) {
+            	trace("get bitmap hitTest error");
+            }
+        } */
+        
+        /**
+         * flashplayer 9的最大限制 
+         */ 
+        /* public function get highlightBitmapData():BitmapData {
+        	if(!_highlightBitmapData){
+        		_highlightBitmapData = new BitmapData(Math.min(asset.width,2880),Math.min(asset.height,2880),true,0x00000000);
+        		_highlightBitmapData.draw(asset);
+        	}
+        	return _highlightBitmapData;
+        } */
+        
+        /**
+         * 这个方法还是得重写,现在特别是3维的方式渲染的话,还是有些问题
+         * hisTest的方法总是不正确呢
+         */ 
+        public function hit_test_object(value:DisplayObject):Boolean {
+        	var result:Boolean; 
+        	if(this.asset){
+        		result = this.asset.hitTestObject(value);
+        	}
+        	return result;
+        }
+        
         public function get grid_y():Number{
             return (get_grid_y(x, y));
         }
@@ -775,20 +815,22 @@
         
         protected function add_asset():void{
             asset.addChildAt((loader.asset as DisplayObject), 0);
+            //this.getHighlight();
         }
         
         public function can_upgrade():Boolean{
             if (!upgradeable){
-                return (false);
-            };
+                return false;
+            }
             if (under_construction){
-                return (false);
-            };
+                return false;
+            }
             if (upgrade_level == (Algo.count(upgrade_levels) + 1)){
                 return (false);
-            };
-            return (true);
+            }
+            return true;
         }
+        
         protected function get_grid_y(x:Number, y:Number):Number{
             var key:String = ((((("coord_" + x) + "_") + y) + "_") + _grid_size);
             if (!y_coord[key]){

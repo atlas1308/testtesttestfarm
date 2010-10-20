@@ -24,6 +24,40 @@ package {
 	 * 
 	 * 修改问题
 	 * 
+	 * 后台对于加工厂的处理还是有错误
+	 * 	暂时还没有对selected_raw_material的处理,
+	 *  应该尽快对这条数据处理,表示选择原料的索引
+	 *  从raw_material[0] 里去寻找就可以找到了
+	 *  比如refill时会传递一个raw_material,比如这个raw_material=42
+	 *  那么selected_raw_material=0,
+	 *  如果raw_material=58
+	 *  那么selected_raw_material=2,
+	 *  ),
+	    61 => (Object) array(
+	        'raw_material' => array (
+	            0 => array (
+	                0 => 42,
+	                1 => 49,
+	                2 => 58,
+	                3 => 60,
+	                4 => 84,
+	                5 => 86,
+	                6 => 88,
+	                7 => 133,
+	            ),
+	            1 => 46,
+	        ),
+	        'product' => array (
+	            0 => 62,
+	            1 => 63,
+	            2 => 64,
+	            3 => 65,
+	            4 => 89,
+	            5 => 90,
+	            6 => 91,
+	            7 => 134,
+	        )
+	    ),
 	 */ 
 	 
 	public class TZHFarm extends Sprite
@@ -57,7 +91,6 @@ package {
 		
 		private function addToStageHandler(evt:Event = null):void {
 			SoundManager.getInstance().addSound(Constant.BACKGROUND_KEY,Config.getConfig("host") + "sound/background.mp3");
-			//SoundManager.getInstance().addSound(Constant.BACKGROUND_KEY,"music3.mp3");
 			ApplicationFacade.getInstance("myRanch").startup(this.stage);
 		}
 	}

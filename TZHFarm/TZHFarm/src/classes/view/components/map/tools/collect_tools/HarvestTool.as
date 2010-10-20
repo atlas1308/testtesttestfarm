@@ -37,14 +37,21 @@
         }
         
         override protected function mouseUp():void{
-            if (((plant) && (plant.is_ready()))){
+            if (this.usable()){
                 dispatchEvent(new Event(CONFIRM_ACTION));
                 disable();
-            };
+            }
+        }
+        
+        override protected function mouseDown():void {
+        	super.mouseDown();
+        	if(plant){
+            	show_above_objects(plant);
+            }
         }
         
         override public function get_event_data():Object{
-            return (plant);
+            return plant;
         }
         
         override protected function mouseOver():void{
@@ -57,28 +64,28 @@
                 } else {
                     use_tip_icon = false;
                 }
+                var message:String = ResourceManager.getInstance().getString("message","plant_grow_message",[plant.get_name(),plant.product_percent()]);
                 if (plant.is_ready()){
                     if (plant.is_pollinated()){
-                        tip(ResourceManager.getInstance().getString("message","click_to_harvest_pollinated_message",[plant.get_name()]));
+                    	message = ResourceManager.getInstance().getString("message","click_to_harvest_pollinated_message",[plant.get_name()]);
                     } else {
-                        tip(ResourceManager.getInstance().getString("message","click_to_harvest_message",[plant.get_name()]));
+                    	message = ResourceManager.getInstance().getString("message","click_to_harvest_message",[plant.get_name()]);
                     }
-                } else {
-                    tip(ResourceManager.getInstance().getString("message","plant_grow_message",[plant.get_name(),plant.product_percent()]));
                 }
+                tip(message);
             }
         }
         
         private function get plant():Plant{
-            if ((((target as Plant)) && (target.usable))){
-                return ((target as Plant));
+            if (target as Plant && target.usable){
+                return target as Plant;
             }
             return null;
         }
         
         override public function usable():Boolean{
-            if (((plant) && (plant.is_ready()))){
-                return (true);
+            if (plant && plant.is_ready()){
+                return true;
             }
             return false;
         }
