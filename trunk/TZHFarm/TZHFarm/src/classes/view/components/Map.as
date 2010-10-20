@@ -560,6 +560,7 @@
             var i:Number = 0;
             while (i < map_objects.numChildren) {
                 obj = (map_objects.getChildAt(i) as MapObject);
+                /* if (obj.hit_test(map_objects.mouseX, map_objects.mouseY)){ */
                 if (obj.hit_test(map_objects.mouseX, map_objects.mouseY)){
                     return obj;
                 }

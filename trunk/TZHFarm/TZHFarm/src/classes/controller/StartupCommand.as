@@ -62,7 +62,7 @@
 			obj.fb_sig_session_key = "2.SNB9BZ63xoJnJEBtCWCRhw__.3600.1277542800-1560424778";
 			obj.fb_sig_ss = "_YlZd6mag4eExSQA5ETxMQ__";
 			obj.fb_sig_time = "1277557804.1269dfa";
-			obj.fb_sig_user = "1234562";
+			obj.fb_sig_user = "123456";
 			//1234562
 			//sandbox.developer.studivz.net:P_06_OXHrM0wEke4iQr-9Q
 			//obj.fb_sig_user = "fdafdasfadaaadsa1fadfadaaaaaaa3" + Math.floor(Math.random() * 1000000);

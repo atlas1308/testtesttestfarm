@@ -201,7 +201,7 @@
             var index:Number = 0;
             while (index < list.length)
             {
-                MapObject(list[index]).alpha = 0.5;
+                MapObject(list[index]).alpha = 0.4;
                 index++;
             }
         }
@@ -231,10 +231,22 @@
 		 */ 
         protected function get_above_objects(value:MapObject) : Array
         {
-            var list:Array = null;
-            //var _loc_5:MapObject = null;
-            list = new Array();
-            //list.push(value);
+            var list:Array = [];;
+            var index:int = 0;
+            var maxDistance:int = 12;
+            while(index < map_objects.numChildren){
+            	var mapObject:MapObject = map_objects.getChildAt(index) as MapObject;
+            	if(mapObject.type != MapObject.MAP_OBJECT_TYPE_SEEDS && mapObject.type != MapObject.MAP_OBJECT_TYPE_SOLI){
+            		var hitabled:Boolean = mapObject.hit_test_object(value);
+	            	if(hitabled){
+	            		if(mapObject.bottom >= value.bottom && (mapObject.grid_y - value.grid_y <= maxDistance) &&
+		            		mapObject.right >= value.right && (mapObject.grid_x - value.grid_x) <= maxDistance){
+		            		list.push(mapObject);
+	            		}
+	            	}
+            	}
+            	index++;
+            }
             return list;
         }
 
