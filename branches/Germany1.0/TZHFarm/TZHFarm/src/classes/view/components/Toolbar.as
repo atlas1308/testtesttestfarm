@@ -101,13 +101,22 @@
             this.zoom_out_btn = this.skin.zoom_out_btn;
             this.music = this.skin.music;
             
-            var playSoundAbled:Boolean = Cookies.getCookies(Constant.BACKGROUND_KEY) as Boolean;
-            if(playSoundAbled){
-            	this.music.gotoAndStop(1);
-            	SoundManager.getInstance().playSound(Constant.BACKGROUND_KEY,false);
+            var hasCookies:Boolean = Cookies.hasCookies(Constant.BACKGROUND_KEY);
+            var frame:int = 2;
+            if(!hasCookies){// 如果没有cookies的话,默认的是可以播放的
+            	frame = 1;
             }else {
-            	this.music.gotoAndStop(2);
+            	var playSoundAbled:Boolean = Cookies.getCookies(Constant.BACKGROUND_KEY) as Boolean;// 如果有cookies就得判断是否可以播放了
+            	if(playSoundAbled){// 可以播放
+            		frame = 1;
+            	}else {
+            		frame = 2;
+            	}
             }
+            if(frame == 1){
+            	SoundManager.getInstance().playSound(Constant.BACKGROUND_KEY,false);
+            }
+            this.music.gotoAndStop(frame);
         }
         
         public function get skinRef():MovieClip {

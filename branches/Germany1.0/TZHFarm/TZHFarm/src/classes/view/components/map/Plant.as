@@ -32,7 +32,7 @@
 		
 		public var update_changed:Boolean;
         public function Plant(data:Object){
-            pollinated = (PHPUtil.toBoolean(data.pollinated)) ? true : false;
+            pollinated = PHPUtil.toBoolean(data.pollinated);
             _current_collect_in = (data.current_collect_in) ? data.current_collect_in : 0;
             grown_percent = (data.grown_percent) ? data.grown_percent : 0;
             super(data);

@@ -102,7 +102,7 @@
             }
             if (popup as RefreshPagePopup)
             {
-                sendNotification(ApplicationFacade.NAVIGATE_TO_URL, "");
+                JSDataManager.reload();// 更新为reload方法,原来是使用的跳转的方式
             }
             if (popup as CashPopup)
             {
@@ -165,12 +165,10 @@
                     {
                         if (app_data.gift_mode)
                         {
-                            trace("USE GIFT");
                             sendNotification(ApplicationFacade.USE_GIFT, {target:SelectPopup(popup).selected_data.object, item:SelectPopup(popup).selected_data.material});
                         }
                         else
                         {
-                            trace("SPEND RP");
                             sendNotification(ApplicationFacade.SPEND_RP, {target:SelectPopup(popup).selected_data.object, item:SelectPopup(popup).selected_data.material});
                         }
                         break;

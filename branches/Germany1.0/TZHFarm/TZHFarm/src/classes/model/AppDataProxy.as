@@ -1860,25 +1860,25 @@
             var s:*;
             var obj:Object = Algo.clone(config.store[id]);
             if (!obj){
-                return (null);
-            };
+                return null;
+            }
             if (obj.constructible){
                 obj.swf_uc = (("assets/swf/" + obj.url) + "_uc.swf");
                 obj.image_uc = (("images/" + obj.url) + "_uc.png");
                 obj.under_construction = true;
-            };
+            }
             if (obj.map_object){
-                obj.swf = (("assets/swf/" + obj.url) + ".swf");
-            };
+                obj.swf = ("assets/swf/" + obj.url) + ".swf";
+            }
             if (obj.kind == "fertilizer"){
                 obj.image = (((("images/" + obj.url) + "_") + obj.uses) + ".png");
             } else {
                 obj.image = (("images/" + obj.url) + ".png");
-            };
+            }
             obj.cursor = (("images/" + obj.url) + "_cur.png");
             if (obj.action == "irrigation"){
                 obj.image_obj = (("images/" + obj.url) + "_obj.png");
-            };
+            }
             if (obj.collect_in){
                 if (!obj.is_multi){
                     product = config.store[obj.product];
@@ -1936,10 +1936,10 @@
                 obj.locked_message = ResourceManager.getInstance().getString("message","locked_message",[obj.level]);
                 obj.locked_button = ResourceManager.getInstance().getString("message","locked_button_buy");
             }
-            /* if (neighbors_count() == 0){
+            if (neighbors_count() == 0){
                 obj.buy_gift = false;
-            } */
-            obj.buy_gift = false;// 先默认的都不能送
+            } 
+            obj.buy_gift = true;// 先默认的都不能送
             return (obj);
         }
         
