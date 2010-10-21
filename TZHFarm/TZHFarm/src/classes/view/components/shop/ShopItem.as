@@ -33,6 +33,10 @@
         private var buy_btn:GameButton;
 		
 		public static const HARVEST_ACTION:String = "Harvest";
+		
+		public static const BUY_METHOD_COIN:String = "coins";// 用coins来购买的常量
+		public static const BUY_METHOD_RP:String = "rp";// 用rp来购买的常量
+		
         public function ShopItem(value:Object)
         {
             this.data = value;
