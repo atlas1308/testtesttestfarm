@@ -1936,10 +1936,11 @@
                 obj.locked_message = ResourceManager.getInstance().getString("message","locked_message",[obj.level]);
                 obj.locked_button = ResourceManager.getInstance().getString("message","locked_button_buy");
             }
-            if (neighbors_count() == 0){
+            /* if (neighbors_count() == 0){
                 obj.buy_gift = false;
             } 
-            obj.buy_gift = true;// 先默认的都不能送
+            obj.buy_gift = true;// 先默认的都不能送 */
+            obj.buy_gift = false;
             return (obj);
         }
         
