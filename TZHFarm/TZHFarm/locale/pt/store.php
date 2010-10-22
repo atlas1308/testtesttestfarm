@@ -102,10 +102,10 @@ return array(
         'name' => 'Cenouras',
     ),
     34 => array(
-        'name' => 'Coelho angolano',
+        'name' => 'pêlos de coelho',
     ),
     35 => array(
-        'name' => 'Cabelo angolano',
+        'name' => 'pêlos de coelho',
     ),
     36 => array(
         'name' => 'Carneiro',
