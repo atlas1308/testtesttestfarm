@@ -430,8 +430,8 @@ return array(
         'type' => 'expand_ranch',
         'map_object' => false,
         'url' => 'expand-x23',
-        'neighbors' => 13,
-        'price' => 150000,
+        'neighbors' => 14,
+        'price' => 250000,
         'id' => 28
     ),
     29 => (Object) array(
@@ -455,8 +455,8 @@ return array(
         'type' => 'expand_ranch',
         'map_object' => false,
         'url' => 'expand-x25',
-        'neighbors' => 15,
-        'price' => 350000,
+        'neighbors' => 18,
+        'price' => 600000,
         'id' => 30
     ),
     31 => (Object) array(
@@ -1055,8 +1055,8 @@ return array(
         'type' => 'expand_ranch',
         'map_object' => false,
         'url' => 'expand-x27',
-        'neighbors' => 17,
-        'price' => 750000,
+        'neighbors' => 22,
+        'price' => 1000000,
         'id' => 66
     ),
     67 => (Object) array(
@@ -1080,7 +1080,7 @@ return array(
         'type' => 'expand_ranch',
         'map_object' => false,
         'url' => 'expand-x29',
-        'neighbors' => 19,
+        'neighbors' => 26,
         'price' => 1500000,
         'id' => 68
     ),
@@ -1272,7 +1272,7 @@ return array(
         'is_multi' => true,
         'map_object' => true,
         'size_x' => 8,
-        'level' => 24,
+        'level' => 30,
         'size_y' => 8
     ),
     79 => (Object) array(
@@ -1847,7 +1847,7 @@ return array(
         'exp' => 2800,
         'url' => 'expand-north',
         'neighbors' => 13,
-        'price' => 150000,
+        'price' => 250000,
         'id' => 114
     ),
     115 => (Object) array(
@@ -1874,7 +1874,7 @@ return array(
         'exp' => 3200,
         'url' => 'expand-north',
         'neighbors' => 15,
-        'price' => 350000,
+        'price' => 600000,
         'id' => 116
     ),
     117 => (Object) array(
@@ -1900,8 +1900,8 @@ return array(
         'size' => 24,
         'exp' => 3700,
         'url' => 'expand-north',
-        'neighbors' => 17,
-        'price' => 750000,
+        'neighbors' => 20,
+        'price' => 1000000,
         'id' => 118
     ),
     119 => (Object) array(
@@ -2318,7 +2318,7 @@ return array(
         'is_multi' => true,
         'map_object' => true,
         'size_x' => 4,
-        'level' => 28,
+        'level' => 38,
         'size_y' => 12
     ),
     156 => (Object) array(
