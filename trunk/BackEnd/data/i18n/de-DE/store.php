@@ -408,7 +408,7 @@ return array(
     ),
     140 => array(
         'name' => 'Herrenhaus',
-    ),
+    ), 
     147 => array(
         'name' => 'Kartoffel',
     ),
@@ -448,5 +448,41 @@ return array(
     ),
     159 => array(
         'name' => 'Packung Kartoffel',
+    ),
+	1001 => array(
+        'name' => 'Vogelscheuche',
+    ),
+	1002 => array(
+        'name' => 'Kleiner Blumenkorb', 
+    ),
+	1003 => array(
+        'name' => 'Großer Blumenkorb', 
+    ),
+	1004 => array(
+        'name' => 'Schaufel',
+    ),
+	1005 => array(
+        'name' => 'Blumenkorb',
+    ),
+	1006 => array(
+        'name' => 'Tür',      
+    ),
+	1007 => array(
+        'name' => 'Kieselboden',  
+    ),
+	1008 => array(
+        'name' => 'Picknickmatten',  
+    ),
+	1009 => array(
+        'name' => 'Blumentür',    
+    ),
+	1010 => array(
+        'name' => 'Bunter Kieselboden',
+    ),
+	1011 => array(
+        'name' => 'Würzenraum',  
+    ),
+	1013 => array(
+        'name' => 'Brunnen',   
     )
 );
