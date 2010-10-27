@@ -2536,7 +2536,7 @@ return array(
         'buyable' => true,
         'price' => 0,
         'store_pos' => 2,
-        'sell_price' => 2000,
+        'sell_price' => 1000,
         'url' => 'FlowerArches',
         'buy_gift' => true,
         'id' => 1009,
