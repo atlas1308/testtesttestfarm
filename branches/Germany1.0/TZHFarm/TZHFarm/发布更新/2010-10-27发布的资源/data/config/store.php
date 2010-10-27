@@ -2408,9 +2408,9 @@ return array(
         'name' => 'Small basket',
         'flipable' => true,
         'map_object' => true,
-        'size_x' => 8,
+        'size_x' => 4,
         'level' => 1,
-        'size_y' => 4
+        'size_y' => 2
     ),
 	1003 => (Object) array(
         'rp_price' => 0,
@@ -2427,9 +2427,9 @@ return array(
         'name' => 'Large basket',
         'flipable' => true,
         'map_object' => true,
-        'size_x' => 4,
+        'size_x' => 8,
         'level' => 1,
-        'size_y' => 2
+        'size_y' => 4
     ),
 	1004 => (Object) array(
         'rp_price' => 0,
