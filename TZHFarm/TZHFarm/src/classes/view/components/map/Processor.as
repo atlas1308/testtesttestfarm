@@ -362,16 +362,20 @@
         {
             return products;
         }
-
-        public function highlight_automation_areas(animals:Number) : void
+		
+		/**
+		 * 特效
+		 * @param value 颜色值
+		 */ 
+        public function highlight_automation_areas(value:Number) : void
         {
             if (refill_area)
             {
-                Effects.glow(refill_area, animals);
+                Effects.glow(refill_area, value);
             }
             if (collect_area)
             {
-                Effects.glow(collect_area, animals, false);
+                Effects.glow(collect_area, value, false);
             }
         }
 		
@@ -390,7 +394,6 @@
         {
             var index:Number = NaN;
             collect_in = old_collect_in / animals;
-            //start_time = Algo.time();//这里如果计算了下段代码好像没用
             if (start_time)// 这个判断可能多余了,上面这段代码应该去掉
             {
             	var diffTime:Number = Algo.time() - start_time;

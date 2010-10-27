@@ -25,7 +25,7 @@
             if (target){
                 show_above_objects(target);
                 target.state = "clear";
-            }
+            };
         }
         
         override public function action_confirmed(... _args):void{
@@ -37,16 +37,9 @@
         }
         
         override protected function mouseUp():void{
-            if (this.usable()){
+            if (plant && plant.is_ready()){
                 dispatchEvent(new Event(CONFIRM_ACTION));
                 disable();
-            }
-        }
-        
-        override protected function mouseDown():void {
-        	super.mouseDown();
-        	if(plant){
-            	show_above_objects(plant);
             }
         }
         
@@ -64,15 +57,15 @@
                 } else {
                     use_tip_icon = false;
                 }
-                var message:String = ResourceManager.getInstance().getString("message","plant_grow_message",[plant.get_name(),plant.product_percent()]);
                 if (plant.is_ready()){
                     if (plant.is_pollinated()){
-                    	message = ResourceManager.getInstance().getString("message","click_to_harvest_pollinated_message",[plant.get_name()]);
+                        tip(ResourceManager.getInstance().getString("message","click_to_harvest_pollinated_message",[plant.get_name()]));
                     } else {
-                    	message = ResourceManager.getInstance().getString("message","click_to_harvest_message",[plant.get_name()]);
+                        tip(ResourceManager.getInstance().getString("message","click_to_harvest_message",[plant.get_name()]));
                     }
+                } else {
+                    tip(ResourceManager.getInstance().getString("message","plant_grow_message",[plant.get_name(),plant.product_percent()]));
                 }
-                tip(message);
             }
         }
         
@@ -84,8 +77,8 @@
         }
         
         override public function usable():Boolean{
-            if (plant && plant.is_ready()){
-                return true;
+            if (((plant) && (plant.is_ready()))){
+                return (true);
             }
             return false;
         }

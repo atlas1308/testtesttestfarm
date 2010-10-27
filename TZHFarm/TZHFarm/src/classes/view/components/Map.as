@@ -174,7 +174,7 @@
             var clover:Plant = find_clover_for_bees((e.target as MapObject));
             if (!clover){
                 return;
-            };
+            }
             clover.mark_for_pollination();
             var swarm:BeesSwarm = new BeesSwarm((e.target as Hive), clover, (grid_size / 15));
             swarms.addChild(swarm);
@@ -1186,6 +1186,20 @@
         		var mapObject:MapObject = map_objects.getChildAt(i) as MapObject;
         		mapObject.mouseChildren = value;
         	}
+        }
+        
+        /**
+         * 获取当前场景里所有的processer,给用户关闭自动画的功能时用到的 
+         */ 
+        public function get allProcessers():Array {
+        	var result:Array = [];
+        	for(var i:int = 0; i < map_objects.numChildren; i++){
+        		var child:DisplayObject = map_objects.getChildAt(i);
+        		if(child is Processor){
+        			result.push(child);
+        		}
+        	}
+        	return result;
         }
         
         private function align_fences(ignored_fence:Fence=null):void{

@@ -135,11 +135,10 @@
         
         public static const TUTORIAL_COMPLETED:String = "tutorailCompleted";// 向导完成
         public static const TUTORIAL_STARTED:String = "tutorialStarted";// 向导开始
-		
-		public static const FERTILIZE_BOX_EFFECT:String = "FertilizeBoxEffect";// 最左历按纽的效果
-		public static const FERTILIZE_BOX_COUNT:String = "FertilizeBoxCount";
-		public static const FERTILIZE_FRIEND_HELPED:String = "FertilizeFriendHelped";// 好友帮助施肥
-		
+        
+        public static const SHOW_SHOP_BY_TITLE:String = "showShopByTitle";// 根据title弹出选择的内容
+        public static const TOGGLE_OFF_ALL_AUTOMATION:String = "toggleOffAllAutomation";// 关闭所有的automation,发这个事件
+
         public function ApplicationFacade(value:String)
         {
             super(value);

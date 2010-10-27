@@ -124,7 +124,7 @@
         protected function current_stage():Number{
             var c:Number;
             if (!start_time){
-                return (1);
+                return 1;
             }
             var r:Number = (time_passed() / stage_time());
             if (int(r) == r){
@@ -163,7 +163,7 @@
         
         public function is_ready():Boolean{
             if (start_time == 0){
-                return (false);
+                return false;
             }
             return ((Algo.time() > (start_time + collect_in)));
         }
@@ -173,6 +173,13 @@
          */ 
         public function is_automatic():Boolean{
             return _automatic;
+        }
+        
+        /**
+         * 在自动给用户设置自动化的时候会调用到 
+         */ 
+        public function set automatic(value:Boolean):void {
+        	this._automatic = value;// 调用这个方法,不显示按纽,直接设置这个值
         }
         
         /**
@@ -247,6 +254,5 @@
             }
             return (p);
         }
-
     }
 }

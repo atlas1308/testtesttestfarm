@@ -28,7 +28,6 @@
             {
                 hide_tip();
             }
-            return;
         }
 
         override protected function mouseUp() : void
@@ -46,7 +45,6 @@
                 confirm(TOGGLE_AUTOMATION);
                 return;
             }
-            return;
         }
 
         private function get processor() : CollectObject
@@ -68,18 +66,17 @@
 
         override public function remove() : void
         {
-            var _loc_2:CollectObject = null;
+            var collectObject:CollectObject = null;
             hide_tip();
-            var _loc_1:Number  = 0;
-            while (_loc_1 < map_objects.numChildren)
+            var index:Number  = 0;
+            while (index < map_objects.numChildren)
             {
-                
-                _loc_2 = map_objects.getChildAt(_loc_1) as CollectObject;
-               if (_loc_2 as IProcessor)
+               collectObject = map_objects.getChildAt(index) as CollectObject;
+               if (collectObject as IProcessor)
                 {
-                    _loc_2.hide_toggler();
+                    collectObject.hide_toggler();
                 }
-                _loc_1=_loc_1+1;
+                index=index+1;
             }
  
         }
@@ -99,7 +96,6 @@
                 processor.turn_on_automation();
             }
             mouseOver();
-            return;
         }
 
         override protected function mouseOver() : void
@@ -121,7 +117,7 @@
                     processor.toggler_button_mode();
                 }
                 if (processor.is_automatic())
-                {;
+                {
                     return tip(ResourceManager.getInstance().getString("message","click_to_switch_off_automation_message",[processor.get_name()]), processor);
                 }
                 return tip(ResourceManager.getInstance().getString("message","click_to_switch_on_automation_message",[processor.get_name()]), processor);
@@ -137,21 +133,17 @@
 
         override public function activate() : void
         {
-            var _loc_2:CollectObject = null;
-            var _loc_1:Number = 0;
-            while (_loc_1 < map_objects.numChildren)
+            var collectObject:CollectObject = null;
+            var index:Number = 0;
+            while (index < map_objects.numChildren)
             {
-                
-                _loc_2 = map_objects.getChildAt(_loc_1) as CollectObject;
-                if (_loc_2 as IProcessor)
+                collectObject = map_objects.getChildAt(index) as CollectObject;
+                if (collectObject as IProcessor)
                 {
-                    _loc_2.show_toggler();
+                    collectObject.show_toggler();
                 }
-                _loc_1=_loc_1+1;
-                
+                index=index+1;
             }
-            var i:Number =1;
-
         }
 
         override protected function mouseMove() : void
@@ -174,6 +166,5 @@
                 }
             }
         }
-
     }
 }

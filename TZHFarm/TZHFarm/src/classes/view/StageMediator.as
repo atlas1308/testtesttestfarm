@@ -18,9 +18,6 @@
     import org.puremvc.as3.multicore.interfaces.*;
     import org.puremvc.as3.multicore.patterns.mediator.*;
     
-    import tzh.core.AnimationSprite;
-    import tzh.core.Box;
-    
     /**
      * 整个场景的UI,和整个场景的显示,弹出的面板,都在这里 
      */ 
@@ -130,10 +127,6 @@
             var anim_cont:* = new AnimationContainer(toolbar.storage);
             facade.registerMediator(new AnimationMediator(anim_cont));
             stage.addChild(anim_cont);
-            var fertilizeBox:Box = new Box();
-            fertilizeBox.visible = false;
-            facade.registerMediator(new FertilizeBoxMediator(fertilizeBox));
-            stage.addChild(fertilizeBox);
             var tooltip:classes.view.components.Tooltip = new classes.view.components.Tooltip();
             facade.registerMediator(new TooltipMediator(tooltip)); 
             stage.addChild(tooltip); 
@@ -145,8 +138,7 @@
             cancel_snapshot.visible = false;
             cancel_snapshot.addEventListener(MouseEvent.CLICK, snapshotCanceled);
             stage.addChild(cancel_snapshot);
-            
-            /* try
+            try
             {
                 if (ExternalInterface.available)
                 {
@@ -162,8 +154,8 @@
             }
             catch (e:Error)
             {
-            } */
-            stageResize();
+            }
+            stageResize(null);
             app_data.game_objects_created();
         }
         
@@ -344,7 +336,9 @@
                 }
                 case ApplicationFacade.SHOW_STREAM_PERMISSIONS:
                 {
+                    Log.add("show stream permissions");
                     stage.displayState = StageDisplayState.NORMAL;
+                    //ExternalInterface.call("showStreamPermissions");
                     break;
                 }
                 case ApplicationFacade.SHOW_SELECT_RAW_MATERIAL_POPUP:
@@ -517,6 +511,7 @@
                     {
                         popup_proxy.can_show_popup = false;
                         var neighborsListPopup:NeighborsListPopup = new NeighborsListPopup(app_data.get_neighbors_list_popup_data());
+                        //var neighborsListPopup:NeighborsListPopup = new NeighborsListPopup(app_data.get_neighbors_data());
                         neighborsListPopup.info = {gift:value.getBody() as Number};
                         facade.registerMediator(new PopupMediator(neighborsListPopup));
                         stage.addChild(neighborsListPopup);
@@ -606,7 +601,10 @@
 
         private function mouseLeaveHandler(event:Event) : void
         {
-            return;
+        	var transaction:TransactionProxy = facade.retrieveProxy(TransactionProxy.NAME) as TransactionProxy;
+        	if(transaction.batchManager.is_busy)return;// 如果正在重新请求的话,那么不继续了
+        	transaction.batchManager.save();
+        	trace("mouse leave batch all");
         }
 
         private function exit_full_screen() : void
@@ -663,12 +661,17 @@
             return facade.retrieveProxy(MapProxy.NAME) as MapProxy;
         }
 
+        private function permissionDialogClosed() : void
+        {
+            //fb_proxy.check_permissions();
+        }
+
         override public function listNotificationInterests() : Array
         {
             return [ApplicationFacade.CREATE_OBJECTS, ApplicationFacade.DISPLAY_ERROR, ApplicationFacade.SHOW_CONFIRM_POPUP, ApplicationFacade.SHOW_HELP_POPUP, ApplicationFacade.SHOW_LEVEL_UP_POPUP, ApplicationFacade.SHOW_REFRESH_PAGE_POPUP, ApplicationFacade.SHOW_LOTTERY_POPUP, ApplicationFacade.REFRESH_FOCUS, ApplicationFacade.UPDATE_OBJECTS, ApplicationFacade.TOGGLE_FULL_SCREEN, ApplicationFacade.SHOW_ADD_CASH_POPUP, ApplicationFacade.SHOW_FEED_DIALOG, ApplicationFacade.SHOW_ACCEPT_SNAPSHOT, ApplicationFacade.ACTIVATE_SNAPSHOT_MODE, ApplicationFacade.DEACTIVATE_SNAPSHOT_MODE, ApplicationFacade.SHOW_SNAPSHOT_PREVIEW, ApplicationFacade.SHOW_STREAM_PERMISSIONS, ApplicationFacade.SHOW_SELECT_RAW_MATERIAL_POPUP, ApplicationFacade.SHOW_NEWS_POPUP, ApplicationFacade.SHOW_POPUP, ApplicationFacade.SHOW_STORY_POPUP, ApplicationFacade.SHOW_ITEMS_RECEIVED, ApplicationFacade.SHOW_SEND_GIFTS_POPUP, ApplicationFacade.SHOW_UNDER_CONSTRUCTION_POPUP, ApplicationFacade.SHOW_FRIEND_HELPED_POPUP, ApplicationFacade.SHOW_NETWORK_DELAY_POPUP, ApplicationFacade.SHOW_NEIGHBORS_LIST_POPUP, ApplicationFacade.SHOW_GIFT_RECEIVED_POPUP, ApplicationFacade.SHOW_UPGRADE_POPUP, ApplicationFacade.SHOW_SELECT_OBJECT_POPUP];
         }
 
-        private function stageResize(event:Event = null) : void
+        private function stageResize(event:Event) : void
         {
             Log.add("stage resize");
             friends_list.x = (stage.stageWidth - friends_list.skin.bounds.width - toolbar.width) / 2;
@@ -711,6 +714,11 @@
         {
             snapshot_viewport.stop();
             snapshot_proxy.prepare_snapshot(snapshot_viewport.rectangle, stage.getChildByName("my_ranch") as Map);
+        }
+
+        protected function get fb_proxy() : JSProxy
+        {
+            return facade.retrieveProxy(JSProxy.NAME) as JSProxy;
         }
 
         protected function get snapshot_proxy() : SnapshotProxy

@@ -39,7 +39,7 @@
 		private var fertilize_helped:Boolean;// 好友是否已经帮助过了
 		
         public function Plant(data:Object){
-            pollinated = (PHPUtil.toBoolean(data.pollinated)) ? true : false;
+            pollinated = PHPUtil.toBoolean(data.pollinated);
             _current_collect_in = (data.current_collect_in) ? data.current_collect_in : 0;
             grown_percent = (data.grown_percent) ? data.grown_percent : 0;
             fertilize_helped = PHPUtil.toBoolean(data.fertilize_helped);
@@ -218,7 +218,7 @@
         
         override public function next_stage_in():Number{
             if (!start_time){
-                return (-1);
+                return -1;
             }
             var stage_percent:Number = (1 / (stages - 1));
             var delta:Number = ((current_stage() * stage_percent) - product_percent(false));
@@ -227,7 +227,7 @@
         
         override public function is_ready():Boolean{
             if (start_time == 0){
-                return (false);
+                return false;
             }
             return ((product_percent() == 100));
         }
