@@ -6,6 +6,8 @@
     
     import flash.events.*;
     
+    import mx.resources.ResourceManager;
+    
     import org.puremvc.as3.multicore.interfaces.*;
     import org.puremvc.as3.multicore.patterns.mediator.*;
     
@@ -41,7 +43,7 @@
         override public function handleNotification(value:INotification) : void
         {
             var obj:Object = null;
-            var body:Number = NaN;
+            var body:Object = null;
             switch(value.getName())
             {
                 case ApplicationFacade.UPDATE_OBJECTS:
@@ -61,7 +63,7 @@
                     body = value.getBody() as Number;
                     if (body)
                     {
-                        shop.goTo(body);
+                        shop.goTo(Number(body));
                     }
                     break;
                 }
@@ -80,7 +82,16 @@
                 case ApplicationFacade.SHOW_SHOP_AND_ADD_PLANT:
                 {
                     sendNotification(ApplicationFacade.SHOW_OVERLAY);
-                    shop.select_tab("Seeds");
+                    shop.select_tab(ResourceManager.getInstance().getString("message","seeds_type_message"));
+                    alignShop();
+                    shop.visible = true;
+                    break;
+                }
+                case ApplicationFacade.SHOW_SHOP_BY_TITLE:
+                {
+                	body = value.getBody();
+                    sendNotification(ApplicationFacade.SHOW_OVERLAY);
+                    shop.select_tab(body.toString());
                     alignShop();
                     shop.visible = true;
                     break;

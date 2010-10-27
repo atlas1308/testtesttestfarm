@@ -34,7 +34,7 @@
                 case ApplicationFacade.UPDATE_OBJECTS:
                 {
                     body = value.getBody();
-                    if (body.operations)
+                    if (body.operations)// 这里做0的处理
                     {
                         bar.update(app_data.operations);
                     }

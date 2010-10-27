@@ -602,6 +602,7 @@
         private function mouseLeaveHandler(event:Event) : void
         {
         	var transaction:TransactionProxy = facade.retrieveProxy(TransactionProxy.NAME) as TransactionProxy;
+        	if(transaction.batchManager.is_busy)return;// 如果正在重新请求的话,那么不继续了
         	transaction.batchManager.save();
         	trace("mouse leave batch all");
         }

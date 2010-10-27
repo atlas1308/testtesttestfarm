@@ -19,7 +19,7 @@
         public const ON_SAVE:String = "onSave";
         public const ON_IDLE:String = "onIdle";
         public static const ON_RESULT:String = "onResult";
-        private var batch_delay:Number = 6000;// 10000
+        private var batch_delay:Number = 5000;// 10000
 
         public function TransactionManager(gateway_path:String, batch_mode:Boolean = false, required_params:Object = null)
         {

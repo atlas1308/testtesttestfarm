@@ -7,9 +7,10 @@
             super();
             TYPE = "cow";
         }
+        
         override protected function get eater():Processor{
-            if ((target as Cow)){
-                return ((target as Processor));
+            if (target as Cow){
+                return target as Processor;
             }
             return null;
         }

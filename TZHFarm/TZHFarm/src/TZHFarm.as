@@ -5,8 +5,6 @@ package {
 	import flash.events.Event;
 	import flash.system.Security;
 	
-	import mx.resources.ResourceBundle;
-	
 	import tzh.core.Config;
 	import tzh.core.Constant;
 	import tzh.core.SoundManager;
@@ -38,6 +36,7 @@ package {
 	{
 		private static var _instance:TZHFarm;
 		
+		public static const MAIN_STAGE:String = "myRanch";
 		public static function get instance():TZHFarm {
 			return _instance;
 		}
@@ -48,12 +47,14 @@ package {
 			Security.allowDomain("*");
 			Config.setConfig("host","http://farm.lf3g.com/static/");// lf3g
 			//Config.setConfig("transport","http://farm.lf3g.com/");
+			//Config.setConfig("transport","http://newfarm.lf3g.com/");
 			
 			/* Config.setConfig("host","http://newfarm.lf3g.com/static/");// 本机
 			Config.setConfig("transport","http://newfarm.lf3g.com/");  */
 			//Config.setConfig("host","http://ec2-46-51-129-166.eu-west-1.compute.amazonaws.com/static/");//vz平台
 			//Config.setConfig("host","http://ec2-46-51-129-166.eu-west-1.compute.amazonaws.com/static/");//vz平台
 			Config.setConfig("transport","http://ec2-46-51-129-166.eu-west-1.compute.amazonaws.com/");
+			//Config.setConfig("transport","http://192.168.1.99:9903");
 			
 			Config.setConfig("loadSocialData","loadSocialData");
 			Config.setConfig("version","1.0");
@@ -65,7 +66,7 @@ package {
 		private function addToStageHandler(evt:Event = null):void {
 			SoundManager.getInstance().addSound(Constant.BACKGROUND_KEY,Config.getConfig("host") + "sound/background.mp3");
 			//SoundManager.getInstance().addSound(Constant.BACKGROUND_KEY,"music3.mp3");
-			ApplicationFacade.getInstance("myRanch").startup(this.stage);
+			ApplicationFacade.getInstance(MAIN_STAGE).startup(this.stage);
 		}
 	}
 }

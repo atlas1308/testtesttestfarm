@@ -122,6 +122,9 @@
             {
                 snapshot_proxy.publish_snapshot(DynamicPopup(popup).get_message());
             }
+            if(popup is AcceptShowShopPopup){// 跳转到商店购买自动工具的那一栏
+            	sendNotification(ApplicationFacade.SHOW_SHOP_BY_TITLE,ResourceManager.getInstance().getString("message","automation_type_message"));
+            }
             if (popup as DynamicPopup)
             {
                 switch(DynamicPopup(popup).type)
@@ -208,6 +211,10 @@
             if (popup as LotteryPopup)
             {
                 app_data.add_lottery_coins();
+            }
+            if(popup is AcceptShowShopPopup){
+            	// 所有的map里的工具 都变成手动的
+            	//map_proxy.
             }
             if (popup as DynamicPopup)
             {

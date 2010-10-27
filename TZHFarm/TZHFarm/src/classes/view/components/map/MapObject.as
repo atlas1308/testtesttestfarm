@@ -246,9 +246,9 @@
                     highlight(0xCC0033, 0.45, true, -1);
                     break;
                 case "collect_over":
-                    if ((((((type == "seeds")) || ((type == "soil")))) || ((kind == "fertilizer")))){
+                    if ((type == "seeds") || (type == "soil") || (kind == "fertilizer")){
                         Effects.glow(asset);
-                    };
+                    }
                     break;
                 case "fertilize":
                     highlight(9523999, 0.45, true, -1);
@@ -409,7 +409,7 @@
         }
         
         public function get type():String{
-            return (_type);
+            return _type;
         }
         
         public function increase_obtained_material(material:Number):void{
@@ -819,7 +819,7 @@
             rotate_btn.scaleX = (rotate_btn.scaleY = (v / 15));
         }
         public function get usable():Boolean{
-            return (!(waiting_to_process));
+            return !waiting_to_process;
         }
 		
 		

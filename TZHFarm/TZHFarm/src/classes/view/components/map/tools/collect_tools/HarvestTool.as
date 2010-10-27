@@ -37,14 +37,14 @@
         }
         
         override protected function mouseUp():void{
-            if (((plant) && (plant.is_ready()))){
+            if (plant && plant.is_ready()){
                 dispatchEvent(new Event(CONFIRM_ACTION));
                 disable();
-            };
+            }
         }
         
         override public function get_event_data():Object{
-            return (plant);
+            return plant;
         }
         
         override protected function mouseOver():void{
@@ -70,8 +70,8 @@
         }
         
         private function get plant():Plant{
-            if ((((target as Plant)) && (target.usable))){
-                return ((target as Plant));
+            if (target as Plant && target.usable){
+                return target as Plant;
             }
             return null;
         }
