@@ -102,7 +102,7 @@
             }
             if (popup as RefreshPagePopup)
             {
-                sendNotification(ApplicationFacade.NAVIGATE_TO_URL, "");
+                JSDataManager.reload();// 更新为reload方法,原来是使用的跳转的方式
             }
             if (popup as CashPopup)
             {
@@ -121,6 +121,9 @@
             if (popup as SnapshotPreviewPopup)
             {
                 snapshot_proxy.publish_snapshot(DynamicPopup(popup).get_message());
+            }
+            if(popup is AcceptShowShopPopup){// 跳转到商店购买自动工具的那一栏
+            	sendNotification(ApplicationFacade.SHOW_SHOP_BY_TITLE,ResourceManager.getInstance().getString("message","automation_type_message"));
             }
             if (popup as DynamicPopup)
             {
@@ -165,12 +168,10 @@
                     {
                         if (app_data.gift_mode)
                         {
-                            trace("USE GIFT");
                             sendNotification(ApplicationFacade.USE_GIFT, {target:SelectPopup(popup).selected_data.object, item:SelectPopup(popup).selected_data.material});
                         }
                         else
                         {
-                            trace("SPEND RP");
                             sendNotification(ApplicationFacade.SPEND_RP, {target:SelectPopup(popup).selected_data.object, item:SelectPopup(popup).selected_data.material});
                         }
                         break;
@@ -210,6 +211,10 @@
             if (popup as LotteryPopup)
             {
                 app_data.add_lottery_coins();
+            }
+            if(popup is AcceptShowShopPopup){
+            	// 所有的map里的工具 都变成手动的
+            	//map_proxy.
             }
             if (popup as DynamicPopup)
             {

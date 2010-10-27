@@ -16,16 +16,17 @@
             no_food_message = ResourceManager.getInstance().getString("message","plant_some_clover_message");
             no_ready_food_message = ResourceManager.getInstance().getString("message","wait_for_clover_to_grow_message");
         }
+        
         override protected function mouseUp():void{
             if (eater){
                 if (eater.is_automatic()){
                     return;
-                };
+                }
                 if (can_collect()){
                     action_name = COLLECT_PRODUCT;
                     confirm();
-                };
-            };
+                }
+            }
         }
         override protected function mouseOver():void{
             if (eater){

@@ -1,5 +1,4 @@
 ﻿package classes.model {
-	
 	import classes.ApplicationFacade;
 	import classes.model.confirmation.Confirmation;
 	import classes.model.err.Err;
@@ -27,15 +26,21 @@
 	import tzh.core.FeedData;
 	import tzh.core.JSDataManager;
 	import tzh.core.TutorialManager;
-	
-	import flash.utils.setTimeout;
-	import flash.utils.clearTimeout;
 	import flash.utils.clearInterval;
-	
+	import flash.utils.clearTimeout;
+	import flash.utils.setTimeout;
+	import flash.utils.setInterval;
 	/**
 	 * 一些细节的更新
 	 * 更新升级时的返回条件,handle_response
 	 * 更新用户每日登陆奖励,init
+	 * 
+	 * 
+	 * 这里可能有一个IDE的BUG,每次自动导入新的类时,就会缺少这几个包
+	 * import flash.utils.clearInterval;
+		import flash.utils.clearTimeout;
+		import flash.utils.setTimeout;
+		import flash.utils.setInterval;
 	 */ 
     public class AppDataProxy extends Proxy implements IProxy {
 
@@ -125,7 +130,7 @@
          * 用户的RC值 
          */ 
         public function get reward_points():Number{
-            return (app_data.reward_points);
+            return app_data.reward_points;
         }
         
         /**
@@ -241,7 +246,6 @@
          * 初始化的一个方法,在retrieve返回时去处理这个方法 
          */ 
         public function init(config:Object, app_data:Object):void{
-            var i:* = NaN;
             var data:* = null;
             var obj:* = null;
             var gift:* = null;
@@ -253,7 +257,7 @@
                 this.config = config;
                 this.app_data = app_data;
                 return;
-            };
+            }
             if (already_init){
                 return;
             }
@@ -284,18 +288,18 @@
                 app_data.coins = (app_data.coins - parseFloat(app_data.friend_helped.coins));
                 app_data.experience = (app_data.experience - parseFloat(app_data.friend_helped.exp));
             }
-            if (app_data.gifts_received){// 收到的礼物所加的经验
+            /* if (app_data.gifts_received){// 收到的礼物所加的经验
                 app_data.experience = (app_data.experience - (parseFloat(config.gift_received_exp) * app_data.gifts_received.length));
-            }
+            } */
             if (app_data.friend_helped){
                 sendNotification(ApplicationFacade.SHOW_FRIEND_HELPED_POPUP);
             }
-            if (app_data.show_gifts_page){
+            /* if (app_data.show_gifts_page){
                 sendNotification(ApplicationFacade.SHOW_GIFT_BOX);
             }
             if (app_data.items_received.length > 0){
                 sendNotification(ApplicationFacade.SHOW_ITEMS_RECEIVED);
-            }
+            } */
             /* if (app_data.news){// 新的物品
                 i = 0;
                 while (i < app_data.news.length) {
@@ -351,6 +355,7 @@
        		TutorialManager.getInstance().start();
        		TZHFarm.instance.stage.mouseChildren = true;
         }
+        
         
         public function get showTutorial():Boolean {
         	CONFIG::debug{
@@ -427,9 +432,9 @@
         private function obj_is_blocked(o:Object):Boolean{
             update_object(o);
             if (!is_multi(o)){// 单个原料的话,是通过products == 3来判断
-                return ((o.products == 3));
+                return o.products == 3;
             }
-            return ((o.products.length == 3));// 多原料的话,products 是一个数组
+            return o.products.length == 3;// 多原料的话,products 是一个数组
         }
         
         
@@ -599,23 +604,23 @@
         private function can_upgrade(obj:Object):Boolean{
             var info:Object = config.store[obj.id];
             if (!info.upgradeable){
-                return (false);
-            };
+                return false;
+            }
             if (obj.under_construction){
-                return (false);
-            };
+                return false;
+            }
             if (obj.upgrade_level == (Algo.count(info.upgrade_levels) + 1)){
-                return (false);
-            };
-            return (true);
+                return false;
+            }
+            return true;
         }
         
         public function install_irrigation(obj:Object):Boolean{
             var map_obj:Object = get_map_obj(obj.target.id, obj.target.grid_x, obj.target.grid_y);
             var info:Object = config.store[obj.water_pipe];
             if (!can_install_irrigation(obj.water_pipe)){
-                return (false);
-            };
+                return false;
+            }
             var disable:Boolean;
             if (!gift_mode){
                 if (app_data.coins < info.price){
@@ -684,11 +689,11 @@
          */ 
         public function get_achievements_data():Array{
             var output:Array;
-            var obj:Object;
+            /* var obj:Object;
             var _local3:Object;
-            var _local4:Object;
+            var _local4:Object; */
             output = new Array();
-            return (output);
+            return output;
         }
         
         /**
@@ -696,7 +701,7 @@
          */ 
         private function report_error(name:String):Boolean{
             sendNotification(ApplicationFacade.DISPLAY_ERROR, name);
-            return (false);
+            return false;
         }
         
         
@@ -731,13 +736,13 @@
             if (queue_is_processing){
                 obj = queue.shift();
                 obj.map_obj.end_process(obj.channel);
-                var _local5 = this;
-                _local5[obj.method](obj.arg, obj.body, obj.gift_mode, true);
-            };
+                var owner:AppDataProxy = this;
+                owner[obj.method](obj.arg, obj.body, obj.gift_mode, true);
+            }
             if (!queue.length){
                 queue_is_processing = false;
                 return;
-            };
+            }
             queue_is_processing = true;
             var map_obj:MapObject = queue[0].map_obj;
             map_obj.process();
@@ -1218,7 +1223,7 @@
                 sendNotification(ApplicationFacade.DISPLAY_SHOP, item);
             } else {
                 sendNotification(ApplicationFacade.DISPLAY_GIFTS, item);
-            };
+            }
         }
         
         /**
@@ -1239,13 +1244,7 @@
         }
         
         /**
-         * 新增加的帮助好友施肥的功能的数据返回
-         * friendHelpedFertilizeData--->Object
-         * 		{
-         * 			id:"",// 后台随机生成的一个id
-         * 			percent:0.25 // 每次能添产多少
-         * 			times:5 // 还有几次时效
-         * 		}
+         * 这个应该是请求好友的数据过来时的操作
          */ 
         public function handle_response(result:Object, channel:String):void{
             var prop:* = null;
@@ -1276,11 +1275,6 @@
                 names.push("coins");
                 names.push("reward_points");
             }
-            if(result.friendHelpedFertilizeData){// 如果没有的话,会把上一次的清空掉
-            	app_data.friendHelpedFertilizeData = result.friendHelpedFertilizeData;
-            }else {
-            	app_data.friendHelpedFertilizeData = null;// 
-            }
             if (result.objects_to_update){
                 names.push("objects_to_update");
             }
@@ -1291,15 +1285,14 @@
                     sendNotification(ApplicationFacade.BACK_TO_MY_RANCH);
                 } else {
                     sendNotification(ApplicationFacade.SHOW_FARM);
-                    sendNotification(ApplicationFacade.FERTILIZE_BOX_COUNT,this.friendHelpedFertilizeData);
                 }
             } else {
                 update_objects(names);
             }
-            /* if (result.feed_data){
+            if (result.feed_data){
                 last_post_tag = result.feed_data.tag;
                 last_post_subtype = result.feed_data.subtype;
-            } */
+            }
             if (channel == "load_farm"){
                 sendNotification(ApplicationFacade.HIDE_OVERLAY);
                 if (app_data.farm.uid != user_id){
@@ -1307,7 +1300,7 @@
                     if (!app_data.farm.helped){
                         cancel_help_popup();
                         show_help_popup_interval = setTimeout(function ():void{
-                            //sendNotification(ApplicationFacade.SHOW_HELP_POPUP);
+                            sendNotification(ApplicationFacade.SHOW_HELP_POPUP);
                         }, 2500)	
                     }
                 }
@@ -1342,11 +1335,11 @@
                     Algo.merge(obj, Algo.clone(item));
                     if (obj.is_multi){
                         obj.selected_raw_material = get_selected_raw_material(obj.id, obj.x, obj.y);
-                    }
+                    };
                     if (obj.water_pipe){
                         obj.water_pipe_url = (("images/" + config.store[obj.water_pipe].url) + "_obj.png");
                         obj.water_pipe_growing_percent = config.store[obj.water_pipe].growing_percent;
-                    }
+                    };
                     output.objects.push(obj);
                 };
             };
@@ -1480,8 +1473,10 @@
          * 提供了一个引性的方法,把没有的数据都增加进来然后更新成默认的值 
          */ 
         private function update_object(o:Object):void{
+        	if(!o)return;
             var i:Number;
             var info:Object = config.store[o.id];
+            if(!info)return;
             if (((info.upgradeable) && (!(o.upgrade_level)))){
                 o.upgrade_level = 1;
             };
@@ -1872,25 +1867,25 @@
             var s:*;
             var obj:Object = Algo.clone(config.store[id]);
             if (!obj){
-                return (null);
+                return null;
             }
             if (obj.constructible){
                 obj.swf_uc = (("assets/swf/" + obj.url) + "_uc.swf");
                 obj.image_uc = (("images/" + obj.url) + "_uc.png");
                 obj.under_construction = true;
-            };
+            }
             if (obj.map_object){
-                obj.swf = (("assets/swf/" + obj.url) + ".swf");
-            };
+                obj.swf = ("assets/swf/" + obj.url) + ".swf";
+            }
             if (obj.kind == "fertilizer"){
                 obj.image = (((("images/" + obj.url) + "_") + obj.uses) + ".png");
             } else {
                 obj.image = (("images/" + obj.url) + ".png");
-            };
+            }
             obj.cursor = (("images/" + obj.url) + "_cur.png");
             if (obj.action == "irrigation"){
                 obj.image_obj = (("images/" + obj.url) + "_obj.png");
-            };
+            }
             if (obj.collect_in){
                 if (!obj.is_multi){
                     product = config.store[obj.product];
@@ -1948,14 +1943,11 @@
                 obj.locked_message = ResourceManager.getInstance().getString("message","locked_message",[obj.level]);
                 obj.locked_button = ResourceManager.getInstance().getString("message","locked_button_buy");
             }
-            var version:String = CONFIG::version;
-            if(version == "pt"){// 暂时只有这个版本才会支持
-	            if (neighbors_count() == 0){
-	                obj.buy_gift = false;
-	            }
-            }else {
-            	obj.buy_gift = false;
-            }
+            /* if (neighbors_count() == 0){
+                obj.buy_gift = false;
+            } 
+            obj.buy_gift = true;// 先默认的都不能送 */
+            obj.buy_gift = false;
             return (obj);
         }
         
@@ -1982,7 +1974,7 @@
         public function get_story_popup_data():Object{
             if (!app_data.stories.length){
                 return (null);
-            }
+            };
             var data:Object = Algo.clone(app_data.stories[0]);
             data.image = (("images/stories/" + data.image) + ".png");
             return data;
@@ -2059,11 +2051,11 @@
             };
             if (!info.is_multi){
                 if (!app_data.storage[info.raw_material]){
-                    return false;
-                }
+                    return (false);
+                };
                 if (obj_fed.raw_materials == 3){
-                    return false;
-                }
+                    return (false);
+                };
                 food_info = config.store[info.raw_material];
             };
             if (show_preloader){
@@ -2144,8 +2136,8 @@
                 };
             } else {
                 if (app_data.op <= 0){
-                    return false;
-                }
+                    return (false);
+                };
                 if (info.is_multi){
                     total_exp = 0;
                     raw_material = MultiProcessor(obj).get_raw_material_id(material);
@@ -2481,14 +2473,14 @@
                 obj_fed = get_map_obj(obj.id, obj.grid_x, obj.grid_y);
                 if (obj_fed.raw_materials == 3){
                     return report_confirm_error(ResourceManager.getInstance().getString("message","error_message_full_message",[info.name]));
-                }
+                };
                 confirm = new Confirmation(food_info.exp, 0);
                 confirm.set_target(obj);
                 app_data.experience = (app_data.experience + food_info.exp);
                 var storage:Object = app_data.storage;
-                var id:* = info.raw_material;
-                var temp:int = (storage[id] - 1);
-                storage[id] = temp;
+                var _local11 = info.raw_material;
+                var _local12 = (storage[_local11] - 1);
+                storage[_local11] = _local12;
                 obj_increase_raw_material(obj_fed);
                 refresh_level();
                 Processor(obj).feed();
@@ -2513,9 +2505,6 @@
             return message;
         }
         
-        /**
-         *  
-         */ 
         private function apply_rain(value:Number):Boolean{
             var obj:Object;
             var data:Object;
@@ -2563,7 +2552,7 @@
             var i:Number = 0;
             while (i < app_data.achievements.length) {
                 if (app_data.achievements[i].id == id){
-                    return app_data.achievements[i];
+                    return (app_data.achievements[i]);
                 }
                 i++;
             }
@@ -2576,13 +2565,13 @@
         public function show_feed_dialog(data:Object=null):void{
             /* if (((!(app_data.feed_data)) && (!(data)))){
                 return;
-            }
-            var feed_data:Object = (data) ? data : app_data.feed_data;
+            } */
+            var feed_data:Object;/*  = (data) ? data : app_data.feed_data;
             if (feed_data.add_user){
                 feed_data.attachment.description = (user_name + feed_data.attachment.description);
             }
-            last_feed_data = feed_data; 
-            sendNotification(ApplicationFacade.SHOW_FEED_DIALOG, feed_data); */
+            last_feed_data = feed_data; */
+            sendNotification(ApplicationFacade.SHOW_FEED_DIALOG, feed_data);
         }
         
         private function num_materials(obj:Object):Number{
@@ -2618,19 +2607,19 @@
             var s:Number = item.size;
             var current_size:Number = ((item.action)=="expand") ? app_data.size_x : ((item.action)=="expand_top_map") ? app_data.top_map_size : app_data.bottom_map_size;
             for each (obj in config.store) {
-                if (obj.type == "expand_ranch"&& obj.action == item.action && !obj.neighbors){
+                if ((((((obj.type == "expand_ranch")) && ((obj.action == item.action)))) && (!(obj.neighbors)))){
                     plans.push(obj);
-                }
-            }
+                };
+            };
             plans.sortOn("size", Array.NUMERIC);
             i = 0;
             while (i < plans.length) {
                 if (plans[i].size == current_size){
                     current_plan = i;
-                }
+                };
                 if (plans[i].size == s){
                     requested_plan = i;
-                }
+                };
                 i++;
             }
             if ((plans.length - 1) == current_plan){
@@ -2646,49 +2635,10 @@
             return ({result:true});
         }
         
-        /**
-         * 清除队列 
-         */ 
         public function clear_process_queue():void{
             queue = new Array();
             queue_is_processing = false;
             auto_queue = new Array();
-        }
-        
-        /**
-         * 帮助好友的数据
-         * 	包括
-         * 		id 使用的ID
-         * 		times 使用的次数
-         * 		percent 增加的比例
-         */ 
-        public function get friendHelpedFertilizeData():Object {
-        	return app_data.friendHelpedFertilizeData;
-        }
-        
-        /**
-         * 是否能给好友施肥 
-         */ 
-        public function get enabledFriendFertilizer():Boolean {
-        	var result:Boolean;
-        	if(friendHelpedFertilizeData && friendHelpedFertilizeData.times > 0){
-        		result = true;
-        	}
-        	return result;
-        }
-        
-        /**
-         * 给好友施肥
-         * @param value:Object 
-         */ 
-        public function friendFertilize(value:Object):Boolean {
-        	var plant:Plant = value.plant;
-        	if(!value.fertilizer){
-        		return false;
-        	}
-        	plant.friendFertilize(value.fertilizer.percent);
-        	sendNotification(ApplicationFacade.FERTILIZE_BOX_EFFECT);
-        	return true;
         }
         
         /**
@@ -2697,9 +2647,9 @@
         public function fertilize(data:Object):Boolean{
             var fertilizer:Object = get_map_obj(data.fertilizer.id, data.fertilizer.grid_x, data.fertilizer.grid_y);
             var info:Object = config.store[fertilizer.id];
-            if (fertilizer.times_used >= info.uses){// 已经使用的 > 总共能使用的次数的话
-                return false;
-            }
+            if (fertilizer.times_used >= info.uses){
+                return (false);
+            };
             var plant:Object = get_map_obj(data.plant.id, data.plant.grid_x, data.plant.grid_y);
             plant.start_time = (plant.start_time - (plant.collect_in * info.percent));
             fertilizer.times_used++;
@@ -2708,7 +2658,7 @@
             if (!data.fertilizer.can_use()){
                 remove_map_obj(fertilizer.id, fertilizer.x, fertilizer.y);
                 data.fertilizer.kill();
-            }
+            };
             return true;
         }
         
@@ -2763,11 +2713,11 @@
             var i:Number = 0;
             while (i < app_data.map.length) {
                 obj = app_data.map[i];
-                if (obj.id == id && obj.x == x && obj.y == y){
-                    if (flipped != -1 && obj.flipped != flipped){// 如果有方向,并且方向不相同的话不执行.
+                if ((((((obj.id == id)) && ((obj.x == x)))) && ((obj.y == y)))){
+                    if (((!((flipped == -1))) && (!((obj.flipped == flipped))))){
                     } else {
                         app_data.map.splice(i, 1);
-                        return true;
+                        return (true);
                     }
                 }
                 i++;
@@ -2849,14 +2799,10 @@
             return false;
         }
         
-        /* public function get post_subtype():String{
+        public function get post_subtype():String{
             return (last_post_subtype);
-        } */
+        }
         
-        /**
-         * 扩展地块 
-         * @param item:Object
-         */ 
         public function expand_ranch(item:Object):void{
             switch (item.action){
                 case "expand":
@@ -2884,7 +2830,7 @@
                 if (((!(gift_mode)) && ((app_data.coins < item.price)))){
                     report_confirm_error(Err.NO_COINS, false, obj);
                     obj.kill();
-                    return false;
+                    return (false);
                 }
                 obj.map_x = obj.grid_x;
                 obj.map_y = obj.grid_y;
@@ -2932,9 +2878,6 @@
             return false;
         }
         
-        /**
-         * 根据类型分类action 
-         */ 
         private function collect_object_action(obj:Object):String{
             if (obj.type == "seeds" || obj.type == "trees"){
                 return "Harvesting";
@@ -2958,6 +2901,19 @@
             sendNotification(ApplicationFacade.AUTOMATION_TOGGLED);
             return true;
         }
+        
+        
+        public function toggleOffAutomation(obj:Processor):Boolean{
+    		var map_obj:Object = get_map_obj(obj.id, obj.grid_x, obj.grid_y);
+    		if(map_obj.automatic){
+    			map_obj.automatic = false;
+    			obj.automatic = false;
+    		}else{
+    			// 如果不是自动话的,那就不用管了
+    		}
+        	return true;
+        }
+        
         
         private function get_constructible_object(material:Number):Object{
             var mo:Object;
@@ -3161,7 +3117,7 @@
          * 登陆用户的op的数量 
          */ 
         public function get operations():Number{
-            return (int(app_data.op));
+            return int(app_data.op);
         }
         
         /**
@@ -3299,16 +3255,16 @@
         /**
          * 弹出提示消息 
          * @params name:String 弹出的文字
-         * @params reset_tool:Boolean false 
+         * @params reset_tool:Boolean false 是否重置tool
          * @params target:MapObject 当前做用的对象
          */ 
         public function report_confirm_error(name:String, reset_tool:Boolean=false, target:MapObject=null):Boolean{
-            var confirmation:Confirmation = new Confirmation();
-            confirmation.text(name, false);
+            var _c:Confirmation = new Confirmation();
+            _c.text(name, false);
             if (target){
-                confirmation.set_target(target);
+                _c.set_target(target);
             }
-            sendNotification(ApplicationFacade.DISPLAY_CONFIRMATION, confirmation.get_data());
+            sendNotification(ApplicationFacade.DISPLAY_CONFIRMATION, _c.get_data());
             if (reset_tool){
                 sendNotification(ApplicationFacade.ESCAPE_PRESSED);// 这个事件会让显示的所有的内容都重新刷新
             }

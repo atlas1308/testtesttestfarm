@@ -18,7 +18,8 @@
         public var result:TransactionResult;
         protected var body:TransactionBody;
         protected var max_delay:Number = 30000;
-        protected var retry_delay:Number = 5000;
+        protected var retry_delay:Number = 50000;
+        protected var retry_times:int = 1;// 重发几次
         protected var _is_busy:Boolean = false;
         protected var network_delay:Number = 120000;
         protected var max_delay_timer:Timer;
@@ -76,7 +77,7 @@
 
         protected function init() : void
         {
-            timer = new Timer(retry_delay);
+            timer = new Timer(retry_delay,retry_times);
             max_delay_timer = new Timer(max_delay, 1);
             network_delay_timer = new Timer(network_delay, 1);
             gateway = new NetConnection();

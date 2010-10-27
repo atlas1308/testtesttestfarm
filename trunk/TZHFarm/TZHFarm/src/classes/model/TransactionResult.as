@@ -58,11 +58,11 @@
 		 */ 
         public function get call_id() : String
         {
-            if (!result.call_id)
+            if (result && result.call_id)
             {
-                return "";
+                return result.call_id;
             }
-            return result.call_id;
+            return "";
         }
 
     }

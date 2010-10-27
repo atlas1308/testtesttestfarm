@@ -55,7 +55,7 @@ package
         
         public static function toBoolean(value:Object):Boolean {
         	var result:Boolean;
-        	if(value != null && value != "" && value != "0" && value != "undefined"){
+        	if(value != null && value != "" && value != "0" && value != "undefined" && value != 0){
         		result = true;
         	}
         	return result;
