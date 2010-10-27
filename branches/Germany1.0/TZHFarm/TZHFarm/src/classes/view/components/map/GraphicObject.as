@@ -24,6 +24,7 @@
             super(data);
             asset.addChild(_graphic);
         }
+        
         override public function get sort_grid_y():Number{
             if (!use_fake_coords){
                 return (super.sort_grid_y);
@@ -33,6 +34,7 @@
             };
             return (_fake_y);
         }
+        
         override public function get sort_grid_x():Number{
             if (!use_fake_coords){
                 return (super.sort_grid_x);
@@ -42,22 +44,24 @@
             };
             return (_fake_x);
         }
+        
         public function refresh_graphic(m:MovieClip=null):void{
             if (!m){
                 if (!_graphic){
                     return;
-                };
+                }
                 if (asset.contains(_graphic)){
                     return;
-                };
+                }
             } else {
                 if (((_graphic) && (asset.contains(_graphic)))){
                     asset.removeChild(_graphic);
-                };
+                }
                 _graphic = m;
-            };
+            }
             asset.addChild(_graphic);
         }
+        
         override protected function refresh_asset():void{
             asset_loaded = true;
             if (last_grid_size){
@@ -66,6 +70,7 @@
             };
             Log.add(((((("refresh_asset " + last_grid_size) + " - ") + grid_size) + " - ") + asset.scaleX));
         }
+        
         public function set_sort_coords(x:Number, y:Number, flip_x:Number, flip_y:Number):void{
             _fake_x = x;
             _fake_y = y;
@@ -73,6 +78,7 @@
             _fake_flip_y = flip_y;
             use_fake_coords = true;
         }
+        
         override protected function refresh_hit_area():void{
         }
 

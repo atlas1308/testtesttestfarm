@@ -198,7 +198,7 @@
         
         override public function next_stage_in():Number{
             if (!start_time){
-                return (-1);
+                return -1;
             }
             var stage_percent:Number = (1 / (stages - 1));
             var delta:Number = ((current_stage() * stage_percent) - product_percent(false));
@@ -207,7 +207,7 @@
         
         override public function is_ready():Boolean{
             if (start_time == 0){
-                return (false);
+                return false;
             }
             return ((product_percent() == 100));
         }

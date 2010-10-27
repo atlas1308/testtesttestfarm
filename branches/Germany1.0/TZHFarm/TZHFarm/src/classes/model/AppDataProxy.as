@@ -26,15 +26,21 @@
 	import tzh.core.FeedData;
 	import tzh.core.JSDataManager;
 	import tzh.core.TutorialManager;
-	
-	import flash.utils.setTimeout;
-	import flash.utils.clearTimeout;
 	import flash.utils.clearInterval;
-	
+	import flash.utils.clearTimeout;
+	import flash.utils.setTimeout;
+	import flash.utils.setInterval;
 	/**
 	 * 一些细节的更新
 	 * 更新升级时的返回条件,handle_response
 	 * 更新用户每日登陆奖励,init
+	 * 
+	 * 
+	 * 这里可能有一个IDE的BUG,每次自动导入新的类时,就会缺少这几个包
+	 * import flash.utils.clearInterval;
+		import flash.utils.clearTimeout;
+		import flash.utils.setTimeout;
+		import flash.utils.setInterval;
 	 */ 
     public class AppDataProxy extends Proxy implements IProxy {
 
@@ -124,7 +130,7 @@
          * 用户的RC值 
          */ 
         public function get reward_points():Number{
-            return (app_data.reward_points);
+            return app_data.reward_points;
         }
         
         /**
@@ -240,7 +246,6 @@
          * 初始化的一个方法,在retrieve返回时去处理这个方法 
          */ 
         public function init(config:Object, app_data:Object):void{
-            var i:* = NaN;
             var data:* = null;
             var obj:* = null;
             var gift:* = null;
@@ -252,7 +257,7 @@
                 this.config = config;
                 this.app_data = app_data;
                 return;
-            };
+            }
             if (already_init){
                 return;
             }
@@ -283,18 +288,18 @@
                 app_data.coins = (app_data.coins - parseFloat(app_data.friend_helped.coins));
                 app_data.experience = (app_data.experience - parseFloat(app_data.friend_helped.exp));
             }
-            if (app_data.gifts_received){// 收到的礼物所加的经验
+            /* if (app_data.gifts_received){// 收到的礼物所加的经验
                 app_data.experience = (app_data.experience - (parseFloat(config.gift_received_exp) * app_data.gifts_received.length));
-            }
+            } */
             if (app_data.friend_helped){
                 sendNotification(ApplicationFacade.SHOW_FRIEND_HELPED_POPUP);
             }
-            if (app_data.show_gifts_page){
+            /* if (app_data.show_gifts_page){
                 sendNotification(ApplicationFacade.SHOW_GIFT_BOX);
             }
             if (app_data.items_received.length > 0){
                 sendNotification(ApplicationFacade.SHOW_ITEMS_RECEIVED);
-            }
+            } */
             /* if (app_data.news){// 新的物品
                 i = 0;
                 while (i < app_data.news.length) {
@@ -370,7 +375,7 @@
         }
         
         public function lottery_message():String{
-            return (app_data.lottery_coins);
+            return app_data.lottery_coins;
         }
         
         public function cancel_help_popup():void{
@@ -427,9 +432,9 @@
         private function obj_is_blocked(o:Object):Boolean{
             update_object(o);
             if (!is_multi(o)){// 单个原料的话,是通过products == 3来判断
-                return ((o.products == 3));
+                return o.products == 3;
             }
-            return ((o.products.length == 3));// 多原料的话,products 是一个数组
+            return o.products.length == 3;// 多原料的话,products 是一个数组
         }
         
         
@@ -599,23 +604,23 @@
         private function can_upgrade(obj:Object):Boolean{
             var info:Object = config.store[obj.id];
             if (!info.upgradeable){
-                return (false);
-            };
+                return false;
+            }
             if (obj.under_construction){
-                return (false);
-            };
+                return false;
+            }
             if (obj.upgrade_level == (Algo.count(info.upgrade_levels) + 1)){
-                return (false);
-            };
-            return (true);
+                return false;
+            }
+            return true;
         }
         
         public function install_irrigation(obj:Object):Boolean{
             var map_obj:Object = get_map_obj(obj.target.id, obj.target.grid_x, obj.target.grid_y);
             var info:Object = config.store[obj.water_pipe];
             if (!can_install_irrigation(obj.water_pipe)){
-                return (false);
-            };
+                return false;
+            }
             var disable:Boolean;
             if (!gift_mode){
                 if (app_data.coins < info.price){
@@ -684,11 +689,11 @@
          */ 
         public function get_achievements_data():Array{
             var output:Array;
-            var obj:Object;
+            /* var obj:Object;
             var _local3:Object;
-            var _local4:Object;
+            var _local4:Object; */
             output = new Array();
-            return (output);
+            return output;
         }
         
         /**
@@ -696,7 +701,7 @@
          */ 
         private function report_error(name:String):Boolean{
             sendNotification(ApplicationFacade.DISPLAY_ERROR, name);
-            return (false);
+            return false;
         }
         
         
@@ -731,13 +736,13 @@
             if (queue_is_processing){
                 obj = queue.shift();
                 obj.map_obj.end_process(obj.channel);
-                var _local5 = this;
-                _local5[obj.method](obj.arg, obj.body, obj.gift_mode, true);
-            };
+                var owner:AppDataProxy = this;
+                owner[obj.method](obj.arg, obj.body, obj.gift_mode, true);
+            }
             if (!queue.length){
                 queue_is_processing = false;
                 return;
-            };
+            }
             queue_is_processing = true;
             var map_obj:MapObject = queue[0].map_obj;
             map_obj.process();
@@ -1218,7 +1223,7 @@
                 sendNotification(ApplicationFacade.DISPLAY_SHOP, item);
             } else {
                 sendNotification(ApplicationFacade.DISPLAY_GIFTS, item);
-            };
+            }
         }
         
         /**
@@ -1468,8 +1473,10 @@
          * 提供了一个引性的方法,把没有的数据都增加进来然后更新成默认的值 
          */ 
         private function update_object(o:Object):void{
+        	if(!o)return;
             var i:Number;
             var info:Object = config.store[o.id];
+            if(!info)return;
             if (((info.upgradeable) && (!(o.upgrade_level)))){
                 o.upgrade_level = 1;
             };
@@ -2895,6 +2902,19 @@
             return true;
         }
         
+        
+        public function toggleOffAutomation(obj:Processor):Boolean{
+    		var map_obj:Object = get_map_obj(obj.id, obj.grid_x, obj.grid_y);
+    		if(map_obj.automatic){
+    			map_obj.automatic = false;
+    			obj.automatic = false;
+    		}else{
+    			// 如果不是自动话的,那就不用管了
+    		}
+        	return true;
+        }
+        
+        
         private function get_constructible_object(material:Number):Object{
             var mo:Object;
             var info:Object;
@@ -3097,7 +3117,7 @@
          * 登陆用户的op的数量 
          */ 
         public function get operations():Number{
-            return (int(app_data.op));
+            return int(app_data.op);
         }
         
         /**

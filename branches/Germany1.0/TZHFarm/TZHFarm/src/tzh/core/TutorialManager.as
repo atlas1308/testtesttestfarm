@@ -63,14 +63,14 @@ package tzh.core
 											{id:25,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:38,grid_y:40}},
 											{id:26,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:34,grid_y:40}},
 											{id:27,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:30,grid_y:40}},  
-											
-											{id:28,target:":child[toolbar].skinRef.shop",parent:Toolbar,offsetY:-5,autoNext:true},
+											// update 2010-10-26
+											/* {id:28,target:":child[toolbar].skinRef.shop",parent:Toolbar,offsetY:-5,autoNext:true},
 											{id:29,target:":child[shop].tabContainer.child[shopTab8]",parent:Shop},
 											{id:30,target:":child[shop].itemContainer.child[shopItem0].child[buy_rp_btn]",parent:Shop,offsetY:5}, 
 											{id:31,target:":child[operations]",parent:Operations,offsetY:17},
 											{id:32,target:":child[my_ranch]",parent:Map,delay:100,position:{grid_x:16,grid_y:37},child:"toggler_off",notcheck:true,timeout:0},// 面板
 											{id:33,target:":child[my_ranch]",parent:Map,delay:100,position:{grid_x:36,grid_y:16},child:"toggler_off",notcheck:true,timeout:0},// 牛
-											{id:34,target:":child[operations]",parent:Operations,offsetY:17}, 
+											{id:34,target:":child[operations]",parent:Operations,offsetY:17},  */
 										 ];
 		
 		public static function getInstance():TutorialManager {

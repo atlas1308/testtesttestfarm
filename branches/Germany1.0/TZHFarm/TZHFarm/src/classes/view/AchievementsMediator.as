@@ -11,10 +11,9 @@
     {
         public static const NAME:String = "AchievementsMediator";
 
-        public function AchievementsMediator(param1:Object)
+        public function AchievementsMediator(value:Object)
         {
-            super(NAME, param1);
-            return;
+            super(NAME, value);
         }
 
         override public function listNotificationInterests() : Array
@@ -31,7 +30,6 @@
         {
             achievements.x = (achievements.stage.stageWidth - achievements.width) / 2;
             achievements.y = (achievements.stage.stageHeight - achievements.height) / 2;
-            return;
         }
 
         private function close(event:Event) : void
@@ -39,24 +37,22 @@
             achievements.visible = false;
             sendNotification(ApplicationFacade.HIDE_OVERLAY);
             sendNotification(ApplicationFacade.REFRESH_TOOLBAR);
-            return;
         }
 
         override public function onRegister() : void
         {
             achievements.addEventListener(achievements.ON_CLOSE, close);
-            return;
         }
 
         override public function handleNotification(value:INotification) : void
         {
-            var _loc_2:Object = null;
+            var body:Object = null;
             switch(value.getName())
             {
                 case ApplicationFacade.UPDATE_OBJECTS:
                 {
-                    _loc_2 = value.getBody();
-                    if (_loc_2.achievements)
+                    body = value.getBody();
+                    if (body.achievements)
                     {
                         achievements.update(app_data.get_achievements_data());
                     }
@@ -85,7 +81,6 @@
                     break;
                 }
             }
-            return;
         }
 
         protected function get app_data() : AppDataProxy
