@@ -344,10 +344,8 @@
         }
         
         private function onGreenhouseAdded(g:Greenhouse):void{
-            var i:Number;
+            var i:Number = 0;
             var obj:MapObject;
-            i = 0;
-            i = 0;
             while (i < map_objects.numChildren) {
                 obj = (map_objects.getChildAt(i) as MapObject);
                 if (!obj){
@@ -684,6 +682,9 @@
                             case "fence":
                                 obj = new Fence(data);
                                 break;
+                            case "animation":
+                            	obj = new AnimationDecoration(data);
+                            	break;
                             default:
                                 obj = new Decoration(data);
                         };
@@ -703,7 +704,7 @@
             align_fences();
             refresh_objects_depth();
             init_greenhouses();
-            check_irrigation(null);
+            check_irrigation();
         }
         
         
@@ -837,19 +838,21 @@
             grass.set_bounds(size_x, size_y, top_size);
             update_grass();
         }
+        
         private function onGreenhouseRemoved(g:Greenhouse):void{
             var plants:Array = g.get_plants();
             var i:Number = 0;
             while (i < plants.length) {
                 MapObject(plants[i]).greenhouse_removed();
                 map_obj = (plants[i] as MapObject);
-                if ((map_obj is Plant)){
+                if (map_obj is Plant){
                     dispatchEvent(new Event(UPDATE_OBJECT));
-                };
+                }
                 i++;
-            };
+            }
             g.clear_plants();
         }
+        
         public function refresh_viewport():void{
             viewport_w = stage.stageWidth;
             viewport_h = stage.stageHeight;
@@ -904,7 +907,7 @@
             return (last_plant);
         }
         
-        private function check_irrigation(e:Event):void{
+        private function check_irrigation(e:Event = null):void{
             var plant:Plant;
             if (!water_well){
                 return;
@@ -931,7 +934,7 @@
             var left_obj:GraphicObject = greenhouse.left_object();
             if (!bottom_obj){
                 return;
-            };
+            }
             bottom_obj.grid_size = grid_size;
             top_obj.grid_size = grid_size;
             right_obj.grid_size = grid_size;
@@ -958,7 +961,7 @@
                 set_object_depth(top_obj);
             } else {
                 map_objects.addChild(top_obj);
-            };
+            }
             if (left_obj.parent == map_objects){
                 map_objects.addChild(left_obj);
                 set_object_depth(left_obj);
@@ -970,7 +973,7 @@
                 set_object_depth(right_obj);
             } else {
                 map_objects.addChild(right_obj);
-            };
+            }
             bottom_obj.refresh_graphic();
             top_obj.refresh_graphic();
             right_obj.refresh_graphic();
@@ -1029,7 +1032,7 @@
                 map_object = (map_objects.getChildAt(i) as MapObject);
                 map_object.toggle_alpha(alpha_mode);
                 i++;
-            };
+            }
         }
         
         public function check_automation(mode:String):void{
@@ -1100,9 +1103,9 @@
                 if ((obj as Fence)){
                     align_fences();
                 };
-                if ((((obj as Plant)) || ((obj.type == "soil")))){
+                if (obj as Plant || obj.type == "soil"){
                     check_greenhouses(obj);
-                };
+                }
                 check_bees();
                 if (obj.kind == "hive"){
                     obj.addEventListener(Hive.FLY, onFly);
@@ -1284,9 +1287,9 @@
                         };
                     };
                     j++;
-                };
+                }
                 i++;
-            };
+            }
         }
 
     }

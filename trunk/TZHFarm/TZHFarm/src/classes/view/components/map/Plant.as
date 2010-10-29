@@ -7,8 +7,6 @@
     import flash.display.*;
     import flash.events.*;
     import flash.utils.*;
-    
-    import tzh.core.Config;
 
     public class Plant extends CollectObject {
 
@@ -202,7 +200,7 @@
         }
         
         override public function apply_rain(p:Number, is_rain:Boolean=false):void{
-            if (((_greenhouse) && (is_rain))){
+            if (_greenhouse && is_rain){
                 return;
             }
             if (fertilize_count){
@@ -240,6 +238,16 @@
             obj.current_collect_in = current_collect_in;
             obj.has_greenhouse = _greenhouse;
             return obj;
+        }
+        
+        public function get saveData():Object {
+        	var obj:Object = new Object();
+        	obj.unique_id = this.map_unique_id;
+        	obj.grid_x = this.sort_grid_x;
+        	obj.grid_y = this.sort_grid_y;
+        	obj.id = this.id;
+            obj.flipped = this.flipped;
+        	return obj;
         }
         
         override public function kill():void{

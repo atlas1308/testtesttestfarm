@@ -77,6 +77,7 @@
 			}
 			return null;
 		}
+		
         public function addAnimal() : void
         {
             stopTimer();

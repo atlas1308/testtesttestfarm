@@ -8,29 +8,44 @@
         private var top_obj:GraphicObject;
         private var right_obj:GraphicObject;
         private var bottom_obj:GraphicObject;
-        private var plants:Array;
+        private var _plants:Array;
         private var opened:Boolean = false;
         private var _growing_percent:Number;
         private var left_obj:GraphicObject;
 
         public function Greenhouse(data:Object){
-            plants = new Array();
+            _plants = new Array();
             _growing_percent = data.growing_percent;
             super(data);
         }
         
+        public function get plants():Array {
+        	return this._plants;
+        }
+        
+        /**
+         * 获取要保存的数据 
+         */ 
+        public function get allMapsSaveObject():Array {
+        	var result:Array = [];
+        	for each(var plant:Plant in _plants){
+        		result.push(plant.saveData);
+        	}
+        	return result;
+        }
+        
         override public function get sort_grid_x():Number{
             if (under_construction){
-                return (grid_x);
-            };
-            return (((grid_x + size_x) - 1));
+                return grid_x;
+            }
+            return ((grid_x + size_x) - 1);
         }
         
         override protected function init_asset():void{
             var x_s:Number;
             var y_s:Number;
             super.init_asset();
-            if (!under_construction){
+            if (!under_construction){ 
                 x_s = (is_flipped()) ? y_size : x_size;
                 y_s = (is_flipped()) ? x_size : y_size;
                 top_obj = new GraphicObject(mc.top_part, x_s, 1, "top");
@@ -46,33 +61,34 @@
                     left_obj.flip();
                     right_obj.flip();
                     bottom_obj.flip();
-                };
+                }
                 dispatchEvent(new Event(SPLIT_OBJECT));
                 mc.bottom_part.front.front_cut.visible = false;
                 mc.right_part.front.front_cut.visible = false;
-            };
+            }
+            this.showConstructionComplete();
         }
         
         public function right_object():GraphicObject{
-            return (right_obj);
+            return right_obj;
         }
         
         public function remove_plant(p:MapObject):void{
             var i:Number = 0;
-            while (i < plants.length) {
-                if (p == plants[i]){
-                    plants.splice(i, 1);
+            while (i < _plants.length) {
+                if (p == _plants[i]){
+                    _plants.splice(i, 1);
                     return;
-                };
+                }
                 i++;
-            };
+            }
         }
         
         override public function get sort_grid_y():Number{
             if (under_construction){
-                return (grid_y);
-            };
-            return (((grid_y + size_y) - 1));
+                return grid_y;
+            }
+            return ((grid_y + size_y) - 1);
         }
         
         override public function get sort_y_size():Number{
@@ -83,7 +99,7 @@
         }
         
         public function bottom_object():GraphicObject{
-            return (bottom_obj);
+            return bottom_obj;
         }
         
         override protected function init():void{
@@ -94,7 +110,7 @@
         public function toggle():void{
             if (!mc){
                 return;
-            };
+            }
             mc.bottom_part.front.front_cut.visible = !(mc.bottom_part.front.front_cut.visible);
             mc.bottom_part.front.front_full.visible = !(mc.bottom_part.front.front_full.visible);
             mc.right_part.front.front_cut.visible = !(mc.right_part.front.front_cut.visible);
@@ -104,11 +120,11 @@
         }
         
         public function add_plant(p:MapObject):void{
-            plants.push(p);
+            _plants.push(p);
         }
         
         override protected function refresh_hit_area():void{
-            if (((under_construction) || (!(opened)))){
+            if (under_construction || !opened){
                 return (super.refresh_hit_area());
             }
             hit_area.graphics.clear();
@@ -132,14 +148,14 @@
         
         override public function intersect(obj:MapObject, check_objects_type:Boolean=false):Boolean{
             if (!super.intersect(obj, check_objects_type)){
-                return (false);
-            };
+                return false;
+            }
             if (!check_objects_type){
-                return (true);
-            };
+                return true;
+            }
             if (under_construction){
-                return (true);
-            };
+                return true;
+            }
             if (((!((obj as Plant))) && (!((obj.type == "soil"))))){
                 return (true);
             };
@@ -152,10 +168,10 @@
             };
             if (y2 <= y1){
                 return (true);
-            };
+            }
             if ((x2 + obj.x_size) >= (x1 + x_size)){
                 return true;
-            };
+            }
             if ((y2 + obj.y_size) >= (y1 + y_size)){
                 return true;
             }
@@ -163,7 +179,7 @@
         }
         
         public function clear_plants():void{
-            plants = new Array();
+            _plants = new Array();
         }
         
         public function join():void{
@@ -192,11 +208,11 @@
         }
         
         public function get_plants():Array{
-            return plants;
+            return _plants;
         }
         
         public function has_plants():Boolean{
-            return ((plants.length > 0));
+            return _plants.length > 0;
         }
         
         public function get growing_percent():Number{

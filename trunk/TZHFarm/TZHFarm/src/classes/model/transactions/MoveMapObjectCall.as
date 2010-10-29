@@ -2,6 +2,8 @@
 {
     import classes.model.*;
     import classes.view.components.map.*;
+    
+    import com.adobe.serialization.json.JSON;
 
     public class MoveMapObjectCall extends TransactionBody
     {
@@ -16,6 +18,11 @@
             params.y = mapObject.map_y;
             params.flip = mapObject.map_flip_state ? (1) : (0);// 当前的方向,这个是需要验证的
             params.flipped = mapObject.is_flipped() ? (1) : (0);
+            if(mapObject is Greenhouse){
+            	//if(Greenhouse(mapObject).allMapsSaveObject && Greenhouse(mapObject).allMapsSaveObject.length > 0){
+            		params.plants = JSON.encode(Greenhouse(mapObject).allMapsSaveObject);// 把原来的数据清掉,更新start_time
+            	//}
+            }
             if (mapObject.greenhouse)
             {
                 params.greenhouse_id = mapObject.greenhouse.id;

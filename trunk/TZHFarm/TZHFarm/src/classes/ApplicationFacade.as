@@ -138,6 +138,8 @@
         
         public static const SHOW_SHOP_BY_TITLE:String = "showShopByTitle";// 根据title弹出选择的内容
         public static const TOGGLE_OFF_ALL_AUTOMATION:String = "toggleOffAllAutomation";// 关闭所有的automation,发这个事件
+        
+        public static const FERTILIZE_FRIEND_HELPED:String = "fertilizeFriendHelped";
 
         public function ApplicationFacade(value:String)
         {

@@ -48,7 +48,7 @@
             var tf:TextField = new TextField();
             if (htmlTxt){
                 tf.htmlText = htmlTxt;
-            };
+            }
             if (w){
                 tf.width = w;
             }

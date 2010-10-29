@@ -1,6 +1,7 @@
 ﻿package classes.view.components.map.tools
 {
     import classes.view.components.map.*;
+    
     import flash.events.*;
 
     public class AddMapObjectTool extends Tool
@@ -144,6 +145,11 @@
                         {
                             map_object = new Fence(data);
                             break;
+                        }
+                        case "animation":
+                        {
+                        	map_object = new AnimationDecoration(data);
+                        	break;
                         }
                         default:
                         {

@@ -134,10 +134,10 @@
             right_arrow.visible = true;
             if (page == 1){
                 left_arrow.visible = false;
-            };
+            }
             if (page == numPages){
                 right_arrow.visible = false;
-            };
+            }
             trace("right_arrow", right_arrow.visible, right_arrow.x, right_arrow.y);
             align_items();
         }

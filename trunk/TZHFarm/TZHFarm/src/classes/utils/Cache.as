@@ -40,7 +40,7 @@
                 arr = (bytes[u] as ByteArray);
                 if (arr){
                     s = (s + arr.length);
-                };
+                }
             }
             return (s);
         }
@@ -49,8 +49,9 @@
             if (loader.content){
                 clearInterval(interval);
                 dispatchEvent(new Event(LOAD_COMPLETE));
-            };
+            }
         }
+        
         private function dispatch_loader():void{
              if (cache_swf){
                 loader = new Loader();
@@ -95,7 +96,7 @@
             if (Cache.bytes[url] == "loading"){
                 if (!(Cache.queue[url] as Array)){
                     Cache.queue[url] = new Array();
-                };
+                }
                 Cache.queue[url].push(this);
                 return;
             }
@@ -114,7 +115,7 @@
         
         public function get asset():Object{
             if (cache_swf){
-                return (loader.content);
+                return loader.content;
             }
             return (get_bmp_by_frame(1));
         }
@@ -172,8 +173,8 @@
                             y:0,
                             bmp:bmp.bitmapData
                         });
-                    };
-                };
+                    }
+                }
                 dispatch_loader();
                 clear_queue();
             }
