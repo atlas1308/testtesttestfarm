@@ -26,6 +26,7 @@
 	import tzh.core.FeedData;
 	import tzh.core.JSDataManager;
 	import tzh.core.TutorialManager;
+	
 	import flash.utils.clearInterval;
 	import flash.utils.clearTimeout;
 	import flash.utils.setTimeout;
@@ -123,7 +124,7 @@
             for (m in obj.obtained_materials) {
                 c = (c + obj.obtained_materials[m]);
             }
-            return (c);
+            return c;
         }
         
         /**
@@ -140,27 +141,27 @@
             var obj:Object;
             var list:Array = (target) ? [target] : get_objects_who_use(m.id, true);
             if (list.length){
-                if (list.length > 1){
+                if (list.length > 1){// 如果大于1的话,先选择再买
                     sendNotification(ApplicationFacade.SHOW_SELECT_OBJECT_POPUP, get_select_object_popup_data(list, m));
-                    return (false);
-                };
+                    return false;
+                }
                 obj = list[0];
-                var _local5 = obj.obtained_materials;
-                var _local6 = m.id;
-                var _local7 = (_local5[_local6] + 1);
-                _local5[_local6] = _local7;
+                var obtained_materials:Object = obj.obtained_materials;
+                var id:int = m.id;
+                var temp:int = int(obtained_materials[id]) + 1;
+                obtained_materials[id] = temp;
                 last_used_materials[m.id] = obj.id;
                 if (num_materials(obj) == num_obtained_materials(obj)){
                     if (can_upgrade(obj)){
                         obj.upgrade_level++;
                     } else {
                         obj.under_construction = false;
-                    };
+                    }
                     obj.obtained_materials = new Array();
                 };
                 if (confirm){
                     confirm.add_value(1, (" " + config.store[m.id].name));
-                };
+                }
                 sendNotification(ApplicationFacade.INCREASE_OBTAINED_MATERIAL, {
                     mo:obj,
                     material:m.id
@@ -601,6 +602,10 @@
             update_objects(["experience", "coins"]);
         }
         
+        /**
+         * 指定的建筑物是否能升级
+         * @param obj:Object 建筑物 
+         */ 
         private function can_upgrade(obj:Object):Boolean{
             var info:Object = config.store[obj.id];
             if (!info.upgradeable){
@@ -796,6 +801,10 @@
             return "Loading";
         }
         
+        /**
+         * 获取商店里的建筑物,如果需要当前的材料的话,就列出来
+         * @param material:Number 当前的材料
+         */ 
         private function get_store_constructible_objects(material:Number):Array{
             var id:String;
             var info:Object;
@@ -805,10 +814,10 @@
                 if (info.constructible){
                     if (has_material(info, material)){
                         list.push(info);
-                    };
-                };
-            };
-            return (list);
+                    }
+                }
+            }
+            return list;
         }
         
         
@@ -913,16 +922,20 @@
             return obj;
         }
         
-        
+        /**
+         * 指定的建筑物里是否包含有此ID
+         * @param obj:Object 建筑物的信息
+         * @param id:Number 材料的id 
+         */ 
         private function has_material(obj:Object, id:Number):Boolean{
             var i:Number = 0;
             while (i < obj.materials.length) {
                 if (obj.materials[i].id == id){
-                    return (true);
-                };
+                    return true;
+                }
                 i++;
-            };
-            return (false);
+            }
+            return false;
         }
         
         public function show_gifts_popup_displayed():void{
@@ -1071,11 +1084,11 @@
         
         public function get_selected_raw_material(id:Number, x:Number, y:Number):Number{
             if (!shared_object){
-                return (0);
-            };
+                return 0;
+            }
             if (shared_object.size == 0){
-                return (0);
-            };
+                return 0;
+            }
             return (shared_object.data[((((("obj" + id) + "_") + x) + "_") + y)]);
         }
         
@@ -1185,36 +1198,40 @@
             return neighbors;
         }
         
+        /**
+         *
+         * @param material:Number 材料ID
+         * @param need:Boolean false 是否要添加,根据添加进去的数量进行验证一下
+         */ 
         private function get_objects_who_use(material:Number, need:Boolean=false):Array{
             var obj:Object;
             var info:Object;
             var list:Array = new Array();
-            var i:Number = 0;
-            for (;i < app_data.map.length;i++) {
+            for (var i:int = 0;i < app_data.map.length; i++) {
                 obj = app_data.map[i];
                 info = config.store[obj.id];
                 update_object(obj);
-                if (!info.constructible){
+                if (!info.constructible){// 是否是建造物,如果不是跳出
                 } else {
                     if (!has_material(info, material)){
                     } else {
                         if (need){
-                            if (((((info.upgradeable) && (!(obj.under_construction)))) && (!(can_upgrade(obj))))){
+                            if (info.upgradeable && !obj.under_construction && !can_upgrade(obj)){
                                 continue;
-                            };
-                            if (((!(info.upgradeable)) && (!(obj.under_construction)))){
+                            }
+                            if (!info.upgradeable && !obj.under_construction){
                                 continue;
-                            };
+                            }
                             if (obj.obtained_materials[material] < get_material_qty(obj, material)){
                                 list.push(obj);
-                            };
+                            }
                         } else {
                             list.push(obj);
                         }
                     }
                 }
             }
-            return (list);
+            return list;
         }
         
         
@@ -1629,7 +1646,7 @@
          */ 
         public function can_buy(id:Number):Boolean{
             var info:Object;
-            var _local3:Object;
+            var obj:Object;
             var list:Array;
             info = config.store[id];
             if ((((info.price > 0)) && ((app_data.coins < info.price)))){
@@ -1647,20 +1664,20 @@
             }
             switch (info.type){
                 case "expand_ranch":
-                    _local3 = map_can_expand(info);
+                    obj = map_can_expand(info);
                     if (info.action == "expand"){
-                        if (!_local3.result){
-                            return (report_error(Algo.sprintf(Err.EXPAND_LEVEL_TOO_BIG, ((_local3.size + "x") + _local3.size))));
-                        };
+                        if (!obj.result){
+                            return (report_error(Algo.sprintf(Err.EXPAND_LEVEL_TOO_BIG, ((obj.size + "x") + obj.size))));
+                        }
                     } else {
-                        if (!_local3.result){
-                            return (report_error(Algo.sprintf(Err.EXPAND_YARD_LEVEL_TOO_BIG, _local3.name)));
-                        };
+                        if (!obj.result){
+                            return (report_error(Algo.sprintf(Err.EXPAND_YARD_LEVEL_TOO_BIG, obj.name)));
+                        }
                     };
                     break;
-            };
+            }
             if (info.action == "construction"){// 这个先过掉，我们暂时没有buliding的功能
-                return (can_use_material(id));
+                return can_use_material(id);
             }
             if (info.max_instances){// 这个值我目前没看到在哪用
                 list = get_objects_like(info.id);
@@ -1669,7 +1686,7 @@
                     	return (report_confirm_error(ResourceManager.getInstance().getString("message","upgrade_notice_message",[Algo.articulate(info.name).toString()])));
                     };
                     return (report_confirm_error(ResourceManager.getInstance().getString("message","already_have_items",[Algo.articulate(info.name).toString()])));
-                };
+                }
             }
             if (((info.constructible) && ((get_objects_like(info.id, true).length == 1)))){
                 return (report_confirm_error(((ResourceManager.getInstance().getString("message","finish_construction_on_existing",[info.name])))));
@@ -1801,7 +1818,7 @@
             output = new Array();
             index = 0;
             is_new = false;
-            config.store_tabs = ["seeds","trees","animals","gear","buildings","decorations","special_events","expand_ranch","automation"];
+            config.store_tabs = ["seeds","trees","animals","gear","materials","buildings","decorations","special_events","expand_ranch","automation"];
             for (var tab:String in tabs) {// 一定要修改掉这段代码,因为操作起来非常困难
             	var resourceName:String = tab + "_type_message";
             	try {
@@ -1868,6 +1885,9 @@
             var obj:Object = Algo.clone(config.store[id]);
             if (!obj){
                 return null;
+            }
+            if(obj.kind == "greenhouse"){
+            	trace('abcd');
             }
             if (obj.constructible){
                 obj.swf_uc = (("assets/swf/" + obj.url) + "_uc.swf");
@@ -2407,15 +2427,15 @@
             }
             if (o.start_time === undefined){
                 o.start_time = 0;
-            };
+            }
             if (!o.start_time){
                 return;
-            };
+            }
             var materials:Number = num_complete_raw_materials(o);
             var n:Number = Math.min((3 - o.products.length), Math.min(materials, Math.floor(((Algo.time() - o.start_time) / o.collect_in))));
             if (n < 0){
                 n = 0;
-            };
+            }
             i = 0;
             while (i < n) {
                 j = 0;
@@ -2582,8 +2602,8 @@
             while (i < arr.length) {
                 c = (c + arr[i].qty);
                 i++;
-            };
-            return (c);
+            }
+            return c;
         }
         
         private function get transaction_proxy():TransactionProxy{
@@ -2948,11 +2968,11 @@
             var i:Number = 0;
             while (i < arr.length) {
                 if (arr[i].id == m){
-                    return (arr[i].qty);
-                };
+                    return arr[i].qty;
+                }
                 i++;
-            };
-            return (0);
+            }
+            return 0;
         }
         
         /**
@@ -3145,6 +3165,10 @@
             return output;
         }
         
+        /**
+         * 是否能使用这个原料
+         * @param id:Number 当前点击购买的材料的ID 
+         */ 
         private function can_use_material(id:Number):Boolean{
             var i:Number;
             var error:String;
@@ -3152,27 +3176,26 @@
             var name:String;
             var list:Array = get_objects_who_use(id, true);
             if (list.length){
-                return (true);
-            };
+                return true;
+            }
             list = get_objects_who_use(id);
             if (list.length){
                 i = 0;
                 while (i < list.length) {
-                    if (((list[i].under_construction) || (can_upgrade(list[i])))){
+                    if (list[i].under_construction || can_upgrade(list[i])){// 这里没看明白,应该表示这里已经满了
                         materials = (config.store[id].plural) ? config.store[id].plural : (config.store[id].name + "s");
                         name = (last_used_materials[id]) ? config.store[last_used_materials[id]].name : config.store[list[i].id].name;
-                        
                         return (report_confirm_error(ResourceManager.getInstance().getString("message","already_own_enough",[materials,name])));
-                    };
-                    if (config.store[list[i].id].max_instances == get_objects_like(list[i].id).length){
+                    }
+                    if (config.store[list[i].id].max_instances == get_objects_like(list[i].id).length){// 这里可以暂时用不到
                         error = ResourceManager.getInstance().getString("message","already_have_items",[Algo.articulate(config.store[id].name)]);
                     } else {
                         return (report_confirm_error(ResourceManager.getInstance().getString("message","start_construction_one",[config.store[list[i].id].name])));
-                    };
+                    }
                     i++;
-                };
+                }
                 return (report_confirm_error(error));
-            };
+            }
             list = get_store_constructible_objects(id);
             i = 0;
             while (i < list.length) {
@@ -3182,8 +3205,8 @@
                     return (report_confirm_error(ResourceManager.getInstance().getString("message","start_construction_one",[list[i].name])));
                 };
                 i++;
-            };
-            return (report_confirm_error(error));
+            }
+            return report_confirm_error(error);
         }
         
         public function auto_process(pid:String):void{
@@ -3212,7 +3235,7 @@
         }
         
         /**
-         * 这个是合成的功能,暂时先不用修改 
+         * 弹出建造大棚的信息
          */ 
         public function get_under_construction_popup_data(mo:MapObject):Object{
             var material:Object;
@@ -3230,26 +3253,31 @@
                 material = get_item_data(info.materials[i].id);
                 material.title_txt = material.name;
                 qty = int(obj.obtained_materials[info.materials[i].id]);
-                material.desc_txt = ((qty + " of ") + info.materials[i].qty);
-                if (((!(material.giftable)) && ((qty == info.materials[i].qty)))){
+                material.desc_txt = ResourceManager.getInstance().getString("message","qty_in_percent_message",[qty,info.materials[i].qty]);
+                //material.giftable = true;
+                if (!material.giftable && qty == info.materials[i].qty){
                     material.disable_button = true;
-                };
-                material.button_label = (material.giftable) ? "Ask For More" : "Ask For Help";
+                }
+                /* material.button_label = (material.giftable) ? "Ask For More" : "Ask For Help";
+                material.type = (material.giftable) ? "ask_for_more" : "ask_for_help"; */
+                material.giftable = false;
+                //material.giftable = material.giftable
+                material.button_label = ResourceManager.getInstance().getString("message","buy_message");//;(material.giftable) ? "Ask For More" : "Ask For Help";
                 material.type = (material.giftable) ? "ask_for_more" : "ask_for_help";
-                if (((!(material.giftable)) && (!((qty == info.materials[i].qty))))){
+                /* if (!material.giftable && qty != info.materials[i].qty){
                     friends_needed = material.friends_needed;
                     if (obj.friends_who_helped){
                         friends_needed = (friends_needed - obj.friends_who_helped[info.materials[i].id]);
-                    };
+                    }
                     more = ((friends_needed)==material.friends_needed) ? "" : " more";
                     if (friends_needed){
                         material.help_txt = ResourceManager.getInstance().getString("message","need_people_to_help",[friends_needed,more]);
-                    };
-                };
+                    }
+                } */
                 output.list.push(material);
                 i++;
-            };
-            return (output);
+            }
+            return output;
         }
         
         /**

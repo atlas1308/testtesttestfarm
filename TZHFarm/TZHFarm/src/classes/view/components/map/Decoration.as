@@ -1,5 +1,7 @@
 ﻿package classes.view.components.map
 {
+	import classes.utils.Cache;
+	
 	/**
 	 * 这个只是简单的装饰
 	 */ 
@@ -9,6 +11,5 @@
         {
             super(value);
         }
-
     }
 }

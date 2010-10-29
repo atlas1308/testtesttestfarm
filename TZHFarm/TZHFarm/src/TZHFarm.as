@@ -30,6 +30,25 @@ package {
 	 * 
 	 * 
 	 * 修改JS里devel_replace 这个去掉,不分隔
+	 * 
+	 * 1.更新GreenHouse功能
+	 * 2.更新部分代码,及语言
+	 * 3.更新排序算法
+	 * 4.更新礼物功能,以及页面上的功能
+	 * 5.功能代码
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 功能更新
+	 * 	a.更新遮挡物时显示出树,并且遮挡物的alpha
+	 *  b.更新用心升级时,好友重新排序,要测试如果快速点击好友时的变化
+	 *  c.更新image,不加随机参数,好友列表在IE下显示不出来头像的问题,还应该仔细查一查.
+	 *  d.更新GreenHouse功能,要测试删除GreenHouse,移动GreenHouse,移动地块,购买GreenHouse,购买原料
+	 * 		等是否有问题
+	 *  e.更新了部分代码优化
 	 */ 
 	 
 	public class TZHFarm extends Sprite
@@ -45,7 +64,7 @@ package {
 		{
 			_instance = this;
 			Security.allowDomain("*");
-			Config.setConfig("host","http://farm.lf3g.com/static/");// lf3g
+			//Config.setConfig("host","http://farm.lf3g.com/static/");// lf3g
 			//Config.setConfig("transport","http://farm.lf3g.com/");
 			//Config.setConfig("transport","http://newfarm.lf3g.com/");
 			
@@ -53,12 +72,12 @@ package {
 			Config.setConfig("transport","http://newfarm.lf3g.com/");  */
 			//Config.setConfig("host","http://ec2-46-51-129-166.eu-west-1.compute.amazonaws.com/static/");//vz平台
 			//Config.setConfig("host","http://ec2-46-51-129-166.eu-west-1.compute.amazonaws.com/static/");//vz平台
-			Config.setConfig("transport","http://ec2-46-51-129-166.eu-west-1.compute.amazonaws.com/");
-			//Config.setConfig("transport","http://192.168.1.99:9903");
+			//Config.setConfig("transport","http://ec2-46-51-129-166.eu-west-1.compute.amazonaws.com/");
+			Config.setConfig("transport","http://192.168.1.99:9901");
 			
 			Config.setConfig("loadSocialData","loadSocialData");
 			Config.setConfig("version","1.0");
-			Config.setConfig("lang","de-DE");
+			Config.setConfig("lang","en-US");
 			//Config.setConfig("lang","pt");
 			this.addEventListener(Event.ADDED_TO_STAGE,addToStageHandler);
 		}

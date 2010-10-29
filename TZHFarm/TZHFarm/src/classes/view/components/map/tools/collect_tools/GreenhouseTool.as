@@ -1,5 +1,4 @@
-﻿
-package classes.view.components.map.tools.collect_tools {
+﻿package classes.view.components.map.tools.collect_tools {
     import classes.view.components.*;
     import classes.view.components.map.*;
     
@@ -11,29 +10,35 @@ package classes.view.components.map.tools.collect_tools {
             super();
             TYPE = "greenhouse";
         }
+        
         override protected function mouseUp():void{
             if (greenhouse){
-                if (greenhouse.is_under_construction()){
+                if (greenhouse.is_under_construction()){// 这里有个参数要设置一下
                     confirm(Map.SHOW_UNDER_CONSTRUCTION_POPUP);
                 } else {
                     greenhouse.toggle();
                     mouseOver();
-                };
-            };
+                }
+            }
         }
+        
         override protected function mouseOut():void{
             hide_tip();
         }
+        
         override public function remove():void{
             hide_tip();
         }
+        
         override protected function mouseDown():void{
             if ((target as Greenhouse)){
-            };
+            }
         }
+        
         override public function get_event_data():Object{
-            return (greenhouse);
+            return greenhouse;
         }
+        
         override protected function mouseOver():void{
             if (greenhouse){
                 if (greenhouse.is_under_construction()){
@@ -51,13 +56,13 @@ package classes.view.components.map.tools.collect_tools {
         
         override public function allow():Boolean{
             if (greenhouse){
-                return (false);
-            };
-            return (true);
+                return false;
+            }
+            return true;
         }
+        
         private function get greenhouse():Greenhouse{
-            return ((target as Greenhouse));
+            return target as Greenhouse;
         }
-
     }
 } 

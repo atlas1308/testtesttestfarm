@@ -37,9 +37,9 @@ package tzh.core
 		{
 			this.path = path;
 			var lang:String = Config.getConfig("lang").toString();
-			if(lang == "de-DE"){
+			/* if(lang == "de-DE"){
 				this.path += "?time=" + new Date().getTime();
-			}
+			} */
 			this.parentWidth = target.width > 0 ? target.width : this.parentWidth;
 			this.parentHeight = target.height > 0 ? target.height : this.parentHeight;
 			this.dispatchError = dispatchError;

@@ -43,12 +43,13 @@
         }
         
         public function get enabledHelped():Boolean {
-        	var result:Boolean;
+        	/* var result:Boolean;
         	if(target && target is Plant){
 				if(Plant(target).can_be_fertilized() && appDataProxy.enabledFriendFertilizer){
 					result = true;
 				}
-			}
+			} */
+			return false;
 			return result;
         }
 
@@ -68,13 +69,14 @@
 		}
 		
 		override public function get_event_data():Object {
-			var data:Object = new Object();
+			/* var data:Object = new Object();
 			var friendHelpedFertilizeData:Object = appDataProxy.friendHelpedFertilizeData;
 			if(friendHelpedFertilizeData){
 				data.fertilizer = {id:friendHelpedFertilizeData.id,percent:friendHelpedFertilizeData.percent};
 			}
             data.plant = Plant(this.target);
-            return data;
+            return data; */
+            return null;
 		}
     }
 }

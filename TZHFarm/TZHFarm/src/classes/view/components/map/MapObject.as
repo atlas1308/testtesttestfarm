@@ -100,7 +100,7 @@
             obtained_materials = (data.obtained_materials) ? data.obtained_materials : new Object();
             materials = (data.materials) ? data.materials : new Array();// 原料
             upgrade_levels = (data.upgrade_levels) ? data.upgrade_levels : new Object();
-            under_construction = (data.under_construction) ? true : false;
+            under_construction = PHPUtil.toBoolean(data.under_construction);
             _is_tall = (data.tall_object) ? true : false;
             water_pipe_url = (data.water_pipe_url) ? data.water_pipe_url : "";
             water_pipe_id = (data.water_pipe) ? data.water_pipe : 0;
@@ -156,7 +156,7 @@
         }
         
         public function is_under_construction():Boolean{
-            return (under_construction);
+            return under_construction;
         }
         
         protected function assetLoaded(e:Event):void{
@@ -176,7 +176,7 @@
         }
         
         public function get id():Number{
-            return (_id);
+            return _id;
         }
         
         public function get right():Number{
@@ -297,7 +297,7 @@
         }
         
         public function get greenhouse():Greenhouse{
-            return (_greenhouse);
+            return _greenhouse;
         }
         
         public function intersect(obj:MapObject, check_objects_type:Boolean=false):Boolean{
@@ -420,40 +420,51 @@
             var _local3 = material;
             var _local4 = (_local2[_local3] + 1);
             _local2[_local3] = _local4;
-            if (numObtainedMaterials() == numMaterials()){
+            this.showConstructionComplete();
+        }
+        
+        public function showConstructionComplete():void {
+        	if (numObtainedMaterials() == numMaterials()){
                 if (!can_upgrade()){
                     under_construction = false;
                     if (complete_size_x){
                         size_x = complete_size_x;
-                    };
+                    }
                     if (complete_size_y){
                         size_y = complete_size_y;
-                    };
+                    }
                     refresh_hit_area();
                     construction_complete();
                 } else {
                     upgrade_level++;
                     on_upgrade();
-                };
+                }
                 obtained_materials = new Array();
-            };
+            }
         }
+        
         public function get _height():Number{
             return ((((size_x + size_y) * _grid_size) * Math.sin(view_angle)));
         }
+        
         public function get scale():Number{
-            return (asset.scaleY);
+            return asset.scaleY;
         }
+        
+        /**
+         * 获取原材料需要的总的数量 
+         */ 
         public function numMaterials():Number{
-            var c:Number = 0;
-            var arr:Array = (can_upgrade()) ? upgrade_levels[(upgrade_level + 1)] : materials;
-            var i:Number = 0;
-            while (arr && i < arr.length) {
-                c = (c + arr[i].qty);
-                i++;
-            };
-            return (c);
+            var result:Number = 0;
+            var list:Array = (can_upgrade()) ? upgrade_levels[(upgrade_level + 1)] : materials;
+            var index:Number = 0;
+            while (list && index < list.length) {
+                result = result + list[index].qty;
+                index++;
+            }
+            return result;
         }
+        
         public function get flipable():Boolean{
             return (_flipable);
         }
@@ -471,13 +482,15 @@
             return (rotate_btn.hitTestPoint(p.x, p.y, true));
         }
         public function get grid_size():Number{
-            return (_grid_size);
+            return _grid_size;
         }
+        
         public function kill():void{
             loader.removeEventListener(Cache.LOAD_COMPLETE, assetLoaded);
             clear_asset();
             parent.removeChild(this);
         }
+        
         public function simple_object():Object{
             var obj:Object = new Object();
             obj.sort_grid_x = (_grid_size) ? sort_grid_x : map_x;
@@ -488,6 +501,7 @@
             obj.mo = this;
             return (obj);
         }
+        
         public function flip():void{
             asset.scaleX = (asset.scaleX * -1);
             var old_size_x:Number = size_x;
@@ -500,9 +514,11 @@
         public function get x_size():Number{
             return (size_x);
         }
+        
         public function get stage_x():Number{
-            return (localToGlobal(new Point(0, 0)).x);
+            return localToGlobal(new Point(0, 0)).x;
         }
+        
         public function is_flipped():Boolean{
             return ((asset.scaleX < 0));
         }
@@ -511,36 +527,44 @@
         }
         public function clear_process(channel:String):void{
         }
+        
         protected function get bmp():Bitmap{
             if (asset.numChildren){
-                return ((asset.getChildAt(0) as Bitmap));
-            };
-            return (null);
+                return asset.getChildAt(0) as Bitmap;
+            }
+            return null;
         }
+        
         public function get sort_grid_x():Number{
-            return (grid_x);
+            return grid_x;
         }
+        
         public function set enabled(v:Boolean):void{
             _enabled = v;
         }
+        
         protected function clear_asset():void{
             while (asset.numChildren) {
                 asset.removeChildAt(0);
             }
         }
+        
         protected function water_pipe_loaded(e:Event):void{
             water_pipe = (e.target.asset as Bitmap);
             asset.addChild(water_pipe);
             water_pipe.x = (Algo.get_x(size_x, (size_y / 2), view_angle, 15) - (water_pipe.width / 2));
             water_pipe.y = (Algo.get_y(size_x, (size_y / 2), view_angle, 15) - water_pipe.height);
         }
+        
         public function set grid_y(v:Number):void{
             _grid_y = v;
             refresh_coords();
         }
+        
         public function get sort_grid_y():Number{
-            return (grid_y);
+            return grid_y;
         }
+        
         public function process():void{
             waiting_to_process = true;
             state = "waiting_to_process";
@@ -549,22 +573,24 @@
             if (last_grid_size){
                 asset.scaleX = (asset.scaleX * (grid_size / last_grid_size));
                 asset.scaleY = Math.abs(asset.scaleX);
-            };
+            }
             if (((!(asset.numChildren)) || (((water_pipe) && ((asset.numChildren == 1)))))){
                 if (under_construction){
                     loader.load(under_construction_url);
                 } else {
                 	if(!asset_url)return;
                     loader.load(asset_url);
-                };
-            };
+                }
+            }
         }
+        
         public function get kind():String{
-            return (_kind);
+            return _kind;
         }
         public function get_upgrade_level():Number{
             return (upgrade_level);
         }
+        
         protected function refresh_hit_area():void{
             hit_area.graphics.clear();
             hit_area.graphics.beginFill(0, 0);
@@ -575,6 +601,7 @@
             hit_area.graphics.lineTo(0, 0);
             hit_area.graphics.endFill();
         }
+        
         public function preload_position(channel:String):Object{
             var x:Number = stage_x;
             var y:Number = (stage_y - 20);
@@ -583,6 +610,7 @@
                 y:y
             });
         }
+        
         protected function get mc():MovieClip{
             if (asset.numChildren){
                 return ((asset.getChildAt(0) as MovieClip));
@@ -591,15 +619,18 @@
         }
         
         public function is_tall():Boolean{
-            return (_is_tall);
+            return _is_tall;
         }
+        
         public function set grid_x(v:Number):void{
             _grid_x = v;
             refresh_coords();
         }
+        
         protected function zoomable():Boolean{
-            return (false);
+            return false;
         }
+        
         protected function highlight(color:Number=0xFF0000, alpha:Number=0.2, show_corners:Boolean=true, padd:Number=5, show_rotate_btn:Boolean=false):void{
             state_cont.graphics.clear();
             state_cont.graphics.lineStyle(1, 0, 0, true);
@@ -630,29 +661,33 @@
                 rotate_btn.visible = show_rotate_btn;
             } else {
                 rotate_btn.visible = false;
-            };
+            }
         }
-        public function wait_to_process(channel:String):void{
-            if (process_count[channel] == undefined){
-                process_count[channel] = 0;
-            };
-            var _local2 = process_count;
-            var _local3 = channel;
-            var _local4 = (_local2[_local3] + 1);
-            _local2[_local3] = _local4;
+        
+        public function wait_to_process(value:String):void{
+            if (process_count[value] == undefined){
+                process_count[value] = 0;
+            }
+            var obj:Object = process_count;
+            var channel:String = value;
+            var temp:int = int(obj[channel]) + 1;
+            obj[channel] = temp;
             state = "waiting_to_process";
             waiting_to_process = true;
         }
+        
         public function remove_irrigation():void{
             water_pipe_id = 0;
             if (asset.contains(water_pipe)){
                 asset.removeChild(water_pipe);
-            };
+            }
             water_pipe = null;
         }
+        
         public function get grid_x():Number{
-            return (get_grid_x(x, y));
+            return get_grid_x(x, y);
         }
+        
         public function toggle_alpha(alpha_mode:Boolean):void{
             if (is_tall()){
                 if (alpha_mode){
@@ -667,12 +702,12 @@
         }
         
         public function numObtainedMaterials():Number{
-            var m:String;
-            var c:Number = 0;
-            for (m in obtained_materials) {
-                c = (c + obtained_materials[m]);
-            };
-            return (c);
+            var key:String;
+            var result:Number = 0;
+            for (key in obtained_materials) {
+                result = (result + obtained_materials[key]);
+            }
+            return result;
         }
         
         public function hit_test(x:Number, y:Number):Boolean{
@@ -725,10 +760,10 @@
         }
         
         protected function get_grid_x(x:Number, y:Number):Number{
-            var key:String = ((((("coord_" + x) + "_") + y) + "_") + _grid_size);
+            var key:String = "coord_" + x + "_" + y + "_" + _grid_size;
             if (!x_coord[key]){
                 x_coord[key] = Algo.get_grid_x(x, y, view_angle, _grid_size);
-            };
+            }
             return (Number(x_coord[key]));
         }
         
@@ -749,20 +784,20 @@
             if ((((type == "seeds")) || ((type == "soil")))){
                 if (_x < 0){
                     _x = 0;
-                };
+                }
                 if (_y < 0){
                     _y = 0;
                 };
                 if ((_x + size_x) > x_s){
                     _x = (x_s - size_x);
-                };
+                }
                 if ((_y + size_y) > y_s){
                     _y = (y_s - size_y);
-                };
+                }
                 grid_x = _x;
                 grid_y = _y;
                 return;
-            };
+            }
             if (_x < 0){
                 if (_x < -(top_s)){
                     _x = -(top_s);
@@ -772,10 +807,10 @@
                 if (_y < -(top_s)){
                     _y = -(top_s);
                 };
-            };
+            }
             if ((_x + size_x) > x_s){
                 _x = (x_s - size_x);
-            };
+            }
             if ((_y + size_y) > y_s){
                 _y = (y_s - size_y);
             };
@@ -785,12 +820,12 @@
         
         public function check_bounds(x_s:Number, y_s:Number):Boolean{
             if ((grid_x + size_x) > x_s){
-                return (false);
-            };
+                return false;
+            }
             if ((grid_y + size_y) > y_s){
-                return (false);
-            };
-            return (true);
+                return false;
+            }
+            return true;
         }
         
         public function get _width():Number{
@@ -826,7 +861,7 @@
                 return false;
             }
             if (upgrade_level == (Algo.count(upgrade_levels) + 1)){
-                return (false);
+                return false;
             }
             return true;
         }
@@ -835,12 +870,14 @@
             var key:String = ((((("coord_" + x) + "_") + y) + "_") + _grid_size);
             if (!y_coord[key]){
                 y_coord[key] = Algo.get_grid_y(x, y, view_angle, _grid_size);
-            };
-            return (Number(y_coord[key]));
+            }
+            return Number(y_coord[key]);
         }
+        
         public function get_name():String{
             return _name;
         }
+        
         protected function construction_complete():void{
             loader.load(asset_url);
         }
@@ -860,6 +897,7 @@
             state = _state;
             rotate_btn.scaleX = (rotate_btn.scaleY = (v / 15));
         }
+        
         public function get usable():Boolean{
             return !waiting_to_process;
         }

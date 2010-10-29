@@ -19,10 +19,14 @@
         {
             super(NAME, value);
         }
-
+		
+		/**
+		 * 增加了
+		 * ApplicationFacade.SHOW_LEVEL_UP_POPUP的事件
+		 */ 
         override public function listNotificationInterests() : Array
         {
-            return [ApplicationFacade.UPDATE_OBJECTS, ApplicationFacade.BACK_TO_MY_RANCH, ApplicationFacade.NEIGHBORS_LOADED, ApplicationFacade.ACTIVATE_SNAPSHOT_MODE, ApplicationFacade.DEACTIVATE_SNAPSHOT_MODE];
+            return [ApplicationFacade.UPDATE_OBJECTS, ApplicationFacade.BACK_TO_MY_RANCH,ApplicationFacade.SHOW_LEVEL_UP_POPUP,ApplicationFacade.NEIGHBORS_LOADED, ApplicationFacade.ACTIVATE_SNAPSHOT_MODE, ApplicationFacade.DEACTIVATE_SNAPSHOT_MODE];
         }
 
         protected function get app_data() : AppDataProxy
@@ -49,6 +53,10 @@
                         friends_list.update(app_data.get_neighbors_data());// 在这里更新friends
                     }
                     break;
+                }
+                case ApplicationFacade.SHOW_LEVEL_UP_POPUP:{// 升级时,更新好友面板
+                	friends_list.update(app_data.get_neighbors_data());// 在这里更新friends
+                	break;
                 }
                 case ApplicationFacade.BACK_TO_MY_RANCH:
                 {

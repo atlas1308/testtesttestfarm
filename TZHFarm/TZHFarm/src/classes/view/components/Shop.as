@@ -124,7 +124,7 @@
 
         private function clear_container(value:Sprite) : void
         {
-            while (value.numChildren)
+            while (value.numChildren > 0)
             {
                 value.removeChildAt(0);
             }
@@ -240,7 +240,7 @@
             while (index < list.length)
             {
                 column = 0;
-                while (column < list[index].row.length)
+                while (list[index].hasOwnProperty("row") && column < list[index].row.length)
                 {
                     shopTab = list[index].row[column] as ShopTab;
                     if (column == 0)
