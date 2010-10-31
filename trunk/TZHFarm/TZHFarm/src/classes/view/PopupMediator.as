@@ -26,7 +26,7 @@
 
         override public function listNotificationInterests() : Array
         {
-            return [ApplicationFacade.ESCAPE_PRESSED, ApplicationFacade.STAGE_RESIZE, ApplicationFacade.CLOSE_NETWORK_DELAY_POPUP];
+            return [ApplicationFacade.ESCAPE_PRESSED,ApplicationFacade.UPDATE_UNDERCONSTRUCTIONPOPUP, ApplicationFacade.STAGE_RESIZE, ApplicationFacade.CLOSE_NETWORK_DELAY_POPUP];
         }
 
         protected function get popup() : IPopup
@@ -47,6 +47,7 @@
                 if (popup as UnderConstructionPopup)
                 {
                     popup.addEventListener(UnderConstructionPopup.LINK_CLICKED, onLinkClicked);
+                    popup.addEventListener(PopupItem.ITEM_CLICKED,itemClickHandler);
                 }
             }
             if (popup as NeighborsListPopup)
@@ -55,6 +56,10 @@
             }
             popup.addEventListener(DynamicPopup.ON_CLOSE, onClose);
             popup.addEventListener(DynamicPopup.ON_ACCEPT, onAccept);
+        }
+        
+        private function itemClickHandler(event:Event):void {
+        	sendNotification(ApplicationFacade.BUY_ITEM_NOT_IN_SHOP,event.target.item);
         }
 
         protected function get snapshot_proxy() : SnapshotProxy
@@ -136,7 +141,7 @@
                     }
                     case PopupTypes.ACCEPT_SELECTED_GIFT:// 送礼物的功能
                     {
-                        onClose(null);
+                        onClose();
                         sendNotification(ApplicationFacade.SEND_GIFT, DynamicPopup(popup).info);
                         break;
                     }
@@ -153,7 +158,7 @@
                     case PopupTypes.GIFT_SENT_CONFIRMATION:
                     case PopupTypes.SUGGEST_TO_BUY_GIFT:
                     {
-                        onClose(null);
+                        onClose();
                         sendNotification(ApplicationFacade.DISPLAY_SHOP);
                         break;
                     }
@@ -198,10 +203,10 @@
             {
                 JSDataManager.reload();
             } 
-            onClose(null);
+            onClose();
         }
 
-        private function onClose(event:Event) : void
+        private function onClose(event:Event = null) : void
         {
             trace("popup onClose");
             if (popup as SnapshotPreviewPopup)
@@ -276,6 +281,15 @@
                     }
                     break;
                 }
+                case ApplicationFacade.UPDATE_UNDERCONSTRUCTIONPOPUP:
+                {
+                	if(popup is UnderConstructionPopup){
+                		var body:Object = value.getBody();
+                		UnderConstructionPopup(popup).refreshData(app_data.get_under_construction_popup_data(body as MapObject));
+                	}
+                	trace("is test");
+                	break;
+                }
                 default:
                 {
                     break;
@@ -291,7 +305,7 @@
         private function onNextClicked(event:Event) : void
         {
             onClose(event);
-            var info:Object = {neighbor:NeighborsListPopup(event.target).selected_neighbor, gift:event.target.info.gift};
+            var info:Object = {neighbor:NeighborsListPopup(event.target).selected_neighbor, gift:event.target.info.gift,type:event.target.info.type};
             var sendData:Object = app_data.get_accept_selected_gift_popup_data(info.neighbor, info.gift);
             sendData.data = info;
             sendNotification(ApplicationFacade.SHOW_POPUP, sendData);

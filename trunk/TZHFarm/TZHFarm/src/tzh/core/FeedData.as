@@ -26,5 +26,18 @@ package tzh.core
 			return obj;
 		}
 		
+		public static function getRequestGiftsMessage(username:String):Object {
+			var obj:Object = {};
+			obj.body = ResourceManager.getInstance().getString("message","request_gifts_message",[username]);
+			obj.src = Config.getConfig("host") + "feed/request_gifts.png";
+			return obj;
+		}
+		
+		public static function getSendGiftsToFriendMessage(username:String,friendName:String,gift_id:Number):Object {
+			var obj:Object = {};
+			obj.body = ResourceManager.getInstance().getString("message","send_gift_to_friend_message",[username,friendName]);
+			obj.src = Config.getConfig("host") + "feed/request_gifts" + gift_id + ".png";
+			return obj;
+		}
 	}
 }

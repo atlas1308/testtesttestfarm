@@ -3,6 +3,7 @@
     import classes.*;
     import classes.model.*;
     import classes.view.components.*;
+    import classes.view.components.map.MapObject;
     
     import flash.events.*;
     
@@ -24,7 +25,7 @@
 
         override public function listNotificationInterests() : Array
         {
-            return [ApplicationFacade.UPDATE_OBJECTS, ApplicationFacade.DISPLAY_SHOP, ApplicationFacade.HIDE_SHOP, ApplicationFacade.SHOW_SHOP_AND_ADD_PLANT, ApplicationFacade.ESCAPE_PRESSED, ApplicationFacade.STAGE_RESIZE];
+            return [ApplicationFacade.UPDATE_OBJECTS, ApplicationFacade.BUY_ITEM_NOT_IN_SHOP, ApplicationFacade.DISPLAY_SHOP, ApplicationFacade.HIDE_SHOP, ApplicationFacade.SHOW_SHOP_AND_ADD_PLANT, ApplicationFacade.ESCAPE_PRESSED, ApplicationFacade.STAGE_RESIZE];
         }
 
         protected function get app_data() : AppDataProxy
@@ -101,6 +102,11 @@
                     alignShop();
                     break;
                 }
+                case ApplicationFacade.BUY_ITEM_NOT_IN_SHOP:{
+                	body = value.getBody();
+                	this.buyItem(body);
+                	break;
+                }
                 default:
                 {
                     break;
@@ -108,7 +114,7 @@
             }
         }
 
-        private function closeShop(event:Event) : void
+        private function closeShop(event:Event = null) : void
         {
             shop.visible = false;
             sendNotification(ApplicationFacade.HIDE_OVERLAY);
@@ -133,32 +139,44 @@
 
         private function useItem(event:Event) : void
         {
-            if (!app_data.can_buy(event.target.item_clicked.id))
+        	var item:Object = event.target.item_clicked;
+        	this.buyItem(item);
+        }
+        
+        private function buyItem(value:Object):void {
+        	if (!app_data.can_buy(value.id))
             {
                 return;
             }
-            if (app_data.can_close_shop(event.target.item_clicked.id))
+            if (app_data.can_close_shop(value.id))
             {
-                closeShop(null);
+                closeShop();
             }
             app_data.gift_mode = false;
             sendNotification(ApplicationFacade.REFRESH_TOOLBAR);
-            var item:Object = app_data.get_item_data(event.target.item_clicked.id);
+            var item:Object = app_data.get_item_data(value.id);
             if (item.map_object)
             {
-                sendNotification(ApplicationFacade.PLACE_MAP_OBJECT, {flipped:event.target.item_clicked.is_flipped, item:event.target.item_clicked.id});
+                sendNotification(ApplicationFacade.PLACE_MAP_OBJECT, {flipped:value.is_flipped, item:value.id});
             }
-            else if (app_data.map_can_use_shop_item(event.target.item_clicked.id))
+            else if (app_data.map_can_use_shop_item(value.id))
             {
                 sendNotification(ApplicationFacade.USE_SHOP_ITEM, item);
             }
             else if (item.rp_price > 0)
             {
-                sendNotification(ApplicationFacade.SPEND_RP, event.target.item_clicked.id);
+            	var obj:Object = {};
+            	if(value.hasOwnProperty("affectMapObject")){
+            		obj.item = value.id;
+            		obj.target = MapObject(value.affectMapObject).saveObject;
+            	}else { 
+            		obj = value.id;
+            	}
+                sendNotification(ApplicationFacade.SPEND_RP, obj);
             }
             else
             {
-                sendNotification(ApplicationFacade.BUY_ITEM, event.target.item_clicked.id);
+                sendNotification(ApplicationFacade.BUY_ITEM, value.id);
             }
         }
 

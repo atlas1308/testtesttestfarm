@@ -1,6 +1,7 @@
 ﻿package classes.view.components.popups {
     import classes.utils.*;
     import classes.view.components.buttons.*;
+    import classes.view.components.map.MapObject;
     
     import flash.display.*;
     import flash.events.*;
@@ -30,6 +31,16 @@
             super();
             this.data = data;
             this.init();
+        }
+        
+        public var _affectMapObject:MapObject;
+        
+        public function set affectMapObject(value:MapObject):void {
+        	this._affectMapObject = value;
+        }
+        
+        public function get affectMapObject():MapObject {
+        	return this._affectMapObject;
         }
         
         protected function align():void{
@@ -105,7 +116,20 @@
             }
         }
         
-        public function get id():Number{
+        public function refresh(data:Object):void {
+        	this.data = data;
+        	if (data.title_txt){
+                title.text = data.title_txt;
+            }
+            if (data.desc_txt){
+                desc.text = data.desc_txt;
+            }
+            if (data.disable_button){
+                disable_button();
+            }
+        }
+        
+        public function get id():*{
             return data.id;
         }
         
@@ -119,7 +143,7 @@
         }
         
         public function get type():String{
-            return (data.type);
+            return data.type;
         }
         
         protected function draw_rect(cont:Sprite, line:Number, fill:Number, w:Number, h:Number, x:Number=0, y:Number=0):void{
@@ -130,6 +154,10 @@
             gr.drawRoundRect(x, y, w, h, 20);
             gr.endFill();
         }
-
+		
+		
+		public function getData():Object {
+			return this.data;
+		}
     }
 }

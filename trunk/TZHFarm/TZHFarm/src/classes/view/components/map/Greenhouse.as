@@ -28,8 +28,10 @@
          */ 
         public function get allMapsSaveObject():Array {
         	var result:Array = [];
-        	for each(var plant:Plant in _plants){
-        		result.push(plant.saveData);
+        	for each(var mapObject:MapObject in _plants){
+        		if(mapObject is Plant){
+        			result.push(Plant(mapObject).saveData);
+        		}
         	}
         	return result;
         }
@@ -228,6 +230,12 @@
                 return size_x;
             }
             return 1;
+        }
+        
+        override public function get saveObject():Object {
+        	var result:Object = super.saveObject;
+        	result.obtained_materials = this.obtained_materials;
+        	return result;
         }
     }
 }

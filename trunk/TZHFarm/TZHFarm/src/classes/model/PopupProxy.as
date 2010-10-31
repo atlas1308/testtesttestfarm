@@ -36,6 +36,9 @@
             trace("add popup", value.getName(), queue.length);
             queue.push(value);
         }
-
+		
+		public function removeAll():void {
+			this.init();
+		}
     }
 }

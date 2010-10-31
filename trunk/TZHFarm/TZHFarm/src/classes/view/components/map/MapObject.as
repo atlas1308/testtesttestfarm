@@ -415,7 +415,7 @@
         public function increase_obtained_material(material:Number):void{
             if (!obtained_materials[material]){
                 obtained_materials[material] = 0;
-            };
+            }
             var _local2 = obtained_materials;
             var _local3 = material;
             var _local4 = (_local2[_local3] + 1);
@@ -488,7 +488,9 @@
         public function kill():void{
             loader.removeEventListener(Cache.LOAD_COMPLETE, assetLoaded);
             clear_asset();
-            parent.removeChild(this);
+            if(parent){
+            	parent.removeChild(this);
+            }
         }
         
         public function simple_object():Object{
@@ -912,6 +914,14 @@
 				mapObject.map_unique_id == this.map_unique_id){
 				result = true;
 			}
+			return result;
+		}
+		
+		public function get saveObject():Object {
+			var result:Object = {};
+			result.id = this.id;
+			result.x = this.sort_grid_x;
+			result.y = this.sort_grid_y;
 			return result;
 		}
     }

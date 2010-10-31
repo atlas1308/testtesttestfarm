@@ -5,6 +5,7 @@
     import flash.display.*;
     import flash.events.*;
     import flash.text.*;
+    import flash.utils.Dictionary;
     
     import mx.resources.ResourceManager;
 
@@ -16,7 +17,9 @@
         private var popup:DynamicPopup;
         private var caption_txt:TextField;
         public static const NEXT_CLICKED:String = "nextClicked";
-
+		
+		private var neighborsMap:Dictionary = new Dictionary(true);
+		
         public function NeighborsListPopup(value:Object)
         {
             super(ResourceManager.getInstance().getString("message","neighbors_list_message"), value.list, 680, 470, 515, 300);
@@ -101,7 +104,7 @@
             caption.y = tf.y + tf.height + 5;
         }
 
-        public function get selected_neighbor() : Number
+        public function get selected_neighbor():String
         {
             return last_selected.id;
         }

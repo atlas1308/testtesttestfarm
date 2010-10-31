@@ -419,16 +419,18 @@
             }
         }
         
-        public function increase_obtained_material(obj:Object, material:Number):void{
+        public function increase_obtained_material(obj:Object, material:Number):MapObject{
             var mo:MapObject;
             var i:Number = 0;
             while (i < map_objects.numChildren) {
-                mo = (map_objects.getChildAt(i) as MapObject);
-                if ((((((mo.id == obj.id)) && ((mo.grid_x == obj.x)))) && ((mo.grid_y == obj.y)))){
+                mo = map_objects.getChildAt(i) as MapObject;
+                if (mo.id == obj.id && mo.grid_x == obj.x && mo.grid_y == obj.y){
                     mo.increase_obtained_material(material);
+                    return mo;
                 }
                 i++;
             }
+            return null;
         }
         
         /**

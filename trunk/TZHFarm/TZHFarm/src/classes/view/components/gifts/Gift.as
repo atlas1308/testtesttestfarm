@@ -44,8 +44,6 @@ package classes.view.components.gifts {
         	this.collect = this.skin.collect;
         	this.sell_for = this.skin.sell_for;
         	this.desc = this.skin.desc;
-        	//this.skin.sell_btn.visible = false;
-        	//this.skin.use_btn.visible = false;
         }
         
         private function imageLoaded(e:Event):void{
@@ -67,6 +65,7 @@ package classes.view.components.gifts {
             addChild(trade_btn);
             use_btn.y = (this.skin.height - (use_btn.height / 2));
             trade_btn.y = (this.skin.height - (trade_btn.height / 2));
+            data.trade_for = false;
             if (!data.trade_for){
                 trade_btn.visible = false;
                 use_btn.x = ((width - use_btn.width) / 2);

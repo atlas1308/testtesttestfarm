@@ -24,18 +24,11 @@ package {
 	 * 
 	 * 初始化用户购买化肥时,会出现升级的bug
 	 * 
-	 * 蜜蜂采蜜有Bug
-	 * 
-	 * 购买Jam有bug,不能同时操作
-	 * 
-	 * 
-	 * 修改JS里devel_replace 这个去掉,不分隔
-	 * 
-	 * 1.更新GreenHouse功能
-	 * 2.更新部分代码,及语言
-	 * 3.更新排序算法
-	 * 4.更新礼物功能,以及页面上的功能
-	 * 5.功能代码
+	 * 1.更新GreenHouse功能 已经修改OK,后台有些数据需要测试
+	 * 2.更新部分代码,及语言 进行中
+	 * 3.更新排序算法 进行中
+	 * 4.更新礼物功能,以及页面上的功能 需要测试
+	 * 5.功能代码 进行中
 	 * 
 	 * 
 	 * 
@@ -65,15 +58,15 @@ package {
 			_instance = this;
 			Security.allowDomain("*");
 			//Config.setConfig("host","http://farm.lf3g.com/static/");// lf3g
-			//Config.setConfig("transport","http://farm.lf3g.com/");
-			//Config.setConfig("transport","http://newfarm.lf3g.com/");
+			Config.setConfig("transport","http://farm.lf3g.com/");
+			//Config.setConfig("transport","http://devfarm.lf3g.com/");
 			
 			/* Config.setConfig("host","http://newfarm.lf3g.com/static/");// 本机
 			Config.setConfig("transport","http://newfarm.lf3g.com/");  */
 			//Config.setConfig("host","http://ec2-46-51-129-166.eu-west-1.compute.amazonaws.com/static/");//vz平台
 			//Config.setConfig("host","http://ec2-46-51-129-166.eu-west-1.compute.amazonaws.com/static/");//vz平台
 			//Config.setConfig("transport","http://ec2-46-51-129-166.eu-west-1.compute.amazonaws.com/");
-			Config.setConfig("transport","http://192.168.1.99:9901");
+			//Config.setConfig("transport","http://192.168.1.99:9901");
 			
 			Config.setConfig("loadSocialData","loadSocialData");
 			Config.setConfig("version","1.0");

@@ -281,7 +281,7 @@
             var percent:Number = (water_pipe_id) ? water_pipe_growing_percent : 0;
             percent = (percent + (_greenhouse) ? _greenhouse.growing_percent : 0);
             var c:Number = (old_collect_in * (1 - percent));
-            return (c);
+            return c;
         }
         
         /**
