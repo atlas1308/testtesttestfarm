@@ -144,6 +144,8 @@
         public static const BUY_ITEM_NOT_IN_SHOP:String = "buyItemNotInShop";// 购买物品,并非从商店里购买
         
         public static const UPDATE_UNDERCONSTRUCTIONPOPUP:String = "updateUnderConstructionPopup";
+        
+        public static const CLOSE_UNDERCONSTRUCTIONPOPUP:String = "closeUnderConstructionPopup";// 关闭
 
         public function ApplicationFacade(value:String)
         {

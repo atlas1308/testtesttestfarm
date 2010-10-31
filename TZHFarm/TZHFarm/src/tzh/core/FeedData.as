@@ -33,6 +33,9 @@ package tzh.core
 			return obj;
 		}
 		
+		/**
+		 * 要根据ID的名称给图片取名字
+		 */ 
 		public static function getSendGiftsToFriendMessage(username:String,friendName:String,gift_id:Number):Object {
 			var obj:Object = {};
 			obj.body = ResourceManager.getInstance().getString("message","send_gift_to_friend_message",[username,friendName]);

@@ -1,9 +1,12 @@
 ﻿package classes.view.components.map {
+    import classes.ApplicationFacade;
     import classes.utils.*;
     
     import flash.display.*;
     import flash.events.*;
     import flash.geom.*;
+    
+    import org.puremvc.as3.multicore.patterns.facade.Facade;
 
     public class MapObject extends Sprite {
 
@@ -427,6 +430,7 @@
         	if (numObtainedMaterials() == numMaterials()){
                 if (!can_upgrade()){
                     under_construction = false;
+                    Facade.getInstance(TZHFarm.MAIN_STAGE).sendNotification(ApplicationFacade.CLOSE_UNDERCONSTRUCTIONPOPUP);
                     if (complete_size_x){
                         size_x = complete_size_x;
                     }

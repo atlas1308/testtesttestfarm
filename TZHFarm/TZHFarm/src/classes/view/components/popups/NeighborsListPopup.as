@@ -5,9 +5,10 @@
     import flash.display.*;
     import flash.events.*;
     import flash.text.*;
-    import flash.utils.Dictionary;
     
     import mx.resources.ResourceManager;
+    
+    import tzh.core.JSDataManager;
 
     public class NeighborsListPopup extends ComplexPopup
     {
@@ -17,8 +18,8 @@
         private var popup:DynamicPopup;
         private var caption_txt:TextField;
         public static const NEXT_CLICKED:String = "nextClicked";
-		
-		private var neighborsMap:Dictionary = new Dictionary(true);
+        
+        private var no_items:Sprite;
 		
         public function NeighborsListPopup(value:Object)
         {
@@ -72,6 +73,25 @@
             caption_txt.y = (40 - caption_txt.textHeight) / 2;
             caption_txt.x = (450 - caption_txt.textWidth) / 2;
             next_btn.addEventListener(MouseEvent.CLICK, nextClicked);
+            if(items_cont.numChildren == 0){
+            	textFormat.size = 22;
+            	no_items = new Sprite();
+            	var textField:TextField = create_tf(220,50,textFormat);// 先设置死了
+            	textField.autoSize = TextFieldAutoSize.LEFT;
+            	textField.multiline = false;
+            	textField.text = ResourceManager.getInstance().getString("message","add_neighbors_message");
+            	textField.selectable = false;
+            	no_items.addChild(textField);
+            	no_items.addEventListener(MouseEvent.CLICK,showInviteFriend);
+            	no_items.mouseChildren = false;
+            	no_items.useHandCursor = true;
+            	no_items.buttonMode = true;
+            	content.addChild(no_items);
+            }
+        }
+        
+        private function showInviteFriend(event:MouseEvent):void {
+        	JSDataManager.showInviteFriendPage();
         }
 
         private function onUnselect(event:Event) : void
@@ -102,6 +122,10 @@
             next_btn.y = inner_cont.y + msg_h + (_h - inner_cont.y - msg_h - next_btn.height) / 2;
             caption.x = (_w - 450) / 2;
             caption.y = tf.y + tf.height + 5;
+            if(no_items){
+            	no_items.x = (this.width - no_items.width) / 2;
+            	no_items.y = (this.height - no_items.height) / 2;
+            }
         }
 
         public function get selected_neighbor():String
