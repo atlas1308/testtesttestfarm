@@ -26,7 +26,7 @@
 
         override public function listNotificationInterests() : Array
         {
-            return [ApplicationFacade.ESCAPE_PRESSED,ApplicationFacade.UPDATE_UNDERCONSTRUCTIONPOPUP, ApplicationFacade.STAGE_RESIZE, ApplicationFacade.CLOSE_NETWORK_DELAY_POPUP];
+            return [ApplicationFacade.ESCAPE_PRESSED,ApplicationFacade.CLOSE_UNDERCONSTRUCTIONPOPUP,ApplicationFacade.UPDATE_UNDERCONSTRUCTIONPOPUP, ApplicationFacade.STAGE_RESIZE, ApplicationFacade.CLOSE_NETWORK_DELAY_POPUP];
         }
 
         protected function get popup() : IPopup
@@ -290,6 +290,13 @@
                 	trace("is test");
                 	break;
                 }
+                case ApplicationFacade.CLOSE_UNDERCONSTRUCTIONPOPUP:{
+                	if(popup is UnderConstructionPopup){
+                		popup.remove();
+            			facade.removeMediator(mediatorName);
+                	}
+                	break;
+            	}
                 default:
                 {
                     break;

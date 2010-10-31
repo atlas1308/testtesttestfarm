@@ -3138,7 +3138,12 @@
         	obj.recipients = [value.neighbor];
         	obj.body = body;
         	JSDataManager.getInstance().sendNotice(obj);
-        	JSDataManager.getInstance().postFeed(FeedData.getSendGiftsToFriendMessage(user_name,friend_name,value.gift));
+        	var friendName:String = "";
+        	var friendInfo:Object = getUserInfo(value.neighbor);
+        	if(friendInfo && friendInfo.name){
+        		friendName = friendInfo.name
+        	}
+        	JSDataManager.getInstance().postFeed(FeedData.getSendGiftsToFriendMessage(user_name,friendName,value.gift));
         }
         
         /**
