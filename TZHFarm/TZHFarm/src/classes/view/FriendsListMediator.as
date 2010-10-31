@@ -55,7 +55,7 @@
                     break;
                 }
                 case ApplicationFacade.SHOW_LEVEL_UP_POPUP:{// 升级时,更新好友面板
-                	friends_list.update(app_data.get_neighbors_data());// 在这里更新friends
+                	//friends_list.update(app_data.get_neighbors_data());// 在这里更新friends,暂时还没有测试
                 	break;
                 }
                 case ApplicationFacade.BACK_TO_MY_RANCH:

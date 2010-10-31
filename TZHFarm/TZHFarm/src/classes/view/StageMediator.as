@@ -165,10 +165,6 @@
             var mapObject:MapObject = null;
             var selectPopup:SelectPopup = null;
             var newsPopup:NewsPopup = null;
-            var _loc_15:Number = NaN;
-            var _loc_16:Number = NaN;
-            var _loc_17:Number = NaN;
-            var _loc_18:Number = NaN;
             var dynamicPopup:DynamicPopup = null;
             var _loc_20:Object = null;
             var _loc_22:Object = null;
@@ -279,17 +275,6 @@
                     }
                     break;
                 }
-                case ApplicationFacade.SHOW_FEED_DIALOG:
-                {
-                	try {
-	                    /* Log.add("showFeedDialog called");
-	                    exit_full_screen();
-	                    ExternalInterface.call("streamPublish", value.getBody()); */
-                    }catch(error:Error){
-                    	
-                    }
-                    break;
-                }
                 case ApplicationFacade.SHOW_ACCEPT_SNAPSHOT:
                 {
                     if (popup_proxy.can_show_popup)
@@ -383,11 +368,11 @@
                     {
                         popup_proxy.can_show_popup = false;
                         body = value.getBody();
-                        _loc_15 = body.width ? (body.width) : (400);
-                        _loc_16 = body.height ? (body.height) : (190);
-                        _loc_17 = body.inner_width ? (body.inner_width) : (300);
-                        _loc_18 = body.inner_height ? (body.inner_height) : (110);
-                        dynamicPopup = new DynamicPopup(_loc_15, _loc_16, _loc_17, _loc_18, body.message);
+                        var w:Number = body.width ? (body.width) : (400);
+                        var h:Number = body.height ? (body.height) : (190);
+                        var inner_width:Number = body.inner_width ? (body.inner_width) : (300);
+                        var inner_height:Number = body.inner_height ? (body.inner_height) : (110);
+                        dynamicPopup = new DynamicPopup(w, h, inner_width, inner_height, body.message);
                         dynamicPopup.type = body.type;
                         if (body.data)
                         {
@@ -465,7 +450,7 @@
                     if (popup_proxy.can_show_popup)
                     {
                         popup_proxy.can_show_popup = false;
-                        var underConstructionPopup:UnderConstructionPopup = new UnderConstructionPopup(app_data.get_under_construction_popup_data(value.getBody() as MapObject));
+                        var underConstructionPopup:UnderConstructionPopup = new UnderConstructionPopup(app_data.get_under_construction_popup_data(value.getBody() as MapObject),value.getBody() as MapObject);
                         facade.registerMediator(new PopupMediator(underConstructionPopup));
                         stage.addChild(underConstructionPopup);
                     }
@@ -507,19 +492,19 @@
                 }
                 case ApplicationFacade.SHOW_NEIGHBORS_LIST_POPUP:
                 {
-                    if (popup_proxy.can_show_popup)
+                    /* if (popup_proxy.can_show_popup)
                     {
-                        popup_proxy.can_show_popup = false;
+                        popup_proxy.can_show_popup = false; */
+                        facade.removeMediator(PopupMediator.NAME);
                         var neighborsListPopup:NeighborsListPopup = new NeighborsListPopup(app_data.get_neighbors_list_popup_data());
-                        //var neighborsListPopup:NeighborsListPopup = new NeighborsListPopup(app_data.get_neighbors_data());
-                        neighborsListPopup.info = {gift:value.getBody() as Number};
-                        facade.registerMediator(new PopupMediator(neighborsListPopup));
+                        neighborsListPopup.info = {gift:value.getBody() as Number,type:value.getType()};
+                        facade.registerMediator(new PopupMediator(neighborsListPopup));// 这里注册不上了
                         stage.addChild(neighborsListPopup);
-                    }
+                   /*  }
                     else
                     {
                         popup_proxy.add_popup(value);
-                    }
+                    } */
                     break;
                 }
                 case ApplicationFacade.SHOW_GIFT_RECEIVED_POPUP:
@@ -556,22 +541,20 @@
                 }
                 case ApplicationFacade.SHOW_SELECT_OBJECT_POPUP:
                 {
-                    if (popup_proxy.can_show_popup)
-                    {
-                        popup_proxy.can_show_popup = false;
+                    //if (popup_proxy.can_show_popup)
+                    //{
+                        //popup_proxy.can_show_popup = false;
+                        //if(facade.hasMediator(PopupMediator.NAME))return;
+                        facade.removeMediator(PopupMediator.NAME);
                         selectPopup = new SelectPopup(value.getBody());
                         selectPopup.type = PopupTypes.SELECT_OBJECT;
                         facade.registerMediator(new PopupMediator(selectPopup));
                         stage.addChild(selectPopup);
-                    }
-                    else
-                    {
-                        popup_proxy.add_popup(value);
-                    }
-                    break;
-                }
-                default:
-                {
+                    //}
+                    //else
+                    //{
+                        //popup_proxy.add_popup(value);
+                    //}
                     break;
                 }
             }

@@ -445,7 +445,8 @@
                 case ApplicationFacade.INCREASE_OBTAINED_MATERIAL:
                 {
                     temp = value.getBody();
-                    map.increase_obtained_material(temp.mo, temp.material);
+                    var mapObject:MapObject = map.increase_obtained_material(temp.mo, temp.material);
+                    sendNotification(ApplicationFacade.UPDATE_UNDERCONSTRUCTIONPOPUP,mapObject);
                     break;
                 }
                 case ApplicationFacade.IRRIGATION_INSTALLED:

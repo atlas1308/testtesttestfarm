@@ -30,10 +30,12 @@
             raw_list = list;
             super(w, h, inner_w, inner_h, title, true);
         }
+        
         protected function get numPages():Number{
             var n:Number = Math.ceil((raw_list.length / (items_x * items_y)));
-            return (n);
+            return n;
         }
+        
         override protected function alignButtons():void{
             corner_close_btn.x = ((_w - corner_close_btn.width) - 10);
             corner_close_btn.y = 10;
@@ -47,6 +49,7 @@
             	right_arrow.x = ((inner_cont.x + msg_w) + ((((_w - inner_cont.x) - msg_w) - right_arrow.width) / 2));
             }
         }
+        
         protected function align_items():void{
             var w:Number;
             var h:Number;
@@ -54,7 +57,7 @@
             var item:PopupItem;
             while (items_cont.numChildren) {
                 items_cont.removeChildAt(0);
-            };
+            }
             start = ((page - 1) * (items_x * items_y));
             var end:Number = Math.min((start + (items_x * items_y)), list.length);
             var i:Number = start;
@@ -67,7 +70,7 @@
                 w = item.width;
                 h = item.height;
                 i++;
-            };
+            }
             items_cont.x = (((msg_w - (items_x * w)) - ((items_x - 1) * item_padd)) / 2);
             items_cont.y = (((msg_h - (items_y * h)) - ((items_y - 1) * item_padd)) / 2);
         }
@@ -96,25 +99,31 @@
             create_items();
             show_page(1);
         }
+        
         protected function itemClicked(e:Event):void{
             item = (e.target as PopupItem);
             dispatchEvent(new Event(ITEM_CLICKED));
         }
+        
         protected function nextPage(e:MouseEvent=null):void{
             show_page((page + 1));
         }
+        
         override protected function get_text_format():TextFormat{
             var format:TextFormat = super.get_text_format();
             format.size = 32;
             format.color = 0xCC0000;
             return format;
         }
+        
         protected function prevPage(e:MouseEvent=null):void{
-            show_page((page - 1));
+            show_page(page - 1);
         }
+        
         protected function create_item(data:Object):PopupItem{
-            return (new PopupItem(data));
+            return new PopupItem(data);
         }
+        
         protected function create_items():void{
             var item:PopupItem;
             var i:Number = 0;
@@ -124,12 +133,12 @@
                 i++;
             }
         }
+        
         protected function show_page(value:Number):void{
-            if ((((value < 1)) || ((value > numPages)))){
+            if (value < 1 || value > numPages){
                 return;
-            };
+            }
             page = value;
-            trace("numPages", numPages);
             left_arrow.visible = true;
             right_arrow.visible = true;
             if (page == 1){

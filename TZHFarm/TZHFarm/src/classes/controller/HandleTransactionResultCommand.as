@@ -54,7 +54,7 @@
                 }
                 case "purchase_gift":
                 {
-                    sendNotification(ApplicationFacade.SHOW_POPUP, appDataProxy.get_gift_sent_confirmation_data());
+                    //sendNotification(ApplicationFacade.SHOW_POPUP, appDataProxy.get_gift_sent_confirmation_data());
                     break;
                 }
                 default:

@@ -12,6 +12,7 @@
 	import classes.view.components.map.Processor;
 	import classes.view.components.map.Tree;
 	import classes.view.components.map.WaterWell;
+	import classes.view.components.popups.UnderConstructionPopupItem;
 	
 	import flash.events.Event;
 	import flash.net.SharedObject;
@@ -23,8 +24,10 @@
 	import org.puremvc.as3.multicore.patterns.proxy.Proxy;
 	
 	import tzh.core.Config;
+	import tzh.core.DateUtil;
 	import tzh.core.FeedData;
 	import tzh.core.JSDataManager;
+	import tzh.core.SystemTimer;
 	import tzh.core.TutorialManager;
 	
 	import flash.utils.clearInterval;
@@ -139,13 +142,16 @@
          */ 
         private function use_material(m:Object, target:Object=null):Boolean{
             var obj:Object;
-            var list:Array = (target) ? [target] : get_objects_who_use(m.id, true);
+            var list:Array = target ? [target] : get_objects_who_use(m.id, true);
+            //var list:Array = get_objects_who_use(m.id, true);
             if (list.length){
-                if (list.length > 1){// 如果大于1的话,先选择再买
+                 if (list.length > 1){// 如果大于1的话,先选择再买
                     sendNotification(ApplicationFacade.SHOW_SELECT_OBJECT_POPUP, get_select_object_popup_data(list, m));
                     return false;
                 }
-                obj = list[0];
+                var clone:Object = list[0];
+                obj = get_map_obj(clone.id,clone.x,clone.y);
+                if(!obj)return false;
                 var obtained_materials:Object = obj.obtained_materials;
                 var id:int = m.id;
                 var temp:int = int(obtained_materials[id]) + 1;
@@ -158,7 +164,7 @@
                         obj.under_construction = false;
                     }
                     obj.obtained_materials = new Array();
-                };
+                }
                 if (confirm){
                     confirm.add_value(1, (" " + config.store[m.id].name));
                 }
@@ -203,7 +209,7 @@
          */ 
         public function get_gift_sent_confirmation_data():Object{
             var output:Object = new Object();	
-            var neighbor:String = prep_neighbor_data({uid:last_sent_gift_data.neighbor}, true).name;
+            var neighbor:String = prep_neighbor_data({uid:last_sent_gift_data.neighbor}).name;
             var gift:String = config.store[last_sent_gift_data.gift].name;
             output.message = ResourceManager.getInstance().getString("message","neighbor_receive_message",[neighbor,gift]);
             output.type = PopupTypes.GIFT_SENT_CONFIRMATION;
@@ -907,7 +913,7 @@
         }
         
         
-        private function prep_neighbor_data(obj:Object, full_name:Boolean=false):Object{
+        private function prep_neighbor_data(obj:Object):Object{
             var userInfo:Object = JSDataManager.getInstance().getUserInfoById(obj);
             if(userInfo){
 	            obj.name = userInfo.name;
@@ -1198,6 +1204,25 @@
             return neighbors;
         }
         
+        public function updateNeighbors(uid:String,key:String,value:*):void {
+        	if(app_data.neighbors){
+        		for each(var temp:Object in app_data.neighbors){
+        			if(temp.uid == uid){
+        				if(temp.hasOwnProperty(key)){
+	        				for(var tempKey:String in temp){
+	        					if(tempKey == key){
+	        						temp[tempKey] = value;
+	        					}
+	        				}
+        				}else {
+        					temp[key] = value;
+        				}
+        				break;
+        			}
+        		}
+        	}
+        }
+        
         /**
          *
          * @param material:Number 材料ID
@@ -1215,13 +1240,13 @@
                 } else {
                     if (!has_material(info, material)){
                     } else {
-                        if (need){
-                            if (info.upgradeable && !obj.under_construction && !can_upgrade(obj)){
+                        if (need){// 这段代码里逻辑可能有问题,后台返回的数据里应该包含under_construction这个属性
+                            /* if (info.upgradeable && !obj.under_construction && !can_upgrade(obj)){
                                 continue;
                             }
                             if (!info.upgradeable && !obj.under_construction){
                                 continue;
-                            }
+                            } */
                             if (obj.obtained_materials[material] < get_material_qty(obj, material)){
                                 list.push(obj);
                             }
@@ -1251,13 +1276,13 @@
             var info:Object = config.store[id];
             if (info.action == "construction"){
                 return (can_use_material(id));
-            };
+            }
             if (info.action == "irrigation"){
                 if (!can_install_irrigation(info.id)){
-                    return (false);
-                };
-            };
-            return (true);
+                    return false;
+                }
+            }
+            return true;
         }
         
         /**
@@ -1356,11 +1381,11 @@
                     if (obj.water_pipe){
                         obj.water_pipe_url = (("images/" + config.store[obj.water_pipe].url) + "_obj.png");
                         obj.water_pipe_growing_percent = config.store[obj.water_pipe].growing_percent;
-                    };
+                    }
                     output.objects.push(obj);
-                };
-            };
-            return (output);
+                }
+            }
+            return output;
         }
         
         
@@ -1371,11 +1396,22 @@
             var i:Number = 0;
             var allNeighbors:Array = get_neighbors_data() as Array;
             while (i < allNeighbors.length) {
-                o = prep_neighbor_data({uid:allNeighbors[i].uid}, true);
-                o.image = o.pic;
-                o.title_txt = o.name;
-                o.id = o.uid;
-                output.list.push(o);
+            	var user:Object = allNeighbors[i];
+            	var flag:Boolean = false;
+            	if(this.user_id != user.uid){
+            		if(user.hasOwnProperty("last_send_time")){
+            			flag = DateUtil.expired(SystemTimer.getInstance().serverTime,user.last_send_time);
+            		}else {
+            			flag = true;// 可能是第一次
+            		}
+            	}
+            	if(flag){
+	                o = prep_neighbor_data({uid:user.uid});
+	                o.image = o.pic;
+	                o.title_txt = o.name;
+	                o.id = o.uid;
+	                output.list.push(o);
+                }
                 i++;
             }
             return output;
@@ -1453,28 +1489,31 @@
         	return user;
         }
         
-        public function send_gift(data:Object):Boolean{
-            var info:Object = config.store[data.gift];
-            if ((((info.rp_price > 0)) && ((app_data.reward_points < info.rp_price)))){
-                sendNotification(ApplicationFacade.SHOW_CONFIRM_POPUP, {
-                    msg:Err.NO_RP,
-                    obj:{
-                        notif:ApplicationFacade.NAVIGATE_TO_URL,
-                        data:"offers"
-                    }
-                });
-                return (false);
+        public function send_gift(value:Object):Boolean{
+        	if(!value.hasOwnProperty("type") && value.type != UnderConstructionPopupItem.FREE_GIFT){
+	            var info:Object = config.store[value.gift];
+	            if (info.rp_price > 0 && app_data.reward_points < info.rp_price){
+	                sendNotification(ApplicationFacade.SHOW_CONFIRM_POPUP, {
+	                    msg:Err.NO_RP,
+	                    obj:{
+	                        notif:ApplicationFacade.NAVIGATE_TO_URL,
+	                        data:"offers"
+	                    }
+	                })
+	                return false;
+	            }
+	            app_data.reward_points = (app_data.reward_points - info.rp_price);
+	            update_objects(["reward_points"]);
             }
-            last_sent_gift_data = data;
-            app_data.reward_points = (app_data.reward_points - info.rp_price);
-            update_objects(["reward_points"]);
-            var _data:Object = new Object();
-            _data.message = ResourceManager.getInstance().getString("message","advice_friend");
-            _data.type = PopupTypes.PUBLISH_GIFT_SENT_STORY;
-            _data.ok_label = ResourceManager.getInstance().getString("message","share_label");
-            _data.close_label = ResourceManager.getInstance().getString("message","game_button_cancel_message");
-            _data.data = {neighbor:data.neighbor,gift:data.gift};
-            sendNotification(ApplicationFacade.SHOW_POPUP, _data);
+            last_sent_gift_data = value;
+            this.updateNeighbors(value.neighbor,"last_send_time",SystemTimer.getInstance().serverTime);
+            var obj:Object = new Object();
+            obj.message = ResourceManager.getInstance().getString("message","advice_friend");
+            obj.type = PopupTypes.PUBLISH_GIFT_SENT_STORY;
+            obj.ok_label = ResourceManager.getInstance().getString("message","share_label");
+            obj.close_label = ResourceManager.getInstance().getString("message","game_button_cancel_message");
+            obj.data = value;//{neighbor:value.neighbor,gift:value.gift};
+            sendNotification(ApplicationFacade.SHOW_POPUP, obj);
             return true;
         }
         
@@ -1603,7 +1642,7 @@
         public function get_accept_selected_gift_popup_data(neighbor_id:Number, gift_id:Number):Object{
             var output:Object = new Object();
             var gift:String = config.store[gift_id].name;
-            var neighbor:String = prep_neighbor_data({uid:neighbor_id}, true).name;
+            var neighbor:String = prep_neighbor_data({uid:neighbor_id}).name;
             var rc:String = String(config.store[gift_id].rp_price);
             var s:String = ResourceManager.getInstance().getString("message","send_notice_message",[Algo.articulate(gift).toString(),neighbor]);
             s = (s + ResourceManager.getInstance().getString("message","ranch_count_message",[rc]));
@@ -1613,7 +1652,7 @@
             output.height = 250;
             output.inner_width = 350;
             output.inner_height = 160;
-            return (output);
+            return output;
         }
         
         /**
@@ -1742,7 +1781,7 @@
                 p.material = m.id;
                 output.list.push(p);
                 i++;
-            };
+            }
             output.image_size = 64;
             return (output);
         }
@@ -2299,18 +2338,18 @@
                             break;
                         };
                         i++;
-                    };
+                    }
                     if (!_local4){
                         return (report_confirm_error((ResourceManager.getInstance().getString("message","you_need",[_local3.name]))));
-                    };
+                    }
                     return (true);
                 case "materials":
                     if (item.action == "irrigation"){
-                        return (true);
-                    };
+                        return true;
+                    }
                     break;
-            };
-            return (false);
+            }
+            return false;
         }
         
         /**
@@ -2348,7 +2387,7 @@
             var _local5:Boolean;
             var item:Object = get_item_data(id);
             if (item.rp_price > app_data.reward_points){
-                return (report_error(Err.NO_RP));
+                return report_error(Err.NO_RP);
             }
             if (!(app_data.map as Array)){
                 return (report_confirm_error(Err.NO_PLANTS));
@@ -2361,8 +2400,8 @@
                     switch (item.action){
                         case "rain":
                             if (!apply_rain(item.percent)){
-                                return (false);
-                            };
+                                return false;
+                            }
                             break;
                     };
                     break;
@@ -2375,13 +2414,13 @@
                     app_data.op = (app_data.op + item.op);
                     if (_local5){
                         sendNotification(ApplicationFacade.CHECK_AUTOMATION, "op_refill");
-                    };
+                    }
                     names.push("operations");
                     break;
             }
             if (item.action == "construction"){
                 if (!use_material(item, target)){
-                    return (false);
+                    return false;
                 }
             }
             app_data.reward_points = (app_data.reward_points - item.rp_price);
@@ -3099,29 +3138,7 @@
         	obj.recipients = [value.neighbor];
         	obj.body = body;
         	JSDataManager.getInstance().sendNotice(obj);
-            /* var story:String = "inform_friend";
-            var tag:String = Algo.generate_tag();
-            var href:String = ((((app_url + "?from=stream&story=") + story) + "&tag=") + tag);
-            var info:Object = config.story_patterns[story];
-            var feed_data:Object = new Object();
-            var attachment:Object = new Object();
-            feed_data.tag = tag;
-            feed_data.subtype = story;
-            attachment.name = Algo.replace(info.name, ["{actor}"], [user_name]);
-            attachment.description = Algo.replace(info.description, ["{actor}"], [user_name]);
-            var src:String = Config.getConfig("host") + "images/stories/" + info.image + ".png";
-            attachment.media = [{
-                href:href,
-                src:src,
-                type:"image"
-            }];
-            feed_data.action_links = [{
-                text:info.action_link,
-                href:href
-            }];
-            feed_data.attachment = attachment;
-            feed_data.targetID = friend;
-            show_feed_dialog(feed_data); */
+        	JSDataManager.getInstance().postFeed(FeedData.getSendGiftsToFriendMessage(user_name,friend_name,value.gift));
         }
         
         /**
@@ -3255,15 +3272,15 @@
                 qty = int(obj.obtained_materials[info.materials[i].id]);
                 material.desc_txt = ResourceManager.getInstance().getString("message","qty_in_percent_message",[qty,info.materials[i].qty]);
                 //material.giftable = true;
-                if (!material.giftable && qty == info.materials[i].qty){
+                if (qty == info.materials[i].qty){
                     material.disable_button = true;
                 }
                 /* material.button_label = (material.giftable) ? "Ask For More" : "Ask For Help";
                 material.type = (material.giftable) ? "ask_for_more" : "ask_for_help"; */
-                material.giftable = false;
+                //material.giftable = false;
                 //material.giftable = material.giftable
                 material.button_label = ResourceManager.getInstance().getString("message","buy_message");//;(material.giftable) ? "Ask For More" : "Ask For Help";
-                material.type = (material.giftable) ? "ask_for_more" : "ask_for_help";
+                //material.type = (material.giftable) ? "ask_for_more" : "ask_for_help";
                 /* if (!material.giftable && qty != info.materials[i].qty){
                     friends_needed = material.friends_needed;
                     if (obj.friends_who_helped){

@@ -2,9 +2,6 @@
 {
     import classes.model.*;
     import classes.view.components.map.*;
-    
-    import tzh.core.FeedData;
-    import tzh.core.JSDataManager;
 
     public class CollectProductCall extends TransactionBody
     {

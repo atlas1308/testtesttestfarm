@@ -32,7 +32,7 @@
                 super.closeClicked(e);
             } else {
                 super.okClicked(e);
-            };
+            }
         }
         
         override protected function init():void{
@@ -65,14 +65,14 @@
                 btn.name = fields[i].name;
                 if (fields[i].selected){
                     btn.selected();
-                };
+                }
                 if (last_btn){
                     btn.x = ((last_btn.width + last_btn.x) + 20);
-                };
+                }
                 buttons.addChild(btn);
                 last_btn = btn;
                 i++;
-            };
+            }
             super.init();
             content.addChild(buttons);
             content.addChild(_tf);

@@ -1,10 +1,14 @@
 ﻿package classes.view.components.popups {
+    import classes.ApplicationFacade;
     import classes.view.components.buttons.GameButton;
+    import classes.view.components.map.MapObject;
     
     import flash.events.*;
     import flash.text.*;
     
     import mx.resources.ResourceManager;
+    
+    import org.puremvc.as3.multicore.patterns.facade.Facade;
 
     public class UnderConstructionPopupItem extends PopupItem {
 
@@ -13,6 +17,8 @@
         private var help_tf:TextField;
         
         private var sendGiftButton:GameButton;
+        
+        public static const FREE_GIFT:String = "free_gift";// 免费的礼物   
 
         public function UnderConstructionPopupItem(data:Object){
             data.width = 200;
@@ -20,18 +26,25 @@
             data.height = 160;
             super(data);
         }
-        
+
         override protected function init():void{
             create_objects();
+            button.set_style("mauve");
             if(data.giftable){
             	sendGiftButton = new GameButton(ResourceManager.getInstance().getString("message","send_free_gifts_message"),13);
+            	sendGiftButton.addEventListener(MouseEvent.CLICK,showNeighborsListPopup);
             	container.addChild(sendGiftButton);
             }
             help_tf = create_tf(12, 10049313, 0, new Futura().fontName, "center", (data.help_txt as String));
             container.addChild(help_tf);
-            help_tf.addEventListener(TextEvent.LINK, onHyperLinkEvent);
+            //help_tf.addEventListener(TextEvent.LINK, onHyperLinkEvent);
             align();
             draw();
+        }
+        
+        // 弹出邀请好友的面板
+        private function showNeighborsListPopup(event:MouseEvent):void {
+        	Facade.getInstance(TZHFarm.MAIN_STAGE).sendNotification(ApplicationFacade.SHOW_NEIGHBORS_LIST_POPUP,this.data.id,FREE_GIFT);
         }
         
         protected function onHyperLinkEvent(e:TextEvent):void{

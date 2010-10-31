@@ -29,9 +29,9 @@ package tzh.core
 		
 		private var dispatchError:Boolean;
 		
-		private var parentWidth:Number = 80;
+		private var parentWidth:Number = 60;
 		
-		private var parentHeight:Number = 80;
+		private var parentHeight:Number = 60;
 		
 		public function Image(path:String,target:DisplayObject,dispatchError:Boolean = true)
 		{

@@ -140,6 +140,10 @@
         public static const TOGGLE_OFF_ALL_AUTOMATION:String = "toggleOffAllAutomation";// 关闭所有的automation,发这个事件
         
         public static const FERTILIZE_FRIEND_HELPED:String = "fertilizeFriendHelped";
+        
+        public static const BUY_ITEM_NOT_IN_SHOP:String = "buyItemNotInShop";// 购买物品,并非从商店里购买
+        
+        public static const UPDATE_UNDERCONSTRUCTIONPOPUP:String = "updateUnderConstructionPopup";
 
         public function ApplicationFacade(value:String)
         {
