@@ -50,7 +50,6 @@
 
         public static const NAME:String = "AppDataProxy";
 
-        private var last_post_tag:String;
         private var app_data:Object;
         public var user_id:String;
         private var queue:Array;
@@ -59,7 +58,6 @@
         private var last_sent_gift_data:Object;
         private var config:Object;
         public var last_feed_data:Object;
-        public var app_url:String = "";
         public var gift_mode:Boolean = false;
         private var shared_object:SharedObject;
         private var show_help_popup_interval:Number;
@@ -71,7 +69,6 @@
         private var queue_is_processing:Boolean = false;
         private var objects_created:Boolean = false;
         private var confirm:Confirmation;
-        private var last_post_subtype:String;
         private var last_used_materials:Object;
         private var update_fields:Array;
 
@@ -79,7 +76,6 @@
             last_sent_gift_data = new Object();
             last_used_materials = new Object();
             update_fields = ["shop", "map", "storage", "level", "coins", "reward_points", "neighbors", "gifts", "name", "operations"];
-            app_url = params.app_url;
             user_id = params.fb_sig_user;
             super(NAME);
         }
@@ -1296,10 +1292,6 @@
             } else {
                 update_objects(names);
             }
-            if (result.feed_data){
-                last_post_tag = result.feed_data.tag;
-                last_post_subtype = result.feed_data.subtype;
-            }
             if (channel == "load_farm"){
                 sendNotification(ApplicationFacade.HIDE_OVERLAY);
                 if (app_data.farm.uid != user_id){
@@ -1586,10 +1578,6 @@
             update_objects(["coins", "level"]);
             friends_helped.push(app_data.farm.uid);
             return (true);
-        }
-        
-        public function get post_tag():String{
-            return (last_post_tag);
         }
         
         /**
@@ -2590,13 +2578,13 @@
         public function show_feed_dialog(data:Object=null):void{
             /* if (((!(app_data.feed_data)) && (!(data)))){
                 return;
-            } */
-            var feed_data:Object;/*  = (data) ? data : app_data.feed_data;
+            }
+            var feed_data:Object;  = (data) ? data : app_data.feed_data;
             if (feed_data.add_user){
                 feed_data.attachment.description = (user_name + feed_data.attachment.description);
             }
-            last_feed_data = feed_data; */
-            sendNotification(ApplicationFacade.SHOW_FEED_DIALOG, feed_data);
+            last_feed_data = feed_data; 
+            sendNotification(ApplicationFacade.SHOW_FEED_DIALOG, feed_data);*/
         }
         
         private function num_materials(obj:Object):Number{
@@ -2822,10 +2810,6 @@
                 return true;
             }
             return false;
-        }
-        
-        public function get post_subtype():String{
-            return (last_post_subtype);
         }
         
         public function expand_ranch(item:Object):void{
