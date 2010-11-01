@@ -29,6 +29,7 @@ package {
 	 * 3.更新排序算法 进行中
 	 * 4.更新礼物功能,以及页面上的功能 需要测试
 	 * 5.功能代码 进行中
+	 * 6.增加FG不够时跳转到充值页面
 	 * 
 	 * 
 	 * 
@@ -73,7 +74,7 @@ package {
 			
 			Config.setConfig("loadSocialData","loadSocialData");
 			Config.setConfig("version","1.0");
-			Config.setConfig("lang","en-US");
+			Config.setConfig("lang","de-DE");
 			//Config.setConfig("lang","pt");
 			this.addEventListener(Event.ADDED_TO_STAGE,addToStageHandler);
 		}

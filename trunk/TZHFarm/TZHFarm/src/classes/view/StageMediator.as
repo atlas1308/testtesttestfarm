@@ -212,18 +212,10 @@
                 }
                 case ApplicationFacade.SHOW_LEVEL_UP_POPUP:
                 {
-                    /* if (popup_proxy.can_show_popup)
-                    { */
-                        //popup_proxy.can_show_popup = false;
-                        facade.removeMediator(PopupMediator.NAME);
-                        var levelUpPopup:LevelUpPopup = new LevelUpPopup(app_data.get_level_up_data());
-                        facade.registerMediator(new PopupMediator(levelUpPopup));
-                        stage.addChild(levelUpPopup);
-                    /* }
-                    else
-                    {
-                        popup_proxy.add_popup(value);
-                    } */
+                    facade.removeMediator(PopupMediator.NAME);
+                    var levelUpPopup:LevelUpPopup = new LevelUpPopup(app_data.get_level_up_data());
+                    facade.registerMediator(new PopupMediator(levelUpPopup));
+                    stage.addChild(levelUpPopup);
                     break;
                 }
                 case ApplicationFacade.SHOW_LOTTERY_POPUP:
