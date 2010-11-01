@@ -208,7 +208,6 @@
 
         private function onClose(event:Event = null) : void
         {
-            trace("popup onClose");
             if (popup as SnapshotPreviewPopup)
             {
                 sendNotification(ApplicationFacade.DEACTIVATE_SNAPSHOT_MODE);
@@ -274,7 +273,6 @@
                 }
                 case ApplicationFacade.CLOSE_NETWORK_DELAY_POPUP:
                 {
-                    trace("popup mediator close network delay popup", popup);
                     if (popup is NetworkDelayPopup)
                     {
                         onClose(null);
@@ -283,11 +281,7 @@
                 }
                 case ApplicationFacade.UPDATE_UNDERCONSTRUCTIONPOPUP:
                 {
-                	if(popup is UnderConstructionPopup){
-                		var body:Object = value.getBody();
-                		UnderConstructionPopup(popup).refreshData(app_data.get_under_construction_popup_data(body as MapObject));
-                	}
-                	trace("is test");
+                	
                 	break;
                 }
                 case ApplicationFacade.CLOSE_UNDERCONSTRUCTIONPOPUP:{

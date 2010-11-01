@@ -1,7 +1,7 @@
 ﻿package classes.view.components.popups {
     import classes.ApplicationFacade;
     import classes.view.components.buttons.GameButton;
-    import classes.view.components.map.MapObject;
+    import classes.view.components.shop.ShopItem;
     
     import flash.events.*;
     import flash.text.*;
@@ -22,7 +22,6 @@
 
         public function UnderConstructionPopupItem(data:Object){
             data.width = 200;
-            //data.width = 125;
             data.height = 160;
             super(data);
         }
@@ -35,7 +34,13 @@
             	sendGiftButton.addEventListener(MouseEvent.CLICK,showNeighborsListPopup);
             	container.addChild(sendGiftButton);
             }
-            help_tf = create_tf(12, 10049313, 0, new Futura().fontName, "center", (data.help_txt as String));
+            var message:String = "";// 默认rp
+            if(data.buy_method == ShopItem.BUY_METHOD_COIN){
+            	message = data.price + " " + data.ResourceManager.getInstance().getString("message","coins_message");
+            }else {
+            	message = data.rp_price + " " + ResourceManager.getInstance().getString("message","ranch_cash_message")
+            }
+            help_tf = create_tf(13, 10049313, 0, new Futura().fontName, "center", message);
             container.addChild(help_tf);
             //help_tf.addEventListener(TextEvent.LINK, onHyperLinkEvent);
             align();

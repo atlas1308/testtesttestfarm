@@ -212,17 +212,18 @@
                 }
                 case ApplicationFacade.SHOW_LEVEL_UP_POPUP:
                 {
-                    if (popup_proxy.can_show_popup)
-                    {
-                        popup_proxy.can_show_popup = false;
+                    /* if (popup_proxy.can_show_popup)
+                    { */
+                        //popup_proxy.can_show_popup = false;
+                        facade.removeMediator(PopupMediator.NAME);
                         var levelUpPopup:LevelUpPopup = new LevelUpPopup(app_data.get_level_up_data());
                         facade.registerMediator(new PopupMediator(levelUpPopup));
                         stage.addChild(levelUpPopup);
-                    }
+                    /* }
                     else
                     {
                         popup_proxy.add_popup(value);
-                    }
+                    } */
                     break;
                 }
                 case ApplicationFacade.SHOW_LOTTERY_POPUP:
@@ -447,17 +448,11 @@
                 }
                 case ApplicationFacade.SHOW_UNDER_CONSTRUCTION_POPUP:
                 {
-                    if (popup_proxy.can_show_popup)
-                    {
-                        popup_proxy.can_show_popup = false;
-                        var underConstructionPopup:UnderConstructionPopup = new UnderConstructionPopup(app_data.get_under_construction_popup_data(value.getBody() as MapObject),value.getBody() as MapObject);
-                        facade.registerMediator(new PopupMediator(underConstructionPopup));
-                        stage.addChild(underConstructionPopup);
-                    }
-                    else
-                    {
-                        popup_proxy.add_popup(value);
-                    }
+                    facade.removeMediator(PopupMediator.NAME);
+                    var underConstructionPopup:UnderConstructionPopup = new UnderConstructionPopup(app_data.get_under_construction_popup_data(value.getBody() as MapObject),value.getBody() as MapObject);
+                    underConstructionPopup.name = "underConstructionPopup";
+                    facade.registerMediator(new PopupMediator(underConstructionPopup));
+                    stage.addChild(underConstructionPopup);
                     break;
                 }
                 case ApplicationFacade.SHOW_FRIEND_HELPED_POPUP:

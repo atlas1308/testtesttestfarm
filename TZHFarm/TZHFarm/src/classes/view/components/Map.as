@@ -981,6 +981,7 @@
             right_obj.refresh_graphic();
             left_obj.refresh_graphic();
         }
+        
         public function map_object_removed(obj:MapObject):void{
             var i:Number;
             var mo:MapObject;
@@ -993,19 +994,21 @@
                         if ((mo as Plant)){
                             map_obj = obj;
                             dispatchEvent(new Event(UPDATE_OBJECT));
-                        };
-                    };
+                        }
+                    }
                     i++;
-                };
-            };
+                }
+            }
         }
+        
         private function init_greenhouses():void{
             var i:Number = 0;
             while (i < greenhouses.length) {
                 onGreenhouseAdded(Greenhouse(greenhouses[i]));
                 i++;
-            };
+            }
         }
+        
         private function disableTool(e:Event):void{
             set_tool("multi_tool");
         }
@@ -1021,7 +1024,7 @@
                 case "expand_top_map":
                     top_size = item.size;
                     break;
-            };
+            }
             tool.set_bounds(size_x, size_y, top_size);
             center_map();
         }
@@ -1045,9 +1048,9 @@
                 if (!map_object){
                 } else {
                     map_object.check_automation(mode);
-                };
+                }
                 i++;
-            };
+            }
         }
         
         public function set_zoom(grid_size:Number):void{
@@ -1063,7 +1066,7 @@
                 obj = MapObject(map_objects.getChildAt(i));
                 obj.grid_size = grid_size;
                 i++;
-            };
+            }
             tool.refresh_grid_size(grid_size);
             container.x = ((viewport_w / 2) - (r * dx));
             container.y = ((viewport_h / 2) - (r * dy));
@@ -1073,8 +1076,9 @@
                 swarm = (swarms.getChildAt(i) as BeesSwarm);
                 swarm.set_scale((grid_size / 15));
                 i++;
-            };
+            }
         }
+        
         public function apply_rain(p:Number):void{
             var obj:CollectObject;
             var i:Number = 0;
@@ -1091,7 +1095,7 @@
         private function onMapObjectAdded(e:Event):void{
             if (!can_sort_depth){
                 return;
-            };
+            }
             var obj:MapObject = (e.target as MapObject);
             if (((obj) && ((obj.parent == map_objects)))){
                 if ((obj as Greenhouse)){
@@ -1100,11 +1104,11 @@
                     };
                     onSplitObject(e);
                     onGreenhouseAdded((obj as Greenhouse));
-                };
+                }
                 set_object_depth(obj);
                 if ((obj as Fence)){
                     align_fences();
-                };
+                }
                 if (obj as Plant || obj.type == "soil"){
                     check_greenhouses(obj);
                 }
@@ -1113,23 +1117,24 @@
                     obj.addEventListener(Hive.FLY, onFly);
                     Hive(obj).initialize();
                     bees.push(obj);
-                };
+                }
                 if ((((obj as IProcessor)) && (!((view_mode == FRIEND_VIEW))))){
                     obj.addEventListener(Processor.AUTO_COLLECT, onAutoCollect);
                     obj.addEventListener(Processor.AUTO_REFILL, onAutoRefill);
-                };
+                }
                 if ((obj as Plant)){
                     obj.addEventListener(Plant.IRRIGATION_INSTALLED, irrigationInstalled);
                     if (obj.has_irrigation()){
                         water_well.start_anim();
-                    };
-                };
+                    }
+                }
                 if ((obj as WaterWell)){
                     water_well = (obj as WaterWell);
                     obj.addEventListener(WaterWell.CHECK_IRRIGATION, check_irrigation);
-                };
-            };
+                }
+            }
         }
+        
         private function confirmToolAction(e:Event):void{
             if (e.target.action == e.target.MAP_ADD_OBJECT){
                 add_object(e.target.get_event_data());
@@ -1145,7 +1150,7 @@
                 container.removeChild(current_process_loader);
             } else {
                 process_loader.visible = false;
-            };
+            }
             dispatchEvent(new Event(PROCESS_COMPLETE));
         }
         
@@ -1165,8 +1170,9 @@
             addEventListener(MouseEvent.MOUSE_MOVE, panMap);
             stage.addEventListener(MouseEvent.MOUSE_UP, stopPan);
         }
+        
         public function get_tool():String{
-            return (tool.TYPE);
+            return tool.TYPE;
         }
         
         /**

@@ -37,6 +37,9 @@ package tzh.core
 		{
 			this.path = path;
 			var lang:String = Config.getConfig("lang").toString();
+			if(this.path.indexOf("http") == -1){
+				this.path = Config.getConfig("host") + this.path;
+			}
 			/* if(lang == "de-DE"){
 				this.path += "?time=" + new Date().getTime();
 			} */

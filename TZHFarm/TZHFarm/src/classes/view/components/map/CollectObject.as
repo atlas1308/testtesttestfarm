@@ -28,6 +28,9 @@
 
         public function CollectObject(data:Object){
             collect_in = Number(data.collect_in);// 收集的时间,以秒为单位
+            CONFIG::debug{
+            	collect_in = 1440;
+            }
             start_time = (data.start_time) ? data.start_time : 0;// 开始种植的时间
             stages = (data.stages) ? data.stages : 1;// 5个阶段
             _product_name = (data.product_name) ? data.product_name : "";// 收获产物的名称

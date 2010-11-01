@@ -208,8 +208,8 @@
             var column:int = 0;
             var list:Array = [];// 存放整个的数据索引即为column,索引里对应的对象即为row
             var index:int = 0;
-            var row:int = 4;
-            var hGap:int = 20;
+            var row:int = 5;
+            var hGap:int = 10;
             var vGap:int = 10;
             while (index < tabs_cont.numChildren)
             {

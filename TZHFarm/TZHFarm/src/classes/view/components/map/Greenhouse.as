@@ -68,7 +68,7 @@
                 mc.bottom_part.front.front_cut.visible = false;
                 mc.right_part.front.front_cut.visible = false;
             }
-            this.showConstructionComplete();
+            //this.showConstructionComplete();
         }
         
         public function right_object():GraphicObject{

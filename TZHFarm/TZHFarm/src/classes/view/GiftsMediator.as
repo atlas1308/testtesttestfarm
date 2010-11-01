@@ -118,7 +118,16 @@
             }
             else
             {
-                sendNotification(ApplicationFacade.USE_GIFT, event.target.item_clicked.id);
+            	var obj:Object = {};
+            	if(item.action == "construction"){
+            		var list:Array = app_data.get_objects_who_use(item.id,true);
+            		var clone:Object = list[0];
+            		obj.item = event.target.item_clicked.id;
+                    obj.target = clone;
+                }else {
+                	obj = event.target.item_clicked.id;
+                }
+                sendNotification(ApplicationFacade.USE_GIFT, obj);
             }
         }
 

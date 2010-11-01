@@ -7,6 +7,7 @@
     import flash.events.*;
     import flash.text.*;
     
+    import tzh.core.Config;
     import tzh.core.Image;
 
     public class PopupItem extends Sprite {
@@ -98,7 +99,7 @@
             addChild(container);
             button = new GameButton(data.button_label, 13);
             button.addEventListener(MouseEvent.CLICK, onClicked);
-            var image:Image = new Image(data.image,this.image_cont);
+            var image:Image = new Image(Config.getConfig("host") + data.image,this.image_cont);
             this.image_cont.addChild(image);
             title = create_tf(title_size, title_color, title_width);
             desc = create_tf(12, 10049313);
