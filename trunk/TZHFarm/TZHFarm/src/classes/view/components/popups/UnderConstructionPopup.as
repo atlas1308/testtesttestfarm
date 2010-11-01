@@ -6,8 +6,7 @@
     
     import mx.resources.ResourceManager;
     
-    import tzh.core.FeedData;
-    import tzh.core.JSDataManager;
+    import tzh.core.Constant;
 
     public class UnderConstructionPopup extends ComplexPopup {
     	
@@ -88,12 +87,7 @@
          * 发送向好友要礼物的请求 
          */ 
         private function showJSFeedHandler(event:MouseEvent):void {
-        	var manager:JSDataManager = JSDataManager.getInstance();
-        	var username:String = "";
-        	if(manager.userInfo && manager.userInfo.name){
-				username = manager.userInfo.name;
-        	}
-        	manager.postFeed(FeedData.getRequestGiftsMessage(username));
+        	Constant.showAskForGiftsHandler();
         }
     }
 }

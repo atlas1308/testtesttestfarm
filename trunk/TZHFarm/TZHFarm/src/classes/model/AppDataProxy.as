@@ -31,9 +31,9 @@
 	import tzh.core.TutorialManager;
 	
 	import flash.utils.clearInterval;
-	import flash.utils.clearTimeout;
-	import flash.utils.setTimeout;
-	import flash.utils.setInterval;
+		import flash.utils.clearTimeout;
+		import flash.utils.setTimeout;
+		import flash.utils.setInterval;
 	/**
 	 * 一些细节的更新
 	 * 更新升级时的返回条件,handle_response
@@ -140,6 +140,8 @@
         /**
          * 使用原料 
          */ 
+        
+        public var last_use_material_greenhouse:Object;
         private function use_material(m:Object, target:Object=null):Boolean{
             var obj:Object;
             var list:Array = target ? [target] : get_objects_who_use(m.id, true);
@@ -151,6 +153,7 @@
                 }
                 var clone:Object = list[0];
                 obj = get_map_obj(clone.id,clone.x,clone.y);
+                last_use_material_greenhouse = obj;
                 if(!obj)return false;
                 var obtained_materials:Object = obj.obtained_materials;
                 var id:int = m.id;
@@ -281,72 +284,33 @@
             friends_helped = new Array();
             this.config = config;
             this.app_data = app_data;
+            for each(var temp:Object in app_data.map){
+                var info:Object = config.store[temp.id];
+                update_object(temp);
+            	if(info.constructible){
+            		if(num_materials(temp) == num_obtained_materials(temp)){
+            			temp.under_construction = false;
+            		}else {
+            			temp.under_construction = true;
+            		}
+            	}
+            }
             Algo.convert_to_number(config);
             Algo.convert_to_number(app_data);
             this.app_data.coins = parseFloat(app_data.coins);
             this.app_data.experience = parseFloat(app_data.experience);
             this.app_data.op = parseFloat(app_data.op);
             this.app_data.reward_points = parseFloat(app_data.reward_points);
-            //app_data.lottery_coins = 100;// 这个是默认的后台已经算好的值,客户端显示之后,变化一下而已
-            /* if (app_data.lottery_coins > 0){// 可能是类似于每日登陆奖励的东西, 后台返回的是最原始的钱,所以不用计算
-                app_data.coins = (app_data.coins - parseFloat(app_data.lottery_coins));
-            } */
             if (app_data.friend_helped){// 为什么这里都是减少的呢,难道这里是负数呢
                 app_data.coins = (app_data.coins - parseFloat(app_data.friend_helped.coins));
                 app_data.experience = (app_data.experience - parseFloat(app_data.friend_helped.exp));
             }
-            /* if (app_data.gifts_received){// 收到的礼物所加的经验
-                app_data.experience = (app_data.experience - (parseFloat(config.gift_received_exp) * app_data.gifts_received.length));
-            } */
             if (app_data.friend_helped){
                 sendNotification(ApplicationFacade.SHOW_FRIEND_HELPED_POPUP);
             }
-            /* if (app_data.show_gifts_page){
-                sendNotification(ApplicationFacade.SHOW_GIFT_BOX);
-            }
-            if (app_data.items_received.length > 0){
-                sendNotification(ApplicationFacade.SHOW_ITEMS_RECEIVED);
-            } */
-            /* if (app_data.news){// 新的物品
-                i = 0;
-                while (i < app_data.news.length) {
-                    sendNotification(ApplicationFacade.SHOW_NEWS_POPUP, app_data.news[i]);
-                    i = (i + 1);
-                }
-            }; */
-            /* CONFIG::debug{
-            	app_data.level_up = {};
-            	app_data.level_up.coins = 0;
-            	sendNotification(ApplicationFacade.SHOW_LEVEL_UP_POPUP);
-            } */
-            if (app_data.lottery_coins > 0){// 每日登陆奖励
-                sendNotification(ApplicationFacade.SHOW_LOTTERY_POPUP);
-            }
-            /* if (((app_data.gifts_received) && ((app_data.gifts_received.length > 0)))){
-                i = 0;
-                while (i < app_data.gifts_received.length) {
-                    obj = new Object();
-                    obj.image = ResourceManager.getInstance().getString("message","send_gift");
-                    gift = config.store[app_data.gifts_received[i].gift].name;
-                    name = prep_neighbor_data({uid:app_data.gifts_received[i].uid}, true).name;
-                    obj.message = ResourceManager.getInstance().getString("message","sent_you");
-                    obj.message = ResourceManager.getInstance().getString("message","check_out",[obj.message]);
-                    obj.offset_y = -5;
-                    obj.offset_x = -2;
-                    sendNotification(ApplicationFacade.SHOW_GIFT_RECEIVED_POPUP, obj);
-                    i = (i + 1);
-                };
-                data = new Object();
-                data.type = PopupTypes.SUGGEST_TO_BUY_GIFT;
-                data.message = ResourceManager.getInstance().getString("message","feel_for_receive")
-                data.ok_label = ResourceManager.getInstance().getString("message","ok_label");
-                data.close_label = ResourceManager.getInstance().getString("message","game_button_cancel_message");
-                 sendNotification(ApplicationFacade.SHOW_POPUP, data);
-            }*/
             update_objects(update_fields);
             if(showTutorial){// 如果这个值是0的话,才能开始向导
             	TZHFarm.instance.stage.mouseChildren = false;// 初始化其它的都不让用户点了
-            	//sendNotification(ApplicationFacade.TUTORIAL_STARTED);
             	TutorialManager.getInstance().addEventListener(Event.COMPLETE,tutorialCompleted);
             	setTimeout(startTutorial,2000);
             }else {
@@ -1228,7 +1192,7 @@
          * @param material:Number 材料ID
          * @param need:Boolean false 是否要添加,根据添加进去的数量进行验证一下
          */ 
-        private function get_objects_who_use(material:Number, need:Boolean=false):Array{
+        public function get_objects_who_use(material:Number, need:Boolean=false):Array{
             var obj:Object;
             var info:Object;
             var list:Array = new Array();
@@ -1241,12 +1205,13 @@
                     if (!has_material(info, material)){
                     } else {
                         if (need){// 这段代码里逻辑可能有问题,后台返回的数据里应该包含under_construction这个属性
-                            /* if (info.upgradeable && !obj.under_construction && !can_upgrade(obj)){
+                        	//obj.under_construction = true;
+                            if (info.upgradeable && !obj.under_construction && !can_upgrade(obj)){
                                 continue;
                             }
                             if (!info.upgradeable && !obj.under_construction){
                                 continue;
-                            } */
+                            }   
                             if (obj.obtained_materials[material] < get_material_qty(obj, material)){
                                 list.push(obj);
                             }
@@ -1275,7 +1240,7 @@
         public function can_use_gift(id:Number):Boolean{
             var info:Object = config.store[id];
             if (info.action == "construction"){
-                return (can_use_material(id));
+                return can_use_material(id);
             }
             if (info.action == "irrigation"){
                 if (!can_install_irrigation(info.id)){
@@ -1550,6 +1515,7 @@
                     };
                     i++;
                 };
+                //o.under_construction = true;
             };
             if (is_multi(o)){
                 return (update_multi_object(o));
@@ -2043,7 +2009,7 @@
          * 发送feed的提示 
          */ 
         public function show_ask_for_materials_feed_dialog(id:Number):void{
-            var story:String;
+            /* var story:String;
             var mat_info:Object = config.store[id];
             var obj_info:Object = config.store[map_object_to_use.id];
             var upgrade_level:Number = 1;
@@ -2084,7 +2050,7 @@
             }];
             feed_data.attachment = attachment;
             feed_data.target = obj_info.id;
-            show_feed_dialog(feed_data);
+            show_feed_dialog(feed_data); */
         }
         
         public function last_data():Object{
@@ -3204,16 +3170,17 @@
             if (list.length){
                 i = 0;
                 while (i < list.length) {
-                    if (list[i].under_construction || can_upgrade(list[i])){// 这里没看明白,应该表示这里已经满了
+                    //if (list[i].under_construction || can_upgrade(list[i])){// 这里没看明白,应该表示这里已经满了
+                    //if (list[i].under_construction || can_upgrade(list[i])){
                         materials = (config.store[id].plural) ? config.store[id].plural : (config.store[id].name + "s");
                         name = (last_used_materials[id]) ? config.store[last_used_materials[id]].name : config.store[list[i].id].name;
                         return (report_confirm_error(ResourceManager.getInstance().getString("message","already_own_enough",[materials,name])));
-                    }
-                    if (config.store[list[i].id].max_instances == get_objects_like(list[i].id).length){// 这里可以暂时用不到
+                    //}
+                    /* if (config.store[list[i].id].max_instances == get_objects_like(list[i].id).length){// 这里可以暂时用不到
                         error = ResourceManager.getInstance().getString("message","already_have_items",[Algo.articulate(config.store[id].name)]);
                     } else {
                         return (report_confirm_error(ResourceManager.getInstance().getString("message","start_construction_one",[config.store[list[i].id].name])));
-                    }
+                    } */
                     i++;
                 }
                 return (report_confirm_error(error));
@@ -3276,26 +3243,10 @@
                 material.title_txt = material.name;
                 qty = int(obj.obtained_materials[info.materials[i].id]);
                 material.desc_txt = ResourceManager.getInstance().getString("message","qty_in_percent_message",[qty,info.materials[i].qty]);
-                //material.giftable = true;
                 if (qty == info.materials[i].qty){
                     material.disable_button = true;
                 }
-                /* material.button_label = (material.giftable) ? "Ask For More" : "Ask For Help";
-                material.type = (material.giftable) ? "ask_for_more" : "ask_for_help"; */
-                //material.giftable = false;
-                //material.giftable = material.giftable
-                material.button_label = ResourceManager.getInstance().getString("message","buy_message");//;(material.giftable) ? "Ask For More" : "Ask For Help";
-                //material.type = (material.giftable) ? "ask_for_more" : "ask_for_help";
-                /* if (!material.giftable && qty != info.materials[i].qty){
-                    friends_needed = material.friends_needed;
-                    if (obj.friends_who_helped){
-                        friends_needed = (friends_needed - obj.friends_who_helped[info.materials[i].id]);
-                    }
-                    more = ((friends_needed)==material.friends_needed) ? "" : " more";
-                    if (friends_needed){
-                        material.help_txt = ResourceManager.getInstance().getString("message","need_people_to_help",[friends_needed,more]);
-                    }
-                } */
+                material.button_label = ResourceManager.getInstance().getString("message","buy_message");
                 output.list.push(material);
                 i++;
             }

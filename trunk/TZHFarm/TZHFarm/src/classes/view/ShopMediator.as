@@ -166,12 +166,14 @@
             else if (item.rp_price > 0)
             {
             	var obj:Object = {};
-            	if(value.hasOwnProperty("affectMapObject")){
+            	if(item.action == "construction"){
+            		var list:Array = app_data.get_objects_who_use(item.id,true);
+            		var clone:Object = list[0];
             		obj.item = value.id;
-            		obj.target = MapObject(value.affectMapObject).saveObject;
-            	}else { 
-            		obj = value.id;
-            	}
+                    obj.target = clone;
+                }else {
+                	obj = value.id;
+                }
                 sendNotification(ApplicationFacade.SPEND_RP, obj);
             }
             else

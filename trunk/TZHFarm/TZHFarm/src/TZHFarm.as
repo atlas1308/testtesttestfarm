@@ -58,15 +58,18 @@ package {
 			_instance = this;
 			Security.allowDomain("*");
 			//Config.setConfig("host","http://farm.lf3g.com/static/");// lf3g
-			Config.setConfig("transport","http://farm.lf3g.com/");
+			//Config.setConfig("transport","http://farm.lf3g.com/");
 			//Config.setConfig("transport","http://devfarm.lf3g.com/");
 			
-			/* Config.setConfig("host","http://newfarm.lf3g.com/static/");// 本机
+			/* Config.setConfig("host","http://newfarm.lf3g.com/s tatic/");// 本机
 			Config.setConfig("transport","http://newfarm.lf3g.com/");  */
 			//Config.setConfig("host","http://ec2-46-51-129-166.eu-west-1.compute.amazonaws.com/static/");//vz平台
 			//Config.setConfig("host","http://ec2-46-51-129-166.eu-west-1.compute.amazonaws.com/static/");//vz平台
 			//Config.setConfig("transport","http://ec2-46-51-129-166.eu-west-1.compute.amazonaws.com/");
+			//Config.setConfig("host","http://192.168.1.99:9901/static/");
 			//Config.setConfig("transport","http://192.168.1.99:9901");
+			Config.setConfig("host","http://192.168.0.102/static/");
+			Config.setConfig("transport","http://192.168.0.102/");
 			
 			Config.setConfig("loadSocialData","loadSocialData");
 			Config.setConfig("version","1.0");

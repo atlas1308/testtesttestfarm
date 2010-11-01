@@ -9,6 +9,9 @@
     import flash.text.*;
     
     import mx.resources.ResourceManager;
+    
+    import tzh.DisplayUtil;
+    import tzh.core.Constant;
 
     public class ShopItem extends Sprite implements ISkinProperties
     {
@@ -31,6 +34,7 @@
         private var buy_rp_btn:GameButton;
         private var flip_btn:RotateBtn;
         private var buy_btn:GameButton;
+        private var requestButton:GameButton;
 		
 		public static const HARVEST_ACTION:String = "Harvest";
 		
@@ -132,7 +136,7 @@
             else
             {
                 cost.text = String(data.rp_price) + " " +  ResourceManager.getInstance().getString("message","ranch_cash_message");
-                if (!data.locked && data.buy_gift)// 暂时先关闭这个功能
+                /* if (!data.locked && data.buy_gift)// 暂时先关闭这个功能
                 {
                     send_gift = new GameButton(ResourceManager.getInstance().getString("message","game_button_send_message"), 13, 15 / 13);
                     send_gift.set_style("blue");
@@ -141,6 +145,13 @@
                     buy_rp_btn.x = buy_rp_btn_position_x;
                     send_gift.x = buy_rp_btn.x + buy_rp_btn.width + buy_rp_btn_position_x;
                     send_gift.y = buy_rp_btn.y;
+                } */
+                if(data.request){
+                	requestButton = new GameButton(ResourceManager.getInstance().getString("message","request_gifts_shop_message"),13,15 / 13);
+                	requestButton.addEventListener(MouseEvent.CLICK,askGiftsToFriends);
+                	requestButton.set_fixed_width(60);
+            		this.addChild(requestButton);
+            		DisplayUtil.algin(this,buy_rp_btn,requestButton);
                 }
             }
             if (data.locked)
@@ -160,12 +171,15 @@
                 {
                     add_neighbors.visible = false;
                     buy_btn.disable();
+                    if(requestButton){
+                    	requestButton.visible = false;
+	            	}
                 }
                 level_needed.text = data.locked_message;
             }
             else
             {
-                if (data.buy_method == "rp")
+                if (data.buy_method == BUY_METHOD_RP)
                 {
                     buy_btn.visible = false;
                 }
@@ -177,6 +191,7 @@
                 level_needed.visible = false;
                 add_neighbors.visible = false;
             }
+            
             if (data.sell_for)
             {
                 sell_for.text = ResourceManager.getInstance().getString("message","sell_for_coins_message",[String(data.sell_for)]);
@@ -192,7 +207,6 @@
 	            }else {
 	            	collect.text = ResourceManager.getInstance().getString("message","action_collect_in_message",[data.action, Algo.prep_time(data.collect_in, false)]);
 	            }
-                
             }
             else
             {
@@ -261,6 +275,9 @@
         {
             dispatchEvent(new Event(SEND_GIFT));
         }
-
+		
+		private function askGiftsToFriends(event:MouseEvent):void {
+			Constant.showAskForGiftsHandler();
+		}
     }
 }

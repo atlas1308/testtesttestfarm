@@ -9,6 +9,7 @@ package classes.view.components.gifts {
     
     import mx.resources.ResourceManager;
     
+    import tzh.core.Config;
     import tzh.core.Image;
 
     public class Gift extends Sprite {
@@ -125,7 +126,7 @@ package classes.view.components.gifts {
         }
         
         public function get id():Number{
-            return (data.id);
+            return data.id;
         }
         
         public function kill():void{

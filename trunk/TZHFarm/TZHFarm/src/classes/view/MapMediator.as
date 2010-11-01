@@ -4,7 +4,9 @@
     import classes.model.*;
     import classes.view.components.*;
     import classes.view.components.map.*;
+    import classes.view.components.popups.UnderConstructionPopup;
     
+    import flash.display.DisplayObject;
     import flash.events.*;
     
     import org.puremvc.as3.multicore.interfaces.*;
@@ -446,7 +448,11 @@
                 {
                     temp = value.getBody();
                     var mapObject:MapObject = map.increase_obtained_material(temp.mo, temp.material);
-                    sendNotification(ApplicationFacade.UPDATE_UNDERCONSTRUCTIONPOPUP,mapObject);
+                    //sendNotification(ApplicationFacade.UPDATE_UNDERCONSTRUCTIONPOPUP,mapObject);
+                    var popup:DisplayObject = this.map.stage.getChildByName("underConstructionPopup");
+                    if(popup && popup is UnderConstructionPopup){
+                		UnderConstructionPopup(popup).refreshData(app_data.get_under_construction_popup_data(mapObject));
+                	}
                     break;
                 }
                 case ApplicationFacade.IRRIGATION_INSTALLED:
