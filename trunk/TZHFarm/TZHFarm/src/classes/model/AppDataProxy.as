@@ -118,12 +118,12 @@
          * 用户已经有的原料 
          */ 
         private function num_obtained_materials(obj:Object):Number{
-            var m:String;
-            var c:Number = 0;
-            for (m in obj.obtained_materials) {
-                c = (c + obj.obtained_materials[m]);
+            var key:String;
+            var result:Number = 0;
+            for (key in obj.obtained_materials) {
+                result = result + obj.obtained_materials[key];
             }
-            return c;
+            return result;
         }
         
         /**
@@ -3244,12 +3244,12 @@
          * @params target:MapObject 当前做用的对象
          */ 
         public function report_confirm_error(name:String, reset_tool:Boolean=false, target:MapObject=null):Boolean{
-            var _c:Confirmation = new Confirmation();
-            _c.text(name, false);
+            var confirmation:Confirmation = new Confirmation();
+            confirmation.text(name, false);
             if (target){
-                _c.set_target(target);
+                confirmation.set_target(target);
             }
-            sendNotification(ApplicationFacade.DISPLAY_CONFIRMATION, _c.get_data());
+            sendNotification(ApplicationFacade.DISPLAY_CONFIRMATION, confirmation.get_data());
             if (reset_tool){
                 sendNotification(ApplicationFacade.ESCAPE_PRESSED);// 这个事件会让显示的所有的内容都重新刷新
             }
