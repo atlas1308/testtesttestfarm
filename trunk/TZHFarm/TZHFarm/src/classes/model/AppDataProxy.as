@@ -172,7 +172,7 @@
                     material:m.id
                 });
             };
-            return (true);
+            return true;
         }
         
         /**
