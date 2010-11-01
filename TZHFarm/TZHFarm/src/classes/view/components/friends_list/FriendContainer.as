@@ -85,6 +85,9 @@
             TextFieldUtil.truncateToFit(friend_name,this.skin.width);
             level.text = String(data.level);
             exp.text = String(data.exp);
+            CONFIG::debug{
+            	data.pic = "http://img-p4.pe.imagevz.net/profile1/60/44/d4be02cc11dd966d9ce7242ac4bd/1-105895eee3b1cc4f-s.jpg";
+            }
             var image:Image = new Image(data.pic,photo_mask);
             image.addEventListener(Event.COMPLETE, photoComplete);
 	        image.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
