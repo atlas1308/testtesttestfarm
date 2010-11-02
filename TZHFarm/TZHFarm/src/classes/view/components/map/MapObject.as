@@ -509,7 +509,7 @@
             obj.sort_y_size = sort_y_size;
             obj.is_fence = (_kind == "fence");
             obj.mo = this;
-            return (obj);
+            return obj;
         }
         
         public function flip():void{
