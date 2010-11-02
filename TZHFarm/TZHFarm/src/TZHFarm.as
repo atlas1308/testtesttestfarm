@@ -49,6 +49,10 @@ package {
 	 * 
 	 * 
 	 * 1.要解决popup以及popup层级的问题
+	 * 
+	 * 
+	 * 
+	 * 
 	 */ 
 	 
 	public class TZHFarm extends Sprite

@@ -25,7 +25,7 @@
             if (target){
                 show_above_objects(target);
                 target.state = "clear";
-            };
+            }
         }
         
         override public function action_confirmed(... _args):void{
@@ -38,6 +38,7 @@
         
         override protected function mouseUp():void{
             if (plant && plant.is_ready()){
+            	show_above_objects(plant);
                 dispatchEvent(new Event(CONFIRM_ACTION));
                 disable();
             }
@@ -77,7 +78,7 @@
         }
         
         override public function usable():Boolean{
-            if (((plant) && (plant.is_ready()))){
+            if (plant && plant.is_ready()){
                 return (true);
             }
             return false;
