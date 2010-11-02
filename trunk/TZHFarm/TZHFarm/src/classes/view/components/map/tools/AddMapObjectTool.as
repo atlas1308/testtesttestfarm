@@ -193,13 +193,18 @@
             confirm();
             map_object.enabled = true;
             map_object.state = "clear";
-            if (map_object.type != "soil")
+            var type:String = map_object.type;
+            if (type != MapObject.MAP_OBJECT_TYPE_SOIL && type != MapObject.MAP_OBJECT_TYPE_DECORATIONS)
             {
                 disable();
             }
             map_object = null;
-            activated = false;
-            enabled = false;
+            if(type == MapObject.MAP_OBJECT_TYPE_DECORATIONS){
+            	this.activate();
+            }else {
+            	activated = false;
+            	enabled = false; 
+            }
         }
 
         override protected function mouseGridMove() : void

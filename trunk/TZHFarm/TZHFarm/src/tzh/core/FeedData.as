@@ -39,7 +39,7 @@ package tzh.core
 		public static function getSendGiftsToFriendMessage(username:String,friendName:String,gift_id:Number):Object {
 			var obj:Object = {};
 			obj.body = ResourceManager.getInstance().getString("message","send_gift_to_friend_message",[username,friendName]);
-			obj.src = Config.getConfig("host") + "feed/request_gifts" + gift_id + ".png";
+			obj.src = Config.getConfig("host") + "feed/send_gifts" + gift_id + ".png";
 			return obj;
 		}
 	}

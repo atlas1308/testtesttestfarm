@@ -236,7 +236,7 @@
             var maxDistance:int = 12;
             while(index < map_objects.numChildren){
             	var mapObject:MapObject = map_objects.getChildAt(index) as MapObject;
-            	if(mapObject.type != MapObject.MAP_OBJECT_TYPE_SEEDS && mapObject.type != MapObject.MAP_OBJECT_TYPE_SOLI){
+            	if(mapObject.type != MapObject.MAP_OBJECT_TYPE_SEEDS && mapObject.type != MapObject.MAP_OBJECT_TYPE_SOIL){
             		var hitabled:Boolean = mapObject.hit_test_object(value);
 	            	if(hitabled){
 	            		if(mapObject.bottom >= value.bottom && (mapObject.grid_y - value.grid_y <= maxDistance) &&

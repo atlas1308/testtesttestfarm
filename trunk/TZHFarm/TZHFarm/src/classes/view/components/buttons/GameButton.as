@@ -1,7 +1,6 @@
 ﻿package classes.view.components.buttons {
     import flash.display.*;
     import flash.events.*;
-    import flash.geom.Matrix;
     import flash.text.*;
 
     public class GameButton extends Sprite {
@@ -103,6 +102,14 @@
         public function set_label(v:String):void{
             tf.text = v;
             refresh();
+        }
+        
+        public function get label():String {
+        	if(tf)
+        	{
+        		return tf.text;
+        	}
+        	return "";
         }
         
         public function set_fixed_width(v:Number):void{
