@@ -46,7 +46,7 @@
             raw_material = value.raw_material ? (value.raw_material) : (0);
             //raw_material = Math.min(Math.max(0,raw_material),max_products);// 对应上最大取max_products
             raw_materials = value.raw_materials ? (value.raw_materials) : (0);
-            raw_materials = Math.min(Math.max(0,raw_materials),max_products);// 不能负数的情况
+            raw_materials = Math.min(Math.max(0,raw_materials),max_raw_materials);// 不能负数的情况
             products = value.products ? (value.products) : (0);// 产生物
             products = Math.max(0,Math.min(max_products,products));//最大的max_products,最小是0
             animals = value.animals ? (value.animals) : 1;// 动物,默认的是1
@@ -272,9 +272,9 @@
                 }
                 case "collect":
                 {
-                    if (mc)
+                    if (mc && collect_area)
                     {
-                        position.x = position.x + (collect_area.getBounds(this).left + collect_area.getBounds(this).width / 2);
+                        position.x = position.x + collect_area.getBounds(this).left + collect_area.getBounds(this).width / 2;
                         position.y = position.y + collect_area.getBounds(this).top;
                     }
                     break;
