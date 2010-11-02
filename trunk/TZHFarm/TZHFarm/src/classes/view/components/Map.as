@@ -111,6 +111,8 @@
         }
         
         private function object_compare(obj_A:Object, obj_B:Object):Number{
+        	if(!obj_A)return 0;
+        	if(!obj_B)return 0;
             var a_h:Number = obj_A.sort_y_size;
             var a_w:Number = obj_A.sort_x_size;
             var b_h:Number = obj_B.sort_y_size;
@@ -236,14 +238,7 @@
             var buffer:Array;
             var obj:Object;
             var r:Number;
-            var list:Array = new Array();
-            i = 0;
-            while (i < map_objects.numChildren) {
-                mo = (map_objects.getChildAt(i) as MapObject);
-                so = mo.simple_object();
-                list.push(so);
-                i++;
-            };
+            var list:Array = this.getSimpleObject();
             var sorted:Array = new Array();
             var t1:Number = Algo.timer();
             i = 0;
@@ -291,6 +286,8 @@
                 map_objects.setChildIndex(sorted[i].mo, i);
                 i++;
             }
+            var t2:int = Algo.timer();
+            trace((t2 - t1) + " time..........."); 
         }
         
         private function onAutoCollect(e:Event):void{
@@ -417,6 +414,7 @@
                 panned = false;
                 mouseOver(e);
             }
+            stage.quality = StageQuality.HIGH;
         }
         
         public function increase_obtained_material(obj:Object, material:Number):MapObject{
@@ -737,8 +735,9 @@
                 mouseOut(e);
             }
             panned = true;
+            stage.quality = StageQuality.LOW;
         }
-        
+       
         /**
          * 这是一个重要的算法
          * 二分查找 留着以后用,优化时会用到
@@ -752,7 +751,7 @@
             var result:int;
             while (low < high) {
                 mapObject = depthSortedObjects[half] as MapObject;
-                result = object_compare(value, mapObject);
+                result = object_compare(value.simple_object(), mapObject.simple_object());
                 if (result == -1){// a 在 b 后 左移一半
                     high = half;
                     half = (low + high) >> 1;
@@ -766,6 +765,24 @@
             return half;
         }
         
+        public function getSimpleObject(value:MapObject = null):Array {
+        	var index:int = 0;
+        	var result:Array = [];
+        	var invalidate:Boolean = value != null;
+        	while(index < map_objects.numChildren){
+        		var mapObject:MapObject = map_objects.getChildAt(index) as MapObject;
+        		if(invalidate){
+        			if(value != mapObject){
+        				result.push(mapObject.simple_object());
+        			}
+        		}else {
+        			result.push(mapObject.simple_object());
+        		}
+        		index++;
+        	}
+        	return result;
+        }
+        
         private function set_object_depth(new_mo:MapObject):void{
             var i:Number;
             var j:Number;
@@ -774,17 +791,7 @@
             var so:Object;
             var obj:Object;
             var r:Number;
-            var sorted:Array = new Array();
-            i = 0;
-            while (i < map_objects.numChildren) {
-                mo = (map_objects.getChildAt(i) as MapObject);
-                if (new_mo == mo){
-                } else {
-                    so = mo.simple_object();
-                    sorted.push(so);
-                };
-                i++;
-            };
+            var sorted:Array = this.getSimpleObject(new_mo);
             var new_obj:Object = new_mo.simple_object();
             var pos:Number = -1;
             var splice_pos:Number = -1;
@@ -818,7 +825,7 @@
             while (k >= 0) {
                 sorted.splice(pos, 0, buffer[k]);
                 k--;
-            };
+            }
             i = 0;
             while (i < sorted.length) {
                 map_objects.setChildIndex(sorted[i].mo, i);
@@ -954,25 +961,25 @@
             bottom_obj.set_sort_coords(greenhouse.grid_x, ((greenhouse.grid_y + greenhouse.y_size) - 1), ((greenhouse.grid_x + greenhouse.x_size) - 1), greenhouse.grid_y);
             if (bottom_obj.parent == map_objects){
                 map_objects.addChild(bottom_obj);
-                set_object_depth(bottom_obj);
+                set_object_depth(bottom_obj); 
             } else {
                 map_objects.addChild(bottom_obj);
             };
             if (top_obj.parent == map_objects){
                 map_objects.addChild(top_obj);
-                set_object_depth(top_obj);
+                set_object_depth(top_obj); 
             } else {
                 map_objects.addChild(top_obj);
             }
             if (left_obj.parent == map_objects){
                 map_objects.addChild(left_obj);
-                set_object_depth(left_obj);
+                set_object_depth(left_obj); 
             } else {
                 map_objects.addChild(left_obj);
             };
             if (right_obj.parent == map_objects){
                 map_objects.addChild(right_obj);
-                set_object_depth(right_obj);
+                set_object_depth(right_obj); 
             } else {
                 map_objects.addChild(right_obj);
             }

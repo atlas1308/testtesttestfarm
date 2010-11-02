@@ -273,24 +273,13 @@
             } catch(e:Error) {
                 Log.add(("getLocal error " + e));
             }
-            var phpcode:String = PHPUtil.getPHPCode(app_data.map);
-            trace(phpcode);
+            //var phpcode:String = PHPUtil.getPHPCode(app_data.map);
+            //trace(phpcode);
             queue = new Array();
             auto_queue = new Array();
             friends_helped = new Array();
             this.config = config;
             this.app_data = app_data;
-            /* for each(var temp:Object in app_data.map){
-                var info:Object = config.store[temp.id];
-                update_object(temp);
-            	if(info.constructible){
-            		if(num_materials(temp) == num_obtained_materials(temp)){
-            			temp.under_construction = false;
-            		}else {
-            			temp.under_construction = true;
-            		}
-            	}
-            } */
             Algo.convert_to_number(config);
             Algo.convert_to_number(app_data);
             this.app_data.coins = parseFloat(app_data.coins);
