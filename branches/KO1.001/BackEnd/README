@@ -1,6 +1,0 @@
-WEB 绑定目录 public
-
-AMF 地址 ：http://localhost/gateway.php
-
-AMF 服务器程序放置在 application/services 目录里，Flex调用时 gateway会自动加载相应的服务程序。
-
