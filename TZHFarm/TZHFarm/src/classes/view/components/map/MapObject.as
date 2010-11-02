@@ -77,7 +77,7 @@
         public static const MAP_OBJECT_TYPE_TREES:String = "trees";// 树
         public static const MAP_OBJECT_TYPE_DECORATIONS:String = "decorations";// 装饰
 		
-		public static const MAP_OBJECT_TYPE_SOLI:String = "soil";
+		public static const MAP_OBJECT_TYPE_SOIL:String = "soil";
 		private var _data:Object;
 		
 		public function get data():Object {
@@ -445,6 +445,10 @@
                 }
                 obtained_materials = new Array();
             }
+        }
+        
+        public function get constructionOK():Boolean {
+        	return !this.under_construction
         }
         
         public function get _height():Number{

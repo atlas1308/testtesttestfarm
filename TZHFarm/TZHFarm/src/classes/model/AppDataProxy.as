@@ -31,9 +31,9 @@
 	import tzh.core.TutorialManager;
 	
 	import flash.utils.clearInterval;
-		import flash.utils.clearTimeout;
-		import flash.utils.setTimeout;
-		import flash.utils.setInterval;
+	import flash.utils.clearTimeout;
+	import flash.utils.setTimeout;
+	import flash.utils.setInterval;
 	/**
 	 * 一些细节的更新
 	 * 更新升级时的返回条件,handle_response
@@ -280,7 +280,7 @@
             friends_helped = new Array();
             this.config = config;
             this.app_data = app_data;
-            for each(var temp:Object in app_data.map){
+            /* for each(var temp:Object in app_data.map){
                 var info:Object = config.store[temp.id];
                 update_object(temp);
             	if(info.constructible){
@@ -290,7 +290,7 @@
             			temp.under_construction = true;
             		}
             	}
-            }
+            } */
             Algo.convert_to_number(config);
             Algo.convert_to_number(app_data);
             this.app_data.coins = parseFloat(app_data.coins);
@@ -454,13 +454,19 @@
          * 这是有加经验时,刷新一个等级
          * 获取当前level的最大值如果当前的用户的经验>level.max,那这个用户升级了
          */ 
+        private var upgraded:Boolean;
         private function refresh_level():void{
             var level:Object = config.levels[app_data.level];
             var next_level:Object = config.levels[(app_data.level + 1)];
-            if (app_data.experience >= level.max){
+            if (app_data.experience >= int(level.max)){
                 app_data.level++;
-                if (confirm){
+                upgraded = true;
+                this.refresh_level();
+            }
+            if(upgraded){
+            	if (confirm){
                     confirm.level_up = true;
+                    upgraded = false;
                 }
             }
         }
@@ -1593,11 +1599,14 @@
             return true;
         }
         
-        public function get_accept_selected_gift_popup_data(neighbor_id:Number, gift_id:Number):Object{
+        public function get_accept_selected_gift_popup_data(neighbor_id:Number, gift_id:Number,type:String):Object{
             var output:Object = new Object();
             var gift:String = config.store[gift_id].name;
             var neighbor:String = prep_neighbor_data({uid:neighbor_id}).name;
-            var rc:String = String(config.store[gift_id].rp_price);
+            var rc:int = int(config.store[gift_id].rp_price);
+            if(type == UnderConstructionPopupItem.FREE_GIFT){
+            	rc = 0;
+            }
             var s:String = ResourceManager.getInstance().getString("message","send_notice_message",[Algo.articulate(gift).toString(),neighbor]);
             s = (s + ResourceManager.getInstance().getString("message","ranch_count_message",[rc]));
             output.type = PopupTypes.ACCEPT_SELECTED_GIFT;
@@ -1681,7 +1690,7 @@
                     return (report_confirm_error(ResourceManager.getInstance().getString("message","already_have_items",[Algo.articulate(info.name).toString()])));
                 }
             }
-            if (((info.constructible) && ((get_objects_like(info.id, true).length == 1)))){
+            if (((info.constructible) && ((get_objects_like(info.id, true).length >= 1)))){// ==
                 return (report_confirm_error(((ResourceManager.getInstance().getString("message","finish_construction_on_existing",[info.name])))));
             }
             if (info.action == "irrigation"){// 这个功能暂时也没有先过掉
@@ -2825,7 +2834,9 @@
                     app_data.bottom_map_size = item.size;
                     break;
             }
+            //app_data.experience = app_data.experience + parseFloat(item.exp);
             sendNotification(ApplicationFacade.EXPAND_RANCH, item);
+            //refresh_level();
             update_objects(["shop"]);
         }
         

@@ -103,6 +103,7 @@ package tzh.core
 				loader.content;// 没什么具体的作用,访问这个bitmap时,因为是二进制的,所以会出现安全问题
 			}catch(error:Error){
 				loader.loadBytes(loader.contentLoaderInfo.bytes);
+				trace("SecurityErrorEvent " + error.message); 
 			}
 			loader.contentLoaderInfo.removeEventListener(HTTPStatusEvent.HTTP_STATUS, onHTTPStatus);
             loader.contentLoaderInfo.removeEventListener(Event.COMPLETE, onComplete);

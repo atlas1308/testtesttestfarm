@@ -30,6 +30,8 @@ package {
 	 * 4.更新礼物功能,以及页面上的功能 需要测试
 	 * 5.功能代码 进行中
 	 * 6.增加FG不够时跳转到充值页面
+	 * 7.装饰可以不用弹出面板和种地一样,可以买一次就可以一直够买
+	 * 8.更新了部分popup弹出的效果
 	 * 
 	 * 
 	 * 
@@ -43,6 +45,10 @@ package {
 	 *  d.更新GreenHouse功能,要测试删除GreenHouse,移动GreenHouse,移动地块,购买GreenHouse,购买原料
 	 * 		等是否有问题
 	 *  e.更新了部分代码优化
+	 * 
+	 * 
+	 * 
+	 * 1.要解决popup以及popup层级的问题
 	 */ 
 	 
 	public class TZHFarm extends Sprite
@@ -66,11 +72,14 @@ package {
 			Config.setConfig("transport","http://newfarm.lf3g.com/");  */
 			//Config.setConfig("host","http://ec2-46-51-129-166.eu-west-1.compute.amazonaws.com/static/");//vz平台
 			//Config.setConfig("host","http://ec2-46-51-129-166.eu-west-1.compute.amazonaws.com/static/");//vz平台
-			Config.setConfig("transport","http://ec2-46-51-129-166.eu-west-1.compute.amazonaws.com/");
+			//Config.setConfig("transport","http://ec2-46-51-129-166.eu-west-1.compute.amazonaws.com/");
 			//Config.setConfig("host","http://192.168.1.99:9901/static/");
 			//Config.setConfig("transport","http://192.168.1.99:9901");
 			//Config.setConfig("host","http://192.168.0.102/static/");
 			//Config.setConfig("transport","http://192.168.0.102/");
+			Config.setConfig("host","http://192.168.1.109/static/");
+			Config.setConfig("transport","http://192.168.1.109/");
+			Config.setConfig("transport","http://192.168.1.99:9901/");
 			
 			Config.setConfig("loadSocialData","loadSocialData");
 			Config.setConfig("version","1.0");

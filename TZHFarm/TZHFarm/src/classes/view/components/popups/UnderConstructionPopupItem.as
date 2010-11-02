@@ -13,8 +13,6 @@
     public class UnderConstructionPopupItem extends PopupItem {
 
         public static const LINK_CLICKED:String = "linkClicked";
-
-        private var help_tf:TextField;
         
         private var sendGiftButton:GameButton;
         
@@ -40,9 +38,8 @@
             }else {
             	message = data.rp_price + " " + ResourceManager.getInstance().getString("message","ranch_cash_message")
             }
-            help_tf = create_tf(13, 10049313, 0, new Futura().fontName, "center", message);
-            container.addChild(help_tf);
-            //help_tf.addEventListener(TextEvent.LINK, onHyperLinkEvent);
+            var button_label:String = button.label + " "+ message;
+            button.set_label(button_label);
             align();
             draw();
         }
@@ -56,29 +53,23 @@
             dispatchEvent(new Event(LINK_CLICKED));
         }
         
-        override protected function align():void{
-            var padd:Number = (((((data.height - (button.height / 2)) - title.height) - image_h) - desc.height) - help_tf.height) / 5;
+        override protected function align():void{// - help_tf.height
+            var padd:Number = (((((data.height - (button.height / 2)) - title.height) - image_h) - desc.height)) / 5;
             title.x = (data.width - title.width) / 2;
             image_cont.x = (data.width - image_w) / 2;
             desc.x = (data.width - desc.width) / 2;
-            help_tf.x = (data.width - desc.width) / 2;
-            var hGap:Number = 5;
-            var ww:Number = button.width;
+            var vGap:Number = 3;
+            button.x = (data.width - button.width) / 2;
             if(sendGiftButton){
-            	ww = ww + hGap + sendGiftButton.width;
-            	button.x = (data.width - ww) / 2;
-            	sendGiftButton.x = button.x + button.width + hGap;
+            	sendGiftButton.x = (data.width - sendGiftButton.width) / 2;
+            	sendGiftButton.y = data.height - sendGiftButton.height / 2;
+            	button.y = sendGiftButton.y - vGap - button.height;
             }else {
-            	button.x = (data.width - button.width) / 2;
+            	button.y = data.height - button.height / 2;
             }
             title.y = padd;
             image_cont.y = (title.y + title.height) + padd;
-            desc.y = (image_cont.y + image_h) + padd;
-            help_tf.y = (desc.y + desc.height) + padd;
-            button.y = data.height - (button.height / 2);
-            if(sendGiftButton){
-            	sendGiftButton.y = (data.height - (button.height / 2));
-            }
+            desc.y = (image_cont.y + image_h) + padd
         }
     }
 }

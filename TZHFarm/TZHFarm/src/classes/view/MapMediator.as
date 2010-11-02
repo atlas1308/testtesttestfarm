@@ -451,7 +451,11 @@
                     //sendNotification(ApplicationFacade.UPDATE_UNDERCONSTRUCTIONPOPUP,mapObject);
                     var popup:DisplayObject = this.map.stage.getChildByName("underConstructionPopup");
                     if(popup && popup is UnderConstructionPopup){
-                		UnderConstructionPopup(popup).refreshData(app_data.get_under_construction_popup_data(mapObject));
+                    	if(mapObject is Greenhouse && mapObject.constructionOK){// 先暂时做这么一个判断
+                    		UnderConstructionPopup(popup).remove();
+                    	}else {
+                			UnderConstructionPopup(popup).refreshData(app_data.get_under_construction_popup_data(mapObject));
+                		}
                 	}
                     break;
                 }

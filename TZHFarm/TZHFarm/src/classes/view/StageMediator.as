@@ -185,6 +185,7 @@
                 case ApplicationFacade.SHOW_CONFIRM_POPUP:
                 {
                     body = value.getBody();
+                    facade.removeMediator(PopupMediator.NAME);
                     var confirmPopup:ConfirmPopup = new ConfirmPopup(body.msg, body.obj);
                     facade.registerMediator(new PopupMediator(confirmPopup));
                     stage.addChild(confirmPopup);

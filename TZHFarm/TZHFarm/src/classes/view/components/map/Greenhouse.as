@@ -113,12 +113,16 @@
             if (!mc){
                 return;
             }
-            mc.bottom_part.front.front_cut.visible = !(mc.bottom_part.front.front_cut.visible);
-            mc.bottom_part.front.front_full.visible = !(mc.bottom_part.front.front_full.visible);
-            mc.right_part.front.front_cut.visible = !(mc.right_part.front.front_cut.visible);
-            mc.right_part.front.front_full.visible = !(mc.right_part.front.front_full.visible);
-            opened = !(opened);
-            refresh_hit_area();
+            try {
+	            mc.bottom_part.front.front_cut.visible = !(mc.bottom_part.front.front_cut.visible);
+	            mc.bottom_part.front.front_full.visible = !(mc.bottom_part.front.front_full.visible);
+	            mc.right_part.front.front_cut.visible = !(mc.right_part.front.front_cut.visible);
+	            mc.right_part.front.front_full.visible = !(mc.right_part.front.front_full.visible);
+	            opened = !(opened);
+	            refresh_hit_area();
+            }catch(error:Error){
+            	trace("mc.bottom_part.front.front_cut.visible " + error.message);
+            }
         }
         
         public function add_plant(p:MapObject):void{
