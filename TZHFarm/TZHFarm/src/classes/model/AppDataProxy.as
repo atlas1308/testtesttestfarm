@@ -1201,13 +1201,13 @@
                         if (need){
                             if (((((info.upgradeable) && (!(obj.under_construction)))) && (!(can_upgrade(obj))))){
                                 continue;
-                            };
+                            }
                             if (((!(info.upgradeable)) && (!(obj.under_construction)))){
                                 continue;
-                            };
+                            }
                             if (obj.obtained_materials[material] < get_material_qty(obj, material)){
                                 list.push(obj);
-                            };
+                            }
                         } else {
                             list.push(obj);
                         }

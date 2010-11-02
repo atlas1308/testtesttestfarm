@@ -64,7 +64,7 @@
 			obj.fb_sig_session_key = "2.SNB9BZ63xoJnJEBtCWCRhw__.3600.1277542800-1560424778";
 			obj.fb_sig_ss = "_YlZd6mag4eExSQA5ETxMQ__";
 			obj.fb_sig_time = "1277557804.1269dfa";
-			obj.fb_sig_user = "qafdaf";
+			obj.fb_sig_user = "www.vz.net:YlGpTDVJ5JYdgNIjET7TZA";
 			//www.vz.net:WtP271mWJW19eIdrhNCNBw
 			//obj.fb_sig_user = "fdafdasfadaaadsa1fadfadaaaaaaa3" + Math.floor(Math.random() * 1000000);
 			//sandbox.developer.studivz.net:u-mcxK71YUt6QrOx2yIsFQ
