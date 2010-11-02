@@ -41,7 +41,7 @@ package {
 	 * 功能更新
 	 * 	a.更新遮挡物时显示出树,并且遮挡物的alpha
 	 *  b.更新用心升级时,好友重新排序,要测试如果快速点击好友时的变化
-	 *  c.更新image,不加随机参数,好友列表在IE下显示不出来头像的问题,还应该仔细查一查.
+	 *  c.更新了image里检测
 	 *  d.更新GreenHouse功能,要测试删除GreenHouse,移动GreenHouse,移动地块,购买GreenHouse,购买原料
 	 * 		等是否有问题
 	 *  e.更新了部分代码优化
@@ -77,9 +77,9 @@ package {
 			//Config.setConfig("transport","http://192.168.1.99:9901");
 			//Config.setConfig("host","http://192.168.0.102/static/");
 			//Config.setConfig("transport","http://192.168.0.102/");
-			Config.setConfig("host","http://192.168.1.109/static/");
-			Config.setConfig("transport","http://192.168.1.109/");
-			Config.setConfig("transport","http://192.168.1.99:9901/");
+			Config.setConfig("host","http://192.168.0.102/static/");
+			Config.setConfig("transport","http://192.168.0.102/");
+			//Config.setConfig("transport","http://192.168.1.99:9901/");
 			
 			Config.setConfig("loadSocialData","loadSocialData");
 			Config.setConfig("version","1.0");
