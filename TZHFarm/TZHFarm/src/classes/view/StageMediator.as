@@ -480,19 +480,11 @@
                 }
                 case ApplicationFacade.SHOW_NEIGHBORS_LIST_POPUP:
                 {
-                    /* if (popup_proxy.can_show_popup)
-                    {
-                        popup_proxy.can_show_popup = false; */
-                        facade.removeMediator(PopupMediator.NAME);
-                        var neighborsListPopup:NeighborsListPopup = new NeighborsListPopup(app_data.get_neighbors_list_popup_data());
-                        neighborsListPopup.info = {gift:value.getBody() as Number,type:value.getType()};
-                        facade.registerMediator(new PopupMediator(neighborsListPopup));// 这里注册不上了
-                        stage.addChild(neighborsListPopup);
-                   /*  }
-                    else
-                    {
-                        popup_proxy.add_popup(value);
-                    } */
+                    facade.removeMediator(PopupMediator.NAME);
+                    var neighborsListPopup:NeighborsListPopup = new NeighborsListPopup(app_data.get_neighbors_list_popup_data());
+                    neighborsListPopup.info = {gift:value.getBody() as Number,type:value.getType()};
+                    facade.registerMediator(new PopupMediator(neighborsListPopup));// 这里注册不上了
+                    stage.addChild(neighborsListPopup);
                     break;
                 }
                 case ApplicationFacade.SHOW_GIFT_RECEIVED_POPUP:
@@ -529,20 +521,11 @@
                 }
                 case ApplicationFacade.SHOW_SELECT_OBJECT_POPUP:
                 {
-                    //if (popup_proxy.can_show_popup)
-                    //{
-                        //popup_proxy.can_show_popup = false;
-                        //if(facade.hasMediator(PopupMediator.NAME))return;
-                        facade.removeMediator(PopupMediator.NAME);
-                        selectPopup = new SelectPopup(value.getBody());
-                        selectPopup.type = PopupTypes.SELECT_OBJECT;
-                        facade.registerMediator(new PopupMediator(selectPopup));
-                        stage.addChild(selectPopup);
-                    //}
-                    //else
-                    //{
-                        //popup_proxy.add_popup(value);
-                    //}
+                    facade.removeMediator(PopupMediator.NAME);
+                    selectPopup = new SelectPopup(value.getBody());
+                    selectPopup.type = PopupTypes.SELECT_OBJECT;
+                    facade.registerMediator(new PopupMediator(selectPopup));
+                    stage.addChild(selectPopup);
                     break;
                 }
             }
@@ -575,7 +558,6 @@
         	var transaction:TransactionProxy = facade.retrieveProxy(TransactionProxy.NAME) as TransactionProxy;
         	if(transaction.batchManager.is_busy)return;// 如果正在重新请求的话,那么不继续了
         	transaction.batchManager.save();
-        	trace("mouse leave batch all");
         }
 
         private function exit_full_screen() : void
@@ -621,22 +603,11 @@
             }
         }
 
-        private function onPublishedToStream() : void
-        {
-            Log.add("stream published");
-            sendNotification(ApplicationFacade.POST_PUBLISHED, app_data.last_feed_data);
-        }
-
         protected function get map_proxy() : MapProxy
         {
             return facade.retrieveProxy(MapProxy.NAME) as MapProxy;
         }
-
-        private function permissionDialogClosed() : void
-        {
-            //fb_proxy.check_permissions();
-        }
-
+        
         override public function listNotificationInterests() : Array
         {
             return [ApplicationFacade.CREATE_OBJECTS, ApplicationFacade.DISPLAY_ERROR, ApplicationFacade.SHOW_CONFIRM_POPUP, ApplicationFacade.SHOW_HELP_POPUP, ApplicationFacade.SHOW_LEVEL_UP_POPUP, ApplicationFacade.SHOW_REFRESH_PAGE_POPUP, ApplicationFacade.SHOW_LOTTERY_POPUP, ApplicationFacade.REFRESH_FOCUS, ApplicationFacade.UPDATE_OBJECTS, ApplicationFacade.TOGGLE_FULL_SCREEN, ApplicationFacade.SHOW_ADD_CASH_POPUP, ApplicationFacade.SHOW_FEED_DIALOG, ApplicationFacade.SHOW_ACCEPT_SNAPSHOT, ApplicationFacade.ACTIVATE_SNAPSHOT_MODE, ApplicationFacade.DEACTIVATE_SNAPSHOT_MODE, ApplicationFacade.SHOW_SNAPSHOT_PREVIEW, ApplicationFacade.SHOW_STREAM_PERMISSIONS, ApplicationFacade.SHOW_SELECT_RAW_MATERIAL_POPUP, ApplicationFacade.SHOW_NEWS_POPUP, ApplicationFacade.SHOW_POPUP, ApplicationFacade.SHOW_STORY_POPUP, ApplicationFacade.SHOW_ITEMS_RECEIVED, ApplicationFacade.SHOW_SEND_GIFTS_POPUP, ApplicationFacade.SHOW_UNDER_CONSTRUCTION_POPUP, ApplicationFacade.SHOW_FRIEND_HELPED_POPUP, ApplicationFacade.SHOW_NETWORK_DELAY_POPUP, ApplicationFacade.SHOW_NEIGHBORS_LIST_POPUP, ApplicationFacade.SHOW_GIFT_RECEIVED_POPUP, ApplicationFacade.SHOW_UPGRADE_POPUP, ApplicationFacade.SHOW_SELECT_OBJECT_POPUP];
@@ -644,7 +615,6 @@
 
         private function stageResize(event:Event) : void
         {
-            Log.add("stage resize");
             friends_list.x = (stage.stageWidth - friends_list.skin.bounds.width - toolbar.width) / 2;
             toolbar.x = (friends_list.x + friends_list.bounds.width);
             toolbar.y = stage.stageHeight - friends_list.bounds.height;

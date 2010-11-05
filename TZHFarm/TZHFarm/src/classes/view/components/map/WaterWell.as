@@ -39,7 +39,6 @@
         private function animFinish(event:Event) : void
         {
             dispatchEvent(new Event(CHECK_IRRIGATION));
-            return;
         }
 
         public function hide_upgrade_level_anim() : void

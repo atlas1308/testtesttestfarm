@@ -1,7 +1,6 @@
 package tzh.core
 {
 	import flash.external.ExternalInterface;
-	import flash.net.URLLoaderDataFormat;
 	
 	/**
 	 * 鱼的代码里应该也要提供类似于这样子的一个管理器
@@ -172,6 +171,18 @@ package tzh.core
 			var functionName:String = "HV.camera";
 			try {
 				ExternalInterface.call(functionName,path,caption);
+			}catch(error:Error){
+				trace(functionName + " error " + error.message);
+			}
+		}
+		
+		public function postActivity(args:Object = null,callback:Function = null):void {
+			var functionName:String = "HV.sendActivity";
+			if(!args){
+				args = {};
+			}
+			try {
+				ExternalInterface.call(functionName,args);
 			}catch(error:Error){
 				trace(functionName + " error " + error.message);
 			}

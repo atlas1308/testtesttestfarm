@@ -21,6 +21,7 @@
             _is_christmas = (data.is_christmas) ? true : false;
             super(data);
         }
+        
         override protected function init_asset():void{
             var light:MovieClip;
             var player:TimelinePlayer;
@@ -43,11 +44,11 @@
         public function has_lights():Boolean{
             if (!mc){
                 return (false);
-            };
+            }
             if (!mc.lights){
-                return (false);
-            };
-            return (true);
+                return false;
+            }
+            return true;
         }
         
         public function highlight_presents(color:uint=0xFFCC00):void{

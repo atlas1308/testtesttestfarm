@@ -86,7 +86,7 @@
             level.text = String(data.level);
             exp.text = String(data.exp);
             CONFIG::debug{
-            	data.pic = "http://img-p4.pe.imagevz.net/profile2/1b/bf/6a0c0322a6b840fc777d17bc7c67/1-6372efb03904ce71-s.jpg";
+            	data.pic = "http://www.studivz.net/Img/svz-nopic-w.jpg";
             }
             var image:Image = new Image(data.pic,photo_mask);
             image.addEventListener(Event.COMPLETE, photoComplete);

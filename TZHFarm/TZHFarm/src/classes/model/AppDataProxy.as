@@ -1196,7 +1196,6 @@
                     if (!has_material(info, material)){
                     } else {
                         if (need){// 这段代码里逻辑可能有问题,后台返回的数据里应该包含under_construction这个属性
-                        	//obj.under_construction = true;
                             if (info.upgradeable && !obj.under_construction && !can_upgrade(obj)){
                                 continue;
                             }
@@ -1501,8 +1500,7 @@
                         o.obtained_materials[info.materials[i].id] = 0;
                     };
                     i++;
-                };
-                //o.under_construction = true;
+                }
             };
             if (is_multi(o)){
                 return (update_multi_object(o));
@@ -1518,28 +1516,28 @@
             };
             var collect_in:Number = info.collect_in;
             o.collect_in = info.collect_in;
-            if ((((info.type == "seeds")) || ((info.type == "trees")))){
+            if (info.type == MapObject.MAP_OBJECT_TYPE_SEEDS || info.type == MapObject.MAP_OBJECT_TYPE_TREES){
                 return;
-            };
+            }
             if (info.need_animals){
                 if (!o.animals){
                     o.animals = 1;
-                };
+                }
                 collect_in = (collect_in / o.animals);
-            };
+            }
             if (!o.times_used){
                 o.times_used = 0;
-            };
+            }
             o.collect_in = collect_in;
             if (!o.start_time){
                 return;
-            };
+            }
             if (o.updated_start_time){
                 if ((((o.raw_materials > 0)) && ((o.products < 3)))){
                     o.start_time = o.updated_start_time;
                     o.updated_start_time = 0;
                 };
-            };
+            }
             var n:Number = Math.min((3 - o.products), Math.min(o.raw_materials, Math.floor(((Algo.time() - o.start_time) / collect_in))));
             if (n < 0){
                 n = 0;
@@ -1849,9 +1847,9 @@
                     update_object(obj);
                     if ((flipped != -1) && (obj.flipped != flipped)){// 如果有转向,并且方向相同时才会执行
                     } else {
-                        return (obj);
-                    };
-                };
+                        return obj;
+                    }
+                }
                 i++;
             }
             return null;
@@ -2659,8 +2657,8 @@
             var fertilizer:Object = get_map_obj(data.fertilizer.id, data.fertilizer.grid_x, data.fertilizer.grid_y);
             var info:Object = config.store[fertilizer.id];
             if (fertilizer.times_used >= info.uses){
-                return (false);
-            };
+                return false;
+            }
             var plant:Object = get_map_obj(data.plant.id, data.plant.grid_x, data.plant.grid_y);
             plant.start_time = (plant.start_time - (plant.collect_in * info.percent));
             fertilizer.times_used++;
@@ -3091,9 +3089,9 @@
         	var friendName:String = "";
         	var friendInfo:Object = getUserInfo(value.neighbor);
         	if(friendInfo && friendInfo.name){
-        		friendName = friendInfo.name
+        		friendName = friendInfo.name;
         	}
-        	JSDataManager.getInstance().postFeed(FeedData.getSendGiftsToFriendMessage(user_name,friendName,value.gift));
+        	JSDataManager.getInstance().postActivity(FeedData.getSendGiftsToFriendMessage(user_name,friendName,value.gift));
         }
         
         /**
@@ -3102,7 +3100,7 @@
          */ 
         private function is_multi(o:Object):Boolean{
             var info:Object = config.store[o.id];
-            return ((info.raw_material as Array));
+            return info.raw_material as Array;
         }
         
         /**
@@ -3197,7 +3195,7 @@
         }
         
         public function get_objects_to_update():Array{
-            return (app_data.objects_to_update);
+            return app_data.objects_to_update;
         }
         
         /**

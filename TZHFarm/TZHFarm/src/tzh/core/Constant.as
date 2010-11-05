@@ -23,7 +23,7 @@ package tzh.core
         	if(manager.userInfo && manager.userInfo.name){
 				username = manager.userInfo.name;
         	}
-        	manager.postFeed(FeedData.getRequestGiftsMessage(username));
+        	manager.postActivity(FeedData.getRequestGiftsMessage(username));
         }
 	}
 }
