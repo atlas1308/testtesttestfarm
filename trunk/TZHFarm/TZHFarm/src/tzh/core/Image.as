@@ -1,5 +1,6 @@
 package tzh.core
 {
+	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
 	import flash.display.Loader;
 	import flash.display.Sprite;
@@ -11,6 +12,7 @@ package tzh.core
 	import flash.net.URLRequest;
 	import flash.system.ApplicationDomain;
 	import flash.system.LoaderContext;
+	import flash.utils.ByteArray;
 	
 	/**
 	 * 简单的Image没有做任何处理
@@ -99,12 +101,14 @@ package tzh.core
 		
 		private function onComplete(evt:Event):void {
 			var loader:Loader = evt.currentTarget.loader as Loader;
-			try {
-				loader.content;// 没什么具体的作用,访问这个bitmap时,因为是二进制的,所以会出现安全问题
+			/* try {
+				loader.content;// 没什么具体的作用,访问这个bitmap时,因为是二进制的,所以会出现安全问题,不知道为什么这里加载不上
 			}catch(error:Error){
-				loader.loadBytes(loader.contentLoaderInfo.bytes);
+				var context:LoaderContext = new LoaderContext(true,ApplicationDomain.currentDomain);
+				loader.loadBytes(loader.contentLoaderInfo.bytes,context);
 				trace("SecurityErrorEvent " + error.message); 
-			}
+				
+			} */
 			loader.contentLoaderInfo.removeEventListener(HTTPStatusEvent.HTTP_STATUS, onHTTPStatus);
             loader.contentLoaderInfo.removeEventListener(Event.COMPLETE, onComplete);
             loader.contentLoaderInfo.removeEventListener(IOErrorEvent.IO_ERROR, onError);
