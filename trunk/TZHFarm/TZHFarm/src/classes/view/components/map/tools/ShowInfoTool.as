@@ -13,7 +13,7 @@
 
     public class ShowInfoTool extends Tool
     {
-		private var appDataProxy:AppDataProxy = Facade.getInstance("myRanch").retrieveProxy(AppDataProxy.NAME) as AppDataProxy;// 不知道还有没有简单的方法
+		private var appDataProxy:AppDataProxy = Facade.getInstance(TZHFarm.MAIN_STAGE).retrieveProxy(AppDataProxy.NAME) as AppDataProxy;// 不知道还有没有简单的方法
         public function ShowInfoTool()
         {
         }
@@ -43,13 +43,12 @@
         }
         
         public function get enabledHelped():Boolean {
-        	/* var result:Boolean;
+        	var result:Boolean;
         	if(target && target is Plant){
-				if(Plant(target).can_be_fertilized() && appDataProxy.enabledFriendFertilizer){
+				if(Plant(target).can_be_fertilized() && appDataProxy.enabledFriendFertilizer && Plant(target).friend_can_be_fertilized){
 					result = true;
 				}
-			} */
-			return false;
+			} 
 			return result;
         }
 
@@ -69,14 +68,11 @@
 		}
 		
 		override public function get_event_data():Object {
-			/* var data:Object = new Object();
-			var friendHelpedFertilizeData:Object = appDataProxy.friendHelpedFertilizeData;
-			if(friendHelpedFertilizeData){
-				data.fertilizer = {id:friendHelpedFertilizeData.id,percent:friendHelpedFertilizeData.percent};
-			}
+			var data:Object = new Object();
             data.plant = Plant(this.target);
-            return data; */
-            return null;
+            data.friendName = appDataProxy.friend_name;
+            data.friend_id = appDataProxy.friend_farm_id;
+            return data; 
 		}
     }
 }

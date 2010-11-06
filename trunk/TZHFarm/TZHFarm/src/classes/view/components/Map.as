@@ -371,7 +371,7 @@
         }
         
         public function get event_data():Object{
-            return (tool.get_event_data());
+            return tool.get_event_data();
         }
         
         /**
