@@ -55,6 +55,8 @@ package {
 	 * 
 	 * 
 	 * 
+	 * 1.更新到好友家帮忙的功能
+	 * 
 	 */ 
 	 
 	public class TZHFarm extends Sprite
@@ -86,7 +88,7 @@ package {
 			//Config.setConfig("host","http://192.168.0.102/static/");
 			Config.setConfig("transport","http://192.168.0.102/");
 			Config.setConfig("transport","http://192.168.1.105/");
-			//Config.setConfig("transport","http://192.168.1.99:9901/");
+			Config.setConfig("transport","http://192.168.1.99:9901/");
 			
 			Config.setConfig("loadSocialData","loadSocialData");
 			Config.setConfig("version","1.0");

@@ -1243,6 +1243,7 @@
         /**
          * 这个应该是请求好友的数据过来时的操作
          */ 
+        
         public function handle_response(result:Object, channel:String):void{
             var prop:* = null;
             var result:* = result;
@@ -1272,6 +1273,9 @@
                 names.push("coins");
                 names.push("reward_points");
             }
+            if(result.fertilizer){// 如果没有的话,会把上一次的清空掉
+            	sendNotification(ApplicationFacade.FERTILIZE_BOX_COUNT,result.fertilizer);//result.fertilizer);
+            }
             if (result.objects_to_update){
                 names.push("objects_to_update");
             }
@@ -1300,6 +1304,29 @@
             }
         }
         
+        public function get enabledFriendFertilizer():Boolean {
+        	var result:Boolean;
+        	if(app_data.fertilizer && app_data.fertilizer.times > 0){
+        		result = true;
+        	}
+        	return result;
+        }
+        
+        public function friendFertilize(value:Object):Boolean {
+        	var plant:Plant = value.plant;
+        	if(!app_data.fertilizer){
+        		return false;
+        	}
+        	confirm = new Confirmation(app_data.fertilizer.addExp,app_data.fertilizer.addCoins);
+        	app_data.experience += app_data.fertilizer.addExp;
+        	app_data.coins += app_data.fertilizer.addCoins;
+        	confirm.set_target(plant);
+        	update_objects(["experience","coins"]);
+        	plant.friendFertilize(app_data.fertilizer.percent,user_name);
+        	sendNotification(ApplicationFacade.FERTILIZE_BOX_EFFECT);
+        	app_data.fertilizer.times -= 1;
+        	return true;
+        }
         
         public function update_plant(plant:Plant):void{
             var obj:Object = get_map_obj(plant.id, plant.map_x, plant.map_y);
@@ -1373,7 +1400,7 @@
          */ 
         public function game_objects_created():void{
             objects_created = true;
-            if (((config) && (app_data))){
+            if (config && app_data){
                 init(config, app_data);
             }
         }
@@ -1570,7 +1597,7 @@
             confirm = new Confirmation(app_data.farm.help_xp, app_data.farm.help_coins);
             update_objects(["coins", "level"]);
             friends_helped.push(app_data.farm.uid);
-            return (true);
+            return true;
         }
         
         /**
