@@ -29,11 +29,6 @@
 	import tzh.core.JSDataManager;
 	import tzh.core.SystemTimer;
 	import tzh.core.TutorialManager;
-	
-	import flash.utils.clearInterval;
-	import flash.utils.clearTimeout;
-	import flash.utils.setTimeout;
-	import flash.utils.setInterval;
 	/**
 	 * 一些细节的更新
 	 * 更新升级时的返回条件,handle_response
@@ -1318,8 +1313,8 @@
         		return false;
         	}
         	confirm = new Confirmation(app_data.fertilizer.addExp,app_data.fertilizer.addCoins);
-        	app_data.experience += app_data.fertilizer.addExp;
-        	app_data.coins += app_data.fertilizer.addCoins;
+        	app_data.experience += parseInt(app_data.fertilizer.addExp);
+        	app_data.coins += parseInt(app_data.fertilizer.addCoins);
         	confirm.set_target(plant);
         	update_objects(["experience","coins"]);
         	plant.friendFertilize(app_data.fertilizer.percent,user_name);

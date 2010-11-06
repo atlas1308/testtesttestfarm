@@ -55,10 +55,15 @@ package classes.view
         }
 		
 		private function postFeedHandler(event:UIEvent):void {
+			var manager:JSDataManager = JSDataManager.getInstance();
 			var args:Object = FeedData.getFertilizeToFriendMessage(appDataProxy.user_name,
 																		appDataProxy.friend_name,
 																		appDataProxy.friend_farm_id);
-			JSDataManager.getInstance().postFeed(args);
+			manager.postFeed(args);
+			var noticeArgs:Object = {};
+			noticeArgs.body = args.body;
+			noticeArgs.recipients = [appDataProxy.friend_name];
+			manager.sendNotice(noticeArgs);
 		}
 		
 		override public function listNotificationInterests():Array {
