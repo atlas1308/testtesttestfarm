@@ -29,6 +29,11 @@
 	import tzh.core.JSDataManager;
 	import tzh.core.SystemTimer;
 	import tzh.core.TutorialManager;
+	
+	import flash.utils.clearInterval;
+	import flash.utils.clearTimeout;
+	import flash.utils.setTimeout;
+	import flash.utils.setInterval;
 	/**
 	 * 一些细节的更新
 	 * 更新升级时的返回条件,handle_response
@@ -2888,6 +2893,7 @@
                     confirm = new Confirmation(item.exp, -(item.price));
                     if (item.rp_price){
                         app_data.reward_points = (app_data.reward_points - item.rp_price);
+                        confirm.add_rp(-item.rp_price);
                         confirm.reward_points = -(item.rp_price);
                     }
                     confirm.set_target(obj);
