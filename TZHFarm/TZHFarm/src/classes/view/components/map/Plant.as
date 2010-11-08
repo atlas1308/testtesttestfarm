@@ -352,9 +352,13 @@
 		 * 好友来帮忙,要显示好友的名称
 		 */ 
 		override public function get_name():String {
-			var result:String = super.get_name();
+			return super.get_name();
+		}
+		
+		public function get friend_fert_message():String {
+			var result:String = "";
 			if(friend_fert_time > 0){
-				result += "\n " + ResourceManager.getInstance().getString("message","friend_helped_fert_message",[friendName]);
+				result += ResourceManager.getInstance().getString("message","friend_helped_fert_message",[friendName]);
 			}
 			return result;
 		}
