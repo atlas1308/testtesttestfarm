@@ -58,14 +58,21 @@
                 } else {
                     use_tip_icon = false;
                 }
+                var msg:String = "";
                 if (plant.is_ready()){
                     if (plant.is_pollinated()){
-                        tip(ResourceManager.getInstance().getString("message","click_to_harvest_pollinated_message",[plant.get_name()]));
+                    	msg = ResourceManager.getInstance().getString("message","click_to_harvest_pollinated_message",[plant.get_name()]);
                     } else {
-                        tip(ResourceManager.getInstance().getString("message","click_to_harvest_message",[plant.get_name()]));
+                    	msg = ResourceManager.getInstance().getString("message","click_to_harvest_message",[plant.get_name()]);
                     }
                 } else {
-                    tip(ResourceManager.getInstance().getString("message","plant_grow_message",[plant.get_name(),plant.product_percent()]));
+                	msg = ResourceManager.getInstance().getString("message","plant_grow_message",[plant.get_name(),plant.product_percent()]);
+                }
+                /* if(plant.friend_fert_message){
+                	msg += "\n " + plant.friend_fert_message;
+                } */
+                if(msg){
+                	tip(msg);
                 }
             }
         }

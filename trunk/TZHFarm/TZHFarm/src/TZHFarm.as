@@ -86,14 +86,14 @@ package {
 			//Config.setConfig("host","http://192.168.0.102/static/");
 			//Config.setConfig("transport","http://192.168.0.102/");
 			//Config.setConfig("host","http://192.168.0.102/static/");
-			Config.setConfig("transport","http://192.168.0.102/");
-			Config.setConfig("transport","http://192.168.1.105/");
+			Config.setConfig("transport","http://192.168.1.102/");
+			//Config.setConfig("transport","http://192.168.1.101/");
 			Config.setConfig("transport","http://192.168.1.99:9901/");
 			
 			Config.setConfig("loadSocialData","loadSocialData");
 			Config.setConfig("version","1.0");
-			//Config.setConfig("lang","de-DE");
-			Config.setConfig("lang","en-US");
+			Config.setConfig("lang","de-DE");
+			//Config.setConfig("lang","en-US");
 			//Config.setConfig("lang","pt");
 			this.addEventListener(Event.ADDED_TO_STAGE,addToStageHandler);
 		}

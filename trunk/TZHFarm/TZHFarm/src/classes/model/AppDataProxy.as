@@ -2893,7 +2893,7 @@
                     confirm = new Confirmation(item.exp, -(item.price));
                     if (item.rp_price){
                         app_data.reward_points = (app_data.reward_points - item.rp_price);
-                        confirm.add_rp(-item.rp_price);
+                        confirm.add_rp(-item.rp_price);// 更新
                         confirm.reward_points = -(item.rp_price);
                     }
                     confirm.set_target(obj);
