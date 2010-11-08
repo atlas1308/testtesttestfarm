@@ -448,5 +448,80 @@ return array(
     ),
     159 => array(
         'name' => 'Packed Potatoes',
-    )
+    ),
+	1001 => array(
+        'name' => 'Scarecrow',
+    ),
+	1002 => array(
+        'name' => 'Small basket', 
+    ),
+	1003 => array(
+        'name' => 'Large basket', 
+    ),
+	1004 => array(
+        'name' => 'Shovel',
+    ),
+	1005 => array(
+        'name' => 'flower basket',
+    ),
+	1006 => array(
+        'name' => 'Pebble floor',      
+    ),
+	1007 => array(
+        'name' => 'Pebble floor',  
+    ),
+	1008 => array(
+        'name' => 'Picnic mats',  
+    ),
+	1009 => array(
+        'name' => 'Door',    
+    ),
+	1010 => array(
+        'name' => 'Cobblestone',
+    ),
+	1011 => array(
+        'name' => 'Spices room',  
+    ),
+	1013 => array(
+        'name' => 'Well',   
+    ),
+	93 => array(
+        'name' => 'Greenhouse', 
+		'desc' => 'reduce growth time for crops inside by 40%',
+    ),
+	121 => array(
+        'name' => 'Glass Pane',
+		'desc' => 'needed for Greenhouse',
+    ),
+	122 => array(
+        'name' => 'Pipe Stack',  
+		'desc' => 'needed for Greenhouse',
+    ),
+	2001 => array(
+		'name' => 'Halloween garden Gnome',
+	),
+	2002 => array(
+		'name' => 'Halloween Scarecrow',
+	),
+	2003 => array(
+		'name' => 'Hay Cart',
+	),
+	2004 => array(
+		'name' => 'Lumber Cart',
+	),
+	2005 => array(
+		'name' => 'Dining table',
+	),
+	2006 => array(
+		'name' => 'Pull Cart',
+	),
+	2007 => array(
+		'name' => 'Pumpkin House',
+	),
+	2008 => array(
+		'name' => 'Funny Pumpkin',
+	),
+	2009 => array(
+		'name' => 'Pumpkin Door',
+	)
 );
