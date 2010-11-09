@@ -25,7 +25,7 @@
         private var default_color:Number = 0xF4ECC8;
         private var select_line_color:Number = 0xCA9A46;
         private var padd_w:Number = 10;
-        private var _name:TextField;
+        private var nameTextField:TextField;
 
         public function ShopTab(title:String, is_new:Boolean=false){
             super();
@@ -40,18 +40,18 @@
 			this.mouseChildren=false; 
 			container = new Sprite();
             addChild(container);
-            _name = new TextField();
-            _name.autoSize = TextFieldAutoSize.CENTER;
-            _name.selectable = false;
+            nameTextField = new TextField();
+            nameTextField.autoSize = TextFieldAutoSize.CENTER;
+            nameTextField.selectable = false;
             var hobo:Font = new HoboStd();
             var tf:TextFormat = new TextFormat();
             tf.font = hobo.fontName;
             tf.color = 10049312;
             tf.size = 18;
-            _name.defaultTextFormat = tf;
-            _name.embedFonts = true;
-            _name.text = title;//prep_title(title);
-            container.addChild(_name);
+            nameTextField.defaultTextFormat = tf;
+            nameTextField.embedFonts = true;
+            nameTextField.text = title;//prep_title(title);
+            container.addChild(nameTextField);
             drawBg(default_color, default_line_color);
             new_tag = new NewTag();
             if (is_new){
@@ -70,11 +70,11 @@
         
         private function mouseOver(e:MouseEvent):void{
             drawBg(select_color, select_line_color);
-            var dx:Number = ((container.width * 0.2) / 2);
-            var dy:Number = ((container.height * 0.2) / 2);
+            var dx:Number = (container.width * 0.2) / 2;
+            var dy:Number = (container.height * 0.2) / 2;
             container.scaleX = (container.scaleY = 1.2);
-            container.x = -(dx);
-            container.y = -(dy);
+            container.x = -dx;
+            container.y = -dy;
             align_tag(true);
         }
         
@@ -100,15 +100,15 @@
         }
         
         private function drawBg(bg:uint, outline:uint):void{
-            var _w:Number = (_name.width + (2 * padd_w));
-            var _h:Number = (_name.height + (2 * padd_h));
+            var _w:Number = (nameTextField.width + (2 * padd_w));
+            var _h:Number = (nameTextField.height + (2 * padd_h));
             container.graphics.clear();
             container.graphics.lineStyle(2, outline, 1, false);
             container.graphics.beginFill(bg, 1);
             container.graphics.drawRoundRect(0, 0, _w, _h, 10);
             container.graphics.endFill();
-            _name.x = padd_w;
-            _name.y = padd_h;
+            nameTextField.x = padd_w;
+            nameTextField.y = padd_h;
         }
         
         public function select():void{
