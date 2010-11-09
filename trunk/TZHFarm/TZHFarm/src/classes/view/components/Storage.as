@@ -140,7 +140,7 @@
                 sell_all_btn.visible = true;
                 sell_all_btn.set_label(ResourceManager.getInstance().getString("message","sell_all_for_storage_coins_messgae",[storageItems.total_value]));
                 sell_all_btn.x = (bounds.width - sell_all_btn.width) / 2;
-                sell_all_btn.y = bounds.height - 30 - sell_all_btn.height;
+                sell_all_btn.y = bounds.height + sell_all_btn.height;
             }
             if (storageItems)
             {

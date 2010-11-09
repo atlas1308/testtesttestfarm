@@ -1971,7 +1971,7 @@
                 obj.buy_method = "coins";
             }
             if (obj.neighbors){// 锁定的一些限制
-                obj.locked = (neighbors_count() < obj.neighbors);// 验证有多少个好友时才能购买
+                obj.locked = ((neighbors_count() - 1) < obj.neighbors);// 验证有多少个好友时才能购买,这里原来有个bug，算上自己了
                 obj.locked_message = ResourceManager.getInstance().getString("message","locked_message_neighbors",[obj.neighbors]);
                 obj.locked_button = ResourceManager.getInstance().getString("message","neighbors_message");
             } else {
