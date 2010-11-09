@@ -68,11 +68,13 @@
             drawBg(default_color, default_line_color);
         }
         
+        private var scaleRatio:Number = 0.1;
         private function mouseOver(e:MouseEvent):void{
             drawBg(select_color, select_line_color);
-            var dx:Number = (container.width * 0.2) / 2;
-            var dy:Number = (container.height * 0.2) / 2;
-            container.scaleX = (container.scaleY = 1.2);
+            var dx:Number = (container.width * scaleRatio) / 2;
+            var dy:Number = (container.height * scaleRatio) / 2;
+            //container.scaleX = (container.scaleY = 1.2);
+            container.scaleX = container.scaleY = (1 + scaleRatio);
             container.x = -dx;
             container.y = -dy;
             align_tag(true);
