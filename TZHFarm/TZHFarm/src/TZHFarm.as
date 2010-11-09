@@ -85,10 +85,10 @@ package {
 			//Config.setConfig("transport","http://192.168.1.99:9901");
 			//Config.setConfig("host","http://192.168.0.102/static/");
 			//Config.setConfig("transport","http://192.168.0.102/");
-			//Config.setConfig("host","http://192.168.0.102/static/");
-			Config.setConfig("transport","http://192.168.1.102/");
+			Config.setConfig("host","http://192.168.1.106/static/");
+			Config.setConfig("transport","http://192.168.1.106/");
 			//Config.setConfig("transport","http://192.168.1.101/");
-			Config.setConfig("transport","http://192.168.1.99:9901/");
+			//Config.setConfig("transport","http://192.168.1.99:9901/");
 			
 			Config.setConfig("loadSocialData","loadSocialData");
 			Config.setConfig("version","1.0");

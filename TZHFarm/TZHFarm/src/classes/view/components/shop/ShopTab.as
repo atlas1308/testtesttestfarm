@@ -15,12 +15,17 @@
         private var padd_h:Number = 3;
 	
         private var selected:Boolean = false;
-        private var default_line_color:Number = 15700748;
+        /* private var default_line_color:Number = 15700748;
         private var select_color:Number = 15912798;
-        private var default_color:Number = 16513510;
+        private var default_color:Number = 16513510; 
+        private var select_line_color:Number = 16489231; */
+        
+        private var default_line_color:Number = 0xCA9A46;
+        private var select_color:Number = 0xE4CE78;
+        private var default_color:Number = 0xF4ECC8;
+        private var select_line_color:Number = 0xCA9A46;
         private var padd_w:Number = 10;
         private var _name:TextField;
-        private var select_line_color:Number = 16489231;
 
         public function ShopTab(title:String, is_new:Boolean=false){
             super();
