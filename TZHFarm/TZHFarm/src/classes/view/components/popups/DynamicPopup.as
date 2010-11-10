@@ -96,7 +96,6 @@
             inner_cont.addChild(tf);
             popup_bg = new PopupBg(_w, _h);
             ok_btn = new GameButton(ok_label, 17);
-            ok_btn.set_style("green");
             close_btn = new GameButton(close_label, 17);
             close_btn.set_colors(11534336, 13959168, 7405568);
             ok_btn.set_fixed_width(120);
@@ -231,7 +230,7 @@
             overlay.graphics.endFill();
             var g:Graphics = bg.graphics;
             g.clear();
-            g.lineStyle(2, 0xFFFFFF, 1, true);//15700748
+            g.lineStyle(2, 15700748, 1, true);
             var matrix:Matrix = new Matrix();// 边框和背景都在这里画出来的
             matrix.translate(0, 0);
             bg_scale = Math.max(_w / 510, _h / 360, 1);
@@ -279,7 +278,7 @@
         {
             var graphics:Graphics = sprite.graphics;
             graphics.clear();
-            graphics.lineStyle(2, 0xFFFFFF, 1, true);//13926922
+            graphics.lineStyle(2, 13926922, 1, true);
             graphics.beginFill(16513510, 1);
             graphics.drawRoundRect(offsetX, offsetY, w, h, 20);
             graphics.endFill(); 

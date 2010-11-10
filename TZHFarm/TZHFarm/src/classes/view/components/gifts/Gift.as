@@ -59,7 +59,6 @@ package classes.view.components.gifts {
         private function init():void{
             var dw:Number;
             use_btn = new GameButton(ResourceManager.getInstance().getString("message","game_button_use_message"), 13, (15 / 13));
-            use_btn.set_style("green");
             use_btn.set_fixed_width(60);
             trade_btn = new GameButton(ResourceManager.getInstance().getString("message","game_button_trade_message"), 13, (15 / 13));
             trade_btn.set_fixed_width(60);

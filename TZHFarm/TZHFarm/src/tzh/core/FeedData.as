@@ -42,16 +42,5 @@ package tzh.core
 			obj.src = Config.getConfig("host") + "feed/send_gifts" + gift_id + ".png";
 			return obj;
 		}
-		
-		/**
-		 * 发送到好友的profile里
-		 */ 
-		public static function getFertilizeToFriendMessage(username:String,friendName:String,uid:String):Object {
-			var obj:Object = {};
-			obj.body = ResourceManager.getInstance().getString("message","fertilize_to_friend_message",[username,friendName]);
-			obj.target_id = uid;
-			obj.src = Config.getConfig("host") + "feed/fertilize_to_friend.png";
-			return obj;
-		}
 	}
 }

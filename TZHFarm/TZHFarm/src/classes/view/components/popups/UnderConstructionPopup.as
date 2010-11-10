@@ -24,7 +24,6 @@
             super(data.title, data.list, w, 460, w2, 360);
             requestButton = new GameButton(ResourceManager.getInstance().getString("message","invite_friend_to_helped_message"),24);
             requestButton.x = (this._w - requestButton.width) / 2;
-            requestButton.set_style("green");
             requestButton.addEventListener(MouseEvent.CLICK,showJSFeedHandler);
             requestButton.y = msg_h + (this._h - msg_h - requestButton.height) / 2 + requestButton.height - offsetY;
             content.addChild(requestButton);

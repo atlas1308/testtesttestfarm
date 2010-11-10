@@ -4,10 +4,6 @@ package tzh.core
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
-	
-	import mx.resources.ResourceManager;
-	
-	import tzh.UIEvent;
 
 	public class Box extends Sprite
 	{
@@ -92,25 +88,20 @@ package tzh.core
 			effectsPool.shift();
 			if(this.hasNext()){
 				this.play();
-			}else {
-				this.dispatchEvent(new UIEvent(UIEvent.END_EFFECT_POST_FEED));
 			}
 		}
 		
 		public var tooltip:String;
-		public function show(num:Number = 0):void {
+		public function show(num:Number):void {
 			this.destory();
 			var animationSprite:AnimationSprite = null;
 			if(isNaN(num) || num <= 0){
 				tooltip = "";
 				// 这里是绘制不能点的,如果显示提示的话,也可以在这里控制
-				animationSprite = new AnimationSprite(FertilizerIcon);
-				animationSprite.visible = false;
-	            this.addChild(animationSprite);
 			}else {
 	            for(var i:int = 0; i < num; i++){
-	            	tooltip = ResourceManager.getInstance().getString("message","friend_helped_fert_tooltip");
-	            	animationSprite = new AnimationSprite(FertilizerIcon);
+	            	tooltip = "test";
+	            	animationSprite = new AnimationSprite(CloseButton);
 	            	this.addChild(animationSprite);
 	            }
             }

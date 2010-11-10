@@ -17,16 +17,9 @@
         protected var line_color:Number = 3567874;
         protected var bg_color:Number = 7382796;
         protected var bg_color_over:Number = 9426191;
-        
-        /* protected var line_color:Number = 3567874;
-        protected var bg_color:Number = 0xDB9600;
-        protected var bg_color_over:Number = 0xFD9F13; */
         protected var padd_w:Number = 5;
         protected var tf:TextField;
         protected var disabled_line_color:Number = 0x999999;
-        
-        
-        public static const GREEN_STYLE_TYPE:String = "green";
 
         public function GameButton(label:String="", text_size:Number=17, hover_scale:Number = 1.12){
             super();
@@ -134,16 +127,11 @@
         public function set_style(style:String="mauve"):void{
             switch (style){
                 case "mauve":
-                	//set_colors(0x0089FD, 0x3EB0FD, 4733522);
                     set_colors(8417433, 10257349, 4733522);
                     break;
                 case "blue":
-                	//set_colors(0xDB9600, 0xFD9F13, 2580145);
                     set_colors(3968452, 432363, 2580145);
                     break;
-                case "green":
-                	set_colors(7382796, 9426191, 3567874);
-                	break;
             }
         }
         
@@ -164,7 +152,7 @@
         protected function mouseDown(e:MouseEvent):void{
             if (_disabled){
                 return;
-            }
+            };
             draw(line_color, bg_color);
         }
         
