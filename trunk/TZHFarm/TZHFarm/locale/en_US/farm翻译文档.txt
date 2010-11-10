@@ -20,7 +20,7 @@ Ranch Cash_message = Do you need more Ranch Cash?
 
 Congratulations_message = Congratulations!
 
-won_message = You just won 
+won_message = You&apos;ve just won 
 
 coins_message = coinsin the Daily Raffle!in the Daily Raffle!
 

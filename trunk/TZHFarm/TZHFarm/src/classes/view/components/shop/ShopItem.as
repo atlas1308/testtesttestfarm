@@ -109,7 +109,7 @@
             buy_rp_btn.name = "buy_rp_btn";
             buy_rp_btn.set_fixed_width(50);
             add_neighbors = new GameButton(ResourceManager.getInstance().getString("message","add_neighbors_message"), 13, 15 / 13);
-            add_neighbors.set_style("green");
+            add_neighbors.set_style("blue");
             buy_btn = new GameButton(ResourceManager.getInstance().getString("message","buy_message"), 13, 15 / 13);
             buy_btn.name = "buyButton";
             buy_btn.set_fixed_width(50);
@@ -149,7 +149,6 @@
                 if(data.request){
                 	requestButton = new GameButton(ResourceManager.getInstance().getString("message","request_gifts_shop_message"),13,15 / 13);
                 	requestButton.addEventListener(MouseEvent.CLICK,askGiftsToFriends);
-                	requestButton.set_style("green");
                 	requestButton.set_fixed_width(60);
             		this.addChild(requestButton);
             		DisplayUtil.algin(this,buy_rp_btn,requestButton);

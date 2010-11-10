@@ -14,7 +14,7 @@
     public class HelpPopup extends BasicPopup
     {
         private var _close_btn:GameButton;
-        private var ok_btn:GameButton;
+        private var _ok_btn:GameButton;
         private var data:Object;
 
         public function HelpPopup(value:Object)
@@ -31,22 +31,21 @@
             var image:Image = new Image(data.photo,content.photo);
             image.addEventListener(Event.COMPLETE,photoComplete);
             content.addChild(image);
-            ok_btn = new GameButton(ResourceManager.getInstance().getString("message","game_button_accpet_message"));
-            ok_btn.set_style("green");
+            _ok_btn = new GameButton(ResourceManager.getInstance().getString("message","game_button_accpet_message"));
             _close_btn = new GameButton(ResourceManager.getInstance().getString("message","game_button_cancel_message"));
             _close_btn.set_colors(11534336, 13959168, 7405568);
-            ok_btn.set_fixed_width(120);
-            ok_btn.set_padd_height(5);
+            _ok_btn.set_fixed_width(120);
+            _ok_btn.set_padd_height(5);
             _close_btn.set_fixed_width(120);
             _close_btn.set_padd_height(5);
-            content.addChild(ok_btn);
+            content.addChild(_ok_btn);
             content.addChild(_close_btn);
-            var ww:Number = ok_btn.width + 20 + _close_btn.width;
-            ok_btn.y = content.buttons_area.y + (content.buttons_area.height - ok_btn.height) / 2;
-            _close_btn.y = ok_btn.y;
-            ok_btn.x = content.buttons_area.x + (content.buttons_area.width - ww) / 2;
-            _close_btn.x = ok_btn.x + ok_btn.width + 20;
-            ok_btn.addEventListener(MouseEvent.CLICK, acceptClicked);
+            var ww:Number = _ok_btn.width + 20 + _close_btn.width;
+            _ok_btn.y = content.buttons_area.y + (content.buttons_area.height - _ok_btn.height) / 2;
+            _close_btn.y = _ok_btn.y;
+            _ok_btn.x = content.buttons_area.x + (content.buttons_area.width - ww) / 2;
+            _close_btn.x = _ok_btn.x + _ok_btn.width + 20;
+            _ok_btn.addEventListener(MouseEvent.CLICK, acceptClicked);
             _close_btn.addEventListener(MouseEvent.CLICK, closeClicked);
         }
 

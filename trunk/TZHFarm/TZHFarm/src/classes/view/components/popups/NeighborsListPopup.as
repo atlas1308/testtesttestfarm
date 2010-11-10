@@ -57,7 +57,6 @@
             items_x = 3;
             items_y = 4;
             next_btn = new GameButton(ResourceManager.getInstance().getString("message","game_button_next_message"), 22);
-            next_btn.set_style("green");
             caption = new Sprite();
             var textFormat:TextFormat = get_text_format();
             textFormat.size = 15;

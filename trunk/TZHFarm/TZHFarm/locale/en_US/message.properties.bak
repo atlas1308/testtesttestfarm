@@ -418,13 +418,3 @@ user_upgrade_level_post_message = {0} hat gerade Stufe {1} in Hallo Dorf!
 every_reward_post_message = {0} just won {1} coins in Hallo Dorf!
 
 send_gift_to_friend_message = {0} hat dir {1} geschickt in Hallo Dorf!
-
-qty_in_percent_message = {0} of {1}
-
-send_free_gifts_message = Free Gifts
-
-invite_friend_to_helped_message = Request Friend Send Gifts
-
-request_gifts_message = {0} want to some friends send gifts to he!
-
-request_gifts_shop_message = Ask

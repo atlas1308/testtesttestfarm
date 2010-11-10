@@ -1,7 +1,6 @@
 package tzh
 {
 	import flash.display.DisplayObject;
-	import flash.display.DisplayObjectContainer;
 	
 	public class DisplayUtil
 	{
@@ -16,15 +15,6 @@ package tzh
         	target1.x = (container.width - ww) / 2;
         	target2.x = target1.x + target1.width + hGap;
         	target2.y = target1.y;
-		}
-		
-		public static function removeAllChildren(container:DisplayObjectContainer):void {
-			if(container){
-				while(container.numChildren > 0){
-					var child:DisplayObject = container.getChildAt(0);
-					container.removeChild(child);
-				}
-			}
 		}
 	}
 }

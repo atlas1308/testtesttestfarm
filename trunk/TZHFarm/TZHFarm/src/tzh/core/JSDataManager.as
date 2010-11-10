@@ -142,6 +142,7 @@ package tzh.core
 				args = {};
 			}
 			try {
+				trace("run action " + functionName);
 				ExternalInterface.call(functionName,args);
 			}catch(error:Error){
 				trace(functionName + " error " + error.message);

@@ -32,6 +32,7 @@
 	            }
 	            params.fb_sig_user = manager.userInfo.uid;
 	            params.lang = Config.getConfig("lang");
+	            params.session_key = Config.getConfig("session_key");
             }
             facade.registerMediator(new StageMediator(stage));
             facade.registerProxy(new TransactionProxy(params));
@@ -55,7 +56,7 @@
 			obj.fb_sig_session_key = "2.SNB9BZ63xoJnJEBtCWCRhw__.3600.1277542800-1560424778";
 			obj.fb_sig_ss = "_YlZd6mag4eExSQA5ETxMQ__";
 			obj.fb_sig_time = "1277557804.1269dfa";
-			obj.fb_sig_user = "f";
+			obj.fb_sig_user = "a";
 			//www.vz.net:tg7TI3uiAO9irLhue0kHYA
 			//www.vz.net:tg7TI3uiAO9irLhue0kHYA
 			//www.vz.net:WtP271mWJW19eIdrhNCNBw

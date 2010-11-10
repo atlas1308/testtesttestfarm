@@ -35,7 +35,6 @@
         public function createChildren():void {
         	this.skin = this.addChild(new GiftsSkin()) as GiftsSkin;
         	this.cont_bounds = this.skin.cont_bounds;
-        	//this.skin.setChildIndex(this.cont_bounds,0);
         	this.container = this.skin.container;
         	this.prev_btn = this.skin.prev_btn;
         	this.next_btn = this.skin.next_btn;
@@ -128,8 +127,9 @@
         private function next_page(e:MouseEvent):void{
             if (page == (pages - 1)){
                 return;
-            }
+            };
             show_page((page + 1));
         }
+
     }
 }
