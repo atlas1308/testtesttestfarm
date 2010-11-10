@@ -43,6 +43,7 @@
         }
         
         public function get enabledHelped():Boolean {
+        	return false;
         	var result:Boolean;
         	if(target && target is Plant){
 				if(Plant(target).can_be_fertilized() && appDataProxy.enabledFriendFertilizer && Plant(target).friend_can_be_fertilized){

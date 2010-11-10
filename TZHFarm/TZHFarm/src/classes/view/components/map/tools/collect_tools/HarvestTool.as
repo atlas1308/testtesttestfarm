@@ -68,9 +68,6 @@
                 } else {
                 	msg = ResourceManager.getInstance().getString("message","plant_grow_message",[plant.get_name(),plant.product_percent()]);
                 }
-                /* if(plant.friend_fert_message){
-                	msg += "\n " + plant.friend_fert_message;
-                } */
                 if(msg){
                 	tip(msg);
                 }
