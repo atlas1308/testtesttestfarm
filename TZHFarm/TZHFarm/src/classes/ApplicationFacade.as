@@ -146,6 +146,10 @@
         public static const UPDATE_UNDERCONSTRUCTIONPOPUP:String = "updateUnderConstructionPopup";
         
         public static const CLOSE_UNDERCONSTRUCTIONPOPUP:String = "closeUnderConstructionPopup";// 关闭
+        
+        public static const FERTILIZE_BOX_EFFECT:String = "fertilizeBoxEffect";
+        
+        public static const FERTILIZE_BOX_COUNT:String = "fertilizeBoxCount";
 
         public function ApplicationFacade(value:String)
         {
@@ -184,6 +188,7 @@
             registerCommand(AUTO_REFILL, AddTransactionCommand);
             registerCommand(TOGGLE_AUTOMATION, AddTransactionCommand);
             registerCommand(INSTALL_IRRIGATION, AddTransactionCommand);
+            registerCommand(FERTILIZE_FRIEND_HELPED, AddTransactionCommand);
             registerCommand(NAVIGATE_TO_URL, NavigateCommand);
             registerCommand(SAVE_DATA, SaveDataCommand);
             registerCommand(HANDLE_TRANSACTION_RESULT, HandleTransactionResultCommand);

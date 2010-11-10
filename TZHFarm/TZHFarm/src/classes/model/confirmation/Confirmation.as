@@ -20,6 +20,10 @@
         public var level_up:Boolean = false;
         private var minus_text:String = "";
         public var exp:Number;
+        
+        /**
+         * 
+         */ 
         public function Confirmation(exp:Number=0, coins:Number=0, reward_points:Number=0){
             super();
             this.exp = exp;
@@ -48,7 +52,7 @@
                 plus_text = s;
             } else {
                 minus_text = s;
-            };
+            }
         }
         
         public function set_target(t:MapObject):void{
@@ -59,13 +63,14 @@
         public function add_value(v:Number, s:String):void{
             if (!v){
                 return;
-            };
+            }
             if (v > 0){
                 plus_text = (plus_text + ((("+" + Algo.number_format(v)) + s) + "   "));
             } else {
                 minus_text = (minus_text + ((Algo.number_format(v) + s) + "   "));
-            };
+            }
         }
+        
         public function set_coords(x:Number, y:Number):void{
             target = new Point(x, y);
         }

@@ -1243,6 +1243,7 @@
         /**
          * 这个应该是请求好友的数据过来时的操作
          */ 
+        
         public function handle_response(result:Object, channel:String):void{
             var prop:* = null;
             var result:* = result;
@@ -1272,6 +1273,9 @@
                 names.push("coins");
                 names.push("reward_points");
             }
+            if(result.fertilizer){// 如果没有的话,会把上一次的清空掉
+            	sendNotification(ApplicationFacade.FERTILIZE_BOX_COUNT,result.fertilizer);//result.fertilizer);
+            }
             if (result.objects_to_update){
                 names.push("objects_to_update");
             }
@@ -1300,6 +1304,29 @@
             }
         }
         
+        public function get enabledFriendFertilizer():Boolean {
+        	var result:Boolean;
+        	if(app_data.fertilizer && app_data.fertilizer.times > 0){
+        		result = true;
+        	}
+        	return result;
+        }
+        
+        public function friendFertilize(value:Object):Boolean {
+        	var plant:Plant = value.plant;
+        	if(!app_data.fertilizer){
+        		return false;
+        	}
+        	confirm = new Confirmation(app_data.fertilizer.addExp,app_data.fertilizer.addCoins);
+        	app_data.experience += parseInt(app_data.fertilizer.addExp);
+        	app_data.coins += parseInt(app_data.fertilizer.addCoins);
+        	confirm.set_target(plant);
+        	update_objects(["experience","coins"]);
+        	plant.friendFertilize(app_data.fertilizer.percent,user_name);
+        	sendNotification(ApplicationFacade.FERTILIZE_BOX_EFFECT);
+        	app_data.fertilizer.times -= 1;
+        	return true;
+        }
         
         public function update_plant(plant:Plant):void{
             var obj:Object = get_map_obj(plant.id, plant.map_x, plant.map_y);
@@ -1373,7 +1400,7 @@
          */ 
         public function game_objects_created():void{
             objects_created = true;
-            if (((config) && (app_data))){
+            if (config && app_data){
                 init(config, app_data);
             }
         }
@@ -1570,7 +1597,7 @@
             confirm = new Confirmation(app_data.farm.help_xp, app_data.farm.help_coins);
             update_objects(["coins", "level"]);
             friends_helped.push(app_data.farm.uid);
-            return (true);
+            return true;
         }
         
         /**
@@ -1944,7 +1971,7 @@
                 obj.buy_method = "coins";
             }
             if (obj.neighbors){// 锁定的一些限制
-                obj.locked = (neighbors_count() < obj.neighbors);// 验证有多少个好友时才能购买
+                obj.locked = ((neighbors_count() - 1) < obj.neighbors);// 验证有多少个好友时才能购买,这里原来有个bug，算上自己了
                 obj.locked_message = ResourceManager.getInstance().getString("message","locked_message_neighbors",[obj.neighbors]);
                 obj.locked_button = ResourceManager.getInstance().getString("message","neighbors_message");
             } else {
@@ -2866,6 +2893,7 @@
                     confirm = new Confirmation(item.exp, -(item.price));
                     if (item.rp_price){
                         app_data.reward_points = (app_data.reward_points - item.rp_price);
+                        confirm.add_rp(-item.rp_price);// 更新
                         confirm.reward_points = -(item.rp_price);
                     }
                     confirm.set_target(obj);

@@ -2,6 +2,7 @@
 {
     import classes.utils.*;
     import classes.view.components.map.MapObject;
+    import classes.view.components.map.Plant;
     import classes.view.components.map.Tooltip;
     
     import flash.display.*;
@@ -88,7 +89,7 @@
             {
                 tool_cont.addChild(tool_tip);
             }
-            var mapObject:* = mapObject ? (mapObject) : (target);
+            var mapObject:* = mapObject ? mapObject : target;
             if (!mapObject)
             {
                 return hide_tip();
@@ -96,6 +97,11 @@
             if (color > -1)
             {
                 tool_tip.setTextColor(color);
+            }
+            if(mapObject is Plant){
+            	if(Plant(mapObject).friend_fert_message){
+            		text += "\n" + Plant(mapObject).friend_fert_message;
+            	}
             }
             tool_tip.setText(text);
             tool_tip.x = mapObject.x - tool_tip.width / 2;

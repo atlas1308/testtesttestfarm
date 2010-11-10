@@ -2,8 +2,6 @@
 {
     import flash.events.*;
     import flash.utils.*;
-    
-    import tzh.core.Config;
 
     public class TransactionManager extends EventDispatcher
     {
@@ -21,7 +19,7 @@
         public const ON_SAVE:String = "onSave";
         public const ON_IDLE:String = "onIdle";
         public static const ON_RESULT:String = "onResult";
-        //private var batch_delay:Number = 5000;// 10000
+        private var batch_delay:Number = 5000;// 10000
 
         public function TransactionManager(gateway_path:String, batch_mode:Boolean = false, required_params:Object = null)
         {
@@ -75,7 +73,7 @@
             batch_queue = new Array();
             serial_queue = new Array();
             batch_transaction = new Transaction(gateway_path);
-            timer = new Timer(int(Config.getConfig("batch_delay")), 1);
+            timer = new Timer(batch_delay, 1);
             timer.addEventListener(TimerEvent.TIMER_COMPLETE, timerComplete);
             batch_transaction.addEventListener(batch_transaction.ON_RESULT, onTransactionResult);
             batch_transaction.addEventListener(batch_transaction.ON_NETWORK_DELAY, onNetworkDelay);

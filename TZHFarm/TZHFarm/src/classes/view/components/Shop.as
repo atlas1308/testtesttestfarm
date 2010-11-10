@@ -20,7 +20,7 @@
         private var tab_pages:Number;// 总的页数
         public var cont_bounds:MovieClip;
         public const ADD_NEIGHBORS:String = "addNeighbors";
-        private var max_items:Number = 6;
+        //private var max_items:Number = 6;
         public static const USE_ITEM:String = "useItem";
         private var last_tab:ShopTab;
         public const ON_CLOSE:String = "onClose";
@@ -28,6 +28,13 @@
         public var item_clicked:Object;
         private var tabs:Array;
         private var _w:Number = 508;
+        
+        public var column:int = 4;
+        public var row:int = 2;
+        
+        public function get max_items():int {
+        	return column * row;
+        }
 		
 		
 		public function get itemContainer():Sprite {
@@ -69,7 +76,7 @@
                     if (tabs[tabString][index].id == value)
                     {
                         select_tab(tabString);
-                        show_tab(last_tab, Math.floor(index / 6));
+                        show_tab(last_tab, Math.floor(index / max_items));
                     }
                     index++;
                 }
@@ -108,18 +115,19 @@
             var shopItem:ShopItem = null;
             var index:Number = 0;
             var hGap:Number= 20;// 水平间距
-            var vGap:Number = 3;// 垂直间距
+            var gap:Number = 3;// 垂直间距
             while (index < items_cont.numChildren)
             {
                 shopItem = ShopItem(items_cont.getChildAt(index));
-                shopItem.x = int(index % 3 * (shopItem.explicitWidth + 10));
-                shopItem.y = int(Math.floor(index / 3) * (shopItem.explicitHeight + hGap));
+                shopItem.x = int(index % column * (shopItem.explicitWidth + 10));
+                shopItem.y = int(Math.floor(index / column) * (shopItem.explicitHeight + hGap));
                 hh = shopItem.explicitHeight + 10;
                 ww = shopItem.explicitWidth + 12;
                 index++;
             }
-            items_cont.y = int(cont_bounds.y + (cont_bounds.height - 2 * hh + 3) / 2);
-            items_cont.x = int(cont_bounds.x + (cont_bounds.width - 3 * ww + 3) / 2);
+            items_cont.y = int(cont_bounds.y + (cont_bounds.height - 2 * hh + gap) / 2);
+            items_cont.x = cont_bounds.x + (this.width - cont_bounds.width) + hGap + 4;
+            //items_cont.x = int(cont_bounds.x + (cont_bounds.width - 3 * ww + gap) / 2);
         }
 
         private function clear_container(value:Sprite) : void
@@ -180,9 +188,9 @@
             tabs_cont = new Sprite();
             addChild(items_cont);
             addChild(tabs_cont);
-            this.skin.close_btn.addEventListener(MouseEvent.MOUSE_UP, closeShop);
-            this.skin.prev_btn.addEventListener(MouseEvent.MOUSE_UP, prev_page);
-            this.skin.next_btn.addEventListener(MouseEvent.MOUSE_UP, next_page);
+            this.close_btn.addEventListener(MouseEvent.MOUSE_UP, closeShop);
+            this.prev_btn.addEventListener(MouseEvent.MOUSE_UP, prev_page);
+            this.next_btn.addEventListener(MouseEvent.MOUSE_UP, next_page);
         }
 
         private function shopTabClick(event:Event) : void
@@ -258,7 +266,7 @@
                 index++;
             }
             tabs_cont.x = 82;
-            tabs_cont.y = 60;
+            tabs_cont.y = 120;
         }
 
         private function show_tab(value:ShopTab, index:Number = 0) : void
@@ -292,7 +300,7 @@
                 } 
                 i++;
             }
-            tab_pages = Math.ceil(tabs[value.title].length / 6);
+            tab_pages = Math.ceil(tabs[value.title].length / max_items);
             prev_btn.visible = true;
             next_btn.visible = true;
             var nextIndex:int = tab_pages - 1;

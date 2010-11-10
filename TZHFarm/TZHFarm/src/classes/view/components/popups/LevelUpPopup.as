@@ -56,6 +56,7 @@
                 label = ResourceManager.getInstance().getString("message","game_button_ok_message");
             } */
             share_btn = new GameButton(label, 21, 23 / 21);
+            share_btn.set_style("green");
             _close_btn = new GameButton(ResourceManager.getInstance().getString("message","game_button_close_message"), 21, 23 / 21);
             _close_btn.set_colors(11534336, 13959168, 7405568);
             content.addChild(share_btn);
