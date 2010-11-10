@@ -181,7 +181,7 @@
                 }
                 case ApplicationFacade.FERTILIZE_FRIEND_HELPED:{
                 	transactionBody = new FriendFertilizeCall(value.getBody());
-                    //result = app_data.friendFertilize(value.getBody());
+                    result = app_data.friendFertilize(value.getBody());
                     break;
                 }
                 default:

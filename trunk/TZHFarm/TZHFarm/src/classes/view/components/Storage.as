@@ -26,7 +26,7 @@
         private var current_page:Number = 0;
         private var last_sale:Number = 0;
         private var max_items:Number = 12;// 每页显示的最大的数量
-        private var _sell_all_btn:GameButton;
+        private var sell_all_btn:GameButton;
         public var bounds:MovieClip;
         public const SELL_ITEM:String = "sellItem";
         public var data:Object;
@@ -132,15 +132,15 @@
             if (items.length == 0)
             {
                 no_items.visible = true;
-                _sell_all_btn.visible = false;
+                sell_all_btn.visible = false;
             }
             else
             {
                 no_items.visible = false;
-                _sell_all_btn.visible = true;
-                _sell_all_btn.set_label(ResourceManager.getInstance().getString("message","sell_all_for_storage_coins_messgae",[storageItems.total_value]));
-                _sell_all_btn.x = (bounds.width - _sell_all_btn.width) / 2;
-                _sell_all_btn.y = bounds.height - 30 - _sell_all_btn.height;
+                sell_all_btn.visible = true;
+                sell_all_btn.set_label(ResourceManager.getInstance().getString("message","sell_all_for_storage_coins_messgae",[storageItems.total_value]));
+                sell_all_btn.x = (bounds.width - sell_all_btn.width) / 2;
+                sell_all_btn.y = bounds.height + sell_all_btn.height;
             }
             if (storageItems)
             {
@@ -153,20 +153,24 @@
         {
             dispatchEvent(new Event(SELL_ALL));
         }
-
-        private function view_page(value:Number):void
-        {
-            var ww:Number = NaN;
-            var _loc_6:Number = NaN;
-            var storageItem:StorageItem = null;
-            var storageItemRender:StorageItem = null;
-            current_page = value;
+        
+        public function removeAllChildren():void {
+        	var storageItem:StorageItem = null;
             while (container.numChildren > 0)
             {
                 storageItem = container.getChildAt(0) as StorageItem;
                 storageItem.kill();
                 storageItem.removeEventListener(storageItem.ON_SELL, sellItem);
             }
+        }
+
+        private function view_page(value:Number):void
+        {
+            var ww:Number = NaN;
+            var boundsWidth:Number = NaN;
+            this.removeAllChildren();
+            var storageItemRender:StorageItem = null;
+            this.current_page = value;
             var total:int = value * max_items;
             var next:int = Math.min(items.length, total + max_items);// 下一页显示的数量
             var index:int = total;
@@ -180,9 +184,9 @@
                 ww = storageItemRender.width;
                 index++;
             }
-            _loc_6 = ww * 3 + 30;
-            container.y = inner_cont.y + (inner_cont.width - _loc_6) / 2;
-            container.x = inner_cont.x + (inner_cont.width - _loc_6) / 2;
+            boundsWidth = ww * 3 + 30;
+            container.y = inner_cont.y + (inner_cont.width - boundsWidth) / 2;
+            container.x = inner_cont.x + (inner_cont.width - boundsWidth) / 2;
             prev_btn.visible = true;
             next_btn.visible = true;
             if (total_pages == 0)
@@ -204,13 +208,13 @@
         {
             container = new Sprite();
             addChild(container);
-            _sell_all_btn = new GameButton(ResourceManager.getInstance().getString("message","sell_all_for_storage_message"));
-            _sell_all_btn.addEventListener(MouseEvent.CLICK, sellAllClicked);
-            this.skin.prev_btn.addEventListener(MouseEvent.CLICK, prevClicked);
-            this.skin.next_btn.addEventListener(MouseEvent.CLICK, nextClicked);
-            addChild(_sell_all_btn);
-            this.skin.close_btn.addEventListener(MouseEvent.CLICK, closeClicked);
-            this.skin.no_items.visible = false;
+            sell_all_btn = new GameButton(ResourceManager.getInstance().getString("message","sell_all_for_storage_message"));
+            sell_all_btn.addEventListener(MouseEvent.CLICK, sellAllClicked);
+            this.prev_btn.addEventListener(MouseEvent.CLICK, prevClicked);
+            this.next_btn.addEventListener(MouseEvent.CLICK, nextClicked);
+            addChild(sell_all_btn);
+            this.close_btn.addEventListener(MouseEvent.CLICK, closeClicked);
+            this.no_items.visible = false;
         }
 
         private function prevClicked(event:MouseEvent) : void

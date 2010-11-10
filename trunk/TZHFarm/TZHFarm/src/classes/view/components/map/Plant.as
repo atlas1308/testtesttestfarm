@@ -7,6 +7,10 @@
     import flash.display.*;
     import flash.events.*;
     import flash.utils.*;
+    
+    import mx.resources.ResourceManager;
+    
+    import tzh.core.SystemTimer;
 
     public class Plant extends CollectObject {
 
@@ -34,13 +38,18 @@
 		
 		public var update_changed:Boolean;
 		
-		private var fertilize_helped:Boolean;// 好友是否已经帮助过了
+		private var friend_fert_time:int;// 好友是否已经帮助过了
+		
+		private var friendName:String;// 好友帮助的名称
+		
+		private var specificEffect:Specific;
 		
         public function Plant(data:Object){
             pollinated = PHPUtil.toBoolean(data.pollinated);
             _current_collect_in = (data.current_collect_in) ? data.current_collect_in : 0;
             grown_percent = (data.grown_percent) ? data.grown_percent : 0;
-            fertilize_helped = PHPUtil.toBoolean(data.fertilize_helped);
+            friend_fert_time = data.friend_fert_time ? data.friend_fert_time : 0;
+            friendName = data.friendName ? data.friendName : "";
             super(data);
         }
         
@@ -61,6 +70,14 @@
             })
         }
         
+        public function get friend_can_be_fertilized():Boolean {
+        	var result:Boolean
+        	if(friend_fert_time <= 0){
+        		result = true;
+        	}
+        	return result;
+        }
+        
         override protected function update_stage():void{
             if (!asset_loaded){
                 return;
@@ -77,6 +94,9 @@
             asset.addChild(grass_front);
             if (water_pipe){
                 asset.addChild(water_pipe);
+            }
+            if(!friend_can_be_fertilized){
+            	asset.addChild(specificEffect);
             }
         }
         
@@ -99,6 +119,7 @@
             soil = (water_pipe_id) ? crop.soil_wet : crop.soil_dry;
             grass_front = crop.grass_front;
             grass_back = crop.grass_back;
+            this.specificEffect = new Specific();
         }
         
         private function sparkle():void{
@@ -136,12 +157,11 @@
         /**
          * 暂时只提供一块地,帮助一次的功能,如果此地有其它的好友帮助的话,也不能帮助了
          */ 
-        public function friendFertilize(value:Number):void {
-        	if(!fertilize_helped){
-	        	fertilize_helped = true;
-	        	this.fertilize(value);
-        	}else {
-        		trace("max helped fertilize " + fertilize_helped + " times");
+        public function friendFertilize(percent:Number,friendName:String):void {
+        	if(friend_fert_time <= 0){// 当小于0时,才能帮忙
+	        	friend_fert_time = SystemTimer.getInstance().serverTime;
+	        	this.friendName = friendName;
+	        	this.fertilize(percent);
         	}
         }
         
@@ -271,7 +291,7 @@
         }
         
         public function is_pollinated():Boolean{
-            return (pollinated);
+            return pollinated;
         }
         
         private function get current_collect_in():Number{
@@ -327,5 +347,20 @@
 			}
 			return result;
 		} 
+		
+		/**
+		 * 好友来帮忙,要显示好友的名称
+		 */ 
+		override public function get_name():String {
+			return super.get_name();
+		}
+		
+		public function get friend_fert_message():String {
+			var result:String = "";
+			if(friend_fert_time > 0){
+				result += ResourceManager.getInstance().getString("message","friend_helped_fert_message",[friendName]);
+			}
+			return result;
+		}
     }
 }

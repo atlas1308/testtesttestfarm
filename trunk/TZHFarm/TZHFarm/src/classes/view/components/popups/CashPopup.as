@@ -7,7 +7,7 @@
 	
     public class CashPopup extends BasicPopup {
 
-        private var _get_more:GameButton;
+        private var get_more:GameButton;
 
         public function CashPopup(){
             super(new CashPopupContainer());
@@ -15,13 +15,14 @@
         override protected function init():void{
             var _y:Number;
             super.init();
-            _get_more = new GameButton(ResourceManager.getInstance().getString("message","game_button_get_more_message"), 20);
-            content.addChild(_get_more);
-            _get_more.addEventListener(MouseEvent.CLICK, acceptClicked);
+            get_more = new GameButton(ResourceManager.getInstance().getString("message","game_button_get_more_message"), 20);
+            get_more.set_style("green");
+            content.addChild(get_more);
+            get_more.addEventListener(MouseEvent.CLICK, acceptClicked);
             _y = 51;
-            var _h:Number = 78;
-            _get_more.x = (-(_get_more.width) / 2);
-            _get_more.y = (_y + ((_h - _get_more.height) / 2));
+            var hh:Number = 78;
+            get_more.x = (-(get_more.width) / 2);
+            get_more.y = (_y + ((hh - get_more.height) / 2));
         }
 
     }

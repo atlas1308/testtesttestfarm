@@ -30,6 +30,7 @@
             if(data.giftable){
             	sendGiftButton = new GameButton(ResourceManager.getInstance().getString("message","send_free_gifts_message"),13);
             	sendGiftButton.addEventListener(MouseEvent.CLICK,showNeighborsListPopup);
+            	sendGiftButton.set_style("green");
             	container.addChild(sendGiftButton);
             }
             var message:String = "";// 默认rp

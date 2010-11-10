@@ -554,7 +554,7 @@
         }
         
         protected function clear_asset():void{
-            while (asset.numChildren) {
+            while (asset.numChildren > 0) {
                 asset.removeChildAt(0);
             }
         }
