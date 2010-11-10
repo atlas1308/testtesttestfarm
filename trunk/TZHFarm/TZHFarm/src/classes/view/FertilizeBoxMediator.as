@@ -31,7 +31,7 @@ package classes.view
 		override public function handleNotification(value:INotification):void
 		{
 			var notificationName:String = value.getName();
-			switch(notificationName){
+			/* switch(notificationName){
 				case ApplicationFacade.FERTILIZE_BOX_EFFECT:
 					box.effectLast();
 					break;
@@ -46,7 +46,7 @@ package classes.view
 					break;
 				default:
 					break;
-			}
+			} */
 		}
 		
 		protected function get appDataProxy():AppDataProxy
