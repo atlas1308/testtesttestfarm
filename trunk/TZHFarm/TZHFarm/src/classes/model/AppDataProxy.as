@@ -3211,7 +3211,7 @@
         public function auto_process(pid:String):void{
             var note:Notification;
             var queue:Array = auto_queue[pid];
-            if (queue.length == 0){
+            if (!queue && queue.length == 0){
                 return;
             }
             var entry:Object = queue.shift();

@@ -85,8 +85,8 @@ package {
 			//Config.setConfig("transport","http://192.168.1.99:9901");
 			//Config.setConfig("host","http://192.168.0.102/static/");
 			//Config.setConfig("transport","http://192.168.0.102/");
-			Config.setConfig("host","http://192.168.0.101/static/");
-			Config.setConfig("transport","http://192.168.0.101/");
+			Config.setConfig("host","http://192.168.0.100/static/");
+			Config.setConfig("transport","http://192.168.0.100/");
 			//Config.setConfig("transport","http://192.168.1.101/");
 			//Config.setConfig("transport","http://192.168.1.99:9901/");
 			

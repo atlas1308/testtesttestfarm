@@ -62,6 +62,7 @@
             facade.registerMediator(new MapMediator(my_ranch));
             stage.addChild(my_ranch);
             var friend_farm:Map = new Map(stage.stageWidth, stage.stageHeight - 40);
+            friend_farm.name = "friend_farm";
             facade.registerMediator(new FriendFarmMediator(friend_farm));
             stage.addChild(friend_farm);
             var rain:Rain = new Rain();
@@ -664,7 +665,13 @@
         private function takePhoto(event:Event) : void
         {
             snapshot_viewport.stop();
-            snapshot_proxy.prepare_snapshot(snapshot_viewport.rectangle, stage.getChildByName("my_ranch") as Map);
+            var map:Map;
+            if(map_proxy.friend_mode){
+            	map = stage.getChildByName("friend_farm") as Map;
+            }else {
+            	map = stage.getChildByName("my_ranch") as Map;
+            }
+            snapshot_proxy.prepare_snapshot(snapshot_viewport.rectangle, map);
         }
 
         protected function get fb_proxy() : JSProxy
