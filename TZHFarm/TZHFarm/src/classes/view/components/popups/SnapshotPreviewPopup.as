@@ -14,7 +14,6 @@
         public function SnapshotPreviewPopup(value:Bitmap) : void
         {
             this.bmp = value;
-            trace("popup SnapshotPreviewPopup");
             super(500, 400, 400, 100, "", true);
         }
 
