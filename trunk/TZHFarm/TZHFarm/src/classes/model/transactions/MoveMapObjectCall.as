@@ -16,7 +16,7 @@
             params.new_y = mapObject.grid_y;
             params.x = mapObject.map_x;
             params.y = mapObject.map_y;
-            params.flip = mapObject.map_flip_state ? (1) : (0);// 当前的方向,这个是需要验证的
+            params.flip = mapObject.map_flip_state ? (1) : (0);// 当前的方向,这个是需要验证的,用户初始化进来的状态
             params.flipped = mapObject.is_flipped() ? (1) : (0);
             if(mapObject is Greenhouse){
             	//if(Greenhouse(mapObject).allMapsSaveObject && Greenhouse(mapObject).allMapsSaveObject.length > 0){

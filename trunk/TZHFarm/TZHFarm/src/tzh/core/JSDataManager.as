@@ -132,9 +132,6 @@ package tzh.core
 		
 		/**
 		 * title
-		 * action_text
-		 * src
-		 * target_id 是当前的用户的ID
 		 */ 
 		public function postFeed(args:Object = null,callback:Function = null):void {
 			var functionName:String = "postActivity";

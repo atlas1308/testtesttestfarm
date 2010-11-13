@@ -1,11 +1,11 @@
 package {
 	import classes.ApplicationFacade;
 	
-	import com.adobe.serialization.json.JSON;
-	
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.system.Security;
+	
+	import mx.resources.ResourceManager;
 	
 	import tzh.core.Config;
 	import tzh.core.Constant;
@@ -85,16 +85,18 @@ package {
 			//Config.setConfig("transport","http://192.168.1.99:9901");
 			//Config.setConfig("host","http://192.168.0.102/static/");
 			//Config.setConfig("transport","http://192.168.0.102/");
+			//Config.setConfig("host","http://192.168.1.99:9901/static/");
+			//Config.setConfig("transport","http://192.168.0.100/");
 			Config.setConfig("host","http://192.168.0.100/static/");
 			Config.setConfig("transport","http://192.168.0.100/");
-			//Config.setConfig("transport","http://192.168.1.101/");
 			//Config.setConfig("transport","http://192.168.1.99:9901/");
-			
+			Config.setConfig("batch_delay",8000);
 			Config.setConfig("loadSocialData","loadSocialData");
 			Config.setConfig("version","1.0");
 			Config.setConfig("lang","de-DE");
-			//Config.setConfig("lang","en-US");
-			//Config.setConfig("lang","pt");
+			//Config.setConfig("lang","pl");
+			//Config.setConfig("lang","nl");
+			//Config.setConfig("lang",ResourceManager.getInstance().locale);// 这样能保证不用修改这个参数了
 			this.addEventListener(Event.ADDED_TO_STAGE,addToStageHandler);
 		}
 		
