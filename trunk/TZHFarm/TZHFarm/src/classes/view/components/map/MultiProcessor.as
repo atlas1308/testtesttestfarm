@@ -762,7 +762,7 @@
             return (mc.switch_hit_area);
         }
         
-        override public function flip():void{
+        override public function flip(animationable:Boolean = false):void{
             super.flip();
             refresh_hit_area();
         }

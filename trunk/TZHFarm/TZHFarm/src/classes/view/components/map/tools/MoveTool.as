@@ -56,7 +56,7 @@
                 map_object = target;
                 if (map_object.rotate_btn_clicked() && map_object.flipable)
                 {
-                    map_object.flip();
+                    map_object.flip(true);
                     map_object.state = "move_over";
                     tool_cont.addChild(map_object);
                     object_moved = true;

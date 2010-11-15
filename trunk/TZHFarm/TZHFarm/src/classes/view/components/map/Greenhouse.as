@@ -198,7 +198,7 @@
             asset.addChild(mc.bottom_part);
         }
         
-        override public function flip():void{
+        override public function flip(animationable:Boolean = false):void{
             super.flip();
             if (!top_obj){
                 return;

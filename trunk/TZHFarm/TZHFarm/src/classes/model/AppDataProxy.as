@@ -4,6 +4,7 @@
 	import classes.model.err.Err;
 	import classes.model.transactions.RefillMapObjectCall;
 	import classes.utils.Algo;
+	import classes.utils.Cursor;
 	import classes.view.components.map.CollectObject;
 	import classes.view.components.map.IProcessor;
 	import classes.view.components.map.MapObject;
@@ -1654,6 +1655,37 @@
         }
         
         /**
+         * 这是一个公用的方法,以后的方法都要调用到这 
+         */ 
+        public function checkItemPrice(item:Object):Boolean {
+        	var result:Boolean = true;// 默认的是可以够买的
+        	var info:Object;
+        	if(item is MapObject){
+        		info = config.store[item.id];
+        	}else {
+        		info = item;
+        	}
+        	if ((info.price > 0) && (app_data.coins < info.price)){
+        		if(item is MapObject){
+        			result = report_confirm_error(Err.NO_COINS, false, MapObject(item));
+        		}else {
+                	result = report_error(Err.NO_COINS);
+                }
+            }
+            if ((info.rp_price > 0) && (app_data.reward_points < info.rp_price)){
+                sendNotification(ApplicationFacade.SHOW_CONFIRM_POPUP, {
+                    msg:Err.NO_RP,
+                    obj:{
+                        notif:ApplicationFacade.NAVIGATE_TO_URL,
+                        data:"offers"
+                    }
+                })
+                result = false;
+            }
+            return result;
+        }
+        
+        /**
          * 购买物品的整个判断逻辑 
          * 1.先判断商品的price是否大于0,并且用户的coins是否小于商品的price,则金币不购
          * 2.如果rp_price > 0,并且reward_points < info_rp_price,则rp不购
@@ -2848,9 +2880,7 @@
                     app_data.bottom_map_size = item.size;
                     break;
             }
-            //app_data.experience = app_data.experience + parseFloat(item.exp);
             sendNotification(ApplicationFacade.EXPAND_RANCH, item);
-            //refresh_level();
             update_objects(["shop"]);
         }
         
@@ -2861,10 +2891,11 @@
                 add_to_queue("add_map_object", obj, obj, add_object_action(item), "normal", body);
                 this.gift_mode = false;
             } else {
-                if (((!(gift_mode)) && ((app_data.coins < item.price)))){
-                    report_confirm_error(Err.NO_COINS, false, obj);
+            	var validateItem:Boolean = this.checkItemPrice(obj);
+                if (!gift_mode && !validateItem){
+                	sendNotification(ApplicationFacade.SET_TOOLBAR_NORMAL_MODE);// 原来是没有验证的,现在加了验证了
                     obj.kill();
-                    return (false);
+                    return false;
                 }
                 obj.map_x = obj.grid_x;
                 obj.map_y = obj.grid_y;
