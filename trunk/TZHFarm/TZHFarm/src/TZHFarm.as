@@ -57,6 +57,10 @@ package {
 	 * 
 	 * 1.更新到好友家帮忙的功能
 	 * 
+	 * 
+	 * 
+	 * 1.动态的配置Skin的访问程序,和locale的配置形式是一样的,需要在配置swc的时候配置一下即可
+	 * 
 	 */ 
 	 
 	public class TZHFarm extends Sprite
@@ -93,7 +97,11 @@ package {
 			Config.setConfig("batch_delay",8000);
 			Config.setConfig("loadSocialData","loadSocialData");
 			Config.setConfig("version","1.0");
-			Config.setConfig("lang","de-DE");
+			var locale:String = ResourceManager.getInstance().locale;
+			if(locale == "de"){
+				locale = "de-DE";// 这里先做一个兼容
+			}
+			Config.setConfig("lang",locale);
 			//Config.setConfig("lang","pl");
 			//Config.setConfig("lang","nl");
 			//Config.setConfig("lang",ResourceManager.getInstance().locale);// 这样能保证不用修改这个参数了
