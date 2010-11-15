@@ -223,7 +223,7 @@
                 water_pipe_loader.addEventListener(Cache.LOAD_COMPLETE, water_pipe_loaded);
                 water_pipe_loader.load(water_pipe_url);
             }
-            if (((!((type == "seeds"))) && (!((type == "soil"))))){
+            if (type != "seeds" && type != "soil"){
                 setChildIndex(state_cont, 0);
             }
             if (flipped){
@@ -512,15 +512,20 @@
             return obj;
         }
         
-        public function flip():void{
+        public function flip(animationable:Boolean = false):void{
             asset.scaleX = (asset.scaleX * -1);
-            var old_size_x:Number = size_x;
+            this.flipAnimation();
+        }
+        
+        public function flipAnimation():void {
+        	var old_size_x:Number = size_x;
             size_x = size_y;
             size_y = old_size_x;
             refresh_hit_area();
             rotate_btn.scaleX = (rotate_btn.scaleX * -1);
             dispatchEvent(new Event(ON_CHANGE));
         }
+        
         public function get x_size():Number{
             return (size_x);
         }
@@ -530,7 +535,7 @@
         }
         
         public function is_flipped():Boolean{
-            return ((asset.scaleX < 0));
+            return asset.scaleX < 0;
         }
         public function get stage_y():Number{
             return (localToGlobal(new Point(0, 0)).y);

@@ -206,19 +206,10 @@
         private function toggleAlpha(event:Event) : void
         {
             sendNotification(ApplicationFacade.TOGGLE_ALPHA);
-            return;
         }
 
         private function takeSnapshot(event:Event) : void
         {
-            /* if (fb_proxy.has_permissions() || true)
-            { */
-                //sendNotification(ApplicationFacade.ACTIVATE_SNAPSHOT_MODE);
-            /* }
-            else
-            {
-                sendNotification(ApplicationFacade.SHOW_ACCEPT_SNAPSHOT);
-            } */
             sendNotification(ApplicationFacade.SHOW_ACCEPT_SNAPSHOT);
         }
 

@@ -120,7 +120,7 @@
             return mc.flour_hit_area;
         }
 
-        override public function flip() : void
+        override public function flip(animationable:Boolean = false) : void
         {
             super.flip();
             if (sails_player.is_playing())
