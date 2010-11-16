@@ -525,13 +525,13 @@ return array(
 		'name' => 'Kürbistür',
 	),
 	3001 => array(
-		'name' => 'Blauschild für Geburtstag',
+		'name' => 'Geburtstagsschild',
 	),
 	3002 => array(
-		'name' => 'Grünschild für Geburtstag',
+		'name' => 'Geburtstagsschild',
 	),
 	3003 => array(
-		'name' => 'Rosaschild für Geburtstag',
+		'name' => 'Geburtstagsschild',
 	),
 	3004 => array(
 		'name' => 'Feuerballon',

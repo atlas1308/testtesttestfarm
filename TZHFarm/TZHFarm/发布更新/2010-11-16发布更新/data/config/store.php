@@ -2938,7 +2938,7 @@ return array(
         'buyable' => true,
         'price' => 0,
         'store_pos' => 1,
-        'sell_price' => 500,
+        'sell_price' => 5000,
         'url' => 'FireBalloon',
         'buy_gift' => true,
         'id' => 3004,
