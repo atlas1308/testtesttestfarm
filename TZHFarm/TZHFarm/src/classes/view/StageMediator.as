@@ -674,11 +674,6 @@
             snapshot_proxy.prepare_snapshot(snapshot_viewport.rectangle, map);
         }
 
-        protected function get fb_proxy() : JSProxy
-        {
-            return facade.retrieveProxy(JSProxy.NAME) as JSProxy;
-        }
-
         protected function get snapshot_proxy() : SnapshotProxy
         {
             return facade.retrieveProxy(SnapshotProxy.NAME) as SnapshotProxy;

@@ -4,7 +4,10 @@
 
     public class SellStorageItemCall extends TransactionBody
     {
-
+		
+		/**
+		 * 需要对qty的这个值进行验证
+		 */ 
         public function SellStorageItemCall(value:Object)
         {
             var params:Object = new Object();

@@ -230,9 +230,7 @@
             var j:Number;
             var k:Number;
             var mo:MapObject;
-            var so:Object;
             var new_obj:Object;
-            var added:Boolean;
             var pos:Number;
             var splice_pos:Number;
             var buffer:Array;
@@ -245,12 +243,11 @@
             while (i < list.length) {
                 sort_start = Algo.timer();
                 new_obj = list[i];
-                added = false;
                 pos = -1;
                 splice_pos = -1;
                 buffer = new Array();
                 j = 0;
-                while (j < sorted.length) {
+                while (j < sorted.length) {// 连续的排序这个数组
                     obj = sorted[j];
                     if ((((pos == -1)) && ((object_compare(new_obj, obj) == -1)))){
                         pos = j;

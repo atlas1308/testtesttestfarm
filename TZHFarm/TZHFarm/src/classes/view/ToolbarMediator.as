@@ -192,12 +192,7 @@
             sendNotification(ApplicationFacade.ESCAPE_PRESSED);
             sendNotification(ApplicationFacade.DISPLAY_ACHIEVEMENTS);
         }
-
-        protected function get fb_proxy() : JSProxy
-        {
-            return facade.retrieveProxy(JSProxy.NAME) as JSProxy;
-        }
-
+        
         private function multiToolOn(event:Event) : void
         {
             sendNotification(ApplicationFacade.USE_MULTI_TOOL);

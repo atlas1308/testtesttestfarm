@@ -237,8 +237,8 @@
 		 */ 
         protected function get_above_objects(value:MapObject) : Array
         {
-            var list:Array = [];;
-            var index:int = 0;
+            var list:Array = [];// 先暂时去掉,这个可能有影响的
+            /* var index:int = 0;
             var maxDistance:int = 12;
             while(index < map_objects.numChildren){
             	var mapObject:MapObject = map_objects.getChildAt(index) as MapObject;
@@ -252,7 +252,7 @@
 	            	}
             	}
             	index++;
-            }
+            } */
             return list;
         }
 
