@@ -104,8 +104,7 @@
                 dispatch_loader();
                 return;
             }
-            //get_full_url(url);
-            ///trace( "http://asset2.countrylife.joyeurs.com/my_ranch/"+ url);
+            
             var full_url:String = Config.getConfig("host").toString() + url + "?version=" + Config.getConfig("version");
             trace(full_url);
             var request:URLRequest = new URLRequest(full_url);

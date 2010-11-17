@@ -3,6 +3,8 @@ package classes.view
 	import classes.ApplicationFacade;
 	import classes.model.AppDataProxy;
 	
+	import mx.resources.ResourceManager;
+	
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	
 	import tzh.UIEvent;
@@ -25,7 +27,8 @@ package classes.view
 		}
 		
 		override public function onRegister():void {
-			this.box.addEventListener(UIEvent.END_EFFECT_POST_FEED,postFeedHandler);
+			super.onRegister();
+			this.box.addEventListener(UIEvent.END_EFFECT_POST_FEED,showPostFeedConfirm);
 		}
 		
 		override public function handleNotification(value:INotification):void
@@ -44,6 +47,9 @@ package classes.view
 				case ApplicationFacade.BACK_TO_MY_RANCH:
 					box.visible = false;
 					break;
+				case ApplicationFacade.FERTILIZE_BOX_POST:
+					this.postFeedHandler();
+					break;
 				default:
 					break;
 			} 
@@ -53,8 +59,18 @@ package classes.view
         {
             return facade.retrieveProxy(AppDataProxy.NAME) as AppDataProxy;
         }
+        
+        private function showPostFeedConfirm(event:UIEvent):void {
+        	var body:Object = {};
+        	body.msg = ResourceManager.getInstance().getString("message","share_message_with_friends",[appDataProxy.friend_name]);
+        	var obj:Object = {};
+        	obj.notif = ApplicationFacade.FERTILIZE_BOX_POST;// 给好友发送post
+        	obj.data = ApplicationFacade.FERTILIZE_BOX_POST;
+        	body.obj = obj;
+        	sendNotification(ApplicationFacade.SHOW_CONFIRM_POPUP,body);
+        }
 		
-		private function postFeedHandler(event:UIEvent):void {
+		private function postFeedHandler():void {
 			var manager:JSDataManager = JSDataManager.getInstance();
 			var args:Object = FeedData.getFertilizeToFriendMessage(appDataProxy.user_name,
 																		appDataProxy.friend_name,
@@ -67,7 +83,10 @@ package classes.view
 		}
 		
 		override public function listNotificationInterests():Array {
-			return [ApplicationFacade.FERTILIZE_BOX_EFFECT,ApplicationFacade.FERTILIZE_BOX_COUNT,ApplicationFacade.BACK_TO_MY_RANCH];
+			return [ApplicationFacade.FERTILIZE_BOX_EFFECT,
+				ApplicationFacade.FERTILIZE_BOX_POST,
+				ApplicationFacade.FERTILIZE_BOX_COUNT,
+				ApplicationFacade.BACK_TO_MY_RANCH];
 		}
 	}
 }

@@ -150,6 +150,8 @@
         public static const FERTILIZE_BOX_EFFECT:String = "fertilizeBoxEffect";
         
         public static const FERTILIZE_BOX_COUNT:String = "fertilizeBoxCount";
+        
+        public static const FERTILIZE_BOX_POST:String = "fertilizeBoxPost";
 
         public function ApplicationFacade(value:String)
         {
