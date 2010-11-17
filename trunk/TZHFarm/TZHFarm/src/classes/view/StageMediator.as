@@ -225,17 +225,10 @@
                 }
                 case ApplicationFacade.SHOW_LOTTERY_POPUP:
                 {
-                    if (popup_proxy.can_show_popup)
-                    {
-                        popup_proxy.can_show_popup = false;
-                        var lotteryPopup:LotteryPopup = new LotteryPopup(app_data.lottery_message());
-                        facade.registerMediator(new PopupMediator(lotteryPopup));
-                        stage.addChild(lotteryPopup);
-                    }
-                    else
-                    {
-                        popup_proxy.add_popup(value);
-                    }
+                	facade.removeMediator(PopupMediator.NAME);
+                    var lotteryPopup:LotteryPopup = new LotteryPopup(app_data.lottery_message());
+                    facade.registerMediator(new PopupMediator(lotteryPopup));
+                    stage.addChild(lotteryPopup);
                     break;
                 }
                 case ApplicationFacade.SHOW_REFRESH_PAGE_POPUP:
@@ -260,17 +253,10 @@
                 }
                 case ApplicationFacade.SHOW_ADD_CASH_POPUP:
                 {
-                    if (popup_proxy.can_show_popup)
-                    {
-                        popup_proxy.can_show_popup = false;
-                        var cashPopup:CashPopup = new CashPopup();
-                        facade.registerMediator(new PopupMediator(cashPopup));
-                        stage.addChild(cashPopup);
-                    }
-                    else
-                    {
-                        popup_proxy.add_popup(value);
-                    }
+                	facade.removeMediator(PopupMediator.NAME);
+                    var cashPopup:CashPopup = new CashPopup();
+                    facade.registerMediator(new PopupMediator(cashPopup));
+                    stage.addChild(cashPopup);
                     break;
                 }
                 case ApplicationFacade.SHOW_ACCEPT_SNAPSHOT:
