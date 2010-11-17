@@ -61,6 +61,12 @@ package {
 	 * 
 	 * 1.动态的配置Skin的访问程序,和locale的配置形式是一样的,需要在配置swc的时候配置一下即可
 	 * 
+	 * 
+	 * 
+	 * 1.要更新用户删除地块时,好友帮助的时间应该也会被清除掉(但是这个逻辑不对了那就
+	 * 2.卖出物品qty最小为0的验证
+	 * 
+	 * 3.新上的物品卖出的不多
 	 */ 
 	 
 	public class TZHFarm extends Sprite
@@ -96,7 +102,8 @@ package {
 			//Config.setConfig("transport","http://192.168.1.99:9901/");
 			Config.setConfig("batch_delay",8000);
 			Config.setConfig("loadSocialData","loadSocialData");
-			Config.setConfig("version","1.0");
+			Config.setConfig("version","1.0");// 这里
+			Config.setConfig("release",new Date().toString());
 			var locale:String = ResourceManager.getInstance().locale;
 			if(locale == "de"){
 				locale = "de-DE";// 这里先做一个兼容

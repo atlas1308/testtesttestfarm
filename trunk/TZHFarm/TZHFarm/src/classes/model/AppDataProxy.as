@@ -4,7 +4,6 @@
 	import classes.model.err.Err;
 	import classes.model.transactions.RefillMapObjectCall;
 	import classes.utils.Algo;
-	import classes.utils.Cursor;
 	import classes.view.components.map.CollectObject;
 	import classes.view.components.map.IProcessor;
 	import classes.view.components.map.MapObject;
@@ -1275,7 +1274,7 @@
                 names.push("reward_points");
             }
             if(result.fertilizer){// 如果没有的话,会把上一次的清空掉
-            	sendNotification(ApplicationFacade.FERTILIZE_BOX_COUNT,result.fertilizer);//result.fertilizer);
+            	sendNotification(ApplicationFacade.FERTILIZE_BOX_COUNT,result.fertilizer);
             }
             if (result.objects_to_update){
                 names.push("objects_to_update");
@@ -1697,7 +1696,10 @@
             var obj:Object;
             var list:Array;
             info = config.store[id];
-            if ((((info.price > 0)) && ((app_data.coins < info.price)))){
+            if(info.map_object)return true;// 如果是map_object的话,那么就让用户显示在地上
+            var validateItem:Boolean = checkItemPrice(info);// 使用的全局的一个方法
+            if(!validateItem)return false;
+            /* if ((((info.price > 0)) && ((app_data.coins < info.price)))){
                 return (report_error(Err.NO_COINS));
             }
             if ((((info.rp_price > 0)) && ((app_data.reward_points < info.rp_price)))){
@@ -1709,7 +1711,7 @@
                     }
                 })
                 return false;
-            }
+            } */
             switch (info.type){
                 case "expand_ranch":
                     obj = map_can_expand(info);
