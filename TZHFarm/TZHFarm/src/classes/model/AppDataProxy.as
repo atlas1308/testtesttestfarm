@@ -639,9 +639,11 @@
                 if (!app_data.storage[item]){
                 } else {
                     info = get_item_data(int(item));
-                    info.qty = app_data.storage[item];
-                    total = (total + (info.qty * info.sell_for));
-                    output.push(info);
+                    if(info){
+	                    info.qty = app_data.storage[item];
+	                    total = (total + (info.qty * info.sell_for));
+	                    output.push(info);
+                    }
                 }
             }
             return ({
