@@ -1699,19 +1699,6 @@
             if(info.map_object)return true;// 如果是map_object的话,那么就让用户显示在地上
             var validateItem:Boolean = checkItemPrice(info);// 使用的全局的一个方法
             if(!validateItem)return false;
-            /* if ((((info.price > 0)) && ((app_data.coins < info.price)))){
-                return (report_error(Err.NO_COINS));
-            }
-            if ((((info.rp_price > 0)) && ((app_data.reward_points < info.rp_price)))){
-                sendNotification(ApplicationFacade.SHOW_CONFIRM_POPUP, {
-                    msg:Err.NO_RP,
-                    obj:{
-                        notif:ApplicationFacade.NAVIGATE_TO_URL,
-                        data:"offers"
-                    }
-                })
-                return false;
-            } */
             switch (info.type){
                 case "expand_ranch":
                     obj = map_can_expand(info);

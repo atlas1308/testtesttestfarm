@@ -1,13 +1,18 @@
 ﻿package classes.controller
 {
-    import classes.*;
-    import classes.model.*;
-    import classes.view.*;
+    import classes.ApplicationFacade;
+    import classes.model.AppDataProxy;
+    import classes.model.MapProxy;
+    import classes.model.PopupProxy;
+    import classes.model.SnapshotProxy;
+    import classes.model.TransactionProxy;
+    import classes.view.StageMediator;
     
-    import flash.display.*;
+    import flash.display.Stage;
     
-    import org.puremvc.as3.multicore.interfaces.*;
-    import org.puremvc.as3.multicore.patterns.command.*;
+    import org.puremvc.as3.multicore.interfaces.ICommand;
+    import org.puremvc.as3.multicore.interfaces.INotification;
+    import org.puremvc.as3.multicore.patterns.command.SimpleCommand;
     
     import tzh.core.Config;
     import tzh.core.JSDataManager;
