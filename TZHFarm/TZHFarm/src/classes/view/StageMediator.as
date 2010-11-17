@@ -133,7 +133,7 @@
             fertilizeBox.visible = false;
             fertilizeBox.show();
             fertilizeBox.x = fertilizeBox.width / 2;
-            fertilizeBox.y = stage.stageHeight / 2;
+            fertilizeBox.y = stage.stageHeight / 2 - 40;
             fertilizeBox.render();
             facade.registerMediator(new FertilizeBoxMediator(fertilizeBox));
             stage.addChild(fertilizeBox);
@@ -209,17 +209,10 @@
                 }
                 case ApplicationFacade.SHOW_HELP_POPUP:
                 {
-                    if (popup_proxy.can_show_popup)
-                    {
-                        popup_proxy.can_show_popup = false;
-                        var helpPopup:HelpPopup = new HelpPopup(app_data.get_help_data());
-                        facade.registerMediator(new PopupMediator(helpPopup));
-                        stage.addChild(helpPopup);
-                    }
-                    else
-                    {
-                        popup_proxy.add_popup(value);
-                    }
+                	facade.removeMediator(PopupMediator.NAME);
+                    var helpPopup:HelpPopup = new HelpPopup(app_data.get_help_data());
+                    facade.registerMediator(new PopupMediator(helpPopup));
+                    stage.addChild(helpPopup);
                     break;
                 }
                 case ApplicationFacade.SHOW_LEVEL_UP_POPUP:

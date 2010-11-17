@@ -1470,16 +1470,8 @@
         public function send_gift(value:Object):Boolean{
         	if(!value.hasOwnProperty("type") && value.type != UnderConstructionPopupItem.FREE_GIFT){
 	            var info:Object = config.store[value.gift];
-	            if (info.rp_price > 0 && app_data.reward_points < info.rp_price){
-	                sendNotification(ApplicationFacade.SHOW_CONFIRM_POPUP, {
-	                    msg:Err.NO_RP,
-	                    obj:{
-	                        notif:ApplicationFacade.NAVIGATE_TO_URL,
-	                        data:"offers"
-	                    }
-	                })
-	                return false;
-	            }
+	            var validateItem:Boolean = this.checkItemPrice(info);
+	            if(!validateItem)return false;
 	            app_data.reward_points = (app_data.reward_points - info.rp_price);
 	            update_objects(["reward_points"]);
             }

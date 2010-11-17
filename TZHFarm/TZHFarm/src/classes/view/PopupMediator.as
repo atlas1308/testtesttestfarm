@@ -97,14 +97,6 @@
         private function onAccept(event:Event) : void
         {
             var multiProcessor:MultiProcessor = null;
-            /* if (popup as ConfirmPopup)
-            {
-            	if(ConfirmPopup(popup).notif_body == "offers"){
-            		JSDataManager.showPayPage();// 加载充值页面
-            	}else {
-                	sendNotification(ConfirmPopup(popup).notif_name, ConfirmPopup(popup).notif_body);
-                }
-            } */
             if (popup as HelpPopup)
             {
                 sendNotification(ApplicationFacade.WATER_PLANTS);

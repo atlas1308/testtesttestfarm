@@ -32,7 +32,7 @@
             {
         		if(enabledHelped){
         			Plant(target).state = "fertilize";
-        			Cursor.show(Config.getConfig("host") + Constant.FERTILIZER_CURSOR_PATH,true, 5, 5);
+        			Cursor.show(Constant.FERTILIZER_CURSOR_PATH,true, 5, 5);
         		}else {
         			Cursor.hide();
         		}

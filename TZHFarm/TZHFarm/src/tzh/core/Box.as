@@ -92,7 +92,8 @@ package tzh.core
 			effectsPool.shift();
 			if(this.hasNext()){
 				this.play();
-			}else {
+			}
+			if(this.numChildren == 0){
 				this.dispatchEvent(new UIEvent(UIEvent.END_EFFECT_POST_FEED));
 			}
 		}

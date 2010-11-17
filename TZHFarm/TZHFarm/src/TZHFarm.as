@@ -97,9 +97,9 @@ package {
 			//Config.setConfig("transport","http://192.168.0.102/");
 			//Config.setConfig("host","http://192.168.1.99:9901/static/");
 			//Config.setConfig("transport","http://192.168.0.100/");
-			Config.setConfig("host","http://192.168.1.107/static/");
-			Config.setConfig("transport","http://192.168.1.107/");
-			//Config.setConfig("transport","http://192.168.1.99:9901/");
+			Config.setConfig("host","http://192.168.1.104/static/");
+			//Config.setConfig("transport","http://192.168.1.107/");
+			Config.setConfig("transport","http://192.168.1.99:9901/");
 			Config.setConfig("batch_delay",8000);
 			Config.setConfig("loadSocialData","loadSocialData");
 			Config.setConfig("version","1.0");// 这里
