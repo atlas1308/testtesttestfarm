@@ -1,9 +1,12 @@
 ﻿package classes.controller
 {
-    import classes.model.*;
     
-    import org.puremvc.as3.multicore.interfaces.*;
-    import org.puremvc.as3.multicore.patterns.command.*;
+    import classes.model.TransactionBody;
+    import classes.model.TransactionProxy;
+    
+    import org.puremvc.as3.multicore.interfaces.ICommand;
+    import org.puremvc.as3.multicore.interfaces.INotification;
+    import org.puremvc.as3.multicore.patterns.command.SimpleCommand;
     
     import tzh.core.JSDataManager;
 
