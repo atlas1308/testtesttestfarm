@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flexLibProperties version="1">
+<includeClasses>
+<classEntry path="ComicSans"/>
+<classEntry path="ComicSansBold"/>
+<classEntry path="Futura"/>
+<classEntry path="Helvetica"/>
+<classEntry path="HoboStd"/>
+<classEntry path="Verdana"/>
+</includeClasses>
+<includeResources/>
+<namespaceManifests/>
+</flexLibProperties>
