@@ -90,15 +90,15 @@ package {
 			Config.setConfig("transport","http://newfarm.lf3g.com/");  */
 			//Config.setConfig("host","http://ec2-46-51-129-166.eu-west-1.compute.amazonaws.com/static/");//vz平台
 			//Config.setConfig("host","http://ec2-46-51-129-166.eu-west-1.compute.amazonaws.com/static/");//vz平台
-			Config.setConfig("transport","http://ec2-46-51-129-166.eu-west-1.compute.amazonaws.com/");
+			//Config.setConfig("transport","http://ec2-46-51-129-166.eu-west-1.compute.amazonaws.com/");
 			//Config.setConfig("host","http://192.168.1.99:9901/static/");
 			//Config.setConfig("transport","http://192.168.1.99:9901");
 			//Config.setConfig("host","http://192.168.0.102/static/");
 			//Config.setConfig("transport","http://192.168.0.102/");
 			//Config.setConfig("host","http://192.168.1.99:9901/static/");
 			//Config.setConfig("transport","http://192.168.0.100/");
-			Config.setConfig("host","http://192.168.1.104/static/");
-			//Config.setConfig("transport","http://192.168.1.104/");
+			Config.setConfig("host","http://192.168.0.100/static/");
+			Config.setConfig("transport","http://192.168.0.100/");
 			//Config.setConfig("transport","http://192.168.1.99:9901/");
 			Config.setConfig("batch_delay",8000);
 			Config.setConfig("loadSocialData","loadSocialData");

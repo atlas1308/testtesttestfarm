@@ -73,7 +73,6 @@
             drawBg(select_color, select_line_color);
             var dx:Number = (container.width * scaleRatio) / 2;
             var dy:Number = (container.height * scaleRatio) / 2;
-            //container.scaleX = (container.scaleY = 1.2);
             container.scaleX = container.scaleY = (1 + scaleRatio);
             container.x = -dx;
             container.y = -dy;

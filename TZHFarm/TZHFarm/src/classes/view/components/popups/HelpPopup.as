@@ -28,7 +28,7 @@
             super.init();
             content.friend_name.text = data.friend_name;
             content.message.text = data.message;
-            var image:Image = new Image(data.photo,content.photo);
+            var image:Image = new Image(data.photo,content.photo,false);
             image.addEventListener(Event.COMPLETE,photoComplete);
             content.addChild(image);
             ok_btn = new GameButton(ResourceManager.getInstance().getString("message","game_button_accpet_message"));
