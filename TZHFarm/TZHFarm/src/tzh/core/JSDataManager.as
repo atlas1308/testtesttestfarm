@@ -76,7 +76,7 @@ package tzh.core
 		 * 弹出邀请好友链接
 		 */ 
 		public static function showInviteFriendPage():void {
-			var functionName:String = "showFriends";
+			var functionName:String = "HV.showFriends";
 			trace("ExternalInterface.call showFriends");
 			try{
 				ExternalInterface.call(functionName);
@@ -99,7 +99,7 @@ package tzh.core
 		 * 弹出JS的支付面板
 		 */ 
 		public static function showPayPage():void {
-			var functionName:String = "showPayPage";
+			var functionName:String = "HV.showPayPage";
 			trace("ExternalInterface.call showPayPage");
 			try{
 				ExternalInterface.call(functionName);
@@ -134,7 +134,7 @@ package tzh.core
 		 * title
 		 */ 
 		public function postFeed(args:Object = null,callback:Function = null):void {
-			var functionName:String = "postActivity";
+			var functionName:String = "HV.publish_feed";
 			if(!args){
 				args = {};
 			}
@@ -151,7 +151,7 @@ package tzh.core
 		 * JS里的这个方法要修改
 		 */ 
 		public function sendNotice(args:Object = null,callback:Function = null):void {
-			var functionName:String = "sendNotice";
+			var functionName:String = "HV.sendNotice";
 			if(!args){
 				args = {};
 			}

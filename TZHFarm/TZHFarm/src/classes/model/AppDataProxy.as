@@ -2669,10 +2669,10 @@
             while (i < plans.length) {
                 if (plans[i].size == current_size){
                     current_plan = i;
-                };
+                }
                 if (plans[i].size == s){
                     requested_plan = i;
-                };
+                }
                 i++;
             }
             if ((plans.length - 1) == current_plan){
