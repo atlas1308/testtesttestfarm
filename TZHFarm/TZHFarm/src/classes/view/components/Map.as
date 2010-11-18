@@ -923,7 +923,7 @@
             var plant:Plant;
             if (!water_well){
                 return;
-            };
+            }
             var i:Number = 0;
             while (i < map_objects.numChildren) {
                 plant = (map_objects.getChildAt(i) as Plant);
@@ -933,10 +933,10 @@
                     } else {
                         water_well.start_anim();
                         break;
-                    };
-                };
+                    }
+                }
                 i++;
-            };
+            }
         }
         private function onSplitObject(e:Event):void{
             var greenhouse:Greenhouse = Greenhouse(e.target);
@@ -1119,7 +1119,7 @@
                 if ((obj as Fence)){
                     align_fences();
                 }
-                if (obj as Plant || obj.type == "soil"){
+                if (obj as Plant || obj.type == MapObject.MAP_OBJECT_TYPE_SOIL){
                     check_greenhouses(obj);
                 }
                 check_bees();

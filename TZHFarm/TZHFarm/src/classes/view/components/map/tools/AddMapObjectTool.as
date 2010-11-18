@@ -247,6 +247,5 @@
                 action_confirmed();
             }
         }
-
     }
 }

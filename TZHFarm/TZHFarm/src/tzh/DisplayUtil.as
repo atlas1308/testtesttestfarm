@@ -26,5 +26,14 @@ package tzh
 				}
 			}
 		}
+		
+		public static function removeChild(parent:DisplayObjectContainer,child:DisplayObject):void {
+			if(!parent)return;
+			if(!child)return;
+			if(parent.contains(child)){
+				parent.removeChild(child);
+			}
+			child = null;
+		}
 	}
 }
