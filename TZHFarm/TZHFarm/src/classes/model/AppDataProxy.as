@@ -1691,9 +1691,10 @@
             var obj:Object;
             var list:Array;
             info = config.store[id];
-            if(info.map_object)return true;// 如果是map_object的话,那么就让用户显示在地上
-            var validateItem:Boolean = checkItemPrice(info);// 使用的全局的一个方法
-            if(!validateItem)return false;
+        	if(!info.map_object){// 如果是map_object的话,那么就让用户显示在地上
+	            var validateItem:Boolean = checkItemPrice(info);// 使用的全局的一个方法
+	            if(!validateItem)return false;
+	        }
             switch (info.type){
                 case "expand_ranch":
                     obj = map_can_expand(info);
@@ -1708,7 +1709,7 @@
                     };
                     break;
             }
-            if (info.action == "construction"){// 这个先过掉，我们暂时没有buliding的功能
+            if (info.action == "construction"){
                 return can_use_material(id);
             }
             if (info.max_instances){// 这个值我目前没看到在哪用
@@ -1986,7 +1987,7 @@
             } else {
                 obj.buy_method = "coins";
             }
-            /* if (obj.neighbors){// 锁定的一些限制
+            if (obj.neighbors){// 锁定的一些限制
                 obj.locked = ((neighbors_count() - 1) < obj.neighbors);// 验证有多少个好友时才能购买,这里原来有个bug，算上自己了
                 obj.locked_message = ResourceManager.getInstance().getString("message","locked_message_neighbors",[obj.neighbors]);
                 obj.locked_button = ResourceManager.getInstance().getString("message","neighbors_message");
@@ -1994,7 +1995,7 @@
                 obj.locked = (app_data.level < obj.level);// 验证等级是否够了
                 obj.locked_message = ResourceManager.getInstance().getString("message","locked_message",[obj.level]);
                 obj.locked_button = ResourceManager.getInstance().getString("message","locked_button_buy");
-            } */
+            } 
             /* if (neighbors_count() == 0){
                 obj.buy_gift = false;
             } 

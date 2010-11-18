@@ -208,7 +208,7 @@
             tool_cont.mouseEnabled = false;
             process_loader.visible = true;
             process_loader.addEventListener(process_loader.COMPLETE, processComplete);
-            addEventListener(MouseEvent.MOUSE_MOVE, mouseMove);
+            addEventListener(MouseEvent.MOUSE_MOVE, mouseMove,false,0,true);
             addEventListener(MouseEvent.MOUSE_OUT, mouseOut);
             addEventListener(MouseEvent.MOUSE_OVER, mouseOver);
             addEventListener(MouseEvent.MOUSE_DOWN, mouseDown);
