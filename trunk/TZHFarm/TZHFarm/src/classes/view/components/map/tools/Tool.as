@@ -7,6 +7,8 @@
     
     import flash.display.*;
     import flash.events.*;
+    
+    import tzh.DisplayUtil;
 
     public class Tool extends EventDispatcher
     {
@@ -54,7 +56,6 @@
 
         protected function mouseLeave() : void
         {
-            return;
         }
 
         public function remove() : void
@@ -69,17 +70,15 @@
 
         public function action_confirmed(... args) : void
         {
-            return;
         }
 
         protected function mouseOver() : void
         {
-            return;
         }
 
         public function set enabled(value:Boolean) : void
         {
-            _enabled = value;
+            this._enabled = value;
         }
 
         protected function tip(text:String, mapObject:MapObject = null, color:Number = -1) : void
@@ -115,23 +114,15 @@
                 {
                     tool_cont.addChild(tip_icon);
                 }
-            }
-            else if (tip_icon && tool_cont.contains(tip_icon))
-            {
-                tool_cont.removeChild(tip_icon);
+            } else {
+            	DisplayUtil.removeChild(tool_cont,tip_icon);
             }
         }
 
         protected function hide_tip() : void
         {
             tool_tip.visible = false;
-            if (tip_icon)
-            {
-                if (tool_cont.contains(tip_icon))
-                {
-                    tool_cont.removeChild(tip_icon);
-                }
-            }
+            DisplayUtil.removeChild(tool_cont,tip_icon);
         }
 
         protected function object_intersect(value:MapObject) : Boolean
@@ -167,10 +158,6 @@
             }
             this.target = target as MapObject;
             handle_state(state);
-        }
-        
-        public function get mouseTarget():MapObject {
-        	return this.target;
         }
 
         protected function mouseUp() : void
@@ -258,14 +245,7 @@
 
         public function clear() : void
         {
-            if (!tool_cont)
-            {
-                return;
-            }
-            while (tool_cont.numChildren)
-            {
-                tool_cont.removeChildAt(0);
-            }
+            DisplayUtil.removeAllChildren(tool_cont);
             Cursor.hide();
         }
 
@@ -358,7 +338,6 @@
 
         protected function mouseDown() : void
         {
-            return;
         }
     }
 }
