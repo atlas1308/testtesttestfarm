@@ -2,6 +2,7 @@
 {
     import classes.view.components.*;
     import classes.view.components.map.tools.collect_tools.*;
+    
     import flash.events.*;
 
     public class MultiTool extends Tool
@@ -43,7 +44,7 @@
 
         private function get_subtool_by_target(value:Object) : Subtool
         {
-            var tool:* = new Subtool();
+            var tool:Subtool = new Subtool();
             if (!value)
             {
                 return tool;
@@ -329,7 +330,7 @@
 
         private function set_subtool(value:Subtool = null) : void
         {
-            var tool:* = subtool;
+            var tool:Subtool = subtool;
             if (!value)
             {
                 if (subtool && !subtool.allow())
@@ -361,6 +362,5 @@
             subtool.addEventListener(subtool.CONFIRM_ACTION, confirmSubtoolAction);
             confirm(Map.DEACTIVATE_MULTI_TOOL);
         }
-
     }
 }

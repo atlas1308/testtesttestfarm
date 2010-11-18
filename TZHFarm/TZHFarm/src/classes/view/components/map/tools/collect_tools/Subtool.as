@@ -1,7 +1,6 @@
 ﻿package classes.view.components.map.tools.collect_tools {
 	import classes.view.components.map.MapObject;
 	import classes.view.components.map.tools.Tool;
-	
 
     public class Subtool extends Tool {
 
