@@ -70,8 +70,8 @@
 		override public function get_event_data():Object {
 			var data:Object = new Object();
             data.plant = Plant(this.target);
-            data.friendName = appDataProxy.friend_name;
-            data.friend_id = appDataProxy.friend_farm_id;
+            data.friendName = appDataProxy.user_name;// 登陆用户,因为是登陆用户给他的好友施肥,所以friendName是他自己
+            data.friend_id = appDataProxy.friend_farm_id;// 好友的id
             return data; 
 		}
     }
