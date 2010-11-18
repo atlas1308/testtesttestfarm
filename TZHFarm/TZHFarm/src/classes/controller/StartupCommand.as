@@ -59,7 +59,7 @@
 			obj.fb_sig_session_key = "2.SNB9BZ63xoJnJEBtCWCRhw__.3600.1277542800-1560424778";
 			obj.fb_sig_ss = "_YlZd6mag4eExSQA5ETxMQ__";
 			obj.fb_sig_time = "1277557804.1269dfa";
-			obj.fb_sig_user = "a";
+			obj.fb_sig_user = "www.vz.net:r9RQ-brQB5AHI8jmArHR0A";
 			//www.vz.net:tg7TI3uiAO9irLhue0kHYA
 			//www.vz.net:tg7TI3uiAO9irLhue0kHYA
 			//www.vz.net:WtP271mWJW19eIdrhNCNBw
