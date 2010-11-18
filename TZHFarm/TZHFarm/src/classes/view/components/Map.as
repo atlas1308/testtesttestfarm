@@ -337,6 +337,9 @@
             }
         }
         
+        /**
+         * 向greenhouse里添加东西 
+         */ 
         private function onGreenhouseAdded(g:Greenhouse):void{
             var i:Number = 0;
             var obj:MapObject;
@@ -344,14 +347,14 @@
                 obj = (map_objects.getChildAt(i) as MapObject);
                 if (!obj){
                 } else {
-                    if (((!((obj.type == "soil"))) && (!((obj.type == "seeds"))))){
+                    if (obj.type != MapObject.MAP_OBJECT_TYPE_SOIL && obj.type != MapObject.MAP_OBJECT_TYPE_SEEDS){
                     } else {
                         if (((obj.intersect(g)) && (!(obj.intersect(g, true))))){
                             obj.greenhouse_added(g);
                             map_obj = obj;
                             if ((obj is Plant)){
                                 dispatchEvent(new Event(UPDATE_OBJECT));
-                            };
+                            }
                             g.add_plant(obj);
                         }
                     }
@@ -472,7 +475,6 @@
                 tool.mouse("up", e.target.parent);
             }
         }
-        
         
         public function clear():void{
             var swarm:BeesSwarm;
@@ -896,21 +898,25 @@
         private function find_clover_for_bees(hive:MapObject):Plant{
             var last_plant:Plant;
             var plant:Plant;
-            var _d:Number;
-            var d:Number = 10000000;
+            var distance:Number;
+            var maxDistance:Number = 10000000;
             var i:Number = 0;
             while (i < map_objects.numChildren) {
                 plant = (map_objects.getChildAt(i) as Plant);
-                if (((((((((plant) && ((plant.kind == "clover")))) && (!(plant.is_marked_for_pollination())))) && (!(plant.is_pollinated())))) && (!(plant.can_be_fertilized())))){
-                    _d = Algo.distance(hive.x, hive.y, plant.x, plant.y);
-                    if (_d < d){
-                        d = _d;
+                if(plant && 
+                	plant.kind == "clover" && 
+                	(!plant.is_marked_for_pollination()) && 
+                	(!plant.is_pollinated()) && 
+                	(!plant.can_be_fertilized())){
+                    distance = Algo.distance(hive.x, hive.y, plant.x, plant.y);
+                    if (distance < maxDistance){
+                        maxDistance = distance;
                         last_plant = plant;
-                    };
-                };
+                    }
+                }
                 i++;
-            };
-            return (last_plant);
+            }
+            return last_plant;
         }
         
         private function check_irrigation(e:Event = null):void{
