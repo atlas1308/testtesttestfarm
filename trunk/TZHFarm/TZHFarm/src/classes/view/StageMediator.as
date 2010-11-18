@@ -584,13 +584,6 @@
                 sendNotification(ApplicationFacade.ESCAPE_PRESSED);
                 sendNotification(ApplicationFacade.REFRESH_TOOLBAR);
             }
-            if (event.keyCode == 76)
-            {
-                if (event.shiftKey)
-                {
-                    Log.toggle();
-                }
-            }
         }
 
         protected function get map_proxy() : MapProxy
