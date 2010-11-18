@@ -198,8 +198,6 @@
 
         public function startup(body:Object) : void
         {
-            Log.init(body);
-            Security.allowDomain("*");
             sendNotification(STARTUP, body);
         }
 		
