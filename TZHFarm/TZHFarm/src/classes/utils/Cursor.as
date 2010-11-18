@@ -1,8 +1,9 @@
 ﻿package classes.utils {
-    import flash.display.*;
-    import flash.events.*;
-    import flash.ui.*;
-    import flash.utils.*;
+	import flash.display.Sprite;
+	import flash.display.Stage;
+	import flash.events.Event;
+	import flash.ui.Mouse;
+	import flash.utils.getDefinitionByName;
 	
 	/**
 	 * 类似于一个CursorManager的一个东西,
@@ -18,13 +19,15 @@
         public static var offset_y:Number;
         public static var last_cursor:String;
 
-        public static function pointerLoaded(e:Event):void{
-            pointer.addChild(e.target.asset);
+        public static function pointerLoaded(event:Event):void{
+            pointer.addChild(event.target.asset);
         }
-        public static function mouse_move(e:Event):void{
+        
+        public static function mouse_move(event:Event = null):void{
             pointer.x = (pointer.stage.mouseX + offset_x);
             pointer.y = (pointer.stage.mouseY + offset_y);
         }
+        
         public static function hide():void{
             Mouse.show();
             last_cursor = "";
@@ -60,7 +63,7 @@
                         break;
                     case "grab":
                         break;
-                };
+                }
             } else {
                 pointer = new Sprite();
                 cache = new Cache();
@@ -71,8 +74,7 @@
             pointer.mouseChildren = false;
             stage.addChild(pointer);
             pointer.stage.addEventListener(Event.ENTER_FRAME, mouse_move);
-            mouse_move(null);
+            mouse_move();
         }
-
     }
 }

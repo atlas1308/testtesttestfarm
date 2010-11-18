@@ -132,7 +132,7 @@
             };
             if (reqWidth > seed.length){
                 return ((Array((1 + (reqWidth - seed.length))).join("0") + seed));
-            };
+            }
             return (seed);
         }
         public static function sin(angle:Number):Number{
