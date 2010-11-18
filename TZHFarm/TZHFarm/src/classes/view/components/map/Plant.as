@@ -40,7 +40,7 @@
 		
 		private var friend_fert_time:int;// 好友是否已经帮助过了
 		
-		private var friendName:String;// 好友帮助的名称
+		private var friend_fert_name:String;// 好友帮助的名称
 		
 		private var specificEffect:Specific;
 		
@@ -49,7 +49,7 @@
             _current_collect_in = (data.current_collect_in) ? data.current_collect_in : 0;
             grown_percent = (data.grown_percent) ? data.grown_percent : 0;
             friend_fert_time = data.friend_fert_time ? data.friend_fert_time : 0;
-            friendName = data.friendName ? data.friendName : "";
+            friend_fert_name = data.friend_fert_name ? data.friend_fert_name : "";
             super(data);
         }
         
@@ -157,10 +157,10 @@
         /**
          * 暂时只提供一块地,帮助一次的功能,如果此地有其它的好友帮助的话,也不能帮助了
          */ 
-        public function friendFertilize(percent:Number,friendName:String):void {
+        public function friendFertilize(percent:Number,friend_fert_name:String):void {
         	if(friend_fert_time <= 0){// 当小于0时,才能帮忙
 	        	friend_fert_time = SystemTimer.getInstance().serverTime;
-	        	this.friendName = friendName;
+	        	this.friend_fert_name = friend_fert_name;
 	        	this.fertilize(percent);
         	}
         }
@@ -358,7 +358,7 @@
 		public function get friend_fert_message():String {
 			var result:String = "";
 			if(friend_fert_time > 0){
-				result += ResourceManager.getInstance().getString("message","friend_helped_fert_message",[friendName]);
+				result += ResourceManager.getInstance().getString("message","friend_helped_fert_message",[friend_fert_name]);
 			}
 			return result;
 		}
