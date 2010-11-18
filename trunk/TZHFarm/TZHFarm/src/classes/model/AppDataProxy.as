@@ -29,7 +29,6 @@
 	import tzh.core.JSDataManager;
 	import tzh.core.SystemTimer;
 	import tzh.core.TutorialManager;
-	
 	import flash.utils.clearInterval;
 	import flash.utils.clearTimeout;
 	import flash.utils.setTimeout;
@@ -997,12 +996,14 @@
             var item:Object = get_map_obj(obj.id, obj.grid_x, obj.grid_y);
             var info:Object = config.store[obj.id];
             var animal:Object = config.store[info.animal];
-            if (((!(gift_mode)) && ((animal.price > app_data.coins)))){
-                return (report_error(Err.NO_COINS));
-            };
+            var msg:String;
+            if ((!gift_mode) && (animal.price > app_data.coins)){
+                return report_error(Err.NO_COINS);
+            }
             if (item.animals == info.max_animals){
-            	return (report_confirm_error(ResourceManager.getInstance().getString("message","buy_another_message",[info.name]), true));
-            };
+            	msg = ResourceManager.getInstance().getString("message","buy_another_message",[info.name])
+            	return report_confirm_error(msg, true);
+            }
             obj_add_animal(item);
             var was_gift:Boolean = gift_mode;
             if (!gift_mode){
@@ -1012,15 +1013,15 @@
                 confirm = new Confirmation(animal.exp, -(animal.price));
                 update_objects(["coins", "level"]);
             } else {
-                var _local6 = app_data.gifts;
-                var _local7 = animal.id;
-                var _local8 = (_local6[_local7] - 1);
-                _local6[_local7] = _local8;
+                var gifts:Object = app_data.gifts;
+                var id:* = animal.id;
+                var temp:int = int(gifts[id]) - 1;
+                gifts[id] = temp;
                 update_objects(["gifts"]);
                 gift_mode = false;
             };
             sendNotification(ApplicationFacade.ANIMAL_ADDED, was_gift);
-            return (true);
+            return true;
         }
         
         /**
@@ -1985,7 +1986,7 @@
             } else {
                 obj.buy_method = "coins";
             }
-            if (obj.neighbors){// 锁定的一些限制
+            /* if (obj.neighbors){// 锁定的一些限制
                 obj.locked = ((neighbors_count() - 1) < obj.neighbors);// 验证有多少个好友时才能购买,这里原来有个bug，算上自己了
                 obj.locked_message = ResourceManager.getInstance().getString("message","locked_message_neighbors",[obj.neighbors]);
                 obj.locked_button = ResourceManager.getInstance().getString("message","neighbors_message");
@@ -1993,7 +1994,7 @@
                 obj.locked = (app_data.level < obj.level);// 验证等级是否够了
                 obj.locked_message = ResourceManager.getInstance().getString("message","locked_message",[obj.level]);
                 obj.locked_button = ResourceManager.getInstance().getString("message","locked_button_buy");
-            }
+            } */
             /* if (neighbors_count() == 0){
                 obj.buy_gift = false;
             } 

@@ -67,6 +67,10 @@ package {
 	 * 2.卖出物品qty最小为0的验证
 	 * 
 	 * 3.新上的物品卖出的不多
+	 * 
+	 * 
+	 * 
+	 * 1.后台的数据ID里面有存在空格
 	 */ 
 	 
 	public class TZHFarm extends Sprite

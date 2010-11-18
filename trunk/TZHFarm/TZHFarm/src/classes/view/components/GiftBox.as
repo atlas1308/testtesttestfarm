@@ -46,7 +46,7 @@
         public function shine():void{
             imageShiner(shine_move_speed, shine_intensity, shine_width, add_glow_effect, glow_color_name, glow_blur_width, loop);
         }
-        function frame1():void{
+        public function frame1():void{
             trace("script start");
             shineTarget = new imageMC();
             this.addChild(shineTarget);
