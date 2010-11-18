@@ -245,6 +245,9 @@
                 case "move_over":
                     highlight(0x9900, 0.2, true, -1, true);
                     break;
+                case "harvester_over":
+                    Effects.glow(asset, 0xFFCC00, false);
+                    break;
                 case "remove_over":
                     highlight(0xCC0033, 0.45, true, -1);
                     break;
@@ -419,10 +422,10 @@
             if (!obtained_materials[material]){
                 obtained_materials[material] = 0;
             }
-            var obtained_materials:Object = obtained_materials;
-            var material:* = material;
-            var temp:int = int(obtained_materials[material]) + 1;
-            obtained_materials[material] = temp;
+            var _local2 = obtained_materials;
+            var _local3 = material;
+            var _local4 = (_local2[_local3] + 1);
+            _local2[_local3] = _local4;
             this.showConstructionComplete();
         }
         
