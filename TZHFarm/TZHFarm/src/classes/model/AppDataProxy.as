@@ -3227,9 +3227,8 @@
         public function auto_process(pid:String):void{
             var note:Notification;
             var queue:Array = auto_queue[pid];
-            if (!queue && queue.length == 0){
-                return;
-            }
+            if(!queue)return;// 如果没有这个数据,就返回了,
+            if(queue.length == 0)return;// 如果这个数据是0,那也返回了
             var entry:Object = queue.shift();
             this[entry.data.method].apply(this, entry.data.args);
             if (queue.length > 0){
