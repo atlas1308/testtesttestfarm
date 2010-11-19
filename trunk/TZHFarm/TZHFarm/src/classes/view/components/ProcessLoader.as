@@ -14,8 +14,6 @@
 
         private var container:Sprite;
         private var delay:Number;
-        private var interval:Number;
-        private var min_w:Number = 50;
         public var pid:String;
         private var percent:Number = 0;
         private var tf:TextField;
@@ -25,7 +23,6 @@
         public var auto_mode:Boolean = false;
         private var action:String;
         private var start_time:Number;
-        private var min_h:Number = 50;
 
         public function ProcessLoader(){
             super();

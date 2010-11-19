@@ -20,7 +20,6 @@
 
         private var soil:MovieClip;
         private var crop:Crop;
-        private var blit_img:Bitmap;
         private var particles:Particles;
         private var pollinated:Boolean = false;// 是否..授粉了，对于小蜜蜂来说可以采蜜的
         private var fertilize_percent:Number = 0;

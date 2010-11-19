@@ -19,9 +19,7 @@
             params.flip = mapObject.map_flip_state ? (1) : (0);// 当前的方向,这个是需要验证的,用户初始化进来的状态
             params.flipped = mapObject.is_flipped() ? (1) : (0);
             if(mapObject is Greenhouse){
-            	//if(Greenhouse(mapObject).allMapsSaveObject && Greenhouse(mapObject).allMapsSaveObject.length > 0){
-            		params.plants = JSON.encode(Greenhouse(mapObject).allMapsSaveObject);// 把原来的数据清掉,更新start_time
-            	//}
+            	params.plants = JSON.encode(Greenhouse(mapObject).allMapsSaveObject);// 把原来的数据清掉,更新start_time
             }
             if (mapObject.greenhouse)
             {

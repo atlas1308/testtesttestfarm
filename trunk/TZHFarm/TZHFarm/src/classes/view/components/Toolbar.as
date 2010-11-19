@@ -49,21 +49,16 @@
         public var zoom_in_btn:SimpleButton;
         private var remove_btn:Button;
         public var gifts:MovieClip;
-        private var events_off:Array;
-        private var gifts_btn:Button;
         public var zoom_out_btn:SimpleButton;
         private var multi_tool_btn:Button;
         public var remove:MovieClip;
-        private var plow_btn:Button;
         public var storage:MovieClip;
-        private var storage_btn:Button;
         private var buttons:Array;
         private var shop_btn:Button;
         public var gifts_qty:MovieClip;
         public var fullscreen:SimpleButton;
         public var alpha_toggler:SimpleButton;
         private var achievements_btn:Button;
-        private var events_on:Array;
         public var move:MovieClip;
         public var multi_tool:MovieClip;
         public var home:MovieClip;
@@ -71,7 +66,6 @@
         private var move_btn:Button;
         public var shop:MovieClip;
         private var normal_mode:Boolean = true;
-        private var home_btn:Button;
         private var music:MovieClip;
         
         public function Toolbar()

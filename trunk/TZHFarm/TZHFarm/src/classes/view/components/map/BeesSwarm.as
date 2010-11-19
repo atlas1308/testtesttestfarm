@@ -16,7 +16,6 @@
         private var scale:Number = 1;
         public var target:Plant;
         private var return_tween:TweenMax;
-        private var tween_time:Number;
         private var hive_changed:Boolean = false;
         private var last_coords:Object;
         private var zigzag_min_width:Number;
