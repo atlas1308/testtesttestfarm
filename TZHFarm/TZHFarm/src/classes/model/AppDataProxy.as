@@ -2766,11 +2766,11 @@
             var i:Number = 0;
             while (i < app_data.map.length) {
                 obj = app_data.map[i];
-                if ((((((obj.id == id)) && ((obj.x == x)))) && ((obj.y == y)))){
-                    if (((!((flipped == -1))) && (!((obj.flipped == flipped))))){
+                if ((obj.id == id) && (obj.x == x) && (obj.y == y)){
+                    if ((flipped != -1) && (obj.flipped != flipped)){
                     } else {
                         app_data.map.splice(i, 1);
-                        return (true);
+                        return true;
                     }
                 }
                 i++;
