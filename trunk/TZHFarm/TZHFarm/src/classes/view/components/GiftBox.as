@@ -23,7 +23,7 @@
 	/**
 	 * 这个类暂时还没有使用到
 	 */ 
-    public dynamic class GiftBox extends MovieClip {
+    public class GiftBox extends MovieClip {
 
         public var main_image_mc:imageMC;
         public var button_brightness_intensity:Number;

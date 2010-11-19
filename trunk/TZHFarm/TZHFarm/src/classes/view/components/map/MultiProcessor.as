@@ -193,19 +193,19 @@
                     p.product1.visible = true;
                     p.product1.gotoAndStop(get_product_frame(0));
                     Effects.clear(p.product1);
-                };
+                }
                 if (products.length >= 2){
                     p.product2.visible = true;
                     p.product2.gotoAndStop(get_product_frame(1));
                     Effects.clear(p.product2);
-                };
+                }
                 if (products.length >= 3){
                     p.product3.visible = true;
                     p.product3.gotoAndStop(get_product_frame(2));
                     Effects.clear(p.product3);
-                };
+                }
                 queue_highlight();
-            };
+            }
         }
         
         protected function update_raw_material(index:Number):void{

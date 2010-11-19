@@ -4,7 +4,6 @@
     {
         public function Log()
         {
-            return;
         }
 
         public static function add(value:String):void

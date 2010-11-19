@@ -2,6 +2,7 @@
 {
     import classes.*;
     import classes.model.*;
+    import classes.model.confirmation.Confirmation;
     import classes.utils.*;
     import classes.view.components.*;
     
@@ -10,8 +11,6 @@
     
     import org.puremvc.as3.multicore.interfaces.*;
     import org.puremvc.as3.multicore.patterns.mediator.*;
-    
-    import classes.model.confirmation.Confirmation;
 
     public class ToolbarMediator extends Mediator implements IMediator
     {
@@ -169,22 +168,22 @@
 
         override public function onRegister() : void
         {
-            toolbar.addEventListener(toolbar.SHOP_ON, shopOn);
-            toolbar.addEventListener(toolbar.MOVE_ON, moveOn);
-            toolbar.addEventListener(toolbar.REMOVE_ON, removeOn);
-            toolbar.addEventListener(toolbar.PLOW_ON, plowOn);
-            toolbar.addEventListener(toolbar.MULTI_TOOL_ON, multiToolOn);
-            toolbar.addEventListener(toolbar.STORAGE_ON, storageOn);
-            toolbar.addEventListener(toolbar.GIFTS_ON, giftsOn);
-            toolbar.addEventListener(toolbar.ACHIEVEMENTS_ON, achievementsOn);
-            toolbar.addEventListener(toolbar.ZOOM_IN, zoomIn);
-            toolbar.addEventListener(toolbar.ZOOM_OUT, zoomOut);
-            toolbar.addEventListener(toolbar.TOGGLE_FULL_SCREEN, toggleFullScreen);
-            toolbar.addEventListener(toolbar.BACK_TO_MY_RANCH, backToMyRanch);
-            toolbar.addEventListener(toolbar.SHOW_TOOLTIP, showTooltip);
-            toolbar.addEventListener(toolbar.HIDE_TOOLTIP, hideTooltip);
-            toolbar.addEventListener(toolbar.TOGGLE_ALPHA, toggleAlpha);
-            toolbar.addEventListener(toolbar.TAKE_SNAPSHOT, takeSnapshot);
+            toolbar.addEventListener(Toolbar.SHOP_ON, shopOn);
+            toolbar.addEventListener(Toolbar.MOVE_ON, moveOn);
+            toolbar.addEventListener(Toolbar.REMOVE_ON, removeOn);
+            toolbar.addEventListener(Toolbar.PLOW_ON, plowOn);
+            toolbar.addEventListener(Toolbar.MULTI_TOOL_ON, multiToolOn);
+            toolbar.addEventListener(Toolbar.STORAGE_ON, storageOn);
+            toolbar.addEventListener(Toolbar.GIFTS_ON, giftsOn);
+            toolbar.addEventListener(Toolbar.ACHIEVEMENTS_ON, achievementsOn);
+            toolbar.addEventListener(Toolbar.ZOOM_IN, zoomIn);
+            toolbar.addEventListener(Toolbar.ZOOM_OUT, zoomOut);
+            toolbar.addEventListener(Toolbar.TOGGLE_FULL_SCREEN, toggleFullScreen);
+            toolbar.addEventListener(Toolbar.BACK_TO_MY_RANCH, backToMyRanch);
+            toolbar.addEventListener(Toolbar.SHOW_TOOLTIP, showTooltip);
+            toolbar.addEventListener(Toolbar.HIDE_TOOLTIP, hideTooltip);
+            toolbar.addEventListener(Toolbar.TOGGLE_ALPHA, toggleAlpha);
+            toolbar.addEventListener(Toolbar.TAKE_SNAPSHOT, takeSnapshot);
         }
 
         private function achievementsOn(event:Event) : void
