@@ -29,7 +29,7 @@
             this.exp = exp;
             this.coins = coins;
             this.reward_points = reward_points;
-            add_value(exp, " XP");
+            add_value(exp, " " + ResourceManager.getInstance().getString("message","xp_message"));
             add_value(coins, " " + ResourceManager.getInstance().getString("message","coins_message"));
             add_value(reward_points, " " + ResourceManager.getInstance().getString("message","ranch_cash_message"));
         }
