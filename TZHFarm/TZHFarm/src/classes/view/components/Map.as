@@ -50,7 +50,6 @@
         private var map_objects:Sprite;
         private var map_padd:Number = 20;
         private var pan_delta_x:Number;
-        private var sort_finish:Boolean = false;
         private var grid_size:Number;
         private var auto_process_loaders:Array;
         public var current_process_loader:ProcessLoader;
@@ -59,12 +58,10 @@
         private var tool_cont:Sprite;
         private var last_mouseGridX:Number;
         private var container:Sprite;
-        private var sort_sorted:Array;
         private var sort_start:Number;
         public var map_obj:MapObject;
         public var objects_updated:Array;
         private var tool:Tool;
-        private var sort_list:Array;
         private var top_size:Number;
         private var can_sort_depth:Boolean = true;
         private var grass:Grass;
@@ -75,7 +72,6 @@
         private var panned:Boolean = false;
         private var alpha_mode:Boolean = false;
         private var process_loader:ProcessLoader;
-        private var sort_index:Number = 0;
         private var swarms:Sprite;
         private var water_well:WaterWell;
         

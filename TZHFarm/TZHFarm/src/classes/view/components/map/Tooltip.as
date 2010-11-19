@@ -5,11 +5,9 @@
 
     public class Tooltip extends Sprite {
 
-        private var arr:arrow;
         private var container:Sprite;
         private var min_w:Number = 50;
         private var bg_color:Number = 0xCCCCCC;
-        private var padd:Number = 4;
         private var tf:TextField;
         private var min_h:Number = 50;
 
@@ -17,20 +15,25 @@
             super();
             init();
         }
+        
         public function setTextColor(c:Number):void{
             tf.textColor = c;
         }
+        
         public function set_bg(c:Number):void{
             bg_color = c;
         }
         public function get _height():Number{
             return (container.height);
         }
+        
         private function draw():void{
         }
+        
         public function setText(t:String):void{
             tf.text = t;
         }
+        
         private function init():void{
             container = new Sprite();
             tf = new TextField();

@@ -11,14 +11,12 @@
     public class Grass extends Sprite
     {
         private var container:Sprite;
-        private var bmp:Bitmap;
         private var view_h:Number;
         private var angle:Number = 1.09083078249646;
         private var grid_size:Number;
         private var view_w:Number;
         private var grass_padd:Number = 0;
         private var border_cont:Sprite;
-        private var grass_drawn:Boolean = false;
         private var top_size:Number;
         private var delta_x:Number;
         private var delta_y:Number;

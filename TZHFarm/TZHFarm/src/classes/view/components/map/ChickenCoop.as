@@ -7,7 +7,6 @@
 
     public class ChickenCoop extends Processor
     {
-        private var play_interval:Number;
         private var anim:Array;
         private var head_turn:Array;
         private var chickens:Array;

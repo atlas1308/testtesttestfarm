@@ -6,11 +6,9 @@
 
         private var arr:arrow;
         private var container:Sprite;
-        private var min_w:Number = 50;
         private var bg_color:Number = 4925711;
         private var padd:Number = 4;
         private var tf:TextField;
-        private var min_h:Number = 50;
 
         public function Tooltip(){
             super();
@@ -48,7 +46,7 @@
                 tf.width = 200;
             }
             draw();
-            if (arr){
+            /* if (arr){
                 removeChild(arr);
                 arr = null;
             }
@@ -59,7 +57,7 @@
                 arr.mouseEnabled = false;
                 arr.mouseChildren = false;
                 addChild(arr);
-            }
+            } */
             x = stage.mouseX;
             y = (stage.mouseY + 20);
             if ((y + height) > stage.stageHeight){

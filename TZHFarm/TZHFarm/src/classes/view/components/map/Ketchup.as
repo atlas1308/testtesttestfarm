@@ -8,7 +8,6 @@
 
     public class Ketchup extends Processor
     {
-        private var work_anim_started:Boolean = false;
         private var work_anim_loop:Array;
         private var work_player:TimelinePlayer;
         private var work_anim_ended:Boolean = false;

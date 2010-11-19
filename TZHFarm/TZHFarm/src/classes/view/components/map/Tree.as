@@ -11,7 +11,6 @@
 	 */ 
     public class Tree extends CollectObject
     {
-        private var shadow:Bitmap;
         private var _spacing:Number;
 
         public function Tree(value:Object)
