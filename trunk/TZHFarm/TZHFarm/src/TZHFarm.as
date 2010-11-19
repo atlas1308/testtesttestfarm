@@ -101,8 +101,8 @@ package {
 			//Config.setConfig("transport","http://192.168.0.102/");
 			//Config.setConfig("host","http://192.168.1.99:9901/static/");
 			//Config.setConfig("transport","http://192.168.0.100/");
-			Config.setConfig("host","http://192.168.0.100/static/");
-			Config.setConfig("transport","http://192.168.0.100/");
+			Config.setConfig("host","http://192.168.1.108/static/");
+			Config.setConfig("transport","http://192.168.1.108/");
 			//Config.setConfig("transport","http://192.168.1.99:9901/");
 			Config.setConfig("batch_delay",8000);
 			Config.setConfig("loadSocialData","loadSocialData");
