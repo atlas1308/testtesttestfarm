@@ -180,27 +180,27 @@
 
         override public function onRegister() : void
         {
-            map.addEventListener(map.ADD_MAP_OBJECT, addMapObject);
-            map.addEventListener(map.MOVE_MAP_OBJECT, moveMapObject);
-            map.addEventListener(map.REMOVE_MAP_OBJECT, removeMapObject);
-            map.addEventListener(map.ADD_PLANT, addPlant);
-            map.addEventListener(map.SHOW_SHOP_AND_ADD_PLANT, showShopAndAddPlant);
-            map.addEventListener(map.COLLECT_PRODUCT, collectProduct);
-            map.addEventListener(map.FEED_MAP_OBJECT, feedMapObject);
-            map.addEventListener(map.REFILL_MAP_OBJECT, refillMapObject);
-            map.addEventListener(map.APPLY_RAIN, applyRain);
-            map.addEventListener(map.ADD_ANIMAL, addAnimal);
-            map.addEventListener(map.PROCESS_COMPLETE, processComplete);
-            map.addEventListener(map.MAP_OBJECTS_UPDATED, mapObjectsUpdated);
-            map.addEventListener(map.SHOW_CONFIRM_ERROR, showConfirmError);
-            map.addEventListener(map.FERTILIZE, fertilize);
-            map.addEventListener(map.FLIP_MAP_OBJECT, flipMapObject);
-            map.addEventListener(map.ON_POLLINATE, onPollinate);
-            map.addEventListener(map.SELECT_RAW_MATERIAL, selectRawMaterial);
-            map.addEventListener(map.AUTO_REFILL, autoRefill);
-            map.addEventListener(map.AUTO_COLLECT, autoCollect);
-            map.addEventListener(map.TOGGLE_AUTOMATION, toggleAutomation);
-            map.addEventListener(map.SHOW_CHRISTMAS_PRESENTS, showChristmasPresents);
+            map.addEventListener(Map.ADD_MAP_OBJECT, addMapObject);
+            map.addEventListener(Map.MOVE_MAP_OBJECT, moveMapObject);
+            map.addEventListener(Map.REMOVE_MAP_OBJECT, removeMapObject);
+            map.addEventListener(Map.ADD_PLANT, addPlant);
+            map.addEventListener(Map.SHOW_SHOP_AND_ADD_PLANT, showShopAndAddPlant);
+            map.addEventListener(Map.COLLECT_PRODUCT, collectProduct);
+            map.addEventListener(Map.FEED_MAP_OBJECT, feedMapObject);
+            map.addEventListener(Map.REFILL_MAP_OBJECT, refillMapObject);
+            map.addEventListener(Map.APPLY_RAIN, applyRain);
+            map.addEventListener(Map.ADD_ANIMAL, addAnimal);
+            map.addEventListener(Map.PROCESS_COMPLETE, processComplete);
+            map.addEventListener(Map.MAP_OBJECTS_UPDATED, mapObjectsUpdated);
+            map.addEventListener(Map.SHOW_CONFIRM_ERROR, showConfirmError);
+            map.addEventListener(Map.FERTILIZE, fertilize);
+            map.addEventListener(Map.FLIP_MAP_OBJECT, flipMapObject);
+            map.addEventListener(Map.ON_POLLINATE, onPollinate);
+            map.addEventListener(Map.SELECT_RAW_MATERIAL, selectRawMaterial);
+            map.addEventListener(Map.AUTO_REFILL, autoRefill);
+            map.addEventListener(Map.AUTO_COLLECT, autoCollect);
+            map.addEventListener(Map.TOGGLE_AUTOMATION, toggleAutomation);
+            map.addEventListener(Map.SHOW_CHRISTMAS_PRESENTS, showChristmasPresents);
             map.addEventListener(Map.SHOW_UNDER_CONSTRUCTION_POPUP, showUnderConstructionPopup);
             map.addEventListener(Map.UPDATE_OBJECT, updateObject);
             map.addEventListener(Map.INSTALL_IRRIGATION, installIrrigation);

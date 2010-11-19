@@ -130,7 +130,7 @@ package tzh.core
 		}
 		
 		private function onOpen(evt:Event):void {
-			
+			// 这里是一个空的方法,暂时还没有用到
 		}
 	}
 }

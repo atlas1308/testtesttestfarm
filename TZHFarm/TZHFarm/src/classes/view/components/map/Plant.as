@@ -123,6 +123,7 @@
         }
         
         private function sparkle():void{
+        	// 这个还没用到
         }
         
         override public function greenhouse_removed():void{
