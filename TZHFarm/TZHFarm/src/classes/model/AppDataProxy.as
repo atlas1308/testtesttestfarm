@@ -838,9 +838,9 @@
                 }
             } else {
                 if ((item.products - auto_queue[pid].length) <= 0){
-                    return (false);
-                };
-            };
+                    return false;
+                }
+            }
             if (show_preloader){
                 x = obj.preload_position("collect").x;
                 y = obj.preload_position("collect").y;
@@ -2100,6 +2100,7 @@
             var p:Object;
             var info:Object = config.store[obj.id];
             var obj_fed:Object = get_map_obj(obj.id, obj.grid_x, obj.grid_y);
+            if(!obj_fed)return false;
             if (app_data.op <= 0){
                 return (false);
             };
@@ -2107,7 +2108,7 @@
                 if (!app_data.storage[info.raw_material]){
                     return (false);
                 }
-                if(obj_fed)return false;
+                
                 if (obj_fed.raw_materials == 3){
                     return false;
                 }
