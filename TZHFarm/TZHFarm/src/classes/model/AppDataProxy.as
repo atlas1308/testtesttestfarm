@@ -824,13 +824,14 @@
             var note:Notification;
             var queue:Array;
             var item:Object = get_map_obj(obj.id, obj.grid_x, obj.grid_y);
+            if(!item)return false;
             var pid:String = ("collect_" + obj.map_unique_id);
             if (!(auto_queue[pid] as Array)){
                 auto_queue[pid] = new Array();
-            };
+            }
             if (app_data.op <= 0){
-                return (false);
-            };
+                return false;
+            }
             if (item.is_multi && typeof(item.products) is Array){
                 if ((item.products.length - auto_queue[pid].length) <= 0){// 这里出现了错误
                     return (false);
@@ -2105,10 +2106,11 @@
             if (!info.is_multi){
                 if (!app_data.storage[info.raw_material]){
                     return (false);
-                };
+                }
+                if(obj_fed)return false;
                 if (obj_fed.raw_materials == 3){
-                    return (false);
-                };
+                    return false;
+                }
                 food_info = config.store[info.raw_material];
             };
             if (show_preloader){

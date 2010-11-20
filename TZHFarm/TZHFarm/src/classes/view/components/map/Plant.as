@@ -101,6 +101,7 @@
             		this.specificEffect.cacheAsBitmap = true;
             	}
             	if(!asset.contains(this.specificEffect)){
+            		this.specificEffect.gotoAndStop(1);
             		asset.addChild(this.specificEffect);
             	}
             }
