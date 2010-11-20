@@ -10,6 +10,7 @@
     
     import mx.resources.ResourceManager;
     
+    import tzh.DisplayUtil;
     import tzh.core.SystemTimer;
 
     public class Plant extends CollectObject {
@@ -95,6 +96,8 @@
                 asset.addChild(water_pipe);
             }
             if(!friend_can_be_fertilized){
+            	this.specificEffect = new Specific();
+            	this.specificEffect.cacheAsBitmap = true;
             	asset.addChild(specificEffect);
             }
         }
@@ -118,7 +121,7 @@
             soil = (water_pipe_id) ? crop.soil_wet : crop.soil_dry;
             grass_front = crop.grass_front;
             grass_back = crop.grass_back;
-            this.specificEffect = new Specific();
+            
         }
         
         private function sparkle():void{
