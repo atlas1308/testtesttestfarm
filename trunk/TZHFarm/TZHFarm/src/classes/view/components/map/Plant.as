@@ -58,7 +58,7 @@
          * 后台施肥的验证
          */ 
         public function can_be_fertilized():Boolean{
-            return ((((grown_percent + (fertilize_count * fertilize_percent)) + (time_passed() / current_collect_in)) < 1));
+            return (((grown_percent + (fertilize_count * fertilize_percent)) + (time_passed() / current_collect_in)) < 1);
         }
         
         public function land_bees(swarm:Sprite):void{
@@ -96,9 +96,13 @@
                 asset.addChild(water_pipe);
             }
             if(!friend_can_be_fertilized){
-            	this.specificEffect = new Specific();
-            	this.specificEffect.cacheAsBitmap = true;
-            	asset.addChild(specificEffect);
+            	if(!this.specificEffect){// 这里可能还是有一些小问题
+            		this.specificEffect = new Specific();
+            		this.specificEffect.cacheAsBitmap = true;
+            	}
+            	if(!asset.contains(this.specificEffect)){
+            		asset.addChild(this.specificEffect);
+            	}
             }
         }
         
@@ -124,8 +128,14 @@
             
         }
         
+        /**
+         * 施肥之后要把一些物件清除 
+         */
         private function sparkle():void{
-        	// 这个还没用到
+        	if(this.particles){
+        		this.particles.kill();
+        		DisplayUtil.removeChild(this,this.particles);
+        	}
         }
         
         override public function greenhouse_removed():void{

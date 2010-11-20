@@ -68,6 +68,12 @@
         private var normal_mode:Boolean = true;
         private var music:MovieClip;
         
+        private var plow_btn:Button;
+        private var storage_btn:Button;
+        private var gifts_btn:Button;
+        private var home_btn:Button;
+        
+        
         public function Toolbar()
         {
         	this.createChildren();

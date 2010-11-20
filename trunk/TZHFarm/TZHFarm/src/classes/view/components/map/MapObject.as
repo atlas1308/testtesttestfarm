@@ -7,7 +7,10 @@
     import flash.geom.*;
     
     import org.puremvc.as3.multicore.patterns.facade.Facade;
-
+	
+	/**
+	 * 用时再去加载一些资源
+	 */ 
     public class MapObject extends Sprite {
 
         public static var unique_id:Number = 0;
@@ -21,7 +24,7 @@
         protected var loader:Cache;
         protected var water_pipe_id:Number;
         public var map_unique_id:Number;
-        protected var state_cont:Sprite;
+        
         protected var materials:Array;
         protected var asset_loaded:Boolean = false;
         protected var process_count:Object;
@@ -31,9 +34,9 @@
         protected var _name:String;
         protected var x_coord:Array;
         protected var _kind:String;
-        protected var corner_bl:highlight_corner1;
-        protected var rotate_btn:MovieClip;
-        protected var corner_br:highlight_corner2;
+        
+        
+        
         protected var upgradeable:Boolean;
         protected var complete_size_x:Number = 0;
         protected var complete_size_y:Number = 0;
@@ -45,10 +48,10 @@
         protected var water_pipe_loader:Cache;
         protected var asset_url:String;
         protected var upgrade_level:Number;
-        protected var corner_tl:highlight_corner2;
+        
         protected var _greenhouse:Greenhouse;
         protected var _flipable:Boolean;
-        protected var corner_tr:highlight_corner1;
+        
         protected var y_coord:Array;
         protected var obtained_materials:Object;
         protected var hit_area:Sprite;
@@ -79,6 +82,18 @@
 		
 		public static const MAP_OBJECT_TYPE_SOIL:String = "soil";
 		private var _data:Object;
+		
+		
+		protected var rotate_btn:MovieClip;
+		
+		
+		// 优化了以下的属性
+		protected var _corner_br:highlight_corner2;
+		protected var _corner_bl:highlight_corner1;
+		protected var _corner_tl:highlight_corner2;
+		protected var _corner_tr:highlight_corner1;
+		
+		protected var _state_cont:Sprite;
 		
 		public function get data():Object {
 			return this._data;
@@ -122,15 +137,19 @@
             init();
         }
         
-        protected function init_asset():void{
+        /**
+         * 是否能反向,如果能的话,就去创建Rotate_Btn 
+         */ 
+        public function get rotatable():Boolean {
+        	var result:Boolean;
+        	if (type != MAP_OBJECT_TYPE_SEEDS && type != MAP_OBJECT_TYPE_SOIL){
+        		result = true;
+        	}
+        	return result;
         }
         
-        public function focus():void{
-            var arr:arrow = new arrow();
-            arr.x = ((_width - arr.width) / 2);
-            arr.y = ((_height / 2) - arr.height);
-            addChild(arr);
-        } 
+        protected function init_asset():void{
+        }
         
         public function get y_size():Number{
             return (size_y);
@@ -190,16 +209,78 @@
             return flipped_from_store;
         }
         
+        /**
+         * bottom right
+         */ 
+        public function get corner_br():highlight_corner2{
+        	if(!_corner_br){
+        		_corner_br = new highlight_corner2();
+        		state_cont.addChild(_corner_br);
+        	}
+        	return _corner_br;
+        }
+        
+        /**
+         * bottom left 
+         */ 
+        public function get corner_bl():highlight_corner1{
+        	if(!_corner_bl){
+        		_corner_bl = new highlight_corner1();
+        		state_cont.addChild(_corner_bl);
+        	}
+        	return _corner_bl;
+        }
+        
+        /**
+         * top left 
+         */ 
+        public function get corner_tl():highlight_corner2{
+        	if(!_corner_tl){
+        		_corner_tl = new highlight_corner2();
+        		_corner_tl.rotation = 180;
+        		state_cont.addChild(_corner_tl);
+        	}
+        	return _corner_tl;
+        }
+        
+        /**
+         * top right 
+         */ 
+        public function get corner_tr():highlight_corner1{
+        	if(!_corner_tr){
+        		_corner_tr = new highlight_corner1();
+	            _corner_tr.rotation = 180;
+	            state_cont.addChild(_corner_tr);
+        	}
+        	return _corner_tr;
+        }
+        
+        public function get state_cont():Sprite {
+        	if(!_state_cont){
+        		_state_cont = new Sprite();
+            	addChild(_state_cont);
+            	_state_cont.mouseEnabled = false;
+		        _state_cont.mouseChildren = false;
+		        _state_cont.visible = false;
+		        if (rotatable){
+		        	if(this.getChildIndex(_state_cont) != 0){
+	                	setChildIndex(_state_cont, 0);
+	                }
+	            }
+        	}
+        	return _state_cont;
+        }
+        
         protected function init():void{
             loader = new Cache();
-            water_pipe_loader = new Cache();
+            //water_pipe_loader = new Cache();
             hit_area = new Sprite();
             addChild(hit_area);
             asset = new Sprite();
             addChild(asset);
-            state_cont = new Sprite();
-            addChild(state_cont);
-            corner_br = new highlight_corner2();
+            /* state_cont = new Sprite();
+            addChild(state_cont); */
+            /* corner_br = new highlight_corner2();
             corner_bl = new highlight_corner1();
             corner_tl = new highlight_corner2();
             corner_tr = new highlight_corner1();
@@ -208,24 +289,26 @@
             state_cont.addChild(corner_br);
             state_cont.addChild(corner_bl);
             state_cont.addChild(corner_tr);
-            state_cont.addChild(corner_tl);
-            rotate_btn = new RotateBtn();
-            addChild(rotate_btn);
-            rotate_btn.visible = false;
+            state_cont.addChild(corner_tl);  */
+            if(rotatable){
+	            rotate_btn = new RotateBtn();
+		        addChild(rotate_btn);
+		        rotate_btn.visible = false;
+	        }
             mouseEnabled = false;
             asset.mouseEnabled = false;
             asset.mouseChildren = false;
-            state_cont.mouseEnabled = false;
+            /* state_cont.mouseEnabled = false;
             state_cont.mouseChildren = false;
-            state_cont.visible = false;
+            state_cont.visible = false; */
             loader.addEventListener(Cache.LOAD_COMPLETE, assetLoaded);
-            if (water_pipe_id){
+            /* if (water_pipe_id){
                 water_pipe_loader.addEventListener(Cache.LOAD_COMPLETE, water_pipe_loaded);
                 water_pipe_loader.load(water_pipe_url);
-            }
-            if (type != "seeds" && type != "soil"){
+            } */
+            /* if (type != MAP_OBJECT_TYPE_SEEDS && type != MAP_OBJECT_TYPE_SOIL){
                 setChildIndex(state_cont, 0);
-            }
+            } */
             if (flipped){
                 flip();
             }
@@ -399,11 +482,11 @@
         }
         
         public function install_irrigation(obj:Object):void{
-            water_pipe_url = obj.image;
+            /* water_pipe_url = obj.image;
             water_pipe_id = obj.id;
             water_pipe_growing_percent = obj.growing_percent;
             water_pipe_loader.addEventListener(Cache.LOAD_COMPLETE, water_pipe_loaded);
-            water_pipe_loader.load(water_pipe_url);
+            water_pipe_loader.load(water_pipe_url); */
         }
         
         public function get bottom():Number{
@@ -479,19 +562,25 @@
         public function get flipable():Boolean{
             return (_flipable);
         }
+        
         public function get enabled():Boolean{
-            return (_enabled);
+            return _enabled;
         }
+        
         public function get top():Number{
             return ((grid_y * _grid_size));
         }
+        
         public function get_water_pipe():Number{
-            return (water_pipe_id);
+            return water_pipe_id;
         }
+        
         public function rotate_btn_clicked():Boolean{
+        	if(!rotatable)return false;
             var p:Point = localToGlobal(new Point(mouseX, mouseY));
-            return (rotate_btn.hitTestPoint(p.x, p.y, true));
+            return rotate_btn.hitTestPoint(p.x, p.y, true);
         }
+        
         public function get grid_size():Number{
             return _grid_size;
         }
@@ -525,7 +614,9 @@
             size_x = size_y;
             size_y = old_size_x;
             refresh_hit_area();
-            rotate_btn.scaleX = (rotate_btn.scaleX * -1);
+            if(rotatable){
+            	rotate_btn.scaleX = (rotate_btn.scaleX * -1);
+            }
             dispatchEvent(new Event(ON_CHANGE));
         }
         
@@ -670,15 +761,19 @@
             corner_br.y = get_y(size_x, size_y);
             corner_tl.visible = (corner_br.visible = (corner_bl.visible = (corner_tr.visible = show_corners)));
             if (flipable){
-                rotate_btn.x = corner_br.x;
-                if (_height > 100){
-                    rotate_btn.y = (corner_br.y - rotate_btn.height);
-                } else {
-                    rotate_btn.y = (corner_br.y - (rotate_btn.height / 2));
-                };
-                rotate_btn.visible = show_rotate_btn;
+            	if(rotatable){
+	                rotate_btn.x = corner_br.x;
+	                if (_height > 100){
+	                    rotate_btn.y = (corner_br.y - rotate_btn.height);
+	                } else {
+	                    rotate_btn.y = (corner_br.y - (rotate_btn.height / 2));
+	                }
+	                rotate_btn.visible = show_rotate_btn;
+                }
             } else {
-                rotate_btn.visible = false;
+            	if(rotatable){
+                	rotate_btn.visible = false;
+                }
             }
         }
         
@@ -799,7 +894,7 @@
             map_size_y = y_s;
             var _x:Number = (get_grid_x(parent.mouseX, parent.mouseY) - int((size_x / 2)));
             var _y:Number = (get_grid_y(parent.mouseX, parent.mouseY) - int((size_y / 2)));
-            if ((((type == "seeds")) || ((type == "soil")))){
+            if ((type == MAP_OBJECT_TYPE_SEEDS) || (type == MAP_OBJECT_TYPE_SOIL)){
                 if (_x < 0){
                     _x = 0;
                 }
@@ -913,13 +1008,14 @@
             refresh_asset();
             refresh_hit_area();
             state = _state;
-            rotate_btn.scaleX = (rotate_btn.scaleY = (v / 15));
+            if(rotatable){
+            	rotate_btn.scaleX = (rotate_btn.scaleY = (v / 15));
+            }
         }
         
         public function get usable():Boolean{
             return !waiting_to_process;
         }
-		
 		
 		public function same(mapObject:MapObject):Boolean {
 			var result:Boolean;
