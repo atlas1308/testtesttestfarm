@@ -2,6 +2,8 @@
     import flash.display.*;
     import flash.events.*;
     import flash.utils.*;
+    
+    import tzh.DisplayUtil;
 
     public class Particles extends Sprite {
 
@@ -25,6 +27,7 @@
             this.delay = delay;
             init();
         }
+        
         private function init():void{
             container = new Sprite();
             addChild(container);
@@ -32,20 +35,37 @@
             addEventListener(Event.ADDED_TO_STAGE, addedToStage);
             timer.addEventListener(TimerEvent.TIMER, onTimer);
         }
+        
+        public function kill():void {
+        	if(this.timer){
+        		this.timer.removeEventListener(TimerEvent.TIMER, onTimer);
+        		this.timer.stop();
+        		this.timer = null;
+        	}
+        	if(this.container){
+        		DisplayUtil.removeAllChildren(container);
+        	}
+        	DisplayUtil.removeAllChildren(this);
+        }
+        
         private function mouseMove(e:MouseEvent):void{
             generate();
         }
+        
         public function start():void{
             generate();
             if (repeat_count){
                 timer.start();
-            };
+            }
         }
+        
         private function addedToStage(e:Event):void{
         }
+        
         private function onTimer(e:TimerEvent):void{
             generate();
         }
+        
         public function generate():void{
             var particle:Particle;
             var i:Number = 0;
@@ -64,8 +84,9 @@
                         particle = new PollenParticle();
                         break;
                     default:
-                        particle = new SparkleParticle();
-                };
+                        particle = new SparkleParticle();// 小星星
+                      	break;
+                }
                 container.addChild(particle);
                 particle.source_y = source_y;
                 particle.min_source_distance = min_source_distance;

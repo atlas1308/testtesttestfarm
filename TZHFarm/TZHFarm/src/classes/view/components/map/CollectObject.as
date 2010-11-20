@@ -15,22 +15,21 @@
 
         protected var start_time:Number;
         protected var toggler:Sprite;
-        protected var toggler_on:SimpleButton;
         protected var is_working:Boolean = false;// 一个标记,标识是否正在工作
         protected var _automatic:Boolean = false;
         protected var _product_name:String;
         protected var stages:Number;
         protected var interval:Number;
         protected var auto_collect_interval:Number;
-        protected var toggler_off:SimpleButton;
+        
         protected var collect_in:Number;
         protected var old_collect_in:Number;
+        
+        protected var _toggler_on:SimpleButton;
+        protected var _toggler_off:SimpleButton;
 
         public function CollectObject(data:Object){
             collect_in = Number(data.collect_in);// 收集的时间,以秒为单位
-            /* CONFIG::debug{
-            	collect_in = 1440;
-            } */
             start_time = (data.start_time) ? data.start_time : 0;// 开始种植的时间
             stages = (data.stages) ? data.stages : 1;// 5个阶段
             _product_name = (data.product_name) ? data.product_name : "";// 收获产物的名称
@@ -68,6 +67,25 @@
             asset.addChild(loader.get_bmp_by_frame(current_stage()));
         }
         
+        public function get toggler_on():SimpleButton{
+        	if(!_toggler_on){
+        		_toggler_on = new AutomationOn();
+            	_toggler_on.name = "toggler_on";
+            	_toggler_on.visible = false;
+            	toggler.addChild(_toggler_on);
+        	}
+        	return _toggler_on;
+        }
+        
+        public function get toggler_off():SimpleButton{
+        	if(!_toggler_off){
+        		_toggler_off = new AutomationOff();
+            	_toggler_off.name = "toggler_off";
+            	_toggler_off.visible = false;
+            	toggler.addChild(_toggler_off);
+        	}
+        	return _toggler_off;
+        }
         /**
          * 初始化 
          */ 
@@ -77,15 +95,15 @@
             toggler = new Sprite();
             toggler.mouseChildren = false;
             toggler.mouseEnabled = false;
-            toggler_on = new AutomationOn();
+            addChild(toggler);
+            /* toggler_on = new AutomationOn();
             toggler_on.name = "toggler_on";
             toggler_off = new AutomationOff();
             toggler_off.name = "toggler_off";
-            toggler_on.visible = false;
+            toggler_on.visible = false; 
             toggler_off.visible = false;
-            addChild(toggler);
-            toggler.addChild(toggler_on);
-            toggler.addChild(toggler_off);
+            toggler.addChild(toggler_on); 
+            toggler.addChild(toggler_off); */
         }
         
         public function getChildByNameTemp(name:String):DisplayObject {
@@ -168,7 +186,7 @@
             if (start_time == 0){
                 return false;
             }
-            return ((Algo.time() > (start_time + collect_in)));
+            return (Algo.time() > (start_time + collect_in));
         }
         
         /**

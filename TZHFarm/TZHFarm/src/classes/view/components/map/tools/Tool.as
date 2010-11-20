@@ -320,11 +320,7 @@
             enabled = true;
             clear();
             tool_tip.visible = false;
-            try {
-            	this.tool_cont.addChild(tool_tip);
-            }catch(error:Error){
-            	trace("this is a bug please fix this bug");
-            }
+            this.tool_cont.addChild(tool_tip);
         }
 
         public function refresh_grid_size(value:Number) : void
