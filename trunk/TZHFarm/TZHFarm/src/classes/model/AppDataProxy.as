@@ -2102,13 +2102,12 @@
             var obj_fed:Object = get_map_obj(obj.id, obj.grid_x, obj.grid_y);
             if(!obj_fed)return false;
             if (app_data.op <= 0){
-                return (false);
-            };
+                return false;
+            }
             if (!info.is_multi){
                 if (!app_data.storage[info.raw_material]){
                     return (false);
                 }
-                
                 if (obj_fed.raw_materials == 3){
                     return false;
                 }

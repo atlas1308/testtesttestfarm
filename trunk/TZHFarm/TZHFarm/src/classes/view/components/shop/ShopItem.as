@@ -127,7 +127,7 @@
             flip_btn.visible = false;
             if (data.show_name !== false)
             {
-                item_title.text = data.name;
+                item_title.text = data.name ? data.name : "";
             }
             if (data.price)
             {
