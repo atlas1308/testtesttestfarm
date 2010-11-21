@@ -115,16 +115,16 @@ return array(
     ),
     38 => array(
 				'name' => 'Nawóz organiczny',
-        'desc' => 'Skróć czas wzrostu upraw o 25%- 200 użyć.',
+        'desc' => 'Skróć czas wzrostu upraw o 25%',
     ),
     39 => array(
         'name' => 'Nawóz organiczny',
-        'desc' => 'Skróć czas wzrostu upraw o 25% - 450 użyć.',
+        'desc' => 'Skróć czas wzrostu upraw o 25%',
 
     ),
     40 => array(
     		'name' => 'Nawóz organiczny',
-        'desc' => 'Skróć czas wzrostu upraw o 25% - 1000 użyć.',
+        'desc' => 'Skróć czas wzrostu upraw o 25%',
     ),
     41 => array(
         'name' => 'Winogrona',
@@ -346,28 +346,28 @@ return array(
     ),
     114 => array(
         'name' =>'Mała parcela',
-        'desc' => 'Potwierdź drzewa, maszyny, zwierzęta i dekorację.',
+        'desc' => 'Potwierdź drzewa, maszyny, zwierzęta',
 
     ),
     115 => array(
   	    'name' => 'Mała parcela',
-        'desc' => 'Potwierdź drzewa, maszyny, zwierzęta i dekorację.',
+        'desc' => 'Potwierdź drzewa, maszyny, zwierzęta',
     ),
     116 => array(
  			  'name' => 'Średnia parcela',
-        'desc' => 'Potwierdź drzewa, maszyny, zwierzęta i dekorację.',
+        'desc' => 'Potwierdź drzewa, maszyny, zwierzęta',
     ),
     117 => array(
 				'name' => 'Średnia parcela',
-        'desc' => 'Potwierdź drzewa, maszyny, zwierzęta i dekorację.',
+        'desc' => 'Potwierdź drzewa, maszyny, zwierzęta',
     ),
     118 => array(
 				'name' => 'Duża parcela',
-        'desc' => 'Potwierdź drzewa, maszyny, zwierzęta i dekorację.',
+        'desc' => 'Potwierdź drzewa, maszyny, zwierzęta',
     ),
     119 => array(
    			'name' => 'Duża parcela',
-        'desc' => 'Potwierdź drzewa, maszyny, zwierzęta i dekorację.',
+        'desc' => 'Potwierdź drzewa, maszyny, zwierzęta',
     ),
     120 => array(
         'name' => '25 OP',
