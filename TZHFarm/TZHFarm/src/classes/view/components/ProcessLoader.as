@@ -52,7 +52,7 @@
             if (percent == 100){
                 removeEventListener(Event.ENTER_FRAME, draw);
                 dispatchEvent(new Event(COMPLETE));
-            };
+            }
             container.x = (-(container.width) / 2);
             container.y = -(container.height);
         }

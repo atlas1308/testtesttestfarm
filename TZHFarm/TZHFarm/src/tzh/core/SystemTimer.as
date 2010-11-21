@@ -33,7 +33,7 @@ package tzh.core
 		
 		private function timerHandler(evt:TimerEvent):void {
 			var nextTime:Number = getTimer();
-			var diffTime:Number = (nextTime - prevTime) / 1000;
+			var diffTime:Number = (nextTime - prevTime) / 1000;// 修改一下这个时间试试,不能让客户端跑的太快
 			prevTime = nextTime;
 			this._serverTime += diffTime;
 		}
