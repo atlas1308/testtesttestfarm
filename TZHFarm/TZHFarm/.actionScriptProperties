@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <actionScriptProperties mainApplicationPath="TZHFarm.as" version="3">
-<compiler additionalCompilerArguments="-locale=de -define=CONFIG::debug,true -define=CONFIG::release,false -define=CONFIG::version,'pl' -keep-generated-actionscript=false" copyDependentFiles="true" enableModuleDebug="false" flexSDK="Flex 3.2" generateAccessible="true" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="true" htmlPlayerVersion="9.0.124" htmlPlayerVersionCheck="true" outputFolderPath="bin-debug" sourceFolderPath="src" strict="true" useApolloConfig="false" verifyDigests="true" warn="true">
+<compiler additionalCompilerArguments="-locale=de -define=CONFIG::debug,false -define=CONFIG::release,true -define=CONFIG::version,'pl' -keep-generated-actionscript=false" copyDependentFiles="true" enableModuleDebug="false" flexSDK="Flex 3.2" generateAccessible="true" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="true" htmlPlayerVersion="9.0.124" htmlPlayerVersionCheck="true" outputFolderPath="bin-debug" sourceFolderPath="src" strict="true" useApolloConfig="false" verifyDigests="true" warn="true">
 <compilerSourcePath>
 <compilerSourcePathEntry kind="1" linkType="1" path="locale/{locale}"/>
 </compilerSourcePath>
