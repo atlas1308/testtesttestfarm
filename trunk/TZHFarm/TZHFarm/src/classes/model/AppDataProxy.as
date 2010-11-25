@@ -16,6 +16,10 @@
 	
 	import flash.events.Event;
 	import flash.net.SharedObject;
+	import flash.utils.clearInterval;
+	import flash.utils.clearTimeout;
+	import flash.utils.setInterval;
+	import flash.utils.setTimeout;
 	
 	import mx.resources.ResourceManager;
 	
@@ -24,11 +28,13 @@
 	import org.puremvc.as3.multicore.patterns.proxy.Proxy;
 	
 	import tzh.core.Config;
+	import tzh.core.Cookies;
 	import tzh.core.DateUtil;
 	import tzh.core.FeedData;
 	import tzh.core.JSDataManager;
 	import tzh.core.SystemTimer;
 	import tzh.core.TutorialManager;
+	
 	import flash.utils.clearInterval;
 	import flash.utils.clearTimeout;
 	import flash.utils.setTimeout;
@@ -53,7 +59,6 @@
         public var user_id:String;
         private var queue:Array;
         private var map_object_to_use:MapObject;
-        private var queue_interval:Number;
         private var last_sent_gift_data:Object;
         private var config:Object;
         public var last_feed_data:Object;
@@ -89,9 +94,9 @@
             if (objs.length == 0){
                 if (report){
                     return (report_confirm_error(ResourceManager.getInstance().getString("message","build_message",[Algo.articulate(target.name).toString()])));
-                };
-                return (false);
-            };
+                }
+                return false;
+            }
             if (objs[0].under_construction){
                 if (report){
                 	return (report_confirm_error(ResourceManager.getInstance().getString("message","finish_message",[target.name])));
@@ -236,18 +241,6 @@
         }
         
         /**
-         * 发送feed
-         */
-        public function post_published(type:String, target:Number=0):void{
-            if (config.ask_for_materials_stories.indexOf(type) > -1){
-                app_data.ask_for_materials[target] = false;
-            }
-            if (config.ask_for_help_stories.indexOf(type) > -1){
-                app_data.ask_for_help[target] = false;
-            }
-        }
-        
-        /**
          * 初始化的一个方法,在retrieve返回时去处理这个方法 
          */ 
         public function init(config:Object, app_data:Object):void{
@@ -292,6 +285,9 @@
             if (app_data.friend_helped){
                 sendNotification(ApplicationFacade.SHOW_FRIEND_HELPED_POPUP);
             }
+            if(app_data.msg_count){
+            	sendNotification(ApplicationFacade.UPDATE_MSG_COUNT,app_data.msg_count);
+            }
             update_objects(update_fields);
             if(showTutorial){// 如果这个值是0的话,才能开始向导
             	TZHFarm.instance.stage.mouseChildren = false;// 初始化其它的都不让用户点了
@@ -299,11 +295,30 @@
             	setTimeout(startTutorial,2000);
             }else {
             	TutorialManager.getInstance().end = true;
+            	
             }
             if (app_data.farm){
                 sendNotification(ApplicationFacade.SHOW_FARM);
             }
             setTimeout(hideOverlay,1000);
+        }
+        
+        /**
+         * 默认的弹出这个页面是要一天的时间
+         * 如果向导在进行的话,那么就不弹出 
+         */ 
+        private function showNewsPopup():void {
+        	trace("TutorialManager.getInstance().end " + TutorialManager.getInstance().end);
+        	if(TutorialManager.getInstance().end){
+	        	var lastNewsPopupTime:Number = Number(Cookies.getCookies("lastNewsPopupTime"));
+	        	var diff:Boolean = DateUtil.expired(SystemTimer.getInstance().serverTime,
+	        								lastNewsPopupTime,
+	        								Number(Config.getConfig("newsPopupTimes")));
+	        	if(diff){
+	        		Cookies.addCookies("lastNewsPopupTime",SystemTimer.getInstance().serverTime);
+	        		sendNotification(ApplicationFacade.SHOW_NEWS_PANEL);
+	        	}
+        	}
         }
         
         private function startTutorial():void {
@@ -327,6 +342,7 @@
         
         private function hideOverlay():void {
         	sendNotification(ApplicationFacade.HIDE_OVERLAY);
+        	this.showNewsPopup();
         }
         
         public function lottery_message():String{
@@ -549,7 +565,7 @@
          * 用户的金币 
          */ 
         public function get coins():Number{
-            return (app_data.coins);
+            return app_data.coins;
         }
         
         
@@ -652,18 +668,6 @@
         }
         
         /**
-         * 荣誉系统,暂时没有使用到这些内容 
-         */ 
-        public function get_achievements_data():Array{
-            var output:Array;
-            /* var obj:Object;
-            var _local3:Object;
-            var _local4:Object; */
-            output = new Array();
-            return output;
-        }
-        
-        /**
          * 发送错误消息 
          */ 
         private function report_error(name:String):Boolean{
@@ -724,36 +728,22 @@
         }
         
         /**
-         * 这个可能在好友翻页的时候会使用到的 
-         */ 
-        public function neighbors_loaded(data:Object):void{
-            var obj:Object;
-            if (!data){
-                return;
-            };
-            Algo.convert_to_number(data);
-            var list:Array = new Array();
-            for each (obj in data.neighbors) {
-                app_data.neighbors.push(obj);
-                list.push(prep_neighbor_data(obj));
-            };
-            sendNotification(ApplicationFacade.NEIGHBORS_LOADED, list);
-        }
-        
-        /**
          * 购买商品 
+         * 要注意这里也许会出错的
          */ 
         public function buy_item(id:Number):Boolean{
             var item:Object = get_item_data(id);
+            var result:Boolean;
             switch (item.type){
                 case "expand_ranch":
                     expand_ranch(item);
                     app_data.coins = (app_data.coins - parseFloat(item.price));
                     confirm = new Confirmation(0, -(item.price));
                     update_objects(["coins"]);
+                    result = true;
                     break;
             }
-            return true;
+            return result;
         }
         
         private function add_object_action(obj:Object):String{
@@ -1308,12 +1298,51 @@
             }
         }
         
+        public function get currentUser():Object {
+        	var id:String;
+        	if(app_data.farm && app_data.farm.uid) {
+        		id = friend_farm_id;
+        	}else {
+        		id = user_id;
+        	}
+        	var result:Object = getUserInfo(id);
+        	CONFIG::debug{
+        		result = {};
+        		result.uid = "a";
+        		result.name = "testssss";
+        		result.pic = "http://img-p1.pe.imagevz.net/profile1/e0/59/5afda440391947c52fa2a12ee709/1-f9571f57626acde1-m.jpg";
+        	}
+        	return result;
+        }
+        
+        public static const FRIEND_MODE:String = "friendMode";// 2种状态
+		
+		public static const USER_MODE:String = "userMode";// 用户自己
+        public function get mode():String {
+        	var result:String;
+        	if(currentUser.uid == user_id){// 这里没有JS的话,会出异常
+        		result = USER_MODE;
+        	}else {
+        		result = FRIEND_MODE;
+        	}
+        	return result;
+        }
+        
         public function get enabledFriendFertilizer():Boolean {
         	var result:Boolean;
         	if(app_data.fertilizer && app_data.fertilizer.times > 0){
         		result = true;
         	}
         	return result;
+        }
+        
+        public function addMessage(value:Object):Boolean {
+        	var messages:Array = this.messages as Array;
+    		value.fuid = this.user_id;// 
+        	value.msgtime = SystemTimer.getInstance().serverTime;
+        	messages.unshift(value);// 添加到头
+        	sendNotification(ApplicationFacade.UPDATE_NEWS_PANEL);
+        	return true;
         }
         
         public function friendFertilize(value:Object):Boolean {
@@ -1460,6 +1489,12 @@
         
         public function get appUser():Object {
             var userInfo:Object = getUserInfo(user_id);
+            CONFIG::debug{
+        		userInfo = {};
+        		userInfo.uid = "a";
+        		userInfo.name = "testssss";
+        		userInfo.pic = "http://img-p1.pe.imagevz.net/profile1/e0/59/5afda440391947c52fa2a12ee709/1-f9571f57626acde1-m.jpg";
+        	}
             return userInfo;
         }
         
@@ -1671,7 +1706,7 @@
                 sendNotification(ApplicationFacade.SHOW_CONFIRM_POPUP, {
                     msg:Err.NO_RP,
                     obj:{
-                        notif:ApplicationFacade.NAVIGATE_TO_URL,
+                        //notif:ApplicationFacade.NAVIGATE_TO_URL,
                         data:"offers"
                     }
                 })
@@ -1718,7 +1753,7 @@
                 if (list.length == info.max_instances){
                     if (can_upgrade(list[0])){
                     	return (report_confirm_error(ResourceManager.getInstance().getString("message","upgrade_notice_message",[Algo.articulate(info.name).toString()])));
-                    };
+                    }
                     return (report_confirm_error(ResourceManager.getInstance().getString("message","already_have_items",[Algo.articulate(info.name).toString()])));
                 }
             }
@@ -1900,12 +1935,43 @@
             return null;
         }
         
+        
+        public function get messages():Object {
+        	if(!app_data.messages){
+        		app_data.messages = [];
+        	}
+        	return app_data.messages;
+        }
+        
+        public function set messages(value:Object):void {
+        	if(!app_data.messages){
+        		app_data.messages = [];
+        	}
+        	Algo.convert_to_number(value);
+        	app_data.messages = value;
+        }
+        
+        /**
+         * 根据ID删除消息
+         * @param id:int 后台生成的唯一的ID 
+         */ 
+        public function removeMessageByID(id:int):void {
+        	var messages:Array = app_data.messages;
+        	for(var i:int = 0; i < messages.length; i++){
+        		var message:Object = messages[i];
+        		if(message.hasOwnProperty("id") && message.id == id){
+        			messages.splice(i,1);
+        			break;
+        		}
+        	}
+        }
+        
         public function can_close_shop(id:Number):Boolean{
             var info:Object = config.store[id];
             if (info.action == "construction"){
-                return (false);
+                return false;
             }
-            return (true);
+            return true;
         }
         
         /**
@@ -1919,9 +1985,6 @@
             var obj:Object = Algo.clone(config.store[id]);
             if (!obj){
                 return null;
-            }
-            if(obj.kind == "greenhouse"){
-            	trace('abcd');
             }
             if (obj.constructible){
                 obj.swf_uc = (("assets/swf/" + obj.url) + "_uc.swf");
@@ -1996,7 +2059,7 @@
                 obj.locked = (app_data.level < obj.level);// 验证等级是否够了
                 obj.locked_message = ResourceManager.getInstance().getString("message","locked_message",[obj.level]);
                 obj.locked_button = ResourceManager.getInstance().getString("message","locked_button_buy");
-            } 
+            }  
             /* if (neighbors_count() == 0){
                 obj.buy_gift = false;
             } 
@@ -2004,7 +2067,6 @@
             obj.buy_gift = false;
             return (obj);
         }
-        
         
         public function get_gifts_data():Array{
             var item:Object;
@@ -2313,32 +2375,35 @@
             return true;
         }
         
+        /**
+         * 
+         */ 
         public function map_can_use_shop_item(id:Number):Boolean{
             var item:Object;
-            var _local3:Object;
-            var _local4:Boolean;
+            var pItem:Object;
+            var hasParent:Boolean;
             var i:Number;
             var obj:Object;
             var data:Object;
             item = get_item_data(id);
             switch (item.type){
                 case "animals":
-                    _local3 = get_item_data(item.add_on);
-                    _local4 = false;
+                    pItem = get_item_data(item.add_on);
+                    hasParent = false;
                     i = 0;
                     while (i < app_data.map.length) {
                         obj = app_data.map[i];
                         data = get_item_data(obj.id);
-                        if (data.id == _local3.id){
-                            _local4 = true;
+                        if (data.id == pItem.id){
+                            hasParent = true;
                             break;
-                        };
+                        }
                         i++;
                     }
-                    if (!_local4){
-                        return (report_confirm_error((ResourceManager.getInstance().getString("message","you_need",[_local3.name]))));
+                    if (!hasParent){
+                        return (report_confirm_error((ResourceManager.getInstance().getString("message","you_need",[pItem.name]))));
                     }
-                    return (true);
+                    return true;
                 case "materials":
                     if (item.action == "irrigation"){
                         return true;
@@ -2367,11 +2432,11 @@
                 map_obj = get_map_obj(obj.id, obj.x, obj.y);
                 var diffTime:Number = obj.data.start_time - map_obj.start_time;
                 trace("diffTime : " + diffTime); 
-                if (diffTime > map_obj.collect_in){//这里的太那个什么了吧,后台算的怎么会一直有错呢?
+                /* if (diffTime > map_obj.collect_in){//这里的太那个什么了吧,后台算的怎么会一直有错呢?
                     //return (show_refresh_page_popup("", Err.TIME_DELAY));// 这个还是有必要的,
                 }else {
                 	map_obj.updated_start_time = obj.data.start_time;
-                }
+                } */
             }
         }
         
@@ -2380,7 +2445,7 @@
         }
         
         public function spend_rp(id:Number, target:Object=null):Boolean{
-            var _local5:Boolean;
+            var hasOp:Boolean;
             var item:Object = get_item_data(id);
             if (item.rp_price > app_data.reward_points){
                 return report_error(Err.NO_RP);
@@ -2406,9 +2471,9 @@
                     confirm = new Confirmation();
                     break;
                 case "automation":
-                    _local5 = (app_data.op == 0);
+                    hasOp = (app_data.op == 0);
                     app_data.op = (app_data.op + item.op);
-                    if (_local5){
+                    if (hasOp){
                         sendNotification(ApplicationFacade.CHECK_AUTOMATION, "op_refill");
                     }
                     names.push("operations");
@@ -2600,35 +2665,6 @@
             return true;
         }
         
-        /**
-         * 这个功能暂时没有加上 
-         */ 
-        private function get_achievement(id:Number):Object{
-            var i:Number = 0;
-            while (i < app_data.achievements.length) {
-                if (app_data.achievements[i].id == id){
-                    return (app_data.achievements[i]);
-                }
-                i++;
-            }
-            return null;
-        }
-        
-        /**
-         * feed功能 
-         */ 
-        public function show_feed_dialog(data:Object=null):void{
-            /* if (((!(app_data.feed_data)) && (!(data)))){
-                return;
-            }
-            var feed_data:Object;  = (data) ? data : app_data.feed_data;
-            if (feed_data.add_user){
-                feed_data.attachment.description = (user_name + feed_data.attachment.description);
-            }
-            last_feed_data = feed_data; 
-            sendNotification(ApplicationFacade.SHOW_FEED_DIALOG, feed_data);*/
-        }
-        
         private function num_materials(obj:Object):Number{
             var c:Number = 0;
             var info:Object = config.store[obj.id];
@@ -2662,10 +2698,10 @@
             var s:Number = item.size;
             var current_size:Number = ((item.action)=="expand") ? app_data.size_x : ((item.action)=="expand_top_map") ? app_data.top_map_size : app_data.bottom_map_size;
             for each (obj in config.store) {
-                if ((((((obj.type == "expand_ranch")) && ((obj.action == item.action)))) && (!(obj.neighbors)))){
+                if ((obj.type == "expand_ranch") && (obj.action == item.action) && (!obj.neighbors)){
                     plans.push(obj);
-                };
-            };
+                }
+            }
             plans.sortOn("size", Array.NUMERIC);
             i = 0;
             while (i < plans.length) {
@@ -2954,19 +2990,6 @@
             sendNotification(ApplicationFacade.AUTOMATION_TOGGLED);
             return true;
         }
-        
-        
-        public function toggleOffAutomation(obj:Processor):Boolean{
-    		var map_obj:Object = get_map_obj(obj.id, obj.grid_x, obj.grid_y);
-    		if(map_obj.automatic){
-    			map_obj.automatic = false;
-    			obj.automatic = false;
-    		}else{
-    			// 如果不是自动话的,那就不用管了
-    		}
-        	return true;
-        }
-        
         
         private function get_constructible_object(material:Number):Object{
             var mo:Object;

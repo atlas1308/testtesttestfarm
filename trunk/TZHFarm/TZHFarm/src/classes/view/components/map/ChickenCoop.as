@@ -120,19 +120,19 @@
 
         private function animFinished(event:Event) : void
         {
-            var _loc_3:Number = NaN;
+            var delay:Number = NaN;
             var index:Number = 0;
             while (index < Algo.rand(1, animals))
             {
                 
-                _loc_3 = is_working ? (Algo.rand(5000, 10000)) : (Algo.rand(20000, 30000));
+                delay = is_working ? (Algo.rand(5000, 10000)) : (Algo.rand(20000, 30000));
                 if (Algo.rand(0, 1) == 1)
                 {
-                    random_chicken().play(anim, true, _loc_3);
+                    random_chicken().play(anim, true, delay);
                     index++;
                     continue;
                 }
-                random_chicken().play(head_turn, true, _loc_3);
+                random_chicken().play(head_turn, true, delay);
                 index++;
             }
         }

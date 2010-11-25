@@ -8,6 +8,8 @@
     import flash.utils.*;
     
     import mx.resources.ResourceManager;
+    
+    import tzh.DisplayUtil;
 
     public class StorageItem extends Sprite
     {
@@ -141,6 +143,19 @@
         {
             removeEventListener(MouseEvent.MOUSE_UP, sellClicked);
             qty.removeEventListener(FocusEvent.FOCUS_OUT, onFocusOut);
+            qty.removeEventListener(FocusEvent.FOCUS_OUT, onFocusOut);
+            up_btn.removeEventListener(MouseEvent.CLICK, upClicked);
+            up_btn.removeEventListener(MouseEvent.MOUSE_DOWN, upPressed);
+            down_btn.removeEventListener(MouseEvent.MOUSE_DOWN, downPressed);
+            down_btn.removeEventListener(MouseEvent.CLICK, downClicked);
+            qty.removeEventListener(Event.CHANGE, onTextChange);
+            sell.removeEventListener(MouseEvent.CLICK, sellClicked);
+            sell.removeEventListener(MouseEvent.MOUSE_OVER, sellOver);
+            sell.removeEventListener(MouseEvent.MOUSE_OUT, sellOut);
+            /* if(loader){
+            	loader.destory();
+            } */
+            //DisplayUtil.removeAllChildren(this);
             parent.removeChild(this);
         }
 
@@ -193,12 +208,12 @@
             return {id:data.id, qty:qty.text};
         }
 
-        private function slide_value(downPressed:Number) : void
+        private function slide_value(value:Number) : void
         {
             slide_started = true;
-            if (change_qty(downPressed))
+            if (change_qty(value))
             {
-                slide_interval = setTimeout(slide_value, 40, downPressed);
+                slide_interval = setTimeout(slide_value, 40, value);
             }
         }
 

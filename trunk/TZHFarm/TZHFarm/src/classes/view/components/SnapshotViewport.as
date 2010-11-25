@@ -1,5 +1,4 @@
-﻿// view windows
-package classes.view.components
+﻿package classes.view.components
 {
     import classes.view.components.buttons.*;
     

@@ -7,6 +7,8 @@
     import flash.events.*;
     import flash.filters.*;
     import flash.text.*;
+    
+    import tzh.DisplayUtil;
 
     public class Confirmation extends Sprite
     {
@@ -16,11 +18,12 @@
 		public function Confirmation(value:Object)
         {
             this.data = value;
-            addEventListener(Event.ADDED_TO_STAGE, init);
+            this.addEventListener(Event.ADDED_TO_STAGE, init);
         } 
 
         private function init(event:Event) : void
         {
+        	this.removeEventListener(Event.ADDED_TO_STAGE, init);
             var minusTextField:TextField = null;
             var plusTextField:TextField = null;
             minusTextField = create_tf(data.minus?data.minus:"");
@@ -65,15 +68,16 @@
             textFormat.align = TextFormatAlign.CENTER;
             tf.defaultTextFormat = textFormat;
             tf.embedFonts = true;
-            //if(Event.ADDED_TO_STAGE)// 这个有用么?
-            //{
-            	tf.text = value;
-            //}
+            tf.text = value;
             return tf;
         }
 
         private function finished(event:TweenEvent) : void
         {
+        	alpha_tween.stop();
+        	y_tween.stop();
+        	y_tween.removeEventListener(TweenEvent.MOTION_FINISH, finished);
+        	DisplayUtil.removeAllChildren(this);
             parent.removeChild(this);
         }
 

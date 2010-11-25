@@ -85,11 +85,11 @@
             {
                 if (ComplexPopup(popup).item is SendGiftsPopupItem)
                 {
-                    sendNotification(ApplicationFacade.NAVIGATE_TO_URL, "gifts");
+                    //sendNotification(ApplicationFacade.NAVIGATE_TO_URL, "gifts");
                 }
                 else
                 {
-                    app_data.show_ask_for_materials_feed_dialog(ComplexPopup(popup).item.id);
+                    //app_data.show_ask_for_materials_feed_dialog(ComplexPopup(popup).item.id);
                 }
             }
         }
@@ -132,13 +132,13 @@
                 {
                     case PopupTypes.SHOW_GIFTS_POPUP:
                     {
-                        sendNotification(ApplicationFacade.NAVIGATE_TO_URL, "gifts");
+                        //sendNotification(ApplicationFacade.NAVIGATE_TO_URL, "gifts");
                         break;
                     }
                     case PopupTypes.ACCEPT_SELECTED_GIFT:// 送礼物的功能
                     {
-                        onClose();
-                        sendNotification(ApplicationFacade.SEND_GIFT, DynamicPopup(popup).info);
+                        //onClose();
+                        //sendNotification(ApplicationFacade.SEND_GIFT, DynamicPopup(popup).info);
                         break;
                     }
                     case PopupTypes.PUBLISH_GIFT_SENT_STORY:
@@ -185,11 +185,11 @@
             }
             if (popup as SendGiftsPopup)
             {
-                sendNotification(ApplicationFacade.NAVIGATE_TO_URL, "gifts");
+                //sendNotification(ApplicationFacade.NAVIGATE_TO_URL, "gifts");
             }
             if (popup as StoryPopup)
             {
-                app_data.show_feed_dialog(StoryPopup(popup).feed_data);
+                //app_data.show_feed_dialog(StoryPopup(popup).feed_data);// 此方法已经被删除
             }
             if (popup as FriendHelpedPopup)
             {

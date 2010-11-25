@@ -26,7 +26,7 @@
 		 */ 
         override public function listNotificationInterests() : Array
         {
-            return [ApplicationFacade.UPDATE_OBJECTS, ApplicationFacade.BACK_TO_MY_RANCH,ApplicationFacade.SHOW_LEVEL_UP_POPUP,ApplicationFacade.NEIGHBORS_LOADED, ApplicationFacade.ACTIVATE_SNAPSHOT_MODE, ApplicationFacade.DEACTIVATE_SNAPSHOT_MODE];
+            return [ApplicationFacade.UPDATE_OBJECTS, ApplicationFacade.BACK_TO_MY_RANCH,ApplicationFacade.SHOW_LEVEL_UP_POPUP, ApplicationFacade.ACTIVATE_SNAPSHOT_MODE, ApplicationFacade.DEACTIVATE_SNAPSHOT_MODE];
         }
 
         protected function get app_data() : AppDataProxy
@@ -61,11 +61,6 @@
                 case ApplicationFacade.BACK_TO_MY_RANCH:
                 {
                     friends_list.clear_visited_friend();
-                    break;
-                }
-                case ApplicationFacade.NEIGHBORS_LOADED:
-                {
-                    friends_list.update_friends(value.getBody() as Array);
                     break;
                 }
                 case ApplicationFacade.ACTIVATE_SNAPSHOT_MODE:

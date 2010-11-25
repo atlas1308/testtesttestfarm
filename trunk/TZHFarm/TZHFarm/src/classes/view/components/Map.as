@@ -6,6 +6,7 @@
     import flash.display.*;
     import flash.events.*;
     
+    import tzh.DisplayUtil;
     import tzh.core.TutorialManager;
 
     public class Map extends Sprite {
@@ -317,7 +318,9 @@
             var gh:Greenhouse;
             var fence:Fence = (e.target as Fence);
             if (fence){
-                align_fences(fence);
+            	//DisplayUtil.removeAllChildren(fence);
+            	//fence = null;
+                align_fences(fence);// 这判断代码要分析一下,有bug可能
                 fence.show_posts();
             }
             if ((e.target is Greenhouse)){
@@ -328,7 +331,7 @@
             if ((e.target is Plant)){
                 Plant(e.target).greenhouse_removed();
             }
-            if ((e.target as WaterWell)){
+            if (e.target as WaterWell){
                 water_well = null;
             }
         }
@@ -1153,7 +1156,12 @@
             current_process_loader = (e.target as ProcessLoader);
             if (current_process_loader.auto_mode){
                 current_process_loader.visible = false;
-                container.removeChild(current_process_loader);
+                current_process_loader.remove();
+                //current_process_loader.removeEventListener(Event.COMPLETE,processComplete);
+                auto_process_loaders.splice(auto_process_loaders.indexOf(current_process_loader),1);
+                trace("auto_process_loaders " + auto_process_loaders.length + " container " + container.numChildren );
+                //current_process_loader = null;
+                //container.removeChild(current_process_loader);
             } else {
                 process_loader.visible = false;
             }

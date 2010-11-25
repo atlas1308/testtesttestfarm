@@ -7,6 +7,8 @@
     import flash.text.*;
     
     import mx.resources.ResourceManager;
+    
+    import tzh.DisplayUtil;
 
     public class ProcessLoader extends Sprite {
 
@@ -100,9 +102,12 @@
             mouseEnabled = false;
             mouseChildren = false;
         }
+        
         public function remove():void{
             removeEventListener(Event.ENTER_FRAME, draw);
-            parent.removeChild(this);
+            DisplayUtil.removeAllChildren(container);
+            DisplayUtil.removeAllChildren(this);
+            DisplayUtil.removeChild(this.parent,this);
         }
 
     }

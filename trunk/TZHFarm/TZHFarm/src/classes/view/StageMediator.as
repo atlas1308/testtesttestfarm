@@ -6,6 +6,7 @@
     import classes.view.components.*;
     import classes.view.components.buttons.*;
     import classes.view.components.map.*;
+    import classes.view.components.messages.NewsPanel;
     import classes.view.components.popups.*;
     
     import flash.display.*;
@@ -39,6 +40,7 @@
         private var gift_box:GiftBox;
         public static const NAME:String = "StageMediator";
         public static const STAGE_WIDTH:Number = 760;
+        private var messageBar:MessageBar;
 
         public function StageMediator(value:Object)
         {
@@ -53,7 +55,8 @@
                 stage.displayState = StageDisplayState.FULL_SCREEN;
             }
         }
-
+		
+		
         private function create_objects() : void
         {
             Cursor.stage = stage;
@@ -101,6 +104,11 @@
             save_button = new SaveButton();
             facade.registerMediator(new SaveButtonMediator(save_button));
             stage.addChild(save_button);
+            messageBar = new MessageBar();
+            facade.registerMediator(new MessageBarMediator(messageBar));
+            messageBar.y = 100;
+            messageBar.x = 10;
+            stage.addChild(messageBar);
             var overlay:Overlay = new Overlay();
             facade.registerMediator(new OverlayMediator(overlay));
             stage.addChild(overlay);
@@ -118,14 +126,10 @@
             facade.registerMediator(new GiftsMediator(gifts));
             stage.addChild(gifts);
             gifts.visible = false;
-            var achievements:Achievements = new Achievements();
-            facade.registerMediator(new AchievementsMediator(achievements));
-            stage.addChild(achievements);
-            achievements.visible = false;
             var confirm_cont:* = new ConfirmationContainer();
             facade.registerMediator(new ConfirmationMediator(confirm_cont));
             stage.addChild(confirm_cont);
-            var anim_cont:* = new AnimationContainer(toolbar.storage);
+            var anim_cont:AnimationContainer = new AnimationContainer(toolbar.storage);
             facade.registerMediator(new AnimationMediator(anim_cont));
             stage.addChild(anim_cont);
             
@@ -138,6 +142,7 @@
             facade.registerMediator(new FertilizeBoxMediator(fertilizeBox));
             stage.addChild(fertilizeBox);
             
+            
             var tooltip:classes.view.components.Tooltip = new classes.view.components.Tooltip();
             facade.registerMediator(new TooltipMediator(tooltip)); 
             stage.addChild(tooltip); 
@@ -149,23 +154,6 @@
             cancel_snapshot.visible = false;
             cancel_snapshot.addEventListener(MouseEvent.CLICK, snapshotCanceled);
             stage.addChild(cancel_snapshot);
-            try
-            {
-                if (ExternalInterface.available)
-                {
-                    //Log.add("EI add callback");
-                    //ExternalInterface.addCallback("onMouseWheel", onExternalMouseWheel);
-                    //ExternalInterface.addCallback("publishedToStream", onPublishedToStream);
-                    //ExternalInterface.addCallback("permissionDialogClosed", permissionDialogClosed);
-                }
-                else
-                {
-                    Log.add("External interface unavailable");
-                }
-            }
-            catch (e:Error)
-            {
-            }
             stageResize();
             app_data.game_objects_created();
         }
@@ -305,7 +293,6 @@
                 }
                 case ApplicationFacade.SHOW_STREAM_PERMISSIONS:
                 {
-                    Log.add("show stream permissions");
                     stage.displayState = StageDisplayState.NORMAL;
                     //ExternalInterface.call("showStreamPermissions");
                     break;
@@ -520,24 +507,7 @@
                 }
             }
         }
-
-        private function mouseWheelHandler(event:MouseEvent) : void
-        {
-            /* if (event.delta > 0)
-            {
-                sendNotification(ApplicationFacade.ZOOM_IN);
-            }
-            else
-            {
-                sendNotification(ApplicationFacade.ZOOM_OUT);
-            } */
-        }
-
-        private function onExternalMouseWheel(value:int) : void
-        {
-            mouseWheelHandler(new MouseEvent(MouseEvent.MOUSE_WHEEL, true, false, 0, 0, null, false, false, false, false, value));
-        }
-
+        
         protected function get app_data() : AppDataProxy
         {
             return facade.retrieveProxy(AppDataProxy.NAME) as AppDataProxy;
@@ -623,7 +593,6 @@
             stage.align = StageAlign.TOP_LEFT;
             stage.scaleMode = StageScaleMode.NO_SCALE;
             stage.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler);
-            stage.addEventListener(MouseEvent.MOUSE_WHEEL, mouseWheelHandler);
             stage.addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler);
             stage.addEventListener(Event.MOUSE_LEAVE, mouseLeaveHandler);
             stage.addEventListener(Event.RESIZE, stageResize);

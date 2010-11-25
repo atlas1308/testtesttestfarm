@@ -5,6 +5,9 @@
     import flash.events.*;
     import flash.geom.*;
     import flash.utils.*;
+    
+    import tzh.core.Config;
+    import tzh.core.SystemTimer;
 	
 	/**
 	 * 这里时间的计算可能会因为时区的问题计算出错,这个线上在看吧
@@ -27,7 +30,7 @@
         
         protected var _toggler_on:SimpleButton;
         protected var _toggler_off:SimpleButton;
-
+		
         public function CollectObject(data:Object){
             collect_in = Number(data.collect_in);// 收集的时间,以秒为单位
             start_time = (data.start_time) ? data.start_time : 0;// 开始种植的时间
@@ -38,15 +41,18 @@
             super(data);
         }
         
+        private var a:Number;
         protected function startTimer():void{
             if (next_stage_in() > 0){
                 is_working = true;
                 var next:Number = next_stage_in();
-                interval = setTimeout(check_stage, ( next * 1000));// 这种方法做,还是可行的,感觉比timer会更好一些的
+                a = SystemTimer.getInstance().serverTime;
+                interval = setTimeout(check_stage, (next * 1000));// 这种方法做,还是可行的,感觉比timer会更好一些的
             }
         }
         
         protected function check_stage():void{
+        	trace(" aaaaa " +  (SystemTimer.getInstance().serverTime - a).toString());
             clearTimeout(interval);
             update_stage();
             if (current_stage() < stages){
@@ -121,7 +127,7 @@
         }
         
         protected function time_passed():Number{
-            return ((Algo.time() - start_time));
+            return (Algo.time() - start_time);
         }
         
         override public function set grid_size(v:Number):void{
@@ -179,7 +185,7 @@
         }
         
         public function next_stage_in():Number{
-            return (((current_stage() * stage_time()) - time_passed()));
+            return ((current_stage() * stage_time()) - time_passed());
         }
         
         public function is_ready():Boolean{

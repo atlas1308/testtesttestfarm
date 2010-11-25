@@ -8,7 +8,7 @@
 
         public static function add(value:String):void
         {
-            trace("value " + value.toString());
+            //trace("value " + value.toString());
         }
 
     }

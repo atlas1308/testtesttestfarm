@@ -184,6 +184,11 @@
                     result = app_data.friendFertilize(value.getBody());
                     break;
                 }
+                case ApplicationFacade.ADD_MESSAGE:{
+                	transactionBody = new AddMessageCall(value.getBody());
+                	result = app_data.addMessage(value.getBody());
+                	break;
+                }
                 default:
                 {
                     break;

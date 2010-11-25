@@ -13,6 +13,7 @@
             params.id = value.id;
             params.x = value.grid_x;
             params.y = value.grid_y;
+            params.flip = value.map_flip_state;
             super("feed_object", "save_data", params);
         }
 
