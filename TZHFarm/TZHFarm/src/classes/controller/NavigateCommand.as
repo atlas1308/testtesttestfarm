@@ -1,8 +1,9 @@
 ﻿package classes.controller
 {
-    import classes.model.*;
-    import org.puremvc.as3.multicore.interfaces.*;
-    import org.puremvc.as3.multicore.patterns.command.*;
+	import org.puremvc.as3.multicore.interfaces.ICommand;
+	import org.puremvc.as3.multicore.interfaces.INotification;
+	import org.puremvc.as3.multicore.patterns.command.SimpleCommand;
+	
 	
 	/**
 	 * 跳转页面,充值的时候会用到
@@ -17,8 +18,6 @@
 
         override public function execute(value:INotification) : void
         {
-            //var appDataProxy:AppDataProxy = facade.retrieveProxy(AppDataProxy.NAME) as AppDataProxy;
-            //appDataProxy.navigate_to(value.getBody() as String);
         }
 
     }

@@ -59,7 +59,6 @@
         private var tool_cont:Sprite;
         private var last_mouseGridX:Number;
         private var container:Sprite;
-        private var sort_start:Number;
         public var map_obj:MapObject;
         public var objects_updated:Array;
         private var tool:Tool;
@@ -238,7 +237,6 @@
             var t1:Number = Algo.timer();
             i = 0;
             while (i < list.length) {
-                sort_start = Algo.timer();
                 new_obj = list[i];
                 pos = -1;
                 splice_pos = -1;
