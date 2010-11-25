@@ -112,7 +112,7 @@ return array(
         'name' => 'Schaf',
     ),
     37 => array(
-        'name' => 'Schafwolle',
+        'name' => 'Wolle',
     ),
     38 => array(
 				'name' => 'Organischer Dünger',
@@ -552,18 +552,18 @@ return array(
 		'name' => 'Gelbahorn',
 	),
 	4001 => array(
-		'name' => 'Gelbahorn',
+		'name' => 'Blauer Markt Groß',
 	),
 	4002 => array(
-		'name' => 'Gelbahorn',
+		'name' => 'Grüner Markt Groß',
 	),
 	4003 => array(
-		'name' => 'Gelbahorn',
+		'name' => 'Rosaroter Markt Groß',
 	),
 	4004 => array(
-		'name' => 'Gelbahorn',
+		'name' => 'Rotes Schaf',
 	),
 	4005 => array(
-		'name' => 'Gelbahorn',
+		'name' => 'Gelbes Schaf',
 	)
 );
