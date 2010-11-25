@@ -122,11 +122,13 @@ package {
 			//Config.setConfig("transport","http://192.168.0.102/");
 			//Config.setConfig("host","http://192.168.1.99:9901/static/");
 			//Config.setConfig("transport","http://192.168.0.100/");
-			Config.setConfig("host","http://192.168.1.108/static/");
-			Config.setConfig("transport","http://192.168.1.109:8000/");
+			//Config.setConfig("host","http://192.168.1.108/static/");
+			//Config.setConfig("transport","http://192.168.1.109:8000/");
 			//Config.setConfig("transport","http://192.168.1.108:8000/");
-			Config.setConfig("host","http://192.168.1.99:9903/static/");
-			Config.setConfig("transport","http://192.168.1.99:9903/");
+			Config.setConfig("host","http://192.168.1.108/static/");
+			
+			Config.setConfig("transport","http://192.168.1.108/");
+			//Config.setConfig("transport","http://192.168.1.99:9903/");
 			Config.setConfig("batch_delay",8000);
 			Config.setConfig("loadSocialData","loadSocialData");
 			Config.setConfig("version","1.0");// 这里

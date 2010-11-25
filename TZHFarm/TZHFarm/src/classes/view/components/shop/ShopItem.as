@@ -41,6 +41,8 @@
 		public static const BUY_METHOD_COIN:String = "coins";// 用coins来购买的常量
 		public static const BUY_METHOD_RP:String = "rp";// 用rp来购买的常量
 		
+		private var sell_off_mc:MovieClip;
+		
         public function ShopItem(value:Object)
         {
             this.data = value;
@@ -136,16 +138,6 @@
             else
             {
                 cost.text = String(data.rp_price) + " " +  ResourceManager.getInstance().getString("message","ranch_cash_message");
-                /* if (!data.locked && data.buy_gift)// 暂时先关闭这个功能
-                {
-                    send_gift = new GameButton(ResourceManager.getInstance().getString("message","game_button_send_message"), 13, 15 / 13);
-                    send_gift.set_style("blue");
-                    addChild(send_gift);
-                    var buy_rp_btn_position_x:Number = (width - buy_rp_btn.width - send_gift.width) / 3;
-                    buy_rp_btn.x = buy_rp_btn_position_x;
-                    send_gift.x = buy_rp_btn.x + buy_rp_btn.width + buy_rp_btn_position_x;
-                    send_gift.y = buy_rp_btn.y;
-                } */
                 if(data.request){
                 	requestButton = new GameButton(ResourceManager.getInstance().getString("message","request_gifts_shop_message"),13,15 / 13);
                 	requestButton.addEventListener(MouseEvent.CLICK,askGiftsToFriends);
@@ -187,6 +179,12 @@
                 else
                 {
                     buy_rp_btn.visible = false;
+                }
+                if(data.sell_off_able){
+                	if(!sell_off_mc){
+                		sell_off_mc = new SellOffSkin();
+                		this.addChild(sell_off_mc);
+                	}
                 }
                 locked.visible = false;
                 level_needed.visible = false;

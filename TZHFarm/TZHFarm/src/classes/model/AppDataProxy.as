@@ -1308,7 +1308,7 @@
         	var result:Object = getUserInfo(id);
         	CONFIG::debug{
         		result = {};
-        		result.uid = "a";
+        		result.uid = "mytest";
         		result.name = "testssss";
         		result.pic = "http://img-p1.pe.imagevz.net/profile1/e0/59/5afda440391947c52fa2a12ee709/1-f9571f57626acde1-m.jpg";
         	}
@@ -1491,7 +1491,7 @@
             var userInfo:Object = getUserInfo(user_id);
             CONFIG::debug{
         		userInfo = {};
-        		userInfo.uid = "a";
+        		userInfo.uid = "mytest";
         		userInfo.name = "testssss";
         		userInfo.pic = "http://img-p1.pe.imagevz.net/profile1/e0/59/5afda440391947c52fa2a12ee709/1-f9571f57626acde1-m.jpg";
         	}
