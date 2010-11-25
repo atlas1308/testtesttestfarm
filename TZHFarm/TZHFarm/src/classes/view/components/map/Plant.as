@@ -82,12 +82,12 @@
             if (!asset_loaded){
                 return;
             }
+            clear_asset();
             if (pollinated){
                 plant = loader.get_bmp_by_frame(6);// 只有花才有第6帧,目前情况下
             } else {
                 plant = loader.get_bmp_by_frame(current_stage());
             }
-            clear_asset();// 这段代码调换了一下位置,因为加载过程的时候会出现加载慢的原因,导出地块被移除了
             asset.addChild(grass_back);
             asset.addChild(soil);
             asset.addChild(plant);

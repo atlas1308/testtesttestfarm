@@ -102,7 +102,6 @@
                 {
                     obj.data_hash = data_hash;
                 }
-                trace("batch_transaction start", list.length);
                 batch_transaction.start(new TransactionBody("execute_batch", "save_data", obj, required_params));
                 dispatchEvent(new Event(ON_SAVE));
             }

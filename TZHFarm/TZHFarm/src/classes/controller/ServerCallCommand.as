@@ -23,15 +23,6 @@
             {
                 case ApplicationFacade.LOAD_NEIGHBORS:
                 {
-                    transactionProxy.add(new LoadNeighborsCall(value.getBody() as Array));
-                    break;
-                }
-                case ApplicationFacade.POST_PUBLISHED:
-                {
-                    body = value.getBody();
-                    Log.add("POST_PUBLISHED " + body.target);
-                    appDataProxy.post_published(body.subtype, body.target);
-                    transactionProxy.add(new PostPublishedCall("stream", body.tag, body.subtype, body.story_id, body.target));
                     break;
                 }
                 case ApplicationFacade.SEND_GIFT:

@@ -21,17 +21,18 @@
         private var loader:Cache;
         private var image:Loader;
 
-        public function Animation(param1:Object, param2:MovieClip)
+        public function Animation(data:Object, target:MovieClip)
         {
-            this.data = param1;
-            this.target = param2;
-            addEventListener(Event.ADDED_TO_STAGE, init);
+            this.data = data;
+            this.target = target;
+            ///addEventListener(Event.ADDED_TO_STAGE, init);
         }
 
         private function bounceComplete(event:TweenEvent) : void
         {
             TweenMax.to(target, 0.5, {scaleX:1, scaleY:1});
-            return;
+            TweenMax.killAll(true);
+            this.dispatchEvent(new Event(Event.COMPLETE));
         }
 
         private function tweenComplete(event:TweenEvent) : void
@@ -44,26 +45,13 @@
         public function start() : void
         {
             bounce = TweenMax.to(target, 0.5, {scaleX:1.2, scaleY:1.2, ease:Bounce.easeOut});
-            bounce.addEventListener(TweenEvent.COMPLETE, bounceComplete);
+            //bounce.addEventListener(TweenEvent.COMPLETE, bounceComplete);
+            bounce.addEventListener(TweenEvent.COMPLETE, tweenComplete);
         }
 
         private function init(event:Event) : void
         {
             return;
         }
-
-        private function loadComplete(event:Event) : void
-        {
-            /* image = event.target.loader;
-            addChild(image);
-            image.x = data.x;
-            image.y = data.y;
-            var _loc_2:* = target.localToGlobal(new Point(0, 0));
-            var _loc_3:* = new Point(_loc_2.x, image.y);
-            tween = TweenMax.to(image, 0.5, {bezier:[{x:_loc_3.x, y:_loc_3.y}, {x:_loc_2.x, y:_loc_2.y}], ease:Quad.easeIn});
-            tween.addEventListener(TweenEvent.COMPLETE, tweenComplete);
-            return; */
-        }
-
     }
 }

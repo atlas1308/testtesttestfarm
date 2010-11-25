@@ -2,15 +2,12 @@
 {
 	import classes.controller.*;
 	
-	import flash.system.Security;
-	
 	import org.puremvc.as3.multicore.interfaces.IFacade;
 	import org.puremvc.as3.multicore.patterns.facade.Facade;
     public class ApplicationFacade extends Facade implements IFacade
     {
         public static const MAP_OBJECT_ADDED:String = "mapObjectAdded";
         public static const DISPLAY_ERROR:String = "displayError";
-        public static const NAVIGATE_TO_URL:String = "navigateToURL";
         public static const ADD_MAP_OBJECT:String = "addMapObject";
         public static const SELL_ALL_STORAGE:String = "sellAllStorage";
         public static const HIDE_OVERLAY:String = "hideOverlay";
@@ -29,7 +26,6 @@
         public static const DISABLE_ZOOM_OUT:String = "disableZoomOut";
         public static const MAP_REFRESH_DEPTH:String = "mapRefreshDepth";
         public static const STARTUP:String = "startup";
-        public static const NEIGHBORS_LOADED:String = "neighborsLoaded";
         public static const HIDE_STORAGE:String = "hideStorage";
         public static const SHOW_STORY_POPUP:Object = "showStoryPopup";
         public static const IRRIGATION_INSTALLED:String = "irrigationInstalled";
@@ -72,7 +68,6 @@
         public static const TOGGLE_AUTOMATION:String = "toggleAutomation";
         public static const SHOW_FRIEND_HELPED_POPUP:String = "showFriendHelpedPopup";
         public static const SHOW_OVERLAY:String = "showOverlay";
-        public static const POST_PUBLISHED:String = "postPublished";
         public static const ACTIVATE_SNAPSHOT_MODE:String = "activateSnapshotMode";
         public static const USE_GIFT:String = "useGift";
         public static const SHOW_NEIGHBORS_LIST_POPUP:String = "showNeighborsListPopup";
@@ -152,6 +147,16 @@
         public static const FERTILIZE_BOX_COUNT:String = "fertilizeBoxCount";
         
         public static const FERTILIZE_BOX_POST:String = "fertilizeBoxPost";
+        
+        public static const ADD_MESSAGE:String = "addMessage";
+        
+        public static const GET_MESSAGE:String = "getMessage";
+        
+        public static const UPDATE_NEWS_PANEL:String = "updateNewsPanel";
+        
+        public static const UPDATE_MSG_COUNT:String = "updateMsgCount";
+        
+        public static const SHOW_NEWS_PANEL:String = "showNewsPanel";
 
         public function ApplicationFacade(value:String)
         {
@@ -165,7 +170,6 @@
             registerCommand(LOAD_DATA, LoadDataCommand);
             registerCommand(LOAD_FARM, LoadFarmCommand);
             registerCommand(LOAD_NEIGHBORS, ServerCallCommand);
-            registerCommand(POST_PUBLISHED, ServerCallCommand);
             registerCommand(SEND_GIFT, ServerCallCommand);
             registerCommand(ADD_MAP_OBJECT, AddTransactionCommand);
             registerCommand(MOVE_MAP_OBJECT, AddTransactionCommand);
@@ -191,9 +195,10 @@
             registerCommand(TOGGLE_AUTOMATION, AddTransactionCommand);
             registerCommand(INSTALL_IRRIGATION, AddTransactionCommand);
             registerCommand(FERTILIZE_FRIEND_HELPED, AddTransactionCommand);
-            registerCommand(NAVIGATE_TO_URL, NavigateCommand);
             registerCommand(SAVE_DATA, SaveDataCommand);
+            registerCommand(ADD_MESSAGE,AddTransactionCommand);
             registerCommand(HANDLE_TRANSACTION_RESULT, HandleTransactionResultCommand);
+            registerCommand(GET_MESSAGE,GetMessageCommand);
         }
 
         public function startup(body:Object) : void

@@ -161,6 +161,7 @@
                 storageItem = container.getChildAt(0) as StorageItem;
                 storageItem.kill();
                 storageItem.removeEventListener(storageItem.ON_SELL, sellItem);
+                storageItem = null;
             }
         }
 

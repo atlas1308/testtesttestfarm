@@ -111,10 +111,10 @@
             {
                 if (value.channel == "retrieve")
                 {
-                    if (parameters.ranch_id)
+                    /* if (parameters.ranch_id)
                     {
                         value.add_parameter("ranch_id", parameters.ranch_id);
-                    }
+                    } */
                 }
                 serial_manager.add(value);
             }

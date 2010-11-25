@@ -3,7 +3,6 @@
     import classes.*;
     import classes.model.*;
     import classes.view.components.*;
-    import classes.view.components.map.MapObject;
     
     import flash.events.*;
     
@@ -154,31 +153,32 @@
             }
             app_data.gift_mode = false;
             sendNotification(ApplicationFacade.REFRESH_TOOLBAR);
-            var item:Object = app_data.get_item_data(value.id);
-            if (item.map_object)
-            {
-                sendNotification(ApplicationFacade.PLACE_MAP_OBJECT, {flipped:value.is_flipped, item:value.id});
-            }
-            else if (app_data.map_can_use_shop_item(value.id))
-            {
-                sendNotification(ApplicationFacade.USE_SHOP_ITEM, item);
-            }
-            else if (item.rp_price > 0)
-            {
-            	var obj:Object = {};
-            	if(item.action == "construction"){
-            		var list:Array = app_data.get_objects_who_use(item.id,true);
-            		var clone:Object = list[0];
-            		obj.item = value.id;
-                    obj.target = clone;
+            var temp:Object = app_data.get_item_data(value.id);
+            if (temp.map_object) {
+            	var flippedFlag:Boolean;
+            	if(value.hasOwnProperty("is_flipped")){
+            		flippedFlag = value.is_flipped;
+            	}
+                sendNotification(ApplicationFacade.PLACE_MAP_OBJECT, {flipped:flippedFlag, item:value.id});
+            } else {
+            	if(app_data.map_can_use_shop_item(value.id)){
+                	sendNotification(ApplicationFacade.USE_SHOP_ITEM, temp);
                 }else {
-                	obj = value.id;
+                	if (temp.rp_price > 0){
+                		var obj:Object = {};
+		            	if(temp.action == "construction"){
+		            		var list:Array = app_data.get_objects_who_use(temp.id,true);
+		            		var clone:Object = list[0];
+		            		obj.item = value.id;
+		                    obj.target = clone;
+		                }else {
+		                	obj = value.id;
+		                }
+		                sendNotification(ApplicationFacade.SPEND_RP, obj);
+                	}else {
+                		sendNotification(ApplicationFacade.BUY_ITEM, temp.id);// value.id// 取出来的数据应该都是一样的
+                	}
                 }
-                sendNotification(ApplicationFacade.SPEND_RP, obj);
-            }
-            else
-            {
-                sendNotification(ApplicationFacade.BUY_ITEM, value.id);
             }
         }
 

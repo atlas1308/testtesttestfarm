@@ -57,13 +57,13 @@
         public function remove():void{
             if (content.accept_btn){
                 content.accept_btn.removeEventListener(MouseEvent.MOUSE_UP, acceptClicked);
-            };
+            }
             if (content.close_btn){
                 content.close_btn.removeEventListener(MouseEvent.MOUSE_UP, closeClicked);
-            };
+            }
             if (content.corner_close_btn){
                 content.corner_close_btn.removeEventListener(MouseEvent.MOUSE_UP, cornerCloseClicked);
-            };
+            }
             removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
             parent.removeChild(this);
         }

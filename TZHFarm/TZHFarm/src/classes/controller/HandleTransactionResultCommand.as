@@ -32,7 +32,7 @@
                 {
                     if (transactionResult.is_ok())
                     {
-                    	var time:Number = transactionResult.data.time;
+                    	var time:Number = transactionResult.data.time;// 去掉这个延迟;
                         Algo.set_time(time);
                         SystemTimer.getInstance().serverTime = time;
                         appDataProxy.init(transactionResult.data.config, transactionResult.data.data);
@@ -45,17 +45,20 @@
                 }
                 case "load_neighbors":
                 {
-                    appDataProxy.neighbors_loaded(transactionResult.data);
-                    break;
-                }
-                case "post_published":
-                {
+                    //appDataProxy.neighbors_loaded(transactionResult.data);
                     break;
                 }
                 case "purchase_gift":
                 {
                     //sendNotification(ApplicationFacade.SHOW_POPUP, appDataProxy.get_gift_sent_confirmation_data());
                     break;
+                }
+                case "get_message":{
+                	var list:Array = transactionResult.data.messages;
+                	list.sortOn("msgtime",Array.DESCENDING);
+                	appDataProxy.messages = list;// set 数据
+                	sendNotification(ApplicationFacade.UPDATE_NEWS_PANEL);
+                	break;
                 }
                 default:
                 {

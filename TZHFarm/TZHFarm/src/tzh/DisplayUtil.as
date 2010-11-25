@@ -35,5 +35,18 @@ package tzh
 			}
 			child = null;
 		}
+		
+		public static function center(target:DisplayObject,offsetX:Number = 0,offsetY:Number = 0):void
+		{
+			var xx:Number = 0;
+			var yy:Number = 0;
+			if(!target.stage)return;
+			xx = (target.stage.stageWidth - target.width) / 2;// 这里先不做空的判断
+			yy = (target.stage.stageHeight - target.height) / 2;
+			xx += offsetX;
+			yy += offsetY;
+			target.x = xx;
+			target.y = yy;
+		}
 	}
 }

@@ -89,25 +89,6 @@
             addEventListener(MouseEvent.MOUSE_MOVE, mouseMove);
         }
         
-        public function update_friends(list:Array):void{
-            var friend:FriendContainer;
-            var j:Number;
-            var i:Number = 0;
-            while (i < container.numChildren) {
-                friend = (container.getChildAt(i) as FriendContainer);
-                if (friend.not_loaded()){
-                    j = 0;
-                    while (j < list.length) {
-                        if (friend.id == list[j].uid){
-                            friend.update(list[j]);
-                        }
-                        j++;
-                    }
-                }
-                i++;
-            }
-        }
-        
         private function double_slideRight(e:MouseEvent):void{
             slide_container((-3 * item_w));
         }

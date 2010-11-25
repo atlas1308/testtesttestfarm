@@ -37,6 +37,7 @@
             sendNotification(ApplicationFacade.SHOW_OVERLAY, true);
             user_id = value.getBody().toString();
             var appDataProxy:AppDataProxy = facade.retrieveProxy(AppDataProxy.NAME) as AppDataProxy;
+            appDataProxy.messages = [];
             appDataProxy.cancel_help_popup();
             appDataProxy.clear_process_queue();
             transactionProxy = facade.retrieveProxy(TransactionProxy.NAME) as TransactionProxy;
@@ -64,6 +65,7 @@
         private function call():void {
         	transactionProxy = facade.retrieveProxy(TransactionProxy.NAME) as TransactionProxy;
             transactionProxy.add(new LoadFarmCall(user_id));
+            
         }
     }
 }

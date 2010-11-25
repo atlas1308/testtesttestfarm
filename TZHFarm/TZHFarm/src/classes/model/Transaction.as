@@ -109,7 +109,6 @@
             if (flag)
             {
                 call_id = Algo.milliseconds();
-                trace("network_delay_timer start");
                 network_delay_timer.start();
             }
             params.call_id = "call" + call_id;

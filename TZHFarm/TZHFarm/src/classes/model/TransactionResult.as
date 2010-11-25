@@ -30,8 +30,10 @@
 
         public function get channel() : String
         {
-            if (!result.channel)
-            {
+        	if(!result) {
+        		return "";
+        	}
+            if (!result.channel){
                 return "";
             }
             return result.channel;

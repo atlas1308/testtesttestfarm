@@ -71,6 +71,22 @@ package {
 	 * 
 	 * 
 	 * 1.后台的数据ID里面有存在空格
+	 * 
+	 * 
+	 * 1.ServerCallCommand没有用了
+	 * 
+	 * 
+	 * 1.判断fence转向
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 1.更新了发送消息的功能
+	 * 2.更新了买东西发送id=12的问题
+	 * 3.增加了系统的延迟,大概是10秒左右
+	 * 4.删除了一些没有用到的代码
+	 * 
+	 * 5.发送者的问题,显示的好像不正确
 	 */ 
 	 
 	public class TZHFarm extends Sprite
@@ -101,13 +117,17 @@ package {
 			//Config.setConfig("transport","http://192.168.0.102/");
 			//Config.setConfig("host","http://192.168.1.99:9901/static/");
 			//Config.setConfig("transport","http://192.168.0.100/");
-			Config.setConfig("host","http://192.168.0.100/static/");
-			Config.setConfig("transport","http://192.168.0.100/");
-			//Config.setConfig("transport","http://192.168.1.99:9901/");
+			Config.setConfig("host","http://192.168.1.108/static/");
+			Config.setConfig("transport","http://192.168.1.109:8000/");
+			//Config.setConfig("transport","http://192.168.1.108:8000/");
+			Config.setConfig("host","http://192.168.1.99:9903/static/");
+			Config.setConfig("transport","http://192.168.1.99:9903/");
 			Config.setConfig("batch_delay",8000);
 			Config.setConfig("loadSocialData","loadSocialData");
 			Config.setConfig("version","1.0");// 这里
 			Config.setConfig("release",new Date().toString());
+			Config.setConfig("newsPopupTimes",1);
+			Config.setConfig("timeDelay",10);
 			var locale:String = ResourceManager.getInstance().locale;
 			if(locale == "de"){
 				locale = "de-DE";// 这里先做一个兼容
@@ -121,8 +141,8 @@ package {
 		
 		private function addToStageHandler(evt:Event = null):void {
 			SoundManager.getInstance().addSound(Constant.BACKGROUND_KEY,Config.getConfig("host") + "sound/background.mp3");
-			//SoundManager.getInstance().addSound(Constant.BACKGROUND_KEY,"music3.mp3");
 			ApplicationFacade.getInstance(MAIN_STAGE).startup(this.stage);
+			
 		}
 	}
 }

@@ -13,6 +13,7 @@
             params.x = value.obj.grid_x;
             params.y = value.obj.grid_y;
             params.raw_material = value.raw_material;
+            
             super("refill_object", "save_data", params);
         }
 
