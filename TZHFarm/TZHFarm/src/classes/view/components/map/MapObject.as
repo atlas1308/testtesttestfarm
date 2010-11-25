@@ -700,7 +700,15 @@
                 if (under_construction){
                     loader.load(under_construction_url);
                 } else {
-                	if(!asset_url)return;
+                	if(!asset_url)
+                	{
+                		trace("asset_url null " + id);//这里难道出问题了?
+                		return;
+                	}
+                	if(!loader.hasEventListener(Cache.LOAD_COMPLETE)){
+                		trace("this is a bug!");
+                		loader.addEventListener(Cache.LOAD_COMPLETE, assetLoaded);
+                	}
                     loader.load(asset_url);
                 }
             }

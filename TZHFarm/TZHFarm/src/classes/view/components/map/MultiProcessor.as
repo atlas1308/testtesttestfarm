@@ -426,7 +426,7 @@
             };
             p.x = (p.x + (area.getBounds(this).left + (area.getBounds(this).width / 2)));
             p.y = (p.y + area.getBounds(this).top);
-            return (p);
+            return p;
         }
         
         public function get_raw_materials(index:Number):Number{
