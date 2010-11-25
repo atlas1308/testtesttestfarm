@@ -634,7 +634,7 @@
         }
         
         public function get x_size():Number{
-            return (size_x);
+            return size_x;
         }
         
         public function get stage_x():Number{
