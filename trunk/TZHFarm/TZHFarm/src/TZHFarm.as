@@ -87,6 +87,11 @@ package {
 	 * 4.删除了一些没有用到的代码
 	 * 
 	 * 5.发送者的问题,显示的好像不正确
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 1.要优化RotateBtn这个东西在MapObject里的使用
 	 */ 
 	 
 	public class TZHFarm extends Sprite

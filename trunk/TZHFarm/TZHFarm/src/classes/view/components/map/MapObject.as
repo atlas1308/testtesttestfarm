@@ -84,7 +84,7 @@
 		private var _data:Object;
 		
 		
-		protected var rotate_btn:MovieClip;
+		//protected var rotate_btn:MovieClip;
 		
 		
 		// 优化了以下的属性
@@ -271,6 +271,17 @@
         	return _state_cont;
         }
         
+        protected var _rotate_btn:MovieClip;
+        
+        public function get rotate_btn():MovieClip {
+        	if(!_rotate_btn){
+        		_rotate_btn = new RotateBtn();
+		        addChild(_rotate_btn);
+		        _rotate_btn.visible = false;
+        	}
+        	return _rotate_btn;
+        }
+        
         protected function init():void{
             loader = new Cache();
             //water_pipe_loader = new Cache();
@@ -290,11 +301,11 @@
             state_cont.addChild(corner_bl);
             state_cont.addChild(corner_tr);
             state_cont.addChild(corner_tl);  */
-            if(rotatable){
+            /* if(rotatable){
 	            rotate_btn = new RotateBtn();
 		        addChild(rotate_btn);
 		        rotate_btn.visible = false;
-	        }
+	        } */
             mouseEnabled = false;
             asset.mouseEnabled = false;
             asset.mouseChildren = false;
@@ -587,6 +598,8 @@
         
         public function kill():void{
             loader.removeEventListener(Cache.LOAD_COMPLETE, assetLoaded);
+            loader.destory();
+            loader = null;
             clear_asset();
             if(parent){
             	parent.removeChild(this);
