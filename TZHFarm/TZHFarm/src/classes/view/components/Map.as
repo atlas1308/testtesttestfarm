@@ -316,8 +316,6 @@
             var gh:Greenhouse;
             var fence:Fence = (e.target as Fence);
             if (fence){
-            	//DisplayUtil.removeAllChildren(fence);
-            	//fence = null;
                 align_fences(fence);// 这判断代码要分析一下,有bug可能
                 fence.show_posts();
             }

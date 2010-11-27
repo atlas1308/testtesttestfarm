@@ -199,7 +199,7 @@
         		url_stream = null;
         	}
         	if(loader){
-        		loader.unload();
+        		//loader.unload();
         		loader = null;
         	}
         	clearInterval(interval);
