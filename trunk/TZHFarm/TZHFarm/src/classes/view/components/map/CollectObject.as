@@ -41,18 +41,15 @@
             super(data);
         }
         
-        private var a:Number;
         protected function startTimer():void{
             if (next_stage_in() > 0){
                 is_working = true;
                 var next:Number = next_stage_in();
-                a = SystemTimer.getInstance().serverTime;
                 interval = setTimeout(check_stage, (next * 1000));// 这种方法做,还是可行的,感觉比timer会更好一些的
             }
         }
         
         protected function check_stage():void{
-        	trace(" aaaaa " +  (SystemTimer.getInstance().serverTime - a).toString());
             clearTimeout(interval);
             update_stage();
             if (current_stage() < stages){

@@ -2363,6 +2363,7 @@
         
         public function move_map_object(obj:MapObject):Boolean{
             var item:Object = get_map_obj(obj.id, obj.map_x, obj.map_y, obj.map_flip_state);
+            if(!item)return false;
             obj.map_x = (item.x = obj.grid_x);
             obj.map_y = (item.y = obj.grid_y);
             if (obj.is_flipped()){

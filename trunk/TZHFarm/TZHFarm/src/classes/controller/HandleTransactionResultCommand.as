@@ -34,7 +34,7 @@
                     {
                     	var time:Number = transactionResult.data.time;// 去掉这个延迟;
                         Algo.set_time(time);
-                        SystemTimer.getInstance().serverTime = time;
+                        SystemTimer.getInstance().serverTime = time; 
                         appDataProxy.init(transactionResult.data.config, transactionResult.data.data);
                     }
                     else
@@ -55,7 +55,7 @@
                 }
                 case "get_message":{
                 	var list:Array = transactionResult.data.messages;
-                	list.sortOn("msgtime",Array.DESCENDING);
+                	list.sortOn("msgtime",Array.DESCENDING | Array.NUMERIC);//  这里修改了一下
                 	appDataProxy.messages = list;// set 数据
                 	sendNotification(ApplicationFacade.UPDATE_NEWS_PANEL);
                 	break;
