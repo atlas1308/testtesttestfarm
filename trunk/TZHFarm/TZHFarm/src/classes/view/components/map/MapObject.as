@@ -84,9 +84,6 @@
 		private var _data:Object;
 		
 		
-		//protected var rotate_btn:MovieClip;
-		
-		
 		// 优化了以下的属性
 		protected var _corner_br:highlight_corner2;
 		protected var _corner_bl:highlight_corner1;
@@ -152,7 +149,7 @@
         }
         
         public function get y_size():Number{
-            return (size_y);
+            return size_y;
         }
         
         public function changed():void{
@@ -408,16 +405,16 @@
             var _local7:Number;
             if ((((this as GraphicObject)) || ((obj as GraphicObject)))){
                 return (false);
-            };
+            }
             if (!check_objects_type){
                 if ((((bottom <= obj.top)) || ((obj.bottom <= top)))){
                     return (false);
                 };
                 if ((((right <= obj.left)) || ((obj.right <= left)))){
-                    return (false);
-                };
-                return (true);
-            };
+                    return false;
+                }
+                return true;
+            }
             if ((((((obj as Greenhouse)) && (!(obj.is_under_construction())))) && ((((type == "seeds")) || ((type == "soil")))))){
                 if (intersect(obj, false)){
                     x1 = obj.grid_x;
@@ -429,16 +426,16 @@
                     };
                     if (y2 <= y1){
                         return (true);
-                    };
+                    }
                     if ((x2 + x_size) >= (x1 + obj.x_size)){
                         return (true);
-                    };
+                    }
                     if ((y2 + y_size) >= (y1 + obj.y_size)){
                         return (true);
-                    };
-                    return (false);
-                };
-            };
+                    }
+                    return false;
+                }
+            }
             if (obj.type == type){
                 switch (type){
                     case "trees":
@@ -473,14 +470,14 @@
                                 }
                                 return true;
                             }
-                            return (false);
+                            return false;
                         }
                         return (intersect(obj));
                     default:
                         return (intersect(obj));
-                };
-            };
-            return (intersect(obj));
+                }
+            }
+            return intersect(obj);
         }
         
         protected function refresh_coords():void{
@@ -489,7 +486,7 @@
         }
         
         public function get is_fence():Boolean{
-            return ((_kind == "fence"));
+            return (_kind == "fence");
         }
         
         public function install_irrigation(obj:Object):void{
@@ -921,7 +918,7 @@
                 }
                 if (_y < 0){
                     _y = 0;
-                };
+                }
                 if ((_x + size_x) > x_s){
                     _x = (x_s - size_x);
                 }
@@ -935,19 +932,19 @@
             if (_x < 0){
                 if (_x < -(top_s)){
                     _x = -(top_s);
-                };
-            };
+                }
+            }
             if (_y < 0){
                 if (_y < -(top_s)){
                     _y = -(top_s);
-                };
+                }
             }
             if ((_x + size_x) > x_s){
                 _x = (x_s - size_x);
             }
             if ((_y + size_y) > y_s){
                 _y = (y_s - size_y);
-            };
+            }
             grid_x = _x;
             grid_y = _y;
         }

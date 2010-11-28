@@ -193,7 +193,7 @@
         }
         
         public function destory():void {
-        	if(url_stream){
+        	/* if(url_stream){
         		url_stream.removeEventListener(Event.COMPLETE, completeHandler);
             	url_stream.removeEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
         		url_stream = null;
@@ -202,7 +202,7 @@
         		//loader.unload();
         		loader = null;
         	}
-        	clearInterval(interval);
+        	clearInterval(interval); */
         }
     }
 }

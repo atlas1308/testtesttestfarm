@@ -34,7 +34,7 @@
         private function draw(e:Event):void{
         	var diffTime:Number = Algo.time() - start_time;
         	var min:int = (diffTime * 100) / delay;
-            percent = Math.min(min, 100);
+            percent = Math.min(Math.max(0,min), 100);// 这里有时会出现负数的
             var resourceName:String = action.toLowerCase() + "_message";
             var msg:String = ResourceManager.getInstance().getString("message",resourceName);
             tf.text = msg + ": " + percent + "%";
