@@ -115,7 +115,8 @@ package {
 			Config.setConfig("transport","http://newfarm.lf3g.com/");  */
 			//Config.setConfig("host","http://ec2-46-51-129-166.eu-west-1.compute.amazonaws.com/static/");//vz平台
 			//Config.setConfig("host","http://ec2-46-51-129-166.eu-west-1.compute.amazonaws.com/static/");//vz平台
-			//Config.setConfig("transport","http://ec2-46-51-129-166.eu-west-1.compute.amazonaws.com/");
+										  //"http://ec2-46-51-130-110.eu-west-1.compute.amazonaws.com:88/gateway.php"
+			//Config.setConfig("transport","http://ec2-46-51-130-110.eu-west-1.compute.amazonaws.com:88/");
 			//Config.setConfig("host","http://192.168.1.99:9901/static/");
 			//Config.setConfig("transport","http://192.168.1.99:9901");
 			//Config.setConfig("host","http://192.168.0.102/static/");
@@ -125,9 +126,10 @@ package {
 			//Config.setConfig("host","http://192.168.1.108/static/");
 			//Config.setConfig("transport","http://192.168.1.109:8000/");
 			//Config.setConfig("transport","http://192.168.1.108:8000/");
-			Config.setConfig("host","http://192.168.1.104/static/");
+			Config.setConfig("host","http://localhost:80/static/");
+			Config.setConfig("transport","http://localhost:80/");
 			
-			Config.setConfig("transport","http://192.168.1.104/");
+			//Config.setConfig("transport","http://192.168.0.100/");
 			//Config.setConfig("transport","http://192.168.1.99:9903/");
 			Config.setConfig("batch_delay",8000);
 			Config.setConfig("loadSocialData","loadSocialData");

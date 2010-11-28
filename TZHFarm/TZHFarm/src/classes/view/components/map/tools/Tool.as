@@ -136,7 +136,7 @@
             while (index < map_objects.numChildren)
             {
                 mapObject = MapObject(map_objects.getChildAt(index));
-                if (mapObject.intersect(value, true))
+                if (mapObject.intersect(value, true))// 如果是fence会没有执行到这里的
                 {
                     last_intersected = mapObject;
                     mapObject.state = "intersect_whitout_corners";

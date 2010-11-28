@@ -2361,9 +2361,13 @@
         }
         
         
+        /**
+         * 移动物品
+         * @param obj:MapObject map的对象
+         * 这里要注意连续添加物品时的bug 
+         */ 
         public function move_map_object(obj:MapObject):Boolean{
             var item:Object = get_map_obj(obj.id, obj.map_x, obj.map_y, obj.map_flip_state);
-            if(!item)return false;
             obj.map_x = (item.x = obj.grid_x);
             obj.map_y = (item.y = obj.grid_y);
             if (obj.is_flipped()){
@@ -2923,7 +2927,7 @@
                 }
                 obj.map_x = obj.grid_x;
                 obj.map_y = obj.grid_y;
-                if (!get_map_obj(obj.id, obj.grid_x, obj.grid_y)){
+                if (!get_map_obj(obj.id, obj.grid_x, obj.grid_y,obj.map_flip_state)){
                     new_mo = {
                         id:obj.id,
                         x:obj.grid_x,
@@ -2941,7 +2945,11 @@
                         }
                     }
                     app_data.map.push(new_mo);
-                };
+                }else {
+                	sendNotification(ApplicationFacade.SET_TOOLBAR_NORMAL_MODE);// 快速的点击的时候这里是没有验证,应该在这里加上验证才正确的,
+                    obj.kill();// 上一次应该是修改时,没有考虑到这一点的,现在应该就OK了.
+                	return false;// 如果是同样的位置,并且方向相反的话,那么就不能再继续执行了
+                }
                 if (!gift_mode){
                     app_data.coins = (app_data.coins - parseFloat(item.price));
                     app_data.experience = (app_data.experience + item.exp);
