@@ -137,8 +137,8 @@
                     }
                     case PopupTypes.ACCEPT_SELECTED_GIFT:// 送礼物的功能
                     {
-                        //onClose();
-                        //sendNotification(ApplicationFacade.SEND_GIFT, DynamicPopup(popup).info);
+                        onClose();
+                        sendNotification(ApplicationFacade.SEND_GIFT, DynamicPopup(popup).info);
                         break;
                     }
                     case PopupTypes.PUBLISH_GIFT_SENT_STORY:
