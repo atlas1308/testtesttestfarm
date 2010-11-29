@@ -43,11 +43,6 @@
                     }
                     break;
                 }
-                case "load_neighbors":
-                {
-                    //appDataProxy.neighbors_loaded(transactionResult.data);
-                    break;
-                }
                 case "purchase_gift":
                 {
                     //sendNotification(ApplicationFacade.SHOW_POPUP, appDataProxy.get_gift_sent_confirmation_data());

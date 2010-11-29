@@ -79,11 +79,11 @@
 
         private function show_gifts_popup() : void
         {
-            gifts_popup_displayed = true;
+            /* gifts_popup_displayed = true;
             if (app_data.can_show_gifts_page())
             {
                 facade.sendNotification(ApplicationFacade.SHOW_SEND_GIFTS_POPUP);
-            }
+            } */
         }
 
         private function get app_data() : AppDataProxy
@@ -101,11 +101,11 @@
             if (ON_IDLE)// 是否等待
             {
                 batch_manager.add(value);
-                clearTimeout(gifts_popup_interval);
+                /* clearTimeout(gifts_popup_interval);
                 if (!gifts_popup_displayed)
                 {
                     gifts_popup_interval = setTimeout(show_gifts_popup, 20000);
-                }
+                } */
             }
             else
             {
