@@ -1,0 +1,95 @@
+Barn_message = Barn_message
+
+empty_message = The barn is empty. Grow and harvest plants and trees, feed animals and machines, then sell your products here for a nice gain.
+
+Ranch Shop_message = Ranch Shop
+
+Game updated_message = Game updated. Please refresh the page.If you are seeing this message after a page refresh, you need to clear                                                            your browser cache.
+ 
+OK_message = OK
+
+Gift_message = Gift
+
+any gifts_message = You currently do not have any gifts. Claim gifts from the &quot;Requests&quot;  section of your Facebook Home Page. Send                                      gifts to your friends and ask them to send gifts back!
+
+Achievements_message = Achievements
+
+Ranch Cash_message = Do you need more Ranch Cash? 
+
+CANCEL_message = CANCEL
+
+Congratulations_message = Congratulations!
+
+won_message = You just won 
+
+coins_message = coinsin the Daily Raffle!in the Daily Raffle!
+
+Daily Raffle_message = in the Daily Raffle!
+
+luck_message = Come back tomorrow and try your luck again.
+
+Level_message = You are now Level 10!
+received _message = You received 10000 coins and 1 reward point
+
+buy_message = You can now buy
+Cheese_message = Cheese Machine, Wood Fence,Picnic Table
+
+gift_message = You can now gift
+
+Milk_message = Milk, Cheese, Tomatoes
+
+Add_message = Add Ranch 
+
+Cash_message = Cash
+
+LOCKED_message = LOCKED
+
+needed_message = Level 123 
+
+needed_message = needed
+
+automation_message = enter automation
+
+name_message = name
+
+SELL_message = SELL
+
+sell all_message = sell all for 5,678
+
+itemdsad_message = itemdsad
+
+USE_message = USE
+
+AddNeighbor_message = AddNeighbor
+
+Alexandru_message = Alexandru
+
+Loading_message = Loading_message
+
+on_message = on
+
+off_message = off
+
+new_message = new
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
