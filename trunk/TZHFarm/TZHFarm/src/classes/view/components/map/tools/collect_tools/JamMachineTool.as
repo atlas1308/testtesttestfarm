@@ -47,7 +47,7 @@
             if ((target as JamMachine)){
                 return ((target as MultiProcessor));
             }
-            return (null);
+            return null;
         }
 
     }
