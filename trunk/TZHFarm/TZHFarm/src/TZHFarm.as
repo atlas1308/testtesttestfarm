@@ -130,10 +130,11 @@ package {
 			Config.setConfig("transport","http://localhost:80/");
 			
 			//Config.setConfig("transport","http://192.168.0.100/");
-			//Config.setConfig("transport","http://192.168.1.99:9903/");
+			/* Config.setConfig("transport","http://192.168.1.99:9903/");
+			Config.setConfig("host","http://192.168.1.99:9903/static/"); */
 			Config.setConfig("batch_delay",8000);
 			Config.setConfig("loadSocialData","loadSocialData");
-			Config.setConfig("version","1.0");// 这里
+			Config.setConfig("version","2.0");// 这里
 			Config.setConfig("release",new Date().toString());
 			Config.setConfig("newsPopupTimes",1);
 			Config.setConfig("timeDelay",10);

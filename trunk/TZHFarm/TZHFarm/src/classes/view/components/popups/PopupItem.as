@@ -65,6 +65,9 @@
                 tf.width = w;
             }
             tf.embedFonts = true;
+            /* CONFIG::debug{
+            	tf.embedFonts = false;
+            } */
             tf.selectable = false;
             tf.multiline = true;
             tf.wordWrap = true;
