@@ -110,7 +110,6 @@
             if (use_corner_close)
             {
                 content.addChild(corner_close_btn);
-			
             }
             if (!show_close_btn)
             {

@@ -34,11 +34,6 @@
 	import tzh.core.JSDataManager;
 	import tzh.core.SystemTimer;
 	import tzh.core.TutorialManager;
-	
-	import flash.utils.clearInterval;
-	import flash.utils.clearTimeout;
-	import flash.utils.setTimeout;
-	import flash.utils.setInterval;
 	/**
 	 * 一些细节的更新
 	 * 更新升级时的返回条件,handle_response
@@ -288,6 +283,9 @@
             if(app_data.msg_count){
             	sendNotification(ApplicationFacade.UPDATE_MSG_COUNT,app_data.msg_count);
             }
+            if (app_data.lottery_coins > 0){// 每日登陆奖励
+                sendNotification(ApplicationFacade.SHOW_LOTTERY_POPUP);// 这个需要测试一下
+            }
             update_objects(update_fields);
             if(showTutorial){// 如果这个值是0的话,才能开始向导
             	TZHFarm.instance.stage.mouseChildren = false;// 初始化其它的都不让用户点了
@@ -295,7 +293,6 @@
             	setTimeout(startTutorial,2000);
             }else {
             	TutorialManager.getInstance().end = true;
-            	
             }
             if (app_data.farm){
                 sendNotification(ApplicationFacade.SHOW_FARM);
@@ -2780,23 +2777,22 @@
         public function get_select_popup_data(obj:MapObject):Object{
             var id:Number;
             var p:Object;
-            var info:* = config.store[obj.id];
-            var urls:Array = new Array();
-            var has_materials:Boolean;
+            var info:Object = config.store[obj.id];
+            var result:Array = new Array();
             var product_name:String = info.product_name;
             var i:Number = 0;
             while (i < info.raw_material[0].length) {
                 id = info.raw_material[0][i];
                 p = new Object();
-                p.url = (("images/" + config.store[id].url) + ".png");
+                p.url = ("images/" + config.store[id].url) + ".png";
                 p.enabled = (app_data.storage[id]) ? true : false;
                 p.selected = (MultiProcessor(obj).get_selected_raw_material() == i);
                 p.name = config.store[id].name;
-                urls.push(p);
+                result.push(p);
                 i++;
-            };
+            }
             return ({
-                list:urls,
+                list:result,
                 caption:(ResourceManager.getInstance().getString("message","select_product_type",[product_name]))
             })
         }
