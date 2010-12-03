@@ -92,6 +92,11 @@ package {
 	 * 
 	 * 
 	 * 1.要优化RotateBtn这个东西在MapObject里的使用
+	 * 
+	 * 
+	 * 
+	 * 1.继续优化
+	 * 2.branches里的嵌入的字体要修改
 	 */ 
 	 
 	public class TZHFarm extends Sprite
@@ -107,25 +112,9 @@ package {
 		{
 			_instance = this;
 			Security.allowDomain("*");
-			//Config.setConfig("host","http://farm.lf3g.com/static/");// lf3g
-			//Config.setConfig("transport","http://farm.lf3g.com/");
-			//Config.setConfig("transport","http://devfarm.lf3g.com/");
 			
-			/* Config.setConfig("host","http://newfarm.lf3g.com/s tatic/");// 本机
-			Config.setConfig("transport","http://newfarm.lf3g.com/");  */
-			//Config.setConfig("host","http://ec2-46-51-129-166.eu-west-1.compute.amazonaws.com/static/");//vz平台
-			//Config.setConfig("host","http://ec2-46-51-129-166.eu-west-1.compute.amazonaws.com/static/");//vz平台
-										  //"http://ec2-46-51-130-110.eu-west-1.compute.amazonaws.com:88/gateway.php"
-			//Config.setConfig("transport","http://ec2-46-51-130-110.eu-west-1.compute.amazonaws.com:88/");
-			//Config.setConfig("host","http://192.168.1.99:9901/static/");
-			//Config.setConfig("transport","http://192.168.1.99:9901");
-			//Config.setConfig("host","http://192.168.0.102/static/");
-			//Config.setConfig("transport","http://192.168.0.102/");
-			//Config.setConfig("host","http://192.168.1.99:9901/static/");
-			//Config.setConfig("transport","http://192.168.0.100/");
-			//Config.setConfig("host","http://192.168.1.108/static/");
-			//Config.setConfig("transport","http://192.168.1.109:8000/");
-			//Config.setConfig("transport","http://192.168.1.108:8000/");
+			Config.setConfig("host","http://ec2-46-51-129-166.eu-west-1.compute.amazonaws.com/static/");//vz平台
+			Config.setConfig("transport","http://ec2-46-51-130-110.eu-west-1.compute.amazonaws.com:88/");
 			Config.setConfig("host","http://localhost:80/static/");
 			Config.setConfig("transport","http://localhost:80/");
 			
@@ -143,9 +132,6 @@ package {
 				locale = "de-DE";// 这里先做一个兼容
 			}
 			Config.setConfig("lang",locale);
-			//Config.setConfig("lang","pl");
-			//Config.setConfig("lang","nl");
-			//Config.setConfig("lang",ResourceManager.getInstance().locale);// 这样能保证不用修改这个参数了
 			this.addEventListener(Event.ADDED_TO_STAGE,addToStageHandler);
 		}
 		

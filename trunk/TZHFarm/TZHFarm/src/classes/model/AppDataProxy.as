@@ -440,14 +440,7 @@
             confirm = new Confirmation(0, c);
             app_data.storage[obj.id] = (app_data.storage[obj.id] - q);
             update_objects(["coins", "storage"]);
-            return (true);
-        }
-        
-        public function can_show_gifts_page():Boolean{
-            if (app_data.show_gifts_page){
-                return true;
-            }
-            return false;
+            return true;
         }
         
         /**
@@ -679,7 +672,7 @@
         	if(neighbors){
         		result = neighbors.length;
         	}
-            return result;//(app_data.all_neighbors.length);
+            return result;
         }
         
         
@@ -776,13 +769,13 @@
             var x:* = x;
             var y:* = y;
             if (!shared_object){
-                return;
-            };
+                return
+            }
             shared_object.data[((((("obj" + id) + "_") + x) + "_") + y)] = index;
             try {
                 shared_object.flush();
             } catch(e:Error) {
-                Log.add(("flush error " + e));
+                trace("flush error " + e);
             }
         }
         
@@ -888,14 +881,6 @@
             return false;
         }
         
-        public function show_gifts_popup_displayed():void{
-            app_data.show_gifts_page = false;
-        }
-        
-        public function get_network_delay_popup_data():String{
-             return ResourceManager.getInstance().getString("message","connect_server_error");
-        }
-        
         public function add_plant(obj:Object, body:TransactionBody, gift_mode:Boolean=false, queue_call:Boolean=false):Boolean{
             var soil:MapObject;
             var plant:CollectObject;
@@ -945,7 +930,7 @@
                 sendNotification(ApplicationFacade.MAP_ADD_OBJECT, plant);
                 transaction_proxy.set_data_hash(data_hash);
                 transaction_proxy.add(body, true);
-                return (true);
+                return true;
             }
             return false;
         }
@@ -1115,7 +1100,7 @@
             for (item in app_data.storage) {
                 info = config.store[item];
                 c = (c + (app_data.storage[item] * info.sell_for));
-            };
+            }
             app_data.coins = (app_data.coins + c);
             confirm = new Confirmation(0, c);
             app_data.storage = new Array();

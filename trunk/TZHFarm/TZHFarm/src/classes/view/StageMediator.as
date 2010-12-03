@@ -445,7 +445,7 @@
                     if (popup_proxy.can_show_popup)
                     {
                         popup_proxy.can_show_popup = false;
-                        var networkDelayPopup:NetworkDelayPopup = new NetworkDelayPopup(app_data.get_network_delay_popup_data());
+                        var networkDelayPopup:NetworkDelayPopup = new NetworkDelayPopup(ResourceManager.getInstance().getString("message","connect_server_error"));
                         facade.registerMediator(new PopupMediator(networkDelayPopup));
                         stage.addChild(networkDelayPopup);
                     }
