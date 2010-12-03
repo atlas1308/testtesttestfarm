@@ -567,21 +567,21 @@ return array(
 		'name' => 'Gelbes Schaf',
 	),
 	4006 => array(
-		'name' => 'waterMelon',
+		'name' => 'Wassermelone',
 	),
 	4007 => array(
-		'name' => 'pineapple',
+		'name' => 'Melonesaft',
 	),
 	4008 => array(
-		'name' => 'WaterMelon Jam',
+		'name' => 'Ananas',
 	),
 	4009 => array(
-		'name' => 'Pineapple Jam',
+		'name' => 'Ananassaft',
 	),
 	4010 => array(
-		'name' => 'WaterMelon',
+		'name' => 'Wassermelone',
 	),
 	4011 => array(
-		'name' => 'Pineapple',
+		'name' => 'Melonesaft',
 	)
 );
