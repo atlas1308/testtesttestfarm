@@ -29,7 +29,6 @@
         private var _marked:Boolean = false;
         private var grass_back:MovieClip;
         private var grass_front:MovieClip;
-        private var bubbles:Bubbles;
         private var plant:Bitmap;
         private var swarm:Sprite;
         private var _current_collect_in:Number = 0;// 这个值暂时没有看到，可能还没有理解透
@@ -109,9 +108,6 @@
         
         override protected function refresh_asset():void{
             super.refresh_asset();
-            if (bubbles){
-                bubbles.scaleX = (bubbles.scaleY = (grid_size / 15));
-            }
         }
         
         override protected function assetLoaded(e:Event):void{

@@ -9,7 +9,7 @@
 	 * 类似于一个CursorManager的一个东西,
 	 * 主要是控制场景里的cursor
 	 */ 
-    public dynamic class Cursor {
+    public class Cursor {
 		move_cur;
 		plow_cur;
 		remove_cur;
@@ -31,12 +31,28 @@
         public static function hide():void{
             Mouse.show();
             last_cursor = "";
-            if (((pointer) && (pointer.stage))){
+            /* if (pointer && pointer.stage){
+                pointer.stage.removeEventListener(Event.ENTER_FRAME, mouse_move);
+                pointer.parent.removeChild(pointer);
+            } */
+            removePointer();
+        }
+        
+        private static function removePointer():void {
+        	if (pointer && pointer.stage){
                 pointer.stage.removeEventListener(Event.ENTER_FRAME, mouse_move);
                 pointer.parent.removeChild(pointer);
             }
         }
         
+        /**
+         * 显示鼠标 
+         * @param type:String 鼠标的类型
+         * @param is_url:String 是否显示url,如果是url那么得加载url
+         * @param offset_x:Number x轴位移
+         * @param offset_y:Number y轴位移
+         * @param hide_mouse:Boolean 隐藏鼠标
+         */ 
         public static function show(type:String, is_url:Boolean=false, offset_x:Number=0, offset_y:Number=0, hide_mouse:Boolean=false):void{
             var ClassReference:Class;
             var cache:Cache;
@@ -45,14 +61,15 @@
             }
             if (last_cursor == type){
                 return;
-            };
+            }
             last_cursor = type;
             Cursor.offset_x = offset_x;
             Cursor.offset_y = offset_y;
-            if (((pointer) && (pointer.stage))){
+            /* if (((pointer) && (pointer.stage))){
                 pointer.stage.removeEventListener(Event.ENTER_FRAME, mouse_move);
                 pointer.parent.removeChild(pointer);
-            };
+            } */
+            removePointer();
             if (!is_url){
                 ClassReference = (getDefinitionByName(type) as Class);
                 pointer = new (ClassReference)();
