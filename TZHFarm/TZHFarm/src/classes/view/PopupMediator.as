@@ -222,7 +222,6 @@
                 {
                     case PopupTypes.SHOW_GIFTS_POPUP:
                     {
-                        app_data.show_gifts_popup_displayed();
                         sendNotification(ApplicationFacade.HIDE_GIFT_BOX);
                         break;
                     }
@@ -230,7 +229,8 @@
                     {
                         if (event && SelectPopup(popup).selected_name)
                         {
-                            app_data.report_confirm_error(ResourceManager.getInstance().getString("message","no_selected_name_in_barn_message",[SelectPopup(popup).selected_name]));
+                        	var msg:String = ResourceManager.getInstance().getString("message","no_selected_name_in_barn_message",[SelectPopup(popup).selected_name]);
+                            app_data.report_confirm_error(msg);
                         }
                         break;
                     }

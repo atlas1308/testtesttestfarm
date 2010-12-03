@@ -278,8 +278,6 @@
                 map_objects.setChildIndex(sorted[i].mo, i);
                 i++;
             }
-            var t2:int = Algo.timer();
-            trace((t2 - t1) + " time..........."); 
         }
         
         private function onAutoCollect(e:Event):void{
@@ -298,7 +296,7 @@
                 return;
             }
             tool.mouse("move", e.target.parent);
-            if (((!((last_mouseGridX == mouseGridX))) || (!((last_mouseGridY == mouseGridY))))){
+            if ((last_mouseGridX != mouseGridX) || (!last_mouseGridY != mouseGridY)){
                 tool.mouse("grid_move", e.target.parent);
             }
             last_mouseGridX = mouseGridX;

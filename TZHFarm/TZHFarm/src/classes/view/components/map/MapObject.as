@@ -379,7 +379,7 @@
                         alpha = 1;
                     } else {
                         state = "waiting_to_process";
-                    };
+                    }
                     break;
             }
             _state = s;
@@ -568,7 +568,7 @@
         }
         
         public function get flipable():Boolean{
-            return (_flipable);
+            return _flipable;
         }
         
         public function get enabled():Boolean{
@@ -576,7 +576,7 @@
         }
         
         public function get top():Number{
-            return ((grid_y * _grid_size));
+            return (grid_y * _grid_size);
         }
         
         public function get_water_pipe():Number{
@@ -641,9 +641,11 @@
         public function is_flipped():Boolean{
             return asset.scaleX < 0;
         }
+        
         public function get stage_y():Number{
-            return (localToGlobal(new Point(0, 0)).y);
+            return localToGlobal(new Point(0, 0)).y;
         }
+        
         public function clear_process(channel:String):void{
         }
         
@@ -688,6 +690,7 @@
             waiting_to_process = true;
             state = "waiting_to_process";
         }
+        
         protected function refresh_asset():void{
             if (last_grid_size){
                 asset.scaleX = (asset.scaleX * (grid_size / last_grid_size));
@@ -715,7 +718,7 @@
             return _kind;
         }
         public function get_upgrade_level():Number{
-            return (upgrade_level);
+            return upgrade_level;
         }
         
         protected function refresh_hit_area():void{
@@ -976,7 +979,7 @@
         }
         
         public function get sort_y_size():Number{
-            return (size_y);
+            return size_y;
         }
         
         protected function add_asset():void{
