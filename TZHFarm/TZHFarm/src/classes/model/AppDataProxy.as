@@ -1047,7 +1047,7 @@
          */ 
         private function obj_is_working(o:Object):Boolean{
             update_object(o);
-            return ((o.start_time > 0));
+            return (o.start_time > 0);
         }
         
         /**
@@ -1072,7 +1072,6 @@
                     	if(can_gift.length <= max_gift){
                     		can_gift.push(item.name);
                     	}
-                        
                     }
                 }
             }
@@ -1105,7 +1104,7 @@
             confirm = new Confirmation(0, c);
             app_data.storage = new Array();
             update_objects(["coins", "storage"]);
-            return (true);
+            return true;
         }
         
         /**
@@ -1526,13 +1525,13 @@
             if(!info)return;
             if (((info.upgradeable) && (!(o.upgrade_level)))){
                 o.upgrade_level = 1;
-            };
+            }
             if (!o.flipped){
                 o.flipped = 0;
-            };
+            }
             if (((info.constructible) && (!(o.obtained_materials)))){
                 o.obtained_materials = new Array();
-            };
+            }
             if (info.constructible){
                 i = 0;
                 while (i < info.materials.length) {
@@ -2047,7 +2046,7 @@
             } 
             obj.buy_gift = true;// 先默认的都不能送 */
             obj.buy_gift = false;
-            return (obj);
+            return obj;
         }
         
         public function get_gifts_data():Array{
@@ -2749,10 +2748,10 @@
                 obj = app_data.map[i];
                 update_object(obj);
                 if (obj.id == id){
-                    if (((under_construction_only) && (!(obj.under_construction)))){
+                    if (under_construction_only && (!obj.under_construction)){
                     } else {
                         list.push(obj);
-                    };
+                    }
                 }
                 i++;
             }
