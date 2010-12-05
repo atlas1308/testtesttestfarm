@@ -142,10 +142,10 @@
                 sell_all_btn.x = (bounds.width - sell_all_btn.width) / 2;
                 sell_all_btn.y = bounds.height + sell_all_btn.height;
             }
-            if (storageItems)
+            /* if (storageItems)// 现在修改成不清空了
             {
                 current_page = 0;
-            }
+            } */
             view_page(current_page);
         }
 
