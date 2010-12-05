@@ -69,9 +69,12 @@
         public function get_bmp_by_frame(f:Number):Bitmap{
             var bmps:Array = Cache.bmps;
             var arr:Array = (bmps[url] as Array);
-            if (((!(arr)) || (((arr) && ((arr.length == 0)))))){
-                return (new Bitmap());
+            if((!arr) || (arr && arr.length == 0)){
+            	return new Bitmap();
             }
+            /* if (((!(arr)) || (((arr) && ((arr.length == 0)))))){
+                return (new Bitmap());
+            } */
             if (f < 1){
                 f = 1;
             }

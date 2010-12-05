@@ -2143,19 +2143,19 @@
             var p:Object;
             var info:Object = config.store[obj.id];
             var obj_fed:Object = get_map_obj(obj.id, obj.grid_x, obj.grid_y);
-            if(!obj_fed)return false;
+            if(!obj_fed)return false;// 有可能被删除了
             if (app_data.op <= 0){
                 return false;
             }
             if (!info.is_multi){
-                if (!app_data.storage[info.raw_material]){
-                    return (false);
+                if (!app_data.storage[info.raw_material]){// 包裹里没有物品
+                    return false;
                 }
-                if (obj_fed.raw_materials == 3){
+                if (obj_fed.raw_materials == 3){// 原料已经满了
                     return false;
                 }
                 food_info = config.store[info.raw_material];
-            };
+            }
             if (show_preloader){
                 data = {
                     method:"autorefill",
@@ -2234,8 +2234,8 @@
                 };
             } else {
                 if (app_data.op <= 0){
-                    return (false);
-                };
+                    return false;
+                }
                 if (info.is_multi){
                     total_exp = 0;
                     raw_material = MultiProcessor(obj).get_raw_material_id(material);
