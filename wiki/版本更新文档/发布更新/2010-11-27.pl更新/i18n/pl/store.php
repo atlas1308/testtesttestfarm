@@ -416,10 +416,10 @@ return array(
         'name' => 'Ziemniaki',
     ),
     149 => array(
-        'name' => 'Słata',
+        'name' => 'Sałata',
     ),
     150 => array(
-        'name' => 'Słata',
+        'name' => 'Sałata',
     ),
     151 => array(
         'name' => 'Czerwona papryka',
