@@ -125,8 +125,8 @@
         
         protected function get collect_area():MovieClip{
             if (!mc){
-                return (null);
-            };
+                return null;
+            }
             return (mc.product);
         }
         
@@ -212,7 +212,7 @@
             var c:Number;
             if (!mc){
                 return;
-            };
+            }
             var r:MovieClip = mc[("raw_material" + (index + 1))];
             if ((raw_materials[index] as Array)){
                 c = raw_materials[index].length;
@@ -277,8 +277,11 @@
         }
         
         public function set_raw_material(index:Number):void{
-            selected_raw_material = index;
-            update_stage();
+        	if(selected_raw_material != index){
+	            selected_raw_material = index;
+	            dispatchEvent(new Event(AUTO_REFILL));
+	            update_stage();
+            }
         }
         
         protected function queue_highlight_by_raw_material(i:Number):void{
