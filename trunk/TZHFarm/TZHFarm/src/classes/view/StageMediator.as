@@ -219,17 +219,10 @@
                 }
                 case ApplicationFacade.SHOW_REFRESH_PAGE_POPUP:
                 {
-                    if (popup_proxy.can_show_popup)
-                    {
-                        popup_proxy.can_show_popup = false;
-                        var refreshPagePopup:RefreshPagePopup = new RefreshPagePopup(value.getBody() as String);
-                        facade.registerMediator(new PopupMediator(refreshPagePopup));
-                        stage.addChild(refreshPagePopup);
-                    }
-                    else
-                    {
-                        popup_proxy.add_popup(value);
-                    }
+                    facade.removeMediator(PopupMediator.NAME);
+                    var refreshPagePopup:RefreshPagePopup = new RefreshPagePopup(value.getBody() as String);
+                    facade.registerMediator(new PopupMediator(refreshPagePopup));
+                    stage.addChild(refreshPagePopup);
                     break;
                 }
                 case ApplicationFacade.TOGGLE_FULL_SCREEN:
