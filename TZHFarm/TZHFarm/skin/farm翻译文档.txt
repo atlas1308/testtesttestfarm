@@ -20,7 +20,7 @@ Ranch Cash_message = Do you need more Ranch Cash?
 
 Congratulations_message = Congratulations!
 
-won_message = You&apos;ve just won 
+won_message = You just won 
 
 coins_message = coinsin the Daily Raffle!in the Daily Raffle!
 
@@ -28,17 +28,25 @@ Daily Raffle_message = in the Daily Raffle!
 
 luck_message = Come back tomorrow and try your luck again.
 
-Level_message = You are now Level 10!received _message = You received 10000 coins and 1 reward point
+Level_message = You are now Level 10!
 
-buy_message = You can now buyCheese_message = Cheese Machine, Wood Fence,Picnic Table
+received _message = You received 10000 coins and 1 reward point
 
-gift_message = You can now giftMilk_message = Milk, Cheese, Tomatoes, Cow_message = 
+buy_message = You can now buy
+
+Cheese_message = Cheese Machine, Wood Fence,Picnic Table
+
+gift_message = You can now gift
+
+Milk_message = Milk, Cheese, Tomatoes, Cow_message = 
 
 Add_message = Add Ranch 
 
 Cash_message = Cash
 
-LOCKED_message = LOCKEDneeded_message = Level 123 
+LOCKED_message = LOCKED
+
+needed_message = Level 123 
 
 needed_message = needed
 
