@@ -279,7 +279,9 @@
         public function set_raw_material(index:Number):void{
         	if(selected_raw_material != index){
 	            selected_raw_material = index;
-	            dispatchEvent(new Event(AUTO_REFILL));
+	            if(this.is_automatic()){// 如果是自动化,才自动开启
+	            	dispatchEvent(new Event(AUTO_REFILL));
+	            }
 	            update_stage();
             }
         }

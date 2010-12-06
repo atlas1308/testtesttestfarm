@@ -184,11 +184,11 @@
             slide_started = false;
         }
 
-        private function change_qty(addChild:Number) : Boolean
+        private function change_qty(value:Number) : Boolean
         {
             var amount:int = int(qty.text);
             var result:Boolean = true;
-            amount = amount + addChild;
+            amount = amount + value;
             if (amount < 1)
             {
                 amount = 1;
