@@ -165,8 +165,6 @@
             var selectPopup:SelectPopup = null;
             var newsPopup:NewsPopup = null;
             var dynamicPopup:DynamicPopup = null;
-            var _loc_20:Object = null;
-            var _loc_22:Object = null;
             switch(value.getName())
             {
                 case ApplicationFacade.CREATE_OBJECTS:
@@ -368,37 +366,10 @@
                 }
                 case ApplicationFacade.SHOW_STORY_POPUP:
                 {
-                    if (popup_proxy.can_show_popup)
-                    {
-                        _loc_20 = app_data.get_story_popup_data();
-                        if (_loc_20)
-                        {
-                            popup_proxy.can_show_popup = false;
-                            var storyPopup:StoryPopup = new StoryPopup(_loc_20);
-                            facade.registerMediator(new PopupMediator(storyPopup));
-                            stage.addChild(storyPopup);
-                        }
-                    }
-                    else
-                    {
-                        popup_proxy.add_popup(value);
-                    }
                     break;
                 }
                 case ApplicationFacade.SHOW_ITEMS_RECEIVED:
                 {
-                    if (popup_proxy.can_show_popup)
-                    {
-                        popup_proxy.can_show_popup = false;
-                        _loc_22 = app_data.get_items_received_data();
-                        var itemsReceivedPopup:ItemsReceivedPopup = new ItemsReceivedPopup(_loc_22);
-                        facade.registerMediator(new PopupMediator(itemsReceivedPopup));
-                        stage.addChild(itemsReceivedPopup);
-                    }
-                    else
-                    {
-                        popup_proxy.add_popup(value);
-                    }
                     break;
                 }
                 case ApplicationFacade.SHOW_SEND_GIFTS_POPUP:

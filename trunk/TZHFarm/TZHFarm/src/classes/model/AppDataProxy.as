@@ -1749,32 +1749,6 @@
             return true;
         }
         
-        /**
-         * 
-         */ 
-        public function get_items_received_data():Object{
-            var info:Object;
-            var item:Object;
-            var data:Object = new Object();
-            data.list = new Array();
-            var names:Array = new Array();
-            var i:Number = 0;
-            while (i < app_data.items_received.length) {
-                info = config.store[app_data.items_received[i]];
-                if (!info){
-                } else {
-                    item = new Object();
-                    item.image = (("images/" + info.url) + ".png");// 这个图片的地址有点雷
-                    data.list.push(item);
-                    names.push(Algo.articulate(info.name));
-                }
-                i++;
-            }
-            data.message = ResourceManager.getInstance().getString("message","friends_helpe_mount",[Algo.enumerate(names)]);
-            return data;
-        }
-        
-        
         public function get_select_object_popup_data(list:Array, m:Object):Object{
             var info:Object;
             var p:Object;
@@ -2067,63 +2041,6 @@
             return output;
         }
         
-        
-        public function get_story_popup_data():Object{
-            if (!app_data.stories.length){
-                return (null);
-            };
-            var data:Object = Algo.clone(app_data.stories[0]);
-            data.image = (("images/stories/" + data.image) + ".png");
-            return data;
-        }
-        
-        /**
-         * 发送feed的提示 
-         */ 
-        public function show_ask_for_materials_feed_dialog(id:Number):void{
-            /* var story:String;
-            var mat_info:Object = config.store[id];
-            var obj_info:Object = config.store[map_object_to_use.id];
-            var upgrade_level:Number = 1;
-            if (mat_info.story){
-                story = mat_info.story;
-            } else {
-                //story = (mat_info.giftable) ? "share_materials" : "help_friend";
-                story = (mat_info.giftable) ? "send_materials" : "help_friend";
-            }
-            if (((((obj_info.upgradeable) && (!(map_object_to_use.is_under_construction())))) && (has_material(obj_info, id)))){
-                story = (story + "_upgrade");
-                upgrade_level = (map_object_to_use.get_upgrade_level() + 1);
-            };
-            var info:Object = config.story_patterns[story];
-            var tag:String = Algo.generate_tag();
-            var href:String = app_url;
-            if (mat_info.giftable){
-                href = (href + "gifts");
-            };
-            href = (href + ((((((((((((("?from=stream&story=" + story) + "&recipient=") + user_id) + "&kind=") + id) + "&tag=") + tag) + "&ts=") + config.post_ts) + "&key=") + config.post_key) + "&sig=") + config.post_sig));
-            var feed_data:Object = new Object();
-            var attachment:Object = new Object();
-            feed_data.tag = tag;
-            feed_data.subtype = story;
-            attachment.name = Algo.replace(info.name, ["%s", "{actor}", "%l"], [Algo.articulate(obj_info.name), user_name, upgrade_level]);
-            attachment.description = Algo.replace(info.description, ["%s", "%m", "{actor}", "%l"], [Algo.articulate(obj_info.name), mat_info.name, user_name, upgrade_level]);
-            var src:String = Config.getConfig("host") + "images/stories/" + config.store[id].url + ".png";
-            var action_link:String = Algo.replace(info.action_link, ["{actor}"], [user_name]);
-            Log.add(("image src " + src));
-            attachment.media = [{
-                href:href,
-                src:src,
-                type:"image"
-            }];
-            feed_data.action_links = [{
-                text:action_link,
-                href:href
-            }];
-            feed_data.attachment = attachment;
-            feed_data.target = obj_info.id;
-            show_feed_dialog(feed_data); */
-        }
         
         public function last_data():Object{
             return (Algo.clone(last_app_data));

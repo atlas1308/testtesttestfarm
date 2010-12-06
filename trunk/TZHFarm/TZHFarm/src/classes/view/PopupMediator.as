@@ -187,10 +187,6 @@
             {
                 //sendNotification(ApplicationFacade.NAVIGATE_TO_URL, "gifts");
             }
-            if (popup as StoryPopup)
-            {
-                //app_data.show_feed_dialog(StoryPopup(popup).feed_data);// 此方法已经被删除
-            }
             if (popup as FriendHelpedPopup)
             {
                 app_data.friend_helped_popup_displayed();

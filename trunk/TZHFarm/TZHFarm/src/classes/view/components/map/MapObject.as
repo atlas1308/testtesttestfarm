@@ -542,7 +542,7 @@
         }
         
         public function get constructionOK():Boolean {
-        	return !this.under_construction
+        	return !this.under_construction;
         }
         
         public function get _height():Number{
