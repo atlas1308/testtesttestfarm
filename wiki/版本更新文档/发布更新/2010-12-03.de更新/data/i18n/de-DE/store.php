@@ -570,10 +570,10 @@ return array(
 		'name' => 'Wassermelone',
 	),
 	4007 => array(
-		'name' => 'Melonesaft',
+		'name' => 'Ananas',
 	),
 	4008 => array(
-		'name' => 'Ananas',
+		'name' => 'Melonesaft',
 	),
 	4009 => array(
 		'name' => 'Ananassaft',
