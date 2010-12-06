@@ -6,6 +6,7 @@
 <classEntry path="Futura"/>
 <classEntry path="Helvetica"/>
 <classEntry path="HoboStd"/>
+<classEntry path="Tahoma"/>
 <classEntry path="Verdana"/>
 </includeClasses>
 <includeResources/>
