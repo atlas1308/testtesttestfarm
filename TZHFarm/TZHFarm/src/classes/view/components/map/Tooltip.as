@@ -16,15 +16,12 @@
             init();
         }
         
-        public function setTextColor(c:Number):void{
-            tf.textColor = c;
+        public function setTextColor(value:Number):void{
+            tf.textColor = value;
         }
         
-        public function set_bg(c:Number):void{
-            bg_color = c;
-        }
-        public function get _height():Number{
-            return (container.height);
+        public function set_bg(value:Number):void{
+            bg_color = value;
         }
         
         private function draw():void{

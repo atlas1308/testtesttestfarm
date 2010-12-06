@@ -3,8 +3,6 @@
     import flash.text.*;
 
     public class Tooltip extends Sprite {
-
-        private var arr:arrow;
         private var container:Sprite;
         private var bg_color:Number = 4925711;
         private var padd:Number = 4;
@@ -15,21 +13,17 @@
             init();
         }
         
-        public function set_bg(c:Number):void{
-            bg_color = c;
-        }
-        
-        public function get _height():Number{
-            return (container.height);
+        public function set_bg(value:Number):void{
+            bg_color = value;
         }
         
         private function draw():void{
-            var _w:Number = (tf.width + (2 * padd));
-            var _h:Number = (tf.height + (2 * padd));
+            var ww:Number = tf.width + (2 * padd);
+            var hh:Number = tf.height + (2 * padd);
             container.graphics.clear();
             container.graphics.beginFill(bg_color, 0.8);
             container.graphics.lineStyle(1, 2495750, 1, true);
-            container.graphics.drawRoundRect(0, 0, _w, _h, 10);
+            container.graphics.drawRoundRect(0, 0, ww, hh, 10);
             container.graphics.endFill();
         }
         
@@ -46,18 +40,6 @@
                 tf.width = 200;
             }
             draw();
-            /* if (arr){
-                removeChild(arr);
-                arr = null;
-            }
-            if (use_arrow){
-                arr = new arrow();
-                arr.x = ((container.width - arr.width) / 2);
-                arr.y = container.height;
-                arr.mouseEnabled = false;
-                arr.mouseChildren = false;
-                addChild(arr);
-            } */
             x = stage.mouseX;
             y = (stage.mouseY + 20);
             if ((y + height) > stage.stageHeight){
