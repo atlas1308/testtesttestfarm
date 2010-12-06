@@ -247,17 +247,10 @@
                 }
                 case ApplicationFacade.SHOW_ACCEPT_SNAPSHOT:
                 {
-                    if (popup_proxy.can_show_popup)
-                    {
-                        popup_proxy.can_show_popup = false;
-                        var acceptSnapshot:AcceptSnapshotPopup = new AcceptSnapshotPopup();
-                        facade.registerMediator(new PopupMediator(acceptSnapshot));
-                        stage.addChild(acceptSnapshot);
-                    }
-                    else
-                    {
-                        popup_proxy.add_popup(value);
-                    }
+                	facade.removeMediator(PopupMediator.NAME);
+                    var acceptSnapshot:AcceptSnapshotPopup = new AcceptSnapshotPopup();
+                    facade.registerMediator(new PopupMediator(acceptSnapshot));
+                    stage.addChild(acceptSnapshot);
                     break;
                 }
                 case ApplicationFacade.ACTIVATE_SNAPSHOT_MODE:
@@ -274,25 +267,17 @@
                 }
                 case ApplicationFacade.SHOW_SNAPSHOT_PREVIEW:
                 {
-                    if (popup_proxy.can_show_popup)
-                    {
-                        popup_proxy.can_show_popup = false;
-                        var snapShotPreview:SnapshotPreviewPopup = new SnapshotPreviewPopup(value.getBody() as Bitmap);
-                        facade.registerMediator(new PopupMediator(snapShotPreview));
-                        stage.addChild(snapShotPreview);
-                        cancel_snapshot.visible = false;
-                        snapshot_viewport.stop();
-                    }
-                    else
-                    {
-                        popup_proxy.add_popup(value);
-                    }
+                	facade.removeMediator(PopupMediator.NAME);
+                    var snapShotPreview:SnapshotPreviewPopup = new SnapshotPreviewPopup(value.getBody() as Bitmap);
+                    facade.registerMediator(new PopupMediator(snapShotPreview));
+                    stage.addChild(snapShotPreview);
+                    cancel_snapshot.visible = false;
+                    snapshot_viewport.stop();
                     break;
                 }
                 case ApplicationFacade.SHOW_STREAM_PERMISSIONS:
                 {
                     stage.displayState = StageDisplayState.NORMAL;
-                    //ExternalInterface.call("showStreamPermissions");
                     break;
                 }
                 case ApplicationFacade.SHOW_SELECT_RAW_MATERIAL_POPUP:
