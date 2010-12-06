@@ -448,7 +448,6 @@
                 {
                     temp = value.getBody();
                     var mapObject:MapObject = map.increase_obtained_material(temp.mo, temp.material);
-                    //sendNotification(ApplicationFacade.UPDATE_UNDERCONSTRUCTIONPOPUP,mapObject);
                     var popup:DisplayObject = this.map.stage.getChildByName("underConstructionPopup");
                     if(popup && popup is UnderConstructionPopup){
                     	if(mapObject is Greenhouse && mapObject.constructionOK){// 先暂时做这么一个判断
