@@ -1,0 +1,5 @@
+1.红色玫瑰，Rote Rose
+2.白色玫瑰，Weiße Rose
+3.蓝色玫瑰，Blaue Rose
+4.郁金香，  Tulpen
+5.百合，    Lilie
