@@ -2093,7 +2093,7 @@ return array(
         'size_y' => 10
     ),
     137 => (Object) array(
-        'sell_price' => 1800,
+        'sell_price' => 600,
         'exp' => 80,
         'buyable' => true,
         'price' => 90000,
