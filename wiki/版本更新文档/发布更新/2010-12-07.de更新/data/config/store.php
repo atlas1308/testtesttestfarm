@@ -3412,4 +3412,24 @@ return array(
         'id' => 5010,
         'gift_level' => 8
     ),
+    5011 => (Object) array(
+        'rp_price' => 1,
+        'kind' => 'fertilizer',
+        'exp' => 13,
+        'url' => 'fertilizer',
+        'price' => 0,
+        'action' => 'fertilize',
+        'percent' => 0.25,
+        'uses' => 25,
+        'buy_gift' => true,
+        'id' => 5011,
+        'desc' => 'reduce a crop\'s growth time by 25% - 200 uses',
+        'giftable' => false,
+        'name' => 'Organic Fertilizer',
+        'trade_for' => false,
+        'type' => 'special_events',
+        'map_object' => true,
+        'size_x' => 2,
+        'size_y' => 2
+    ),
 );

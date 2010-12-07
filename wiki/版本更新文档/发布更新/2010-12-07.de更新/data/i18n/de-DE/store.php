@@ -613,5 +613,9 @@ return array(
 	),
 	5010 => array(
 		'name' => 'Weiße Rose',
-	)
+	),
+	5011 => array(
+		'name' => 'Organischer Dünger',
+        'desc' => '75% der Wachstumsdauer',
+    ),
 );
