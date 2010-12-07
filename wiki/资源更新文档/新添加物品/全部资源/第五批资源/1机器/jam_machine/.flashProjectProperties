@@ -1,0 +1,32 @@
+﻿<projectDescription>
+	<id>1238637846607</id>
+	<name>jam_machine</name>
+	<asVersion>0</asVersion>
+	<boundTemplate>file:///C|/Documents and Settings/Administrator/Local Settings/Application Data/Adobe/Flash CS4/en/Configuration/Project/templates/boundClass_as3.as</boundTemplate>
+	<classTemplate>file:///C|/Documents and Settings/Administrator/Local Settings/Application Data/Adobe/Flash CS4/en/Configuration/Project/templates/standardClass_as3.as</classTemplate>
+	<classPath>.</classPath>
+	<defaultApp/>
+	<rootURI>C:\Documents and Settings\Administrator\桌面\test</rootURI>
+	<flexSDK/>
+	<sources editable="false"/>
+	<libraries editable="false"/>
+	<externalLibraries editable="false"/>
+	<compileList editable="false">
+		<uri label="jam_machine.fla">file:///C|/Documents and Settings/Administrator/桌面/test/jam_machine.fla</uri>
+	</compileList>
+	<recentFiles editable="false">
+		<uri label="MainTimeline.as">file:///C|/Documents and Settings/Administrator/桌面/test/jam_machine_fla/MainTimeline.as</uri>
+		<uri label="animatie_2.as">file:///C|/Documents and Settings/Administrator/桌面/test/jam_machine_fla/animatie_2.as</uri>
+		<uri label="funnel_product_4.as">file:///C|/Documents and Settings/Administrator/桌面/test/jam_machine_fla/funnel_product_4.as</uri>
+		<uri label="funnel_products_5.as">file:///C|/Documents and Settings/Administrator/桌面/test/jam_machine_fla/funnel_products_5.as</uri>
+		<uri label="funnels_3.as">file:///C|/Documents and Settings/Administrator/桌面/test/jam_machine_fla/funnels_3.as</uri>
+		<uri label="honey_levels_8.as">file:///C|/Documents and Settings/Administrator/桌面/test/jam_machine_fla/honey_levels_8.as</uri>
+		<uri label="material_12.as">file:///C|/Documents and Settings/Administrator/桌面/test/jam_machine_fla/material_12.as</uri>
+		<uri label="miere_7.as">file:///C|/Documents and Settings/Administrator/桌面/test/jam_machine_fla/miere_7.as</uri>
+		<uri label="miere_9.as">file:///C|/Documents and Settings/Administrator/桌面/test/jam_machine_fla/miere_9.as</uri>
+		<uri label="product_14.as">file:///C|/Documents and Settings/Administrator/桌面/test/jam_machine_fla/product_14.as</uri>
+		<uri label="switch_area_15.as">file:///C|/Documents and Settings/Administrator/桌面/test/jam_machine_fla/switch_area_15.as</uri>
+		<uri label="valve_6.as">file:///C|/Documents and Settings/Administrator/桌面/test/jam_machine_fla/valve_6.as</uri>
+	</recentFiles>
+	<locations editable="false"/>
+</projectDescription>
