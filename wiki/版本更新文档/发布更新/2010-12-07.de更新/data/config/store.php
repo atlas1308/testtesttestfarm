@@ -3202,7 +3202,7 @@ return array(
         'kind' => 'pineapple',
         'map_object' => true,
         'size_x' => 4,
-        'level' => 32,
+        'level' => 33,
         'size_y' => 4
     ),
     4008 => (Object) array(
@@ -3236,7 +3236,7 @@ return array(
         'buyable' => false,
         'name' => 'WaterMelon',
         'url' => 'waterMelon_p',
-        'sell_for' => 271,
+        'sell_for' => 267,
         'exp' => 1,
         'map_object' => false,
         'trade_for' => 25,
@@ -3271,7 +3271,7 @@ return array(
         'kind' => 'Lily',
         'map_object' => true,
         'size_x' => 4,
-        'level' => 45,
+        'level' => 46,
         'size_y' => 4
     ),
 	5002 => (Object) array(
@@ -3281,7 +3281,7 @@ return array(
         'buyable' => false,
         'name' => 'Lily',
         'url' => 'Lily_p',
-        'sell_for' => 283,
+        'sell_for' => 284,
         'exp' => 1,
         'map_object' => false,
         'trade_for' => 25,
