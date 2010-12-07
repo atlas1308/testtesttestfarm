@@ -3211,7 +3211,7 @@ return array(
         'giftable' => false,
         'buyable' => false,
         'name' => 'WaterMelon Jam',
-        'sell_for' => 283,
+        'sell_for' => 281,
         'exp' => 1,
         'map_object' => false,
         'url' => 'waterMelon_jam',
