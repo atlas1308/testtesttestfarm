@@ -113,10 +113,10 @@ package {
 			_instance = this;
 			Security.allowDomain("*");
 			
-			Config.setConfig("host","http://ec2-46-51-129-166.eu-west-1.compute.amazonaws.com/static/");//vz平台
-			Config.setConfig("transport","http://ec2-46-51-129-166.eu-west-1.compute.amazonaws.com/");
-			//Config.setConfig("host","http://localhost:80/static/");
-			//Config.setConfig("transport","http://localhost:80/");
+			//Config.setConfig("host","http://ec2-46-51-129-166.eu-west-1.compute.amazonaws.com/static/");//vz平台
+			//Config.setConfig("transport","http://ec2-46-51-129-166.eu-west-1.compute.amazonaws.com/");
+			Config.setConfig("host","http://localhost:80/static/");
+			Config.setConfig("transport","http://localhost:80/");
 			
 			//Config.setConfig("transport","http://192.168.0.100/");
 			/* Config.setConfig("transport","http://192.168.1.99:9903/");
