@@ -32,7 +32,7 @@ package tzh.core
 		 * 
 		 */ 
 		private var tutorialItems:Array = [
-											{id:1,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:13,grid_y:15}},
+											{id:1,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:13,grid_y:15},configY:-13},
 											{id:2,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:13,grid_y:19}},
 											{id:3,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:17,grid_y:16}},
 											{id:4,target:":child[my_ranch]",parent:Map,delay:1000,position:{grid_x:17,grid_y:20}},
