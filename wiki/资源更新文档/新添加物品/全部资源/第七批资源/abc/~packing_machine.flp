@@ -1,0 +1,19 @@
+﻿<flash_project name="~packing_machine" version="1">
+	<project_file filetype="fla" path="./~packing_machine.fla" profile=""/>
+	<project_file filetype="as" path="./packing_machine_fla/MainTimeline.as"/>
+	<project_file filetype="as" path="./packing_machine_fla/Tween16_4.as"/>
+	<project_file filetype="as" path="./packing_machine_fla/animation1_21.as"/>
+	<project_file filetype="as" path="./packing_machine_fla/animation2_17.as"/>
+	<project_file filetype="as" path="./packing_machine_fla/animation3_10.as"/>
+	<project_file filetype="as" path="./packing_machine_fla/animation4_2.as"/>
+	<project_file filetype="as" path="./packing_machine_fla/grinder_cap_15.as"/>
+	<project_file filetype="as" path="./packing_machine_fla/material1_12.as"/>
+	<project_file filetype="as" path="./packing_machine_fla/material2_13.as"/>
+	<project_file filetype="as" path="./packing_machine_fla/material3_14.as"/>
+	<project_file filetype="as" path="./packing_machine_fla/packs_5.as"/>
+	<project_file filetype="as" path="./packing_machine_fla/product1_7.as"/>
+	<project_file filetype="as" path="./packing_machine_fla/product2_8.as"/>
+	<project_file filetype="as" path="./packing_machine_fla/product3_9.as"/>
+	<project_file filetype="as" path="./packing_machine_fla/redbutton_20.as"/>
+	<project_file filetype="as" path="./packing_machine_fla/switch_area_1.as"/>
+</flash_project>
