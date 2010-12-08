@@ -82,6 +82,7 @@
                 return;
             }
             clear_asset();
+            if(!loader)return;// 这里加一个判断,可能
             if (pollinated){
                 plant = loader.get_bmp_by_frame(6);// 只有花才有第6帧,目前情况下
             } else {
