@@ -234,7 +234,6 @@
             var r:Number;
             var list:Array = this.getSimpleObject();
             var sorted:Array = new Array();
-            var t1:Number = Algo.timer();
             i = 0;
             while (i < list.length) {
                 new_obj = list[i];
@@ -296,7 +295,7 @@
                 return;
             }
             tool.mouse("move", e.target.parent);
-            if ((last_mouseGridX != mouseGridX) || (!last_mouseGridY != mouseGridY)){
+            if ((last_mouseGridX != mouseGridX) || (last_mouseGridY != mouseGridY)){
                 tool.mouse("grid_move", e.target.parent);
             }
             last_mouseGridX = mouseGridX;

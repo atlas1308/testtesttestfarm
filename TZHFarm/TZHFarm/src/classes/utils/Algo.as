@@ -305,7 +305,7 @@
         }
         
         public static function get_y(grid_x:Number, grid_y:Number, view_angle:Number, grid_size:Number):Number{
-            return ((grid_x + grid_y) * grid_size) * Algo.cos(view_angle);
+            return ((((grid_x + grid_y) * grid_size) * Algo.cos(view_angle)));
         }
         
         public static function enumerate(l:Array, d1:String=", "):String{
