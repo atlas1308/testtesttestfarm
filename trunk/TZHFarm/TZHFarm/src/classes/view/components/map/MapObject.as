@@ -596,7 +596,7 @@
         public function kill():void{
             loader.removeEventListener(Cache.LOAD_COMPLETE, assetLoaded);
             loader.destory();
-            loader = null;
+            //loader = null;
             clear_asset();
             if(parent){
             	parent.removeChild(this);
