@@ -288,11 +288,11 @@
             }
             update_objects(update_fields);
             if(showTutorial){// 如果这个值是0的话,才能开始向导
-            	TZHFarm.instance.stage.mouseChildren = false;// 初始化其它的都不让用户点了
             	TutorialManager.getInstance().addEventListener(Event.COMPLETE,tutorialCompleted);
             	setTimeout(startTutorial,2000);
             }else {
             	TutorialManager.getInstance().end = true;
+            	TZHFarm.instance.stage.mouseChildren = true;// 初始化其它的都不让用户点了
             }
             if (app_data.farm){
                 sendNotification(ApplicationFacade.SHOW_FARM);

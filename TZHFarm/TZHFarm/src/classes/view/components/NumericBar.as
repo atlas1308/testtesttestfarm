@@ -24,7 +24,7 @@
 
         protected function get_tool_tip_message() : String
         {
-            return ResourceManager.getInstance().getString("message","user_has_coins_message",[value]);
+            return ResourceManager.getInstance().getString("message","user_has_coins_message",[value]);// 这个设计不是很合理
         }
 
         public function update(value:Number) : void

@@ -122,9 +122,11 @@
         public static function prep_size(s:Number):String{
             return ((Number(((s / 0x0400) / 0x0400)).toFixed(2) + "Mb"));
         }
+        
         public static function get_x(grid_x:Number, grid_y:Number, view_angle:Number, grid_size:Number):Number{
-            return ((((grid_y - grid_x) * grid_size) * Algo.sin(view_angle)));
+            return ((grid_y - grid_x) * grid_size) * Algo.sin(view_angle);
         }
+        
         private static function formatSeed(s:Number, reqWidth:Number):String{
             var seed:String = int(s).toString(16);
             if (reqWidth < seed.length){
@@ -303,7 +305,7 @@
         }
         
         public static function get_y(grid_x:Number, grid_y:Number, view_angle:Number, grid_size:Number):Number{
-            return ((((grid_x + grid_y) * grid_size) * Algo.cos(view_angle)));
+            return ((grid_x + grid_y) * grid_size) * Algo.cos(view_angle);
         }
         
         public static function enumerate(l:Array, d1:String=", "):String{

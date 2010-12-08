@@ -43,17 +43,58 @@
             container.graphics.drawRect(0, 0, view_w, view_h);
             container.graphics.endFill();
             border_cont.graphics.clear();
-            draw_bounds(4, 10942037);
+            draw_bounds(4, 10942037);//10942037
             var size:Number = 6 / this.grid_size;
-            draw_polygon([[-top_size - size, -top_size - size], // 这个的问题,是应该返回0,但是具体要搞清楚这个意义,不过我看来应该就是0
+            draw_polygon(border_cont.graphics,
+            				[[-top_size - size, -top_size - size], // 这个的问题,是应该返回0,但是具体要搞清楚这个意义,不过我看来应该就是0
 				            [size_x + size, -top_size - size], 
 				            [size_x + size, size_y + size], 
 				            [-top_size - size, size_y + size]], 
-				            551206);//551206
+				            551206);
+			
+			//var temp:int = 8;
+			// xx 下  yy 右 求:rt   top
+		    /* var testLines:Array = [[-top_size - size + 1, -top_size - size], // 这个的问题,是应该返回0,但是具体要搞清楚这个意义,不过我看来应该就是0
+				            [size + temp, -top_size - size], 
+				            [size + temp, size_y + size], 
+				            [-top_size - size + 1, size_y + size]]; */
+			//this.draw_polygon2(leftTop.graphics,testLines,0xFF99AA); 
             border_cont.x = this.delta_x + this.view_w / 2;
             border_cont.y = this.delta_y + this.view_h / 2 - Algo.get_y(size_x + top_size, size_y + top_size, angle, grid_size) / 2;
+            /* leftTop.x = border_cont.x;
+            leftTop.y = border_cont.y; */
         }
-
+        
+        /* private function draw_polygon2(g:Graphics,lines:Array, color:Number) : void
+        {
+            var lineX:Number = 0;
+            var lineY:Number = 0;
+            var moveX:Number = 0;
+            var moveY:Number = 0;
+            g.lineStyle(0, color, 1, true);
+            var index:Number = 0;
+            while (index < lines.length)
+            {
+                moveX = Algo.get_x(size_x + lines[index][0], lines[index][1], angle, grid_size);
+                moveY = Algo.get_y(size_x + lines[index][0], lines[index][1], angle, grid_size);
+                if (index == 0)
+                {
+                    g.moveTo(moveX, moveY);
+                    lineX = moveX;
+                    lineY = moveY;
+                    index++;
+                    continue;
+                }
+                g.lineTo(moveX, moveY);
+                var endIndex:int = lines.length - 1;
+                if (index == endIndex)
+                {
+                    g.lineTo(lineX, lineY);
+                }
+                index++;
+            }
+        } */
+        
         private function init() : void
         {
             container = new Sprite();
@@ -80,17 +121,11 @@
         {
             var ratio:Number = size / this.grid_size;
             if(isNaN(ratio))return;
-            border_cont.graphics.lineStyle(0, color, 1, true);
-            border_cont.graphics.moveTo(Algo.get_x(-ratio, -ratio, this.angle, grid_size), 
-            	Algo.get_y(-ratio, -ratio, this.angle, grid_size));
-            border_cont.graphics.lineTo(Algo.get_x(size_x + ratio, -ratio, this.angle, grid_size), 
-            	Algo.get_y(size_x + ratio, -ratio, this.angle, grid_size));
-            border_cont.graphics.lineTo(Algo.get_x(size_x + ratio, size_y + ratio, this.angle, grid_size),
-            	Algo.get_y(size_x + ratio, size_y + ratio, this.angle, grid_size));
-            border_cont.graphics.lineTo(Algo.get_x(-ratio, size_y + ratio, this.angle, grid_size), 
-            	Algo.get_y(-ratio, size_y + ratio, this.angle, grid_size));
-            border_cont.graphics.lineTo(Algo.get_x(-ratio, -ratio, this.angle, grid_size), 
-            	Algo.get_y(-ratio, -ratio, this.angle, grid_size));
+            var lines:Array = [[-ratio, -ratio],
+				            [size_x + ratio, -ratio], 
+				            [size_x + ratio, size_y + ratio], 
+				            [-ratio, size_y + ratio]];
+			this.draw_polygon(border_cont.graphics,lines,color);
         }
 
         public function set_bounds(size_x:Number, size_y:Number, top_size:Number) : void
@@ -104,13 +139,12 @@
             }
         }
 
-        private function draw_polygon(lines:Array, color:Number) : void
+        private function draw_polygon(g:Graphics,lines:Array, color:Number) : void
         {
             var lineX:Number = 0;
             var lineY:Number = 0;
             var moveX:Number = 0;
             var moveY:Number = 0;
-            var g:Graphics = border_cont.graphics;
             g.lineStyle(0, color, 1, true);
             var index:Number = 0;
             while (index < lines.length)

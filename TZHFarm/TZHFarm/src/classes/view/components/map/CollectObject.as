@@ -5,9 +5,6 @@
     import flash.events.*;
     import flash.geom.*;
     import flash.utils.*;
-    
-    import tzh.core.Config;
-    import tzh.core.SystemTimer;
 	
 	/**
 	 * 这里时间的计算可能会因为时区的问题计算出错,这个线上在看吧
