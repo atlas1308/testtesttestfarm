@@ -27,8 +27,19 @@ package tzh.core
 			this.load();
 		}
 		
+		/**
+		 * 这里需要配置
+		 * ui里需要加上locale
+		 */ 
 		public function set path(value:String):void {
-			this._path = Config.getConfig("host") + "assets/ui/" + value + ".swf" + "?version=" + Config.getConfig("version");
+			var result:String = Config.getConfig("host") + 
+								"assets/ui/" + 
+								VersionManager.instance.version + 
+								"/" + 
+								value + 
+								".swf" + 
+								"?version=" + Config.getConfig("version");
+			this._path = result;
 		}
 		
 		public function get path():String {

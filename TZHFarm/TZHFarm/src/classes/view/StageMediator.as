@@ -60,7 +60,6 @@
         private function create_objects() : void
         {
             Cursor.stage = stage;
-            TZHFarm.instance.stage.mouseChildren = false;// 初始化,都不能点
             var my_ranch:Map = new Map(stage.stageWidth, stage.stageHeight - 40);
             my_ranch.name = "my_ranch";
             facade.registerMediator(new MapMediator(my_ranch));

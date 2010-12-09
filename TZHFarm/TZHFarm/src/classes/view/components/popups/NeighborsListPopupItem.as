@@ -8,6 +8,7 @@
     import mx.resources.ResourceManager;
     
     import tzh.core.Image;
+    import tzh.core.VersionManager;
 
     public class NeighborsListPopupItem extends PopupItem
     {
@@ -88,7 +89,11 @@
             checkbox.checkmark.visible = false;
             var image:Image = new Image(data.image,image_cont);
             image_cont.addChild(image);
-            title = create_tf(title_size, title_color, title_width, "", "left");
+            if(VersionManager.instance.pl){
+            	title = create_tf(title_size, title_color, title_width, "Tahoma", "left");
+            }else {
+            	title = create_tf(title_size, title_color, title_width, "", "left");
+            }
             title.width = data.width - image_w - 3 * padd - checkbox.width;
             container.addChild(title);
             if (data.title_txt)
