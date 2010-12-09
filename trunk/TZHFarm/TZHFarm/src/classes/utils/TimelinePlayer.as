@@ -126,14 +126,14 @@
         public function is_playing():Boolean{
             return (_is_playing);
         }
-        
+        //[[54, 62], -1000, [61, 54]];
         private function loop(e:TimerEvent):void{
             if (!mc){
                 return (stop());
-            };
+            }
             if (queue.length == 0){
                 return (stop());
-            };
+            }
             if (!start_frame){
                 return (stop());
             };
@@ -191,7 +191,7 @@
         
         /**
          * 这里的默认的值应该是-1,也就是第一帧
-         * [[2,19]]
+         * [[2,19]][[54, 62], -1000, [61, 54]];
          */ 
         public function play(frames:Array, dispatch_finish:Boolean=true, delay:Number=1):void{
             var _frms:Array = (Algo.clone(frames) as Array);

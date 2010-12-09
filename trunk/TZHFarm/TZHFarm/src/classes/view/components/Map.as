@@ -701,7 +701,8 @@
                     obj.addEventListener(Processor.AUTO_REFILL, onAutoRefill);
                     obj.addEventListener(Processor.AUTO_COLLECT, onAutoCollect);
                 }
-                map_objects.addChild(obj);
+                map_objects.addChildAt(obj,0);// 加到索引上,否则排序会有一些问题
+                //map_objects.addChild(obj);
             }
             can_sort_depth = true;
             sort_depth();
@@ -709,7 +710,7 @@
             refresh_objects_depth();
             init_greenhouses();
             check_irrigation();
-            sort_depth();// 这里再做一次排序,上面的排序有一些问题,暂时还不清楚
+            //sort_depth();// 这里再做一次排序,上面的排序有一些问题,暂时还不清楚
         }
         
         
