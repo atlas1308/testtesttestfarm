@@ -57,7 +57,9 @@
         
         public function set_target(t:MapObject):void{
             var clickPoint:Point = new Point((t.x + (t._width / 2)), t.y);
-            target = t.parent.localToGlobal(clickPoint);
+            if(t.parent){
+            	target = t.parent.localToGlobal(clickPoint);
+            }
         }
         
         public function add_value(v:Number, s:String):void{

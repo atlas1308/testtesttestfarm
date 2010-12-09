@@ -86,27 +86,31 @@
             	trace("loader is null ");
             	//return;
             }
-            if (pollinated){
-                plant = loader.get_bmp_by_frame(6);// 只有花才有第6帧,目前情况下
-            } else {
-                plant = loader.get_bmp_by_frame(current_stage());
-            }
-            asset.addChild(grass_back);
-            asset.addChild(soil);
-            asset.addChild(plant);
-            asset.addChild(grass_front);
-            if (water_pipe){
-                asset.addChild(water_pipe);
-            }
-            if(!friend_can_be_fertilized){
-            	if(!this.specificEffect){// 这里可能还是有一些小问题
-            		this.specificEffect = new Specific();
-            		this.specificEffect.cacheAsBitmap = true;
-            	}
-            	if(!asset.contains(this.specificEffect)){
-            		this.specificEffect.gotoAndStop(1);
-            		asset.addChild(this.specificEffect);
-            	}
+            try {
+	            if (pollinated){
+	                plant = loader.get_bmp_by_frame(6);// 只有花才有第6帧,目前情况下
+	            } else {
+	                plant = loader.get_bmp_by_frame(current_stage());
+	            }
+	            asset.addChild(grass_back);
+	            asset.addChild(soil);
+	            asset.addChild(plant);
+	            asset.addChild(grass_front);
+	            if (water_pipe){
+	                asset.addChild(water_pipe);
+	            }
+	            if(!friend_can_be_fertilized){
+	            	if(!this.specificEffect){// 这里可能还是有一些小问题
+	            		this.specificEffect = new Specific();
+	            		this.specificEffect.cacheAsBitmap = true;
+	            	}
+	            	if(!asset.contains(this.specificEffect)){
+	            		this.specificEffect.gotoAndStop(1);
+	            		asset.addChild(this.specificEffect);
+	            	}
+	            }
+            }catch(error:Error){
+            	trace("this has a error please check this error " + error.message);
             }
         }
         

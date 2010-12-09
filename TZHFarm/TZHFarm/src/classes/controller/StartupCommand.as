@@ -51,7 +51,8 @@
 		CONFIG::debug
 		private function get params():Object {
 			var obj:Object = new Object();
-			obj.fb_sig_user = "dasfdafafa" + Math.floor(Math.random() * 1000000);
+			obj.fb_sig_user = "www.vz.net:yy-n1GwaMLYH9VyakQHlWw";
+			// bug www.vz.net:yy-n1GwaMLYH9VyakQHlWw
 			obj.version = 77; 
 			obj.lang = Config.getConfig("lang");
 			return obj;

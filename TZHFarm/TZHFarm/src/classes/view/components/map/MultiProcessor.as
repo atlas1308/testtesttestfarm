@@ -266,7 +266,7 @@
         public function highlight_automation_areas(color:Number):void{
             if (collect_area){
                 Effects.glow(collect_area, color);
-            };
+            }
             var i:Number = 1;
             while (i <= raw_material.length) {
                 if (get_refill_area(i)){
@@ -297,7 +297,7 @@
             var r:MovieClip = mc[("raw_material" + (i + 1))];
             if ((raw_materials[i] as Array)){
                 c = raw_materials[i].length;
-            };
+            }
             if (process_count[("feed" + (i + 1))]){
                 if ((((process_count[("feed" + (i + 1))] >= 1)) && ((c < 3)))){
                     r[("material" + (c + 1))].visible = true;

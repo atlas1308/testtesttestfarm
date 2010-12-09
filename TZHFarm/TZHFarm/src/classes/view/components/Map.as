@@ -47,7 +47,6 @@
         private var greenhouses:Array;
         private var viewport_w:Number;
         private var bees:Array;
-        private var sort_queue:Array;
         private var map_objects:Sprite;
         private var map_padd:Number = 20;
         private var pan_delta_x:Number;
@@ -79,7 +78,6 @@
         
 
         public function Map(_w:Number, _h:Number){
-            sort_queue = new Array();
             super();
             viewport_w = _w;
             viewport_h = _h;
@@ -106,9 +104,18 @@
             dispatchEvent(new Event(MAP_OBJECTS_UPDATED));
         }
         
+        /**
+         *  左下Y,右下X
+         */ 
         private function object_compare(obj_A:Object, obj_B:Object):Number{
-        	if(!obj_A)return 0;
-        	if(!obj_B)return 0;
+        	if(!obj_A){
+        		return 0;
+        		trace("obj_A is null");
+        	}
+        	if(!obj_B) {
+        		return 0;
+        		trace("obj_B is null");
+        	}
             var a_h:Number = obj_A.sort_y_size;
             var a_w:Number = obj_A.sort_x_size;
             var b_h:Number = obj_B.sort_y_size;
@@ -117,7 +124,7 @@
             var b_y:Number = obj_B.sort_grid_y;
             var a_x:Number = obj_A.sort_grid_x;
             var a_y:Number = obj_A.sort_grid_y;
-            if (((obj_A.is_fence) && (obj_B.is_fence))){
+            if ((obj_A.is_fence) && (obj_B.is_fence)){
                 if (a_w > 1){
                     a_w = (a_w - 2);
                     a_x = (a_x + 1);
@@ -126,21 +133,27 @@
                     b_w = (b_w - 2);
                     b_x = (b_x + 1);
                 }
-                if ((((a_h > 1)) && ((b_h > 1)))){
+                if ((a_h > 1) && (b_h > 1)){
                     a_h = (a_h - 2);
                     a_y = (a_y + 1);
                 }
             }
-            if ((((a_y < (b_y + b_h))) && ((a_x < b_x)))){// b 在 a 的右下方
+            
+            if ((a_y < (b_y + b_h)) && (a_x < b_x)){// b 在 a 的右下方
+                return -1;
+            }
+            if ((a_x < (b_x + b_w)) && (a_y < b_y)){// b 在 a 的右下方
                 return (-1);
             }
-            if ((((a_x < (b_x + b_w))) && ((a_y < b_y)))){// b 在 a 的右下方
-                return (-1);
-            }
-            if (((((a_y + a_h) > b_y)) && ((a_x >= (b_x + b_w))))){// b 在 a 的左下方
+            if ((((a_y + a_h) > b_y) && (a_x >= (b_x + b_w)))){// b 在 a 的左下方
                 return (1);
             }
-            if (((((a_x + a_w) > b_x)) && ((a_y >= (b_y + b_h))))){// b 在a 的左下方
+            if ((((a_x + a_w) > b_x) && (a_y >= (b_y + b_h)))){// b 在a 的左下方
+            	/* if(obj_A.depth < obj_B.depth){
+	            	return 1;	
+	            }else {
+	            	return -1;
+	            } */
                 return (1);
             }
             return (0);
@@ -243,7 +256,7 @@
                 j = 0;
                 while (j < sorted.length) {// 连续的排序这个数组
                     obj = sorted[j];
-                    if ((((pos == -1)) && ((object_compare(new_obj, obj) == -1)))){
+                    if ((((pos == -1)) && ((object_compare(new_obj, obj) == -1)))){// a 在后面
                         pos = j;
                         splice_pos = j;
                     } else {
@@ -255,12 +268,12 @@
                                 if (r == 1){
                                     buffer = buffer.concat(sorted.splice((splice_pos + 1), (j - splice_pos)));
                                     j = splice_pos;
-                                };
-                            };
-                        };
-                    };
+                                }
+                            }
+                        }
+                    }
                     j++;
-                };
+                }
                 if (pos == -1){
                     pos = sorted.length;
                 }
@@ -269,7 +282,7 @@
                 while (k >= 0) {
                     sorted.splice(pos, 0, buffer[k]);
                     k--;
-                };
+                }
                 i++;
             }
             i = 0;
@@ -696,6 +709,7 @@
             refresh_objects_depth();
             init_greenhouses();
             check_irrigation();
+            sort_depth();// 这里再做一次排序,上面的排序有一些问题,暂时还不清楚
         }
         
         
@@ -782,7 +796,7 @@
             var so:Object;
             var obj:Object;
             var r:Number;
-            var sorted:Array = this.getSimpleObject(new_mo);
+            var sorted:Array = this.getSimpleObject(new_mo);// cache这个数据,多个时,可能有提升性能
             var new_obj:Object = new_mo.simple_object();
             var pos:Number = -1;
             var splice_pos:Number = -1;
@@ -1103,7 +1117,7 @@
                 if ((obj as Greenhouse)){
                     if (!obj.hasEventListener(Greenhouse.SPLIT_OBJECT)){
                         obj.addEventListener(Greenhouse.SPLIT_OBJECT, onSplitObject);
-                    };
+                    }
                     onSplitObject(e);
                     onGreenhouseAdded((obj as Greenhouse));
                 }
@@ -1124,7 +1138,7 @@
                     obj.addEventListener(Processor.AUTO_COLLECT, onAutoCollect);
                     obj.addEventListener(Processor.AUTO_REFILL, onAutoRefill);
                 }
-                if ((obj as Plant)){
+                /* if ((obj as Plant)){
                     obj.addEventListener(Plant.IRRIGATION_INSTALLED, irrigationInstalled);
                     if (obj.has_irrigation()){
                         water_well.start_anim();
@@ -1133,7 +1147,7 @@
                 if ((obj as WaterWell)){
                     water_well = (obj as WaterWell);
                     obj.addEventListener(WaterWell.CHECK_IRRIGATION, check_irrigation);
-                }
+                } */
             }
         }
         
