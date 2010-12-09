@@ -10,6 +10,7 @@ package {
 	import tzh.core.Config;
 	import tzh.core.Constant;
 	import tzh.core.SoundManager;
+	import tzh.core.VersionManager;
 	
 	[SWF(width=760,height=600,backgroundColor=0xFFFFFF,frameRate=20)]
 	[Frame(factoryClass="classes.view.Preloader")] 
@@ -103,20 +104,22 @@ package {
 	{
 		private static var _instance:TZHFarm;
 		
+		
 		public static const MAIN_STAGE:String = "myRanch";
 		public static function get instance():TZHFarm {
 			return _instance;
 		}
+		
 		
 		public function TZHFarm()
 		{
 			_instance = this;
 			Security.allowDomain("*");
 			
-			Config.setConfig("host","http://ec2-46-51-129-166.eu-west-1.compute.amazonaws.com/static/");//vz平台
-			Config.setConfig("transport","http://ec2-46-51-129-166.eu-west-1.compute.amazonaws.com/");
-			//Config.setConfig("host","http://localhost:80/static/");
-			//Config.setConfig("transport","http://localhost:80/");
+			//Config.setConfig("host","http://ec2-46-51-129-166.eu-west-1.compute.amazonaws.com/static/");//vz平台
+			//Config.setConfig("transport","http://ec2-46-51-129-166.eu-west-1.compute.amazonaws.com/");
+			Config.setConfig("host","http://localhost:80/static/");
+			Config.setConfig("transport","http://localhost:80/");
 			
 			//Config.setConfig("transport","http://192.168.0.100/");
 			/* Config.setConfig("transport","http://192.168.1.99:9903/");
@@ -129,8 +132,9 @@ package {
 			Config.setConfig("timeDelay",10);
 			var locale:String = ResourceManager.getInstance().locale;
 			if(locale == "de"){
-				locale = "de-DE";// 这里先做一个兼容
+				locale = VersionManager.DE_VERSION;// 这里先做一个兼容
 			}
+			VersionManager.instance.version = locale;
 			Config.setConfig("lang",locale);
 			this.addEventListener(Event.ADDED_TO_STAGE,addToStageHandler);
 		}
@@ -138,7 +142,6 @@ package {
 		private function addToStageHandler(evt:Event = null):void {
 			SoundManager.getInstance().addSound(Constant.BACKGROUND_KEY,Config.getConfig("host") + "sound/background.mp3");
 			ApplicationFacade.getInstance(MAIN_STAGE).startup(this.stage);
-			
 		}
 	}
 }
