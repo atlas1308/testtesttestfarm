@@ -81,13 +81,15 @@
                 return;
             }
             this.skin.gotoAndStop(1);
+            CONFIG::debug{
+            	data.pic = "http://www.studivz.net/Img/svz-nopic-w.jpg";
+            	data.name = "√√ιקҳ̸Ҳ̸ҳ Łukasz√ιק";
+            }
             friend_name.text = String(data.name);
             TextFieldUtil.truncateToFit(friend_name,this.skin.width);
             level.text = String(data.level);
             exp.text = String(data.exp);
-            CONFIG::debug{
-            	data.pic = "http://www.studivz.net/Img/svz-nopic-w.jpg";
-            }
+            
             var image:Image = new Image(data.pic,photo_mask);
             image.addEventListener(Event.COMPLETE, photoComplete);
 	        image.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);

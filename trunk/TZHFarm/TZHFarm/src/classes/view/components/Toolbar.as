@@ -12,6 +12,7 @@
     import tzh.core.Constant;
     import tzh.core.Cookies;
     import tzh.core.SoundManager;
+    import tzh.core.VersionManager;
 
     public class Toolbar extends Sprite implements IChildren
     {
@@ -144,7 +145,9 @@
             }
             this.zoom_in_btn.addEventListener(MouseEvent.CLICK, zoomIn);
             this.zoom_out_btn.addEventListener(MouseEvent.CLICK, zoomOut);
-            this.fullscreen.addEventListener(MouseEvent.CLICK, toggleFullScreen);
+            if(!VersionManager.instance.pl){
+            	this.fullscreen.addEventListener(MouseEvent.CLICK, toggleFullScreen);
+            }
             this.alpha_toggler.addEventListener(MouseEvent.CLICK, toggleAlpha);
             this.camera.addEventListener(MouseEvent.CLICK, takeSnapshot);
 			this.music.addEventListener(MouseEvent.CLICK,turnOffOrOnMusic);
@@ -227,8 +230,12 @@
             }
             else
             {
-                gifts_qty.visible = true;
-                gifts_qty.qty.text = String(pos);
+            	if(VersionManager.instance.pl){
+                	gifts_qty.visible = false;
+             	}else {
+             		gifts_qty.visible = true;
+                	gifts_qty.qty.text = String(pos);
+             	}
             }
         }
 
@@ -260,7 +267,12 @@
             this.multi_tool.visible = true;
             this.plow.visible = true;
             this.storage.visible = true;
-            this.gifts.visible = true;
+            if(VersionManager.instance.pl){
+            	this.gifts.visible = false;
+            	this.gifts_qty.visible = false;
+            }else {
+            	this.gifts.visible = true;
+            }
             this.achievements.visible = false;
             this.home.visible = false;
             this.normal_mode = true;

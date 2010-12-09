@@ -1,10 +1,11 @@
 ﻿package classes.view.components.popups
 {
     import flash.display.*;
-    import flash.net.getClassByAlias;
     import flash.text.*;
     
     import mx.resources.ResourceManager;
+    
+    import tzh.core.VersionManager;
 
     public class SnapshotPreviewPopup extends DynamicPopup
     {
@@ -14,7 +15,14 @@
         public function SnapshotPreviewPopup(value:Bitmap) : void
         {
             this.bmp = value;
-            super(500, 400, 400, 100, "", true);
+            var version:String = VersionManager.instance.version;
+            var hh:Number = 400;
+            var msg_h:Number = 100;
+            if(VersionManager.instance.pl){
+            	hh = 300;
+            	msg_h = 0;
+            }
+            super(500, hh, 400, msg_h, "", true);
         }
 
         override protected function init() : void
@@ -37,6 +45,12 @@
             super.init();
             content.addChild(bmp);
             content.addChild(caption);
+            var version:String = VersionManager.instance.version;
+            if(version == VersionManager.PL_VERSION){
+            	this.tf.visible = false;
+	            this.inner_cont.visible = false;
+	            this.caption.visible = false;
+            }
         }
 
         override protected function alignButtons() : void
