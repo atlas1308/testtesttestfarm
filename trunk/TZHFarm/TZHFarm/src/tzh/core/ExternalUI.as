@@ -28,7 +28,7 @@ package tzh.core
 		}
 		
 		public function set path(value:String):void {
-			this._path = Config.getConfig("host") + "assets/ui/" + value + ".swf";
+			this._path = Config.getConfig("host") + "assets/ui/" + value + ".swf" + "?version=" + Config.getConfig("version");
 		}
 		
 		public function get path():String {

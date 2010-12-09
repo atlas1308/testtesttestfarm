@@ -42,6 +42,9 @@ package tzh.core
 			if(this.path.indexOf("http") == -1){
 				this.path = Config.getConfig("host") + this.path;
 			}
+			if(this.path.indexOf("version") == -1){
+				this.path += "?version=" + Config.getConfig("version");// 给这些数据加上版本号
+			}
 			/* if(lang == "de-DE"){
 				this.path += "?time=" + new Date().getTime();
 			} */
