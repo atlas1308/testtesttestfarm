@@ -118,6 +118,11 @@
                             map_object = new PackingMachine(data);
                             break;
                         }
+                        case Peacock.NAME:
+                        {
+                        	map_object = new Peacock(data);
+                        	break;	
+                        }
                         default:
                         {
                             map_object = new MapObject(data);

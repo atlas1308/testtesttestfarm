@@ -1,6 +1,7 @@
 ﻿package classes.view.components.map.tools
 {
     import classes.view.components.*;
+    import classes.view.components.map.Peacock;
     import classes.view.components.map.tools.collect_tools.*;
     
     import flash.events.*;
@@ -74,6 +75,11 @@
                         {
                             tool = new HiveTool();
                             break;
+                        }
+                        case Peacock.NAME:
+                        {
+                        	tool = new PeacockTool();
+                        	break;
                         }
                         default:
                         {

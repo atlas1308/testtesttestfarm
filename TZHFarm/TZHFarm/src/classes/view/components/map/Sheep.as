@@ -9,21 +9,21 @@
 
     public class Sheep extends Processor
     {
-        private var normal_position:Array;
-        private var wooly_eat_anim:Array;
+        private var normal_position:Array;// 正常的显示的状态
+        private var wooly_eat_anim:Array;// 有羊毛时吃东西的状态
         private var beg_for_food_interval:Number;
-        private var eat_anim:Array;
+        private var eat_anim:Array;// 吃东西的状态
         private var last_played:String;
-        private var wooly_position:Array;
+        private var wooly_position:Array;// 有羊毛的位置
         private var hair_grown:Boolean = false;
-        private var hopping_anim:Array;
+        private var hopping_anim:Array;// 高兴的
         private var shear_loader:ProcessLoader;
         private var sheep_player:TimelinePlayer;
         private var grow_hair_interval:Number;
-        private var wooly_head_turn:Array;
+        private var wooly_head_turn:Array;// 有羊毛的转身
         private var shear_interval:Number;
         private var was_updated:Boolean = false;
-        private var head_turn:Array;
+        private var head_turn:Array;// 转向
 
         public function Sheep(value:Object)
         {
@@ -180,10 +180,10 @@
             return mc.wool_hit_area;
         }
 
-        override public function wait_to_process(shearComplete:String) : void
+        override public function wait_to_process(value:String) : void
         {
-            super.wait_to_process(shearComplete);
-            if (shearComplete == "feed")
+            super.wait_to_process(value);
+            if (value == "feed")
             {
                 clearTimeout(beg_for_food_interval);
             }

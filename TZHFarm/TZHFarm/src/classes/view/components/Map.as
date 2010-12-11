@@ -6,7 +6,6 @@
     import flash.display.*;
     import flash.events.*;
     
-    import tzh.DisplayUtil;
     import tzh.core.TutorialManager;
 
     public class Map extends Sprite {
@@ -606,6 +605,9 @@
                             case "sheep":
                                 obj = new Sheep(data);
                                 break;
+                            case Peacock.NAME:
+                            	obj = new Peacock(data);
+                            	break;
                             case "hive":
                                 obj = new Hive(data);
                                 if (view_mode != FRIEND_VIEW){
