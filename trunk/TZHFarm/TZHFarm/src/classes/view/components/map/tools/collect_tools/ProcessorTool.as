@@ -80,15 +80,15 @@
                     return _tip(ResourceManager.getInstance().getString("message","automation_on_message"));
                 }
                 if (wait()){
-                    return (_tip(wait_message));
+                    return _tip(wait_message);
                 }
                 if (can_collect()){
                     eater.highlight_collect();
-                    return (_tip(collect_message));
-                };
+                    return _tip(collect_message);
+                }
                 if (can_refill()){
                     eater.highlight_refill();
-                    return (_tip(get_feed_message()));
+                    return _tip(get_feed_message());
                 }
             }
             if (eater){
@@ -126,13 +126,6 @@
         override protected function mouseUp():void{
             if (eater){
                 if (eater.is_automatic()){
-                	//var appDataProxy:AppDataProxy = Facade.getInstance(TZHFarm.MAIN_STAGE).retrieveProxy(AppDataProxy.NAME) as AppDataProxy;
-                	//if(appDataProxy.operations <= 0){
-                		// no op 
-                	//}
-                	// TODO
-                	// 如果没有op的话呢,是否需要提示呢,如果没有OP弹出一个框子来,告诉用户OP不购了,点击确认,去买OP
-                	// 点击取消则所有的自动的都修改成不自动
                     return;
                 }
                 if (can_collect()){
@@ -169,7 +162,7 @@
                 }
                 return ResourceManager.getInstance().getString("message","click_to_add_message",[eater.raw_material_name()]);
             }
-            return ("");
+            return "";
         }
         
         protected function no_ready_food(_eater:Processor=null):Boolean{
@@ -271,9 +264,9 @@
         
         protected function wait():Boolean{
             if (!eater){
-                return (false);
+                return false;
             }
-            if (((!(eater.can_feed())) && (!(eater.can_collect())))){
+            if ((!eater.can_feed()) && (!eater.can_collect())){
                 return true;
             }
             return false;

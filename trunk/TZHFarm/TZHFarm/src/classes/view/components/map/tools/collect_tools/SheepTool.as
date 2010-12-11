@@ -17,11 +17,10 @@
             no_ready_food_message = ResourceManager.getInstance().getString("message","wait_for_wheat_to_grow_message");
         }
         override protected function get eater():Processor{
-            if ((target as Sheep)){
-                return ((target as Sheep));
+            if (target as Sheep){
+                return target as Sheep;
             }
             return null;
         }
-
     }
 } 

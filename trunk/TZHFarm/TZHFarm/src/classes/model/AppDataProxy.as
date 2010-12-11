@@ -2470,7 +2470,7 @@
             var food_info:Object = config.store[info.raw_material];
             if (((queue_call) && (!(app_data.storage[info.raw_material])))){
                 obj.clear_process("feed");
-                return (false);
+                return false;
             }
             if (((!(app_data.storage[info.raw_material])) && (!(queue_search_for_food(info.raw_material))))){
             	msg = ResourceManager.getInstance().getString("message","no_material_in_barn_message",[config.store[info.raw_material].name]);
@@ -2484,7 +2484,7 @@
                         	msg = ResourceManager.getInstance().getString("message","wait_for_food_message",[food_info.name]);
                             break;
                         case "none":
-                         	msg = ResourceManager.getInstance().getString("message","plant_food_message",[food_info.name]);
+                         	msg = ResourceManager.getInstance().getString("message","plant_food_message",[food_info.name]);// 没有食物
                             break;
                     }
                 }
