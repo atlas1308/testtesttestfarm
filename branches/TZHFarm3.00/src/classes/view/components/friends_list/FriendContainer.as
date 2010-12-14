@@ -41,6 +41,9 @@
         	this.photo_mask = this.skin.photo_mask;
         	this.exp = this.skin.exp;
         	this.loading = this.skin.loading;
+        	var textFormat:TextFormat = new TextFormat();
+        	textFormat.font = new Tahoma().fontName;
+        	this.friend_name.defaultTextFormat = textFormat;
         }
 
         public function update(value:Object):void
@@ -85,9 +88,6 @@
             TextFieldUtil.truncateToFit(friend_name,this.skin.width);
             level.text = String(data.level);
             exp.text = String(data.exp);
-            CONFIG::debug{
-            	data.pic = "http://www.studivz.net/Img/svz-nopic-w.jpg";
-            }
             var image:Image = new Image(data.pic,photo_mask);
             image.addEventListener(Event.COMPLETE, photoComplete);
 	        image.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);

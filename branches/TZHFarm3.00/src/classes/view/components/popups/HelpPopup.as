@@ -6,6 +6,7 @@
     import flash.events.*;
     import flash.net.*;
     import flash.system.*;
+    import flash.text.TextFormat;
     
     import mx.resources.ResourceManager;
     
@@ -26,7 +27,10 @@
         override protected function init() : void
         {
             super.init();
-            content.friend_name.text = data.friend_name;
+            //content.friend_name.text = data.friend_name;
+            var textFormat:TextFormat = new TextFormat();
+        	textFormat.font = new Tahoma().fontName;
+        	content.message.defaultTextFormat = textFormat;
             content.message.text = data.message;
             var image:Image = new Image(data.photo,content.photo,false);
             image.addEventListener(Event.COMPLETE,photoComplete);

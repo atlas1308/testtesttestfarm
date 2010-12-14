@@ -97,7 +97,7 @@
             qty.text = String(data.qty);
             qty.maxChars = 4;
             qty.restrict = "0-9";
-            sell_for.text = data.name;
+            sell_for.text = data.name ? data.name: "";
             sell_all_for.text = ResourceManager.getInstance().getString("message","sell_all_for_message",[String(data.sell_for)]);
             loader = new Cache();
             loader.addEventListener(Cache.LOAD_COMPLETE, loadComplete);
