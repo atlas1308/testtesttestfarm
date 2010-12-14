@@ -7,7 +7,6 @@
     import flash.text.*;
     
     import mx.resources.ResourceManager;
-
     public class ProcessLoader extends Sprite {
 
         public const COMPLETE:String = "complete";

@@ -29,6 +29,7 @@
 	import tzh.core.JSDataManager;
 	import tzh.core.SystemTimer;
 	import tzh.core.TutorialManager;
+	
 	import flash.utils.clearInterval;
 	import flash.utils.clearTimeout;
 	import flash.utils.setTimeout;
@@ -294,11 +295,12 @@
             }
             update_objects(update_fields);
             if(showTutorial){// 如果这个值是0的话,才能开始向导
-            	TZHFarm.instance.stage.mouseChildren = false;// 初始化其它的都不让用户点了
+           		TZHFarm.instance.stage.mouseChildren = false;// 初始化其它的都不让用户点了
             	TutorialManager.getInstance().addEventListener(Event.COMPLETE,tutorialCompleted);
             	setTimeout(startTutorial,2000);
             }else {
             	TutorialManager.getInstance().end = true;
+            	TZHFarm.instance.stage.mouseChildren = true;// 初始化其它的都不让用户点了
             }
             if (app_data.farm){
                 sendNotification(ApplicationFacade.SHOW_FARM);
@@ -745,15 +747,17 @@
          */ 
         public function buy_item(id:Number):Boolean{
             var item:Object = get_item_data(id);
+            var result:Boolean;
             switch (item.type){
                 case "expand_ranch":
                     expand_ranch(item);
                     app_data.coins = (app_data.coins - parseFloat(item.price));
                     confirm = new Confirmation(0, -(item.price));
                     update_objects(["coins"]);
+                    result = true;
                     break;
             }
-            return true;
+            return result;
         }
         
         private function add_object_action(obj:Object):String{
@@ -1086,7 +1090,7 @@
             var item:Object;
             var can_buy:Array = new Array();
             var max_buy:int = 3;// 最大显示的可购买的名称的数量
-            var max_gift:int = 3;// 最大显示的礼物的名称的数量
+            var max_gift:int = 0;// 最大显示的礼物的名称的数量
             var can_gift:Array = new Array();
             for each (item in config.store) {
                 if (item.not_in_popup){
@@ -1105,7 +1109,7 @@
                 }
             }
             return ({
-                can_gift:can_gift.join(", "),
+                can_gift:null,//can_gift.join(", "),
                 can_buy:can_buy.join(", ")
             });
         }
@@ -2904,7 +2908,11 @@
                         }
                     }
                     app_data.map.push(new_mo);
-                };
+                }else {
+                	sendNotification(ApplicationFacade.SET_TOOLBAR_NORMAL_MODE);// 原来是没有验证的,现在加了验证了
+                    obj.kill();
+                    return false;
+                }
                 if (!gift_mode){
                     app_data.coins = (app_data.coins - parseFloat(item.price));
                     app_data.experience = (app_data.experience + item.exp);

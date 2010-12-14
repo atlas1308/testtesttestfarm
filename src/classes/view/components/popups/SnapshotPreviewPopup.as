@@ -1,7 +1,6 @@
 ﻿package classes.view.components.popups
 {
     import flash.display.*;
-    import flash.net.getClassByAlias;
     import flash.text.*;
     
     import mx.resources.ResourceManager;
@@ -14,7 +13,8 @@
         public function SnapshotPreviewPopup(value:Bitmap) : void
         {
             this.bmp = value;
-            super(500, 400, 400, 100, "", true);
+            //super(500, 400, 400, 100, "", true);
+            super(500, 300, 400, 0, "", true);
         }
 
         override protected function init() : void
@@ -37,6 +37,10 @@
             super.init();
             content.addChild(bmp);
             content.addChild(caption);
+            // 这是专门为pl上增加的
+            this.tf.visible = false;
+            this.inner_cont.visible = false;
+            this.caption.visible = false;
         }
 
         override protected function alignButtons() : void

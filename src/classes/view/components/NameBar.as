@@ -15,7 +15,8 @@
         public var message:String;
         private var friend_name:Boolean = false;
         public var title:TextField;
-
+	
+		private var username:String;
         public function NameBar()
         {
         	this.createChildren();
@@ -26,12 +27,16 @@
         public function createChildren():void {
         	skin = this.addChild(new NameBarSkin()) as NameBarSkin;
         	this.title = this.skin.title;
+        	var textFormat:TextFormat = new TextFormat();
+        	textFormat.font = new Tahoma().fontName;
+        	this.title.defaultTextFormat = textFormat;
         }
 
         public function update(userName:String, friend_name:Boolean = false):void
         {
             this.friend_name = friend_name;
-            title.text = ResourceManager.getInstance().getString("message","user_ranch_tip_message",[userName]);
+            this.username = userName;
+            title.text = ResourceManager.getInstance().getString("message","user_ranch_tip_message",[this.username]);
         }
 
         private function mouseOut(event:Event) : void
@@ -44,7 +49,7 @@
             Cursor.hide();
             if (friend_name)
             {
-                message = ResourceManager.getInstance().getString("message","visit_friend_message",[title.text]);
+                message = ResourceManager.getInstance().getString("message","visit_friend_message",[this.username]);
                 dispatchEvent(new Event(SHOW_TOOLTIP));
             }
         }

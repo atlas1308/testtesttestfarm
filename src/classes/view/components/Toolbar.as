@@ -144,7 +144,7 @@
             }
             this.zoom_in_btn.addEventListener(MouseEvent.CLICK, zoomIn);
             this.zoom_out_btn.addEventListener(MouseEvent.CLICK, zoomOut);
-            this.fullscreen.addEventListener(MouseEvent.CLICK, toggleFullScreen);
+            //this.fullscreen.addEventListener(MouseEvent.CLICK, toggleFullScreen);
             this.alpha_toggler.addEventListener(MouseEvent.CLICK, toggleAlpha);
             this.camera.addEventListener(MouseEvent.CLICK, takeSnapshot);
 			this.music.addEventListener(MouseEvent.CLICK,turnOffOrOnMusic);
@@ -260,10 +260,11 @@
             this.multi_tool.visible = true;
             this.plow.visible = true;
             this.storage.visible = true;
-            this.gifts.visible = true;
+            //this.gifts.visible = true;
             this.achievements.visible = false;
             this.home.visible = false;
             this.normal_mode = true;
+            this.gifts.visible = false;
             this.multi_tool_btn.on();
         }
 
